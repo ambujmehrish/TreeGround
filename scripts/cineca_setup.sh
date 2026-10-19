@@ -36,6 +36,11 @@ DATA_BASE=${2:-${TG_DATA_BASE:-$BASE}}
 mkdir -p "$DATA_BASE"
 DATA_BASE=$(readlink -f "$DATA_BASE")
 outside_home "$BASE" "base dir"
+# here-documents and pip need a writable TMPDIR; login nodes may export one that does not exist
+if [ -z "${TMPDIR:-}" ] || [ ! -d "$TMPDIR" ] || [ ! -w "$TMPDIR" ]; then
+    export TMPDIR="$BASE/tmp"
+fi
+mkdir -p "$TMPDIR"
 outside_home "$DATA_BASE" "data base"
 case "$REPO" in "$HOME"|"$HOME"/*) echo "WARNING: repo checkout $REPO is inside \$HOME; clone it under \$WORK";; esac
 if [ -n "${SCRATCH:-}" ]; then
@@ -67,18 +72,22 @@ export XDG_CACHE_HOME="$BASE/xdg"
 export PIP_CACHE_DIR="$BASE/xdg/pip"
 export TORCH_HOME="$BASE/torch"
 export TRITON_CACHE_DIR="$BASE/triton"
-if [ -f "\$TG_VENV/bin/activate" ]; then
+if [ -z "\${TMPDIR:-}" ] || [ ! -d "\$TMPDIR" ] || [ ! -w "\$TMPDIR" ]; then
+    export TMPDIR="$BASE/tmp"; mkdir -p "\$TMPDIR"
+fi
+if [ -z "\${TG_SKIP_ACTIVATE:-}" ] && [ -f "\$TG_VENV/bin/activate" ]; then
     source "\$TG_VENV/bin/activate"
     source "\$TG_REPO/slurm/env.sh"
 fi
 EOF
 echo "Wrote $ENV_FILE"
 
+# exports only: activation (and slurm/env.sh) must wait until packages are installed
+# shellcheck disable=SC1090
+TG_SKIP_ACTIVATE=1 source "$ENV_FILE"
 if [ ! -f "$BASE/tg-venv/bin/activate" ]; then
     "$PY" -m venv "$BASE/tg-venv"
 fi
-# shellcheck disable=SC1090
-source "$ENV_FILE"
 source "$BASE/tg-venv/bin/activate"
 python -m pip install --quiet --upgrade pip
 pip install --quiet "torch==2.14.1" "torchvision==0.29.1" --index-url "https://download.pytorch.org/whl/$CUDA_WHEELS"

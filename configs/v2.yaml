@@ -1,0 +1,15 @@
+include: s0.yaml
+inputs: {manifest: latest, v1: latest, v3: latest}
+v2:
+  seed: 0
+  steps: 2000
+  batch_images: 32
+  text_only_fraction: 0.2
+  lr: 3.0e-4
+  weight_decay: 0.01
+  warmup_steps: 100
+  gamma: 2.0
+  temperature: 0.07
+  calib_lambda: 1.0
+  log_every: 10
+  bootstrap: {n: 1000, seed: 0}

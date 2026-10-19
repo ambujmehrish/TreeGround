@@ -1,0 +1,42 @@
+include: paths.yaml
+seed: 0
+device: cuda
+
+manifest:
+  sources: [paco_lvis, grefcoco, partonomy, sceneparser]
+  required: [paco_lvis, grefcoco]
+  workers: 32
+
+worklist:
+  paco_train_images: 10000      # I5
+  grefcoco_train_no_target: 2000  # I5, upper bound
+  smoke:
+    paco_train_images: 50
+    grefcoco_train_no_target: 20
+    paco_val_images: 20
+    grefcoco_val_no_target: 10
+
+proposals:
+  points_per_side: 32
+  masks_per_point: 3
+  stability_thresh: 0.9
+  stability_offset: 1.0
+  mask_threshold: 0.0
+  min_area: 64
+  dedup_thresholds: [0.9, 0.95]
+  node_dedup: 0.9
+  points_per_batch: 64
+  dtype: float32
+  num_shards: 256
+
+features:
+  roles: [paco_train, paco_val, grefcoco_train_nt, grefcoco_val_nt]
+  dtype: bfloat16
+  feature_types: [hidden, value, encoder, siglip]
+  siglip_batch: 64
+  num_shards: 128
+  invariance_check_images: 20
+
+queries:
+  batch_size: 16
+  num_shards: 64

@@ -1,0 +1,6 @@
+include: s0.yaml
+inputs: {manifest: latest}
+v3:
+  feature_types: [hidden, value, encoder, siglip]
+  query_batch: 32
+  bootstrap: {n: 1000, seed: 0}

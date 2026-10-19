@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "treeground"
+version = "0.8.0"
+requires-python = ">=3.11"
+dependencies = [
+    "torch==2.14.1",
+    "torchvision==0.29.1",
+    "transformers==5.0.0",
+    "accelerate==1.15.0",
+    "huggingface_hub==1.33.0",
+    "tokenizers==0.22.2",
+    "pycocotools==2.0.11",
+    "opencv-python-headless==5.0.0.93",
+    "safetensors==0.8.0",
+    "numpy==2.5.4",
+    "scipy==1.18.1",
+    "pyyaml==6.0.3",
+    "pyarrow==26.0.0",
+    "pandas==3.0.6",
+    "pillow==13.0.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.1.1"]
+
+[tool.setuptools.packages.find]
+include = ["treeground*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

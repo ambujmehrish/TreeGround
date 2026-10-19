@@ -5,12 +5,12 @@ cache_root: ${TG_CACHE}
 runs_root: ${TG_RUNS}
 
 data:
-  paco_lvis: ${TG_ROOT}/data/paco/annotations        # paco_lvis_v1_{train,val,test}.json
-  coco_images: ${TG_ROOT}/data/coco                  # train2017/ val2017/ train2014/
-  grefcoco: ${TG_ROOT}/data/grefcoco                 # grefs(unc).json, instances.json
-  partonomy: ${TG_ROOT}/data/partonomy-core          # test-qa_pairs.json, images/
-  sceneparser: ${TG_ROOT}/data/sceneparser           # train.jsonl, val.jsonl
-  sceneparser_images: ${TG_ROOT}/data/egoobjects     # contains datasets/EgoObjects/images/
+  paco_lvis: ${TG_DATA}/paco/annotations        # paco_lvis_v1_{train,val,test}.json
+  coco_images: ${TG_DATA}/coco                  # train2017/ val2017/ train2014/
+  grefcoco: ${TG_DATA}/grefcoco                 # grefs(unc).json, instances.json
+  partonomy: ${TG_DATA}/partonomy-core          # test-qa_pairs.json, images/
+  sceneparser: ${TG_DATA}/sceneparser           # train.jsonl, val.jsonl
+  sceneparser_images: ${TG_DATA}/egoobjects     # contains datasets/EgoObjects/images/
 
 models:
   qwen: {repo: Qwen/Qwen3-VL-4B-Instruct, revision: ebb281ec70b05090aa6165b016eac8ec08e71b17}
@@ -20,7 +20,7 @@ models:
 slurm:
   account: ${TG_SLURM_ACCOUNT}
   partition: boost_usr_prod
-  qos: normal
+  qos: ""                # empty: partition default QOS
   time: "04:00:00"
   cpus_per_task: 8
   mem: 120G

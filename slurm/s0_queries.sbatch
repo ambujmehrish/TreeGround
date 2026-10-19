@@ -6,11 +6,11 @@
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=120G
-#SBATCH --output=%x_%A_%a.out
-# Array size must equal queries.num_shards in configs/s0.yaml. Submit after: source slurm/env.sh
+#SBATCH --output=logs/%x-%A_%a.out
+# Submit from the repo root after: source $TG_ROOT/tg_env.sh. Array size must equal queries.num_shards in configs/s0.yaml
 set -euo pipefail
-: "${TG_ROOT:?}" "${TG_CACHE:?}" "${TG_RUNS:?}" "${TG_VENV:?}"
-source "$TG_VENV/bin/activate"
-export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 HF_HOME="$TG_ROOT/hf"
-cd "$SLURM_SUBMIT_DIR"
+if [ -n "${TG_MODULES:-}" ]; then module purge; module load $TG_MODULES; fi
+source "${TG_ENV:-$WORK/treeground/tg_env.sh}"
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 PYTHONUNBUFFERED=1 PYTHONUTF8=1
+cd "$TG_REPO"
 python scripts/s0_queries.py --config configs/s0.yaml --shard "$SLURM_ARRAY_TASK_ID"

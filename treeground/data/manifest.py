@@ -60,9 +60,10 @@ def source_available(cfg: dict, source: str) -> bool:
     if source == "grefcoco":
         return (Path(d["grefcoco"]) / "grefs(unc).json").exists() and (Path(d["grefcoco"]) / "instances.json").exists()
     if source == "partonomy":
-        return partonomy.available(d["partonomy"])
+        return partonomy.available(d["partonomy"]) and (Path(d["partonomy"]) / "images").is_dir()
     if source == "sceneparser":
-        return any(sceneparser.available(d["sceneparser"], s) for s in sceneparser.SPLITS)
+        images = Path(d["sceneparser_images"]) / "datasets" / "EgoObjects" / "images"
+        return any(sceneparser.available(d["sceneparser"], s) for s in sceneparser.SPLITS) and images.is_dir()
     raise ValueError(source)
 
 

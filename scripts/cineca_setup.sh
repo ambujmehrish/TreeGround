@@ -3,12 +3,20 @@
 #   scripts/cineca_setup.sh [base_dir [data_base]]
 # base_dir  (default $WORK/treeground): venv, HF weights, pip/torch caches, runs (irreplaceable)
 # data_base (default base_dir): datasets + feature caches (bulk, regenerable; $SCRATCH is fine)
-# Knobs: TG_ACCOUNT (AIFAC_S07_041), TG_PYTHON (python3), CUDA_WHEELS (cu126), MIN_FREE_GB (200)
+# Knobs: TG_ACCOUNT (AIFAC_S07_041), TG_PYTHON (first python >= 3.11 on PATH), CUDA_WHEELS (cu126), MIN_FREE_GB (200)
 set -euo pipefail
 
 REPO=$(cd "$(dirname "$0")/.." && pwd)
 ACCOUNT=${TG_ACCOUNT:-AIFAC_S07_041}
-PY=${TG_PYTHON:-python3}
+PY=${TG_PYTHON:-}
+if [ -z "$PY" ]; then
+    for cand in python3.13 python3.12 python3.11 python3; do
+        if command -v "$cand" >/dev/null && "$cand" -c 'import sys; assert sys.version_info >= (3, 11)' 2>/dev/null; then
+            PY=$(command -v "$cand"); break
+        fi
+    done
+    PY=${PY:-python3}
+fi
 CUDA_WHEELS=${CUDA_WHEELS:-cu126}
 MIN_FREE_GB=${MIN_FREE_GB:-200}
 
@@ -38,8 +46,9 @@ fi
     echo "ERROR: $DATA_BASE has $(free_gb "$DATA_BASE") GB free, need >= $MIN_FREE_GB (COCO ~33 GB + caches)" >&2; exit 1; }
 
 "$PY" -c 'import sys; assert sys.version_info >= (3, 11), sys.version' 2>/dev/null || {
-    echo "ERROR: $PY is $("$PY" -V 2>&1); need >= 3.11. Load one first, e.g.:" >&2
-    echo "       module avail python   then   module load <python 3.11+ module>   (or set TG_PYTHON)" >&2
+    echo "ERROR: $PY is $("$PY" -V 2>&1); need >= 3.11 (numpy 2.5 / pandas 3.0 / scipy 1.18 pins). Either:" >&2
+    echo "  CONDA_PKGS_DIRS=\$WORK/treeground/conda_pkgs conda create -y -p \$WORK/treeground/py312 python=3.12" >&2
+    echo "  TG_PYTHON=\$WORK/treeground/py312/bin/python scripts/cineca_setup.sh ...   (or module load a 3.11+ python)" >&2
     exit 1; }
 
 mkdir -p "$BASE"/{hf,xdg,torch,triton,runs} "$DATA_BASE"/{data,cache} "$REPO/logs"

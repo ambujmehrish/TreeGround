@@ -35,8 +35,10 @@ def proposal_identity(cfg: dict, smoke: bool, manifest_hash: str) -> dict:
 def qwen_static(cfg: dict) -> dict:
     from transformers import AutoConfig, AutoProcessor
     m = cfg["models"]["qwen"]
-    conf = AutoConfig.from_pretrained(m["repo"], revision=m["revision"], cache_dir=cfg.get("hf_home"))
-    proc = AutoProcessor.from_pretrained(m["repo"], revision=m["revision"], cache_dir=cfg.get("hf_home"))
+    # pinned revisions are fetched once by fetch_models.py; never touch the network here
+    kw = {"revision": m["revision"], "cache_dir": cfg.get("hf_home"), "local_files_only": True}
+    conf = AutoConfig.from_pretrained(m["repo"], **kw)
+    proc = AutoProcessor.from_pretrained(m["repo"], **kw)
     image_proc = json.dumps(proc.image_processor.to_dict(), sort_keys=True, default=str)
     return {
         "layers": candidate_layers(conf.text_config.num_hidden_layers),

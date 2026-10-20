@@ -132,7 +132,9 @@ def merge(cfg: dict, smoke: bool) -> None:
     run = start_run("s0_features_merge", cfg, smoke, {"cache": str(out_dir)})
     ihash = canonical_hash(ident)
     missing, nodes = [], []
-    for sha1 in sorted(feature_worklist(cfg, wl)["sha1"].unique()):
+    todo = sorted(feature_worklist(cfg, wl)["sha1"].unique())
+    print(f"checking {len(todo)} feature files in {out_dir}", flush=True)
+    for sha1 in todo:
         f = out_dir / "images" / f"{sha1}.safetensors"
         if not f.exists():
             missing.append(sha1)

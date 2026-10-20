@@ -130,6 +130,7 @@ def merge(cfg: dict, smoke: bool) -> None:
     expected = query_identity(cfg, smoke, mhash, qwen_static(cfg), ident["sel_init"], qhash)
     write_identity(out_dir, expected)
     run = start_run("s0_queries_merge", cfg, smoke, {"cache": str(out_dir)})
+    print(f"checking {df.sha1.nunique()} probe files in {out_dir}", flush=True)
     ihash = canonical_hash(expected)
     for sha1, sub in df.groupby("sha1"):
         f = out_dir / "probes" / f"{sha1}.safetensors"

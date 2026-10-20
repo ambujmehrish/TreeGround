@@ -87,6 +87,7 @@ def merge(cfg: dict, smoke: bool, num_shards: int) -> None:
     ident = proposal_identity(cfg, smoke, mhash)
     out_dir = cache_dir(cfg, "proposals", ident)
     run = start_run("s0_proposals_merge", cfg, smoke, {"manifest_run": str(mrun), "cache": str(out_dir)})
+    print(f"merging {num_shards} proposal shards in {out_dir}", flush=True)
     missing = [k for k in range(num_shards) if not (out_dir / "shards" / f"{k:05d}.parquet").exists()]
     if missing:
         raise ProtocolError(f"{len(missing)} proposal shards missing, e.g. {missing[:5]}")

@@ -36,7 +36,8 @@ def from_annotation(segmentation, h: int, w: int) -> Rle:
 def areas(rles: list[Rle]) -> np.ndarray:
     if not rles:
         return np.zeros(0, dtype=np.int64)
-    return mu.area([_coco(r) for r in rles]).astype(np.int64)
+    # pycocotools 2.0.11 overflows in batched area() for >= 256 masks; per-mask calls are exact
+    return np.array([int(mu.area(_coco(r))) for r in rles], dtype=np.int64)
 
 
 def boxes_xyxy(rles: list[Rle]) -> np.ndarray:

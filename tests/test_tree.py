@@ -73,3 +73,12 @@ def test_intersections_are_exact_pixel_counts():
     for i in range(len(ms)):
         for j in range(len(ms)):
             assert inter[i, j] == (ms[i] & ms[j]).sum()
+
+
+def test_mask_ops_with_many_masks():
+    rng = np.random.default_rng(0)
+    ms = rng.random((300, 24, 32)) > 0.5
+    rles = M.encode(ms)
+    assert np.array_equal(M.areas(rles), ms.reshape(300, -1).sum(1))
+    assert M.boxes_xyxy(rles).shape == (300, 4)
+    assert M.iou(rles, rles).shape == (300, 300)

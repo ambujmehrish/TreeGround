@@ -36,9 +36,9 @@ def summarize_chains(rows: list[dict]) -> dict:
     return out
 
 
-def paco_val(cfg, props, wl, tau):
+def paco_val(cfg, props, wl, tau, chains: bool = True):
     images = paco.load(cfg["data"]["paco_lvis"], "val")
-    parts, chains, i1 = [], [], defaultdict(int)
+    parts, chain_rows, i1 = [], [], defaultdict(int)
     for row in wl[wl.role == "paco_val"].drop_duplicates("image_key").sort_values("image_key").itertuples():
         img = images[int(row.image_key.split(":")[1])]
         nodes = props.nodes(row.sha1, tau)
@@ -52,13 +52,15 @@ def paco_val(cfg, props, wl, tau):
         queries, stats = paco.i1_queries(img)
         for k, v in stats.items():
             i1[k] += v
+        if not chains:
+            continue
         tree = T.build_tree(nodes["rles"])
         gts = paco.gt_rles(img)
         for q in (q for q in queries if q.kind == "chain"):
             step = M.iou(nodes["rles"], [gts[a] for a in q.gt]).T if len(nodes["rles"]) else np.zeros((2, 0))
             feas, best = chain_coverage(tree, step) if step.shape[1] else (False, False)
-            chains.append({"qid": q.qid, "feasible": feas, "best_match": best, "length": 2})
-    return pd.DataFrame(parts), chains, dict(i1)
+            chain_rows.append({"qid": q.qid, "feasible": feas, "best_match": best, "length": 2})
+    return pd.DataFrame(parts), chain_rows, dict(i1)
 
 
 def recall_tables(parts: pd.DataFrame) -> dict:
@@ -133,6 +135,12 @@ def main() -> None:
         res["partonomy"] = partonomy_cov(cfg, props, wl, tau) if "partonomy" in roles else "missing"
         res["sceneparser"] = sceneparser_cov(cfg, props, wl, tau) if "sceneparser_val" in roles else "missing"
         out["by_tau"][str(tau)] = res
+    raw_parts, _, _ = paco_val(cfg, props, wl, None, chains=False)
+    raw = recall_tables(raw_parts)
+    out["diagnostic_pre_dedup"] = {
+        "note": "recall of all stability-filtered SAM 3 masks before dedup; separates proposal misses from dedup "
+                "loss. Not a gate quantity (the gate is measured on the final tree).",
+        "part_recall": raw["part_recall"], "by_area_bin": raw["by_area_bin"]}
     g = out["by_tau"][str(cfg["v1"]["gate_tau"])]["paco"]
     th = cfg["v1"]["gate"]
     passed = g["part_recall"] >= th["part_recall"] and g.get("feasible_path_coverage", 0.0) >= th["feasible_path_coverage"]

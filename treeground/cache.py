@@ -98,9 +98,10 @@ class ProposalStore:
         empty = pd.DataFrame(columns=["src_index", "rle", "area", "box", "stability", "sam_iou"])
         return self._shards[shard].get(sha1, empty)
 
-    def nodes(self, sha1: str, tau: float) -> dict:
+    def nodes(self, sha1: str, tau: float | None) -> dict:
+        # tau=None returns every stored proposal before dedup (diagnostics only)
         df = self.rows(sha1)
-        if len(df):
+        if len(df) and tau is not None:
             df = df[df[keep_column(tau)].astype(bool)]
         h, w = int(self.index.loc[sha1, "h"]), int(self.index.loc[sha1, "w"])
         return {

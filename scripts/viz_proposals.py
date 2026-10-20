@@ -187,7 +187,8 @@ def main() -> None:
     for split in ("train", "val"):
         if (keys.image_key.str.startswith("paco_lvis:") & keys.role.eq(f"paco_{split}")).any():
             print(f"loading PACO {split} annotations (can take a few minutes)...", flush=True)
-            sources["paco"].update(paco.load(cfg["data"]["paco_lvis"], split))
+            ids = {int(k.split(":")[1]) for k in keys[keys.role == f"paco_{split}"].image_key}
+            sources["paco"].update(paco.load(cfg["data"]["paco_lvis"], split, ids))
     if keys.image_key.str.startswith("partonomy:").any():
         print("loading PARTONOMY annotations...", flush=True)
         sources["partonomy"] = {i.key: i for i in partonomy.load(cfg["data"]["partonomy"]).values()}

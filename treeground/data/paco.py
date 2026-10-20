@@ -71,16 +71,23 @@ def ann_path(root: str | Path, split: str) -> Path:
     return Path(root) / SPLITS[split]
 
 
-def load(root: str | Path, split: str) -> dict[int, PacoImage]:
+def image_list(root: str | Path, split: str) -> list[dict]:
+    return json.loads(ann_path(root, split).read_text())["images"]
+
+
+def load(root: str | Path, split: str, image_ids: set[int] | None = None) -> dict[int, PacoImage]:
+    # image_ids restricts mask decoding to the images a stage actually uses
     data = json.loads(ann_path(root, split).read_text())
     cats = {c["id"]: c for c in data["categories"]}
     images = {im["id"]: PacoImage(im["id"], im["file_name"], im["height"], im["width"],
                                   not_exhaustive={cats[c]["name"] for c in im.get("not_exhaustive_category_ids", [])
                                                   if c in cats})
-              for im in data["images"]}
+              for im in data["images"] if image_ids is None or im["id"] in image_ids}
     obj_names: dict[int, str] = {}
     pending_parts = []
     for ann in data["annotations"]:
+        if ann["image_id"] not in images:
+            continue
         cat = cats[ann["category_id"]]
         img = images[ann["image_id"]]
         rle = M.from_annotation(ann["segmentation"], img.h, img.w)

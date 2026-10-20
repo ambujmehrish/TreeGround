@@ -131,7 +131,8 @@ def build_train(cfg, smoke, manifest, mhash, wl, store, props, qdir, queries, la
     feat_key = f"hidden_L{layer}"
     tau = cfg["proposals"]["node_dedup"]
     probes = Probes(qdir, li)
-    images = paco.load(cfg["data"]["paco_lvis"], "train")
+    images = paco.load(cfg["data"]["paco_lvis"], "train",
+                       {int(k.split(":")[1]) for k in wl[wl.role == "paco_train"].image_key})
     counts = {k: 0 for k in ["proposal_failures", "unreachable_chains", "queries_object", "queries_part",
                              "queries_chain", "images_without_queries", "absent_queries"]}
     qtrain = queries[(queries.split == "train") & queries.kind.isin(["object", "part", "chain"])]

@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 from treeground.data import grefcoco, paco, partonomy, sceneparser
-from treeground.data.images import pixel_sha1
+from treeground.data.images import pixel_sha1, resolve_coco_path
 from treeground.run import ProtocolError
 
 SPLIT_CLASS = {
@@ -23,9 +23,9 @@ COLUMNS = ["image_key", "source", "split", "split_class", "coco_id", "sha1", "pa
 def paco_entries(cfg: dict, splits=("train", "val", "test")) -> list[dict]:
     rows = []
     for split in splits:
-        for img in paco.load(cfg["data"]["paco_lvis"], split).values():
-            rows.append({"image_key": img.key, "source": "paco_lvis", "split": split, "coco_id": img.image_id,
-                         "path": str(paco.image_path(cfg["data"]["coco_images"], img))})
+        for im in paco.image_list(cfg["data"]["paco_lvis"], split):
+            rows.append({"image_key": f"paco_lvis:{im['id']}", "source": "paco_lvis", "split": split,
+                         "coco_id": im["id"], "path": str(resolve_coco_path(cfg["data"]["coco_images"], im["file_name"]))})
     return rows
 
 

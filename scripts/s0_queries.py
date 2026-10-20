@@ -29,7 +29,7 @@ def build_queries(cfg: dict, wl: pd.DataFrame, mrun: Path) -> pd.DataFrame:
         keys = wl[wl.role == role]
         if not len(keys):
             continue
-        images = paco.load(cfg["data"]["paco_lvis"], split)
+        images = paco.load(cfg["data"]["paco_lvis"], split, {int(k.split(":")[1]) for k in keys.image_key})
         for row in keys.sort_values("image_key").itertuples():
             img = images[int(row.image_key.split(":")[1])]
             labels.update(p.label for p in img.parts)

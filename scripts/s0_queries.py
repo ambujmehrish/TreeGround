@@ -98,7 +98,9 @@ def run_shard(cfg: dict, smoke: bool, shard: int, num_shards: int) -> None:
     ihash = canonical_hash(ident)
     paths = dict(zip(wl["sha1"], wl["path"]))
     t0, done = time.time(), 0
-    for sha1 in shard_groups(df, shard, num_shards):
+    groups = shard_groups(df, shard, num_shards)
+    print(f"shard {shard}/{num_shards}: {len(groups)} image groups -> {out_dir}", flush=True)
+    for i, sha1 in enumerate(groups, 1):
         target = out_dir / "probes" / f"{sha1}.safetensors"
         if target.exists() and load_tensors(target, [])[1].get("identity") == ihash:
             continue
@@ -112,6 +114,8 @@ def run_shard(cfg: dict, smoke: bool, shard: int, num_shards: int) -> None:
         save_tensors(target, {"probes": probes}, {"image_sha1": sha1, "identity": ihash,
                                                   "layers": json.dumps(layers)})
         done += 1
+        print(f"[{i}/{len(groups)}] {sha1[:12]} queries={len(sub)} probes={probes.shape[0]} "
+              f"{time.time() - t0:.0f}s elapsed", flush=True)
     write_json(run / "metrics.json", {"groups": done, "seconds": time.time() - t0})
 
 

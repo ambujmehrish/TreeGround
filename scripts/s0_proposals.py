@@ -56,11 +56,18 @@ def run_shard(cfg: dict, smoke: bool, shard: int, num_shards: int) -> None:
                             p["stability_offset"], p["mask_threshold"], p["min_area"], p["points_per_batch"],
                             p["dtype"])
     sam = cfg["models"]["sam3"]
+    print(f"shard {shard}/{num_shards}: {len(items)} images -> {target}", flush=True)
     model, processor = P.load_sam3(sam["repo"], sam["revision"], cfg["device"], p["dtype"], cfg.get("hf_home"))
+    print(f"loaded {type(model).__name__} on {cfg['device']}", flush=True)
     update_meta(run, sam3_class=type(model).__name__, sam3_processor=type(processor).__name__)
     frames, t0 = [], time.time()
-    for row in items.itertuples():
-        frames.append(process_image(model, processor, row, pcfg, p["dedup_thresholds"]))
+    for i, row in enumerate(items.itertuples(), 1):
+        t1 = time.time()
+        df = process_image(model, processor, row, pcfg, p["dedup_thresholds"])
+        frames.append(df)
+        kept = " ".join(f"{keep_column(t)}={int(df[keep_column(t)].sum())}" for t in p["dedup_thresholds"])
+        print(f"[{i}/{len(items)}] {row.image_key} "
+              f"{row.w}x{row.h} raw={len(df)} {kept} {time.time() - t1:.1f}s", flush=True)
     df = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
     target.parent.mkdir(parents=True, exist_ok=True)
     tmp = target.with_suffix(".tmp")

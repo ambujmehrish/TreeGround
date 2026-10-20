@@ -104,7 +104,9 @@ def run_shard(cfg: dict, smoke: bool, shard: int, num_shards: int) -> None:
     ihash = canonical_hash(ident)
     done = skipped = 0
     t0 = time.time()
-    for row in shard_items(feature_worklist(cfg, wl), shard, num_shards).itertuples():
+    items = shard_items(feature_worklist(cfg, wl), shard, num_shards)
+    print(f"shard {shard}/{num_shards}: {len(items)} images -> {out_dir}", flush=True)
+    for i, row in enumerate(items.itertuples(), 1):
         target = out_dir / "images" / f"{row.sha1}.safetensors"
         if target.exists() and load_tensors(target, [])[1].get("identity") == ihash:
             skipped += 1
@@ -117,6 +119,8 @@ def run_shard(cfg: dict, smoke: bool, shard: int, num_shards: int) -> None:
                                  cfg["features"]["feature_types"], siglip, cfg["features"]["siglip_batch"])
         save_tensors(target, tensors, {"image_sha1": row.sha1, "identity": ihash, "n_nodes": str(len(nodes["rles"]))})
         done += 1
+        print(f"[{i}/{len(items)}] {row.image_key} nodes={len(nodes['rles'])} grid={tuple(tensors['grid'].tolist())} "
+              f"{time.time() - t0:.0f}s elapsed", flush=True)
     write_json(run / "metrics.json", {"images": done, "skipped": skipped, "seconds": time.time() - t0})
 
 

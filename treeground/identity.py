@@ -92,12 +92,13 @@ def open_queries(cfg: dict, smoke: bool, mhash: str, static: dict) -> tuple[Path
             ident = json.loads((d / "identity.json").read_text())["identity"]
         except FileNotFoundError:
             continue
-        if ident.get("manifest") == mhash and ident.get("qwen_revision") == cfg["models"]["qwen"]["revision"]:
-            found.append((d, ident))
+        expected = query_identity(cfg, smoke, mhash, static, ident.get("sel_init", ""), ident.get("query_set", ""))
+        if ident == expected and (d / "complete.json").exists():
+            found.append((d, expected))
     if len(found) != 1:
-        raise ProtocolError(f"expected exactly one query cache for manifest {mhash[:12]} under {root}, found {len(found)}")
-    d, ident = found[0]
-    expected = query_identity(cfg, smoke, mhash, static, ident["sel_init"], ident["query_set"])
+        raise ProtocolError(f"expected exactly one complete query cache for manifest {mhash[:12]} and the current "
+                            f"code under {root}, found {len(found)}")
+    d, expected = found[0]
     check_identity(d, expected)
     require_complete(d)
     queries = pd.read_parquet(d / "queries.parquet")

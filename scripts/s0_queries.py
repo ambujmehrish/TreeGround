@@ -64,13 +64,14 @@ def shard_groups(df: pd.DataFrame, shard: int, num_shards: int) -> list[str]:
     return [g for i, g in enumerate(groups) if i % num_shards == shard]
 
 
-def find_cache(cfg: dict, smoke: bool, mhash: str, qhash: str) -> Path | None:
+def find_cache(cfg: dict, smoke: bool, mhash: str, qhash: str, static: dict) -> Path | None:
+    # match the full identity (code version included), so caches left by older code are skipped
     root = Path(cfg["cache_root"]) / ("smoke" if smoke else "full") / "queries"
     for d in sorted(root.glob("*")) if root.exists() else []:
         f = d / "identity.json"
         if f.exists():
             ident = read_json(f)["identity"]
-            if ident["manifest"] == mhash and ident["query_set"] == qhash:
+            if ident == query_identity(cfg, smoke, mhash, static, ident.get("sel_init", ""), qhash):
                 return d
     return None
 
@@ -123,12 +124,12 @@ def merge(cfg: dict, smoke: bool) -> None:
     mrun, manifest, mhash, wl = manifest_inputs(cfg, smoke)
     df = build_queries(cfg, wl, mrun)
     qhash = query_set_hash(df)
-    out_dir = find_cache(cfg, smoke, mhash, qhash)
+    static = qwen_static(cfg)
+    out_dir = find_cache(cfg, smoke, mhash, qhash, static)
     if out_dir is None:
-        raise ProtocolError("no query cache matches the current manifest and query set")
+        raise ProtocolError("no query cache matches the current manifest, query set and code version")
     ident = read_json(out_dir / "identity.json")["identity"]
-    expected = query_identity(cfg, smoke, mhash, qwen_static(cfg), ident["sel_init"], qhash)
-    write_identity(out_dir, expected)
+    expected = query_identity(cfg, smoke, mhash, static, ident["sel_init"], qhash)
     run = start_run("s0_queries_merge", cfg, smoke, {"cache": str(out_dir)})
     print(f"checking {df.sha1.nunique()} probe files in {out_dir}", flush=True)
     ihash = canonical_hash(expected)

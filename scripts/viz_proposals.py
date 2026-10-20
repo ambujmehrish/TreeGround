@@ -19,6 +19,9 @@ from treeground.run import load_config, start_run, write_json  # noqa: E402
 THR = 0.5
 PANEL_W = 640
 GREEN, RED, WHITE = (40, 200, 40), (230, 40, 40), (255, 255, 255)
+DEPTH_COLS = [(230, 40, 40), (255, 150, 0), (255, 235, 0), (40, 200, 40), (0, 220, 255), (40, 80, 255), (220, 60, 255),
+              (255, 255, 255)]
+DEPTH_NAMES = ["red", "orange", "yellow", "green", "cyan", "blue", "magenta", "white"]
 
 
 def palette(n: int, seed: int = 0) -> np.ndarray:
@@ -130,15 +133,33 @@ def render(image: np.ndarray, names, gt_rles, nodes: dict, tree: T.Tree, note: s
     for r, m in zip((r for r in rows if r["best_node"] >= 0), best_masks):
         label(best_panel, str(r["id"]), anchor(m), GREEN if r["hit"] else RED, scale)
 
-    order = np.argsort(-nodes["areas"]) if len(node_masks) else []
-    depth_cols = palette(int(tree.depth.max()) + 1, 7) if len(node_masks) else []
-    all_panel = overlay(image, [node_masks[i] for i in order], [depth_cols[tree.depth[i]] for i in order],
-                        alpha=0.25, contour=1)
+    # every node in its own colour, largest first so nested parts stay visible; pixels no node covers are darkened
+    order = np.argsort(-nodes["areas"]) if len(node_masks) else np.zeros(0, int)
+    hues = (np.arange(len(node_masks)) * 0.618034 % 1.0 * 179).astype(np.uint8)
+    node_cols = cv2.cvtColor(np.stack([hues, np.full_like(hues, 230), np.full_like(hues, 255)], 1)[None],
+                             cv2.COLOR_HSV2RGB)[0].astype(np.int32) if len(node_masks) else []
+    covered = np.zeros((h, w), bool)
+    for m in node_masks:
+        covered |= m
+    base = image.copy()
+    base[~covered] = (base[~covered] * 0.25).astype(np.uint8)
+    all_panel = overlay(base, [node_masks[i] for i in order], [node_cols[k] for k in range(len(order))],
+                        alpha=0.45, contour=1)
+
+    # colour of the deepest node covering each pixel
+    depth_panel = base.copy()
+    dmax = int(tree.depth[:tree.n].max()) if tree.n else 0
+    for d in range(1, dmax + 1):
+        sel = [node_masks[i] for i in range(tree.n) if tree.depth[i] == d]
+        depth_panel = overlay(depth_panel, sel, [DEPTH_COLS[(d - 1) % len(DEPTH_COLS)]] * len(sel), alpha=0.55,
+                              contour=1)
+    key = " ".join(f"d{d}={DEPTH_NAMES[(d - 1) % len(DEPTH_NAMES)]}" for d in range(1, dmax + 1))
 
     panels = [title(fit(image), f"image {w}x{h}"),
               title(fit(gt_panel), f"GT: {len(gt_masks)} masks"),
               title(fit(best_panel), f"best proposal per GT (green IoU>={THR}, red <{THR})"),
-              title(fit(all_panel), f"all {len(node_masks)} proposals, colour = tree depth (max {int(tree.depth.max())})")]
+              title(fit(all_panel), f"all {len(node_masks)} proposals, {covered.mean():.0%} of pixels covered (dark = none)"),
+              title(fit(depth_panel), f"tree depth: {key}")]
     hmax = max(p.shape[0] for p in panels)
     panels = [np.vstack([p, np.zeros((hmax - p.shape[0], PANEL_W, 3), np.uint8)]) for p in panels]
     canvas = np.hstack(panels)

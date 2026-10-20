@@ -186,13 +186,16 @@ def main() -> None:
     sources = {"paco": {}, "partonomy": {}, "gref": {}}
     for split in ("train", "val"):
         if (keys.image_key.str.startswith("paco_lvis:") & keys.role.eq(f"paco_{split}")).any():
+            print(f"loading PACO {split} annotations (can take a few minutes)...", flush=True)
             sources["paco"].update(paco.load(cfg["data"]["paco_lvis"], split))
     if keys.image_key.str.startswith("partonomy:").any():
+        print("loading PARTONOMY annotations...", flush=True)
         sources["partonomy"] = {i.key: i for i in partonomy.load(cfg["data"]["partonomy"]).values()}
     gq = pd.read_parquet(mrun / "grefcoco_queries.parquet")
     for k, g in gq.groupby("image_key"):
         sources["gref"][k] = g.text.tolist()
 
+    print(f"drawing {len(keys)} images -> {run}", flush=True)
     sections, summary = [], []
     for i, row in enumerate(keys.itertuples(), 1):
         image = load_rgb(row.path)

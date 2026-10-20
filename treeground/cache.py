@@ -10,12 +10,12 @@ from safetensors.torch import save_file
 
 from treeground.run import REPO, ProtocolError, canonical_hash, read_json, write_json
 
+# Modules whose code determines cached values. Entry scripts (I/O, logging, sharding) are excluded so that
+# cosmetic edits do not invalidate caches.
 PRODUCERS = {
-    "proposals": ["treeground/proposals.py", "treeground/masks.py", "scripts/s0_proposals.py"],
-    "features": ["treeground/proposals.py", "treeground/masks.py", "treeground/mllm.py", "treeground/features.py",
-                 "scripts/s0_features.py"],
-    "queries": ["treeground/mllm.py", "treeground/data/paco.py", "treeground/data/grefcoco.py",
-                "scripts/s0_queries.py"],
+    "proposals": ["treeground/proposals.py", "treeground/masks.py"],
+    "features": ["treeground/proposals.py", "treeground/masks.py", "treeground/mllm.py", "treeground/features.py"],
+    "queries": ["treeground/mllm.py", "treeground/data/paco.py", "treeground/data/grefcoco.py"],
 }
 
 

@@ -210,6 +210,27 @@ PROPOSED_DEVIATIONS = [
         "expected_impact": "grid covers the whole image as the protocol intends; model, prompts, stability filter and "
                            "mask post-processing are those of the transformers SAM 3 tracker route",
     },
+    {
+        "id": "D3",
+        "spec_section": "1 (Proposals) / 5 (V1)",
+        "change": "SAM 3 stability filter disabled (stability_thresh 0.0); min_area 64 kept; stability still computed "
+                  "and used only for dedup tie-breaking",
+        "reason": "full V1 failed (part recall 0.231, feasible coverage 0.146). Ceiling diagnostics on PACO val: one "
+                  "interior point recovers 0.451 of parts and 0.831 of objects with any of SAM 3's 3 masks, but only "
+                  "0.236 / 0.579 after the stability >= 0.9 filter, matching the grid (0.231 / 0.581)",
+        "expected_impact": "more proposals and tree nodes; part recall bounded by ~0.45 (point oracle), still below "
+                           "the 0.80 gate; gate thresholds unchanged",
+    },
+    {
+        "id": "D2",
+        "spec_section": "5 (V1 gate consequence)",
+        "change": "V2, V3 and V4 run although the V1 gate failed; every downstream metrics.json is labelled "
+                  "below_v1_gate with the V1 numbers; attention-seeded re-proposal is not run",
+        "reason": "ceiling diagnostics show no SAM 3 prompting inside parents reaches the gate on PACO parts "
+                  "(point+parent box 0.290, own GT box 0.778), so re-proposal cannot change the gate outcome",
+        "expected_impact": "V2/V4 results hold on the coverage-eligible subset only and are reported as conditional "
+                           "on the failed coverage gate",
+    },
 ]
 
 

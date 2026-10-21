@@ -96,9 +96,15 @@ def runs_root(cfg: dict) -> Path:
 def start_run(stage: str, cfg: dict, smoke: bool, extra: dict | None = None) -> Path:
     root = runs_root(cfg) / "smoke" / stage if smoke else runs_root(cfg) / stage
     git = git_state()
-    stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
-    run_dir = root / f"{stamp}_{(git['rev'] or 'nogit')[:8]}"
-    run_dir.mkdir(parents=True, exist_ok=False)
+    root.mkdir(parents=True, exist_ok=True)
+    while True:
+        stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+        run_dir = root / f"{stamp}_{(git['rev'] or 'nogit')[:8]}"
+        try:
+            run_dir.mkdir(exist_ok=False)
+            break
+        except FileExistsError:
+            continue
     (run_dir / "config.yaml").write_text(yaml.safe_dump(cfg, sort_keys=True))
     meta = {
         "stage": stage,
@@ -127,7 +133,11 @@ def update_meta(run_dir: Path, **fields: Any) -> None:
 
 
 def write_json(path: str | Path, obj: Any) -> None:
-    Path(path).write_text(json.dumps(obj, indent=2, sort_keys=True, default=_json_default))
+    # atomic: concurrent array tasks may read the file while another writes it
+    path = Path(path)
+    tmp = path.with_name(f".{path.name}.{os.getpid()}.{platform.node()}.tmp")
+    tmp.write_text(json.dumps(obj, indent=2, sort_keys=True, default=_json_default))
+    tmp.replace(path)
 
 
 def _json_default(o: Any) -> Any:

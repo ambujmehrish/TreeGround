@@ -5,6 +5,8 @@ import time
 from pathlib import Path
 
 import pandas as pd
+import pyarrow as pa
+import pyarrow.parquet as pq
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -19,6 +21,30 @@ from treeground.run import (ProtocolError, assert_real_path, ensure_deviation_lo
 def shard_items(wl: pd.DataFrame, shard: int, num_shards: int) -> pd.DataFrame:
     unique = wl.drop_duplicates("sha1").sort_values("sha1").reset_index(drop=True)
     return unique.iloc[shard::num_shards]
+
+
+def write_by_image(df: pd.DataFrame, path: Path) -> None:
+    # one parquet row group per image, so readers load a single image instead of the whole shard
+    if not len(df):
+        df.to_parquet(path, index=False)
+        return
+    table = pa.Table.from_pandas(df, preserve_index=False)
+    with pq.ParquetWriter(path, table.schema) as w:
+        start = 0
+        for n in df.groupby("sha1", sort=False).size():
+            w.write_table(table.slice(start, int(n)))
+            start += int(n)
+
+
+def row_groups(path: Path) -> dict[str, int]:
+    pf = pq.ParquetFile(path)
+    out = {}
+    for g in range(pf.num_row_groups):
+        sha = pf.read_row_group(g, columns=["sha1"]).column(0).unique().to_pylist()
+        if len(sha) != 1 or sha[0] in out:
+            return {}
+        out[sha[0]] = g
+    return out
 
 
 def process_image(model, processor, row, pcfg: P.ProposalConfig, taus: list[float]) -> pd.DataFrame:
@@ -71,7 +97,7 @@ def run_shard(cfg: dict, smoke: bool, shard: int, num_shards: int) -> None:
     df = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
     target.parent.mkdir(parents=True, exist_ok=True)
     tmp = target.with_suffix(".tmp")
-    df.to_parquet(tmp, index=False)
+    write_by_image(df, tmp)
     tmp.replace(target)
     per_image = df.groupby("sha1").size() if len(df) else pd.Series(dtype=int)
     write_json(run / "metrics.json", {
@@ -99,8 +125,10 @@ def merge(cfg: dict, smoke: bool, num_shards: int) -> None:
         counts = {c: df.groupby("sha1")[c].sum() if len(df) else pd.Series(dtype=int)
                   for c in [keep_column(t) for t in taus]}
         raw = df.groupby("sha1").size() if len(df) else pd.Series(dtype=int)
+        groups = row_groups(out_dir / "shards" / name) if len(df) else {}
         for item in shard_items(wl, k, num_shards).itertuples():
             rows.append({"sha1": item.sha1, "shard": name, "h": item.h, "w": item.w,
+                         "row_group": groups.get(item.sha1, -1) if groups or not len(df) else -2,
                          "n_raw": int(raw.get(item.sha1, 0)),
                          **{c: int(v.get(item.sha1, 0)) for c, v in counts.items()}})
     index = pd.DataFrame(rows)

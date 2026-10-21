@@ -1,9 +1,11 @@
 import hashlib
 import json
+from collections import OrderedDict
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import pyarrow.parquet as pq
 import torch
 from safetensors import safe_open
 from safetensors.torch import save_file
@@ -84,6 +86,8 @@ class ProposalStore:
         self.path = path
         self.index = pd.read_parquet(path / "index.parquet").set_index("sha1")
         self._shards: dict[str, dict[str, pd.DataFrame]] = {}
+        self._files: dict[str, pq.ParquetFile] = {}
+        self._recent: OrderedDict[str, pd.DataFrame] = OrderedDict()
 
     def has(self, sha1: str) -> bool:
         return sha1 in self.index.index
@@ -92,10 +96,25 @@ class ProposalStore:
         if sha1 not in self.index.index:
             raise ProtocolError(f"image {sha1} has no proposal entry in {self.path}")
         shard = self.index.loc[sha1, "shard"]
+        empty = pd.DataFrame(columns=["src_index", "rle", "area", "box", "stability", "sam_iou"])
+        group = int(self.index.loc[sha1, "row_group"]) if "row_group" in self.index.columns else -2
+        if group == -1:
+            return empty
+        if group >= 0:
+            # per-image row groups: bounded memory, only the requested image is read
+            if sha1 not in self._recent:
+                if shard not in self._files:
+                    self._files[shard] = pq.ParquetFile(self.path / "shards" / shard)
+                df = self._files[shard].read_row_group(group).to_pandas()
+                if set(df["sha1"]) != {sha1}:
+                    raise ProtocolError(f"row group {group} of {shard} does not hold image {sha1}")
+                self._recent[sha1] = df.sort_values("src_index")
+                if len(self._recent) > 256:
+                    self._recent.popitem(last=False)
+            return self._recent[sha1]
         if shard not in self._shards:
             df = pd.read_parquet(self.path / "shards" / shard)
             self._shards[shard] = {k: g.sort_values("src_index") for k, g in df.groupby("sha1")}
-        empty = pd.DataFrame(columns=["src_index", "rle", "area", "box", "stability", "sam_iou"])
         return self._shards[shard].get(sha1, empty)
 
     def nodes(self, sha1: str, tau: float | None) -> dict:

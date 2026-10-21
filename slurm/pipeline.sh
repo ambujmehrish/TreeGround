@@ -24,12 +24,12 @@ else
     Q="${TG_QUERIES_JOB:-$(sub --array=0-$((NQ - 1))%$N slurm/s0_queries.sbatch)}"
     QM=$(sub "${CPU[@]}" -J tg_queries_merge -d afterok:$Q slurm/cpu_stage.sbatch scripts/s0_queries.py configs/s0.yaml --merge)
 fi
-V2DEP="afterok:$V3"; [ "$QM" = done ] || V2DEP="$V2DEP:$QM"
 V1=$(sub "${CPU[@]}" -J tg_v1 -d afterok:$PM slurm/cpu_stage.sbatch scripts/v1_coverage.py configs/v1.yaml)
 FC=$(sub -J tg_features_check -d afterok:$V1 slurm/gpu_stage.sbatch scripts/s0_features.py configs/s0.yaml --check)
 F=$(sub --array=0-$((NF - 1))%$N -d afterok:$FC slurm/s0_features.sbatch)
 FM=$(sub "${CPU[@]}" -J tg_features_merge -d afterok:$F slurm/cpu_stage.sbatch scripts/s0_features.py configs/s0.yaml --merge)
 V3=$(sub -J tg_v3 -d afterok:$FM slurm/gpu_stage.sbatch scripts/v3_layer.py configs/v3.yaml)
+V2DEP="afterok:$V3"; [ "$QM" = done ] || V2DEP="$V2DEP:$QM"
 V2=$(sub -J tg_v2 --time=08:00:00 -d $V2DEP slurm/gpu_stage.sbatch scripts/v2_train_eval.py configs/v2.yaml)
 V4=$(sub -J tg_v4 --time=08:00:00 -d afterok:$V2 slurm/gpu_stage.sbatch scripts/v4_tree_value.py configs/v4.yaml)
 

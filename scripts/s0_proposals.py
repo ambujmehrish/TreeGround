@@ -38,7 +38,7 @@ def process_image(model, processor, row, pcfg: P.ProposalConfig, taus: list[floa
 
 def run_shard(cfg: dict, smoke: bool, shard: int, num_shards: int) -> None:
     ensure_deviation_log(cfg)
-    require_approved(cfg, ["D1"])
+    require_approved(cfg, ["D1", "D3"])
     mrun, manifest, mhash, wl = manifest_inputs(cfg, smoke)
     ident = proposal_identity(cfg, smoke, mhash)
     out_dir = cache_dir(cfg, "proposals", ident)

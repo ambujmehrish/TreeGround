@@ -23,8 +23,8 @@ from treeground.identity import (manifest_inputs, open_features, open_proposals,
                                  qwen_static)
 from treeground.labels import paco_part_labels  # noqa: E402
 from treeground.metrics import describe, mean_ci  # noqa: E402
-from treeground.run import (REPO, ProtocolError, canonical_hash, read_json, resolve_run, start_run,  # noqa: E402
-                            load_config, write_json)
+from treeground.run import (REPO, ProtocolError, canonical_hash, load_config, read_json, resolve_run,  # noqa: E402
+                            start_run, v1_gate, write_json)
 from treeground.selector import Selector, selection_loss  # noqa: E402
 
 
@@ -68,14 +68,6 @@ def chosen_layer(cfg: dict, smoke: bool) -> tuple[int, str]:
     if doc.get("smoke", False) != smoke:
         raise ProtocolError("chosen_layer.yaml smoke flag does not match the current mode")
     return int(doc["layer"]), doc["v3_run"]
-
-
-def check_v1(cfg: dict, smoke: bool) -> str:
-    run = resolve_run(cfg, "v1", cfg["inputs"].get("v1", "latest"), smoke)
-    gate = read_json(run / "metrics.json")["gate"]
-    if not gate["passed"] and not smoke:
-        raise ProtocolError(f"V1 gate failed in {run}; downstream stages are blocked: {gate}")
-    return run.name
 
 
 class Probes:
@@ -340,7 +332,8 @@ def main() -> None:
     args = ap.parse_args()
     cfg = load_config(args.config)
     device = cfg["device"]
-    v1_run = check_v1(cfg, args.smoke)
+    gate = v1_gate(cfg, args.smoke)
+    v1_run = gate["v1_run"]
     layer, v3_run = chosen_layer(cfg, args.smoke)
     mrun, manifest, mhash, wl = manifest_inputs(cfg, args.smoke)
     static = qwen_static(cfg)
@@ -348,7 +341,7 @@ def main() -> None:
         raise ProtocolError(f"chosen layer {layer} is not a cached candidate layer")
     li = static["layers"].index(layer)
     store = open_features(cfg, args.smoke, manifest, mhash, static)
-    props = open_proposals(cfg, args.smoke, manifest, mhash)
+    props = open_proposals(cfg, args.smoke, manifest, mhash, capped=True)
     qdir, queries = open_queries(cfg, args.smoke, mhash, static)
     run = start_run("v2", cfg, args.smoke, {
         "manifest_run": str(mrun), "manifest_sha256": mhash, "features": str(store.path),
@@ -369,7 +362,7 @@ def main() -> None:
     metrics, per_query, tau_rej = evaluate(cfg, sel, store, props, queries, qdir, li, layer, wl, device)
     per_query.to_csv(run / "eval_queries.csv", index=False)
     metrics.update({"smoke": args.smoke, "layer": layer, "training_exclusions": counts,
-                    "training_images": len(recs), "training_absent_queries": len(absent)})
+                    "training_images": len(recs), "training_absent_queries": len(absent), "v1_gate": gate})
     write_json(run / "metrics.json", metrics)
     print(run, "tau_rej", tau_rej)
 

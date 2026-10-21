@@ -231,6 +231,18 @@ PROPOSED_DEVIATIONS = [
         "expected_impact": "V2/V4 results hold on the coverage-eligible subset only and are reported as conditional "
                            "on the failed coverage gate",
     },
+    {
+        "id": "D4",
+        "spec_section": "1 (Proposals) / 2 (Selector)",
+        "change": "node budget for features, V2, V3 and V4: per image keep at most 256 tree nodes (tau_d 0.9 set), "
+                  "ranked by a label-free score (SAM 3 stability or predicted IoU), ties by lower proposal index; the "
+                  "tree is rebuilt on the kept nodes. The score is chosen on PACO train coverage only "
+                  "(scripts/d4_node_cap.py); V1 stays uncapped",
+        "reason": "with D3 the tau_d 0.9 trees have ~1,100-1,500 nodes per image (was ~56); uncapped, the feature "
+                  "cache is ~700 GB and V2 cannot hold its training set in memory",
+        "expected_impact": "coverage of the capped node set is reported next to the uncapped V1 numbers on PACO val; "
+                           "V2-V4 run on the capped trees",
+    },
 ]
 
 
@@ -269,3 +281,15 @@ def require_approved(cfg: dict, ids: list[str]) -> None:
     if pending:
         raise ProtocolError(
             f"deviation(s) {pending} are not approved in {deviation_log_path(cfg)}; set status to 'approved' to proceed")
+
+
+def v1_gate(cfg: dict, smoke: bool) -> dict:
+    # stages after V1 run on a passed gate, or on a failed one only while deviation D2 is approved
+    run = resolve_run(cfg, "v1", cfg.get("inputs", {}).get("v1", "latest"), smoke)
+    gate = read_json(run / "metrics.json")["gate"]
+    note = {"v1_run": run.name, "v1_gate_passed": bool(gate["passed"]), "below_v1_gate": not gate["passed"],
+            "v1_part_recall": gate["part_recall"], "v1_feasible_path_coverage": gate.get("feasible_path_coverage")}
+    if not gate["passed"] and not smoke:
+        require_approved(cfg, ["D2"])
+        note["deviation"] = "D2"
+    return note

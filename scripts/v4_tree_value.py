@@ -18,7 +18,7 @@ from treeground.data import paco  # noqa: E402
 from treeground.identity import (manifest_inputs, open_features, open_proposals, open_queries,  # noqa: E402
                                  qwen_static)
 from treeground.metrics import describe, mean_ci  # noqa: E402
-from treeground.run import ProtocolError, load_config, read_json, resolve_run, start_run, write_json  # noqa: E402
+from treeground.run import ProtocolError, load_config, read_json, resolve_run, start_run, v1_gate, write_json  # noqa: E402
 from treeground.selector import Selector  # noqa: E402
 
 THR = 0.5
@@ -187,11 +187,12 @@ def main() -> None:
     ap.add_argument("--smoke", action="store_true")
     args = ap.parse_args()
     cfg = load_config(args.config)
+    gate = v1_gate(cfg, args.smoke)
     device = cfg["device"]
     mrun, manifest, mhash, wl = manifest_inputs(cfg, args.smoke)
     static = qwen_static(cfg)
     store = open_features(cfg, args.smoke, manifest, mhash, static)
-    props = open_proposals(cfg, args.smoke, manifest, mhash)
+    props = open_proposals(cfg, args.smoke, manifest, mhash, capped=True)
     qdir, queries = open_queries(cfg, args.smoke, mhash, static)
     sel, tau, layer, v2_run = load_selector(cfg, args.smoke, store)
     sel = sel.to(device)
@@ -213,6 +214,7 @@ def main() -> None:
         "other_sources": {"partonomy": "not evaluated: S0 caches no probe states for PARTONOMY chains",
                           "sceneparser": "not evaluated: S0 caches no probe states for SceneParser chains"},
         "notes": [I11_NOTE],
+        "v1_gate": gate,
     }
     write_json(run / "metrics.json", metrics)
     print(run)

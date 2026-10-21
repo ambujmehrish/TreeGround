@@ -94,7 +94,7 @@ def run_shard(cfg: dict, smoke: bool, shard: int, num_shards: int) -> None:
     check = out_dir / "invariance.json"
     if not check.exists() or not read_json(check)["passed"]:
         raise ProtocolError("run the image-token invariance check (--check) before extracting features")
-    props = open_proposals(cfg, smoke, manifest, mhash)
+    props = open_proposals(cfg, smoke, manifest, mhash, capped=True)
     run = start_run("s0_features", cfg, smoke, {"shard": shard, "num_shards": num_shards, "cache": str(out_dir),
                                                  "manifest_run": str(mrun), "manifest_sha256": mhash})
     (out_dir / "images").mkdir(parents=True, exist_ok=True)

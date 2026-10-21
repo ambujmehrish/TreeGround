@@ -13,7 +13,7 @@ from treeground import tree as T  # noqa: E402
 from treeground.data import paco, partonomy, sceneparser  # noqa: E402
 from treeground.identity import manifest_inputs, open_proposals  # noqa: E402
 from treeground.metrics import area_bin  # noqa: E402
-from treeground.run import ProtocolError, load_config, start_run, write_json  # noqa: E402
+from treeground.run import ProtocolError, ensure_deviation_log, load_config, read_deviations, start_run, write_json  # noqa: E402
 
 THR = 0.5
 
@@ -150,9 +150,14 @@ def main() -> None:
         "consequence": None if passed else "gate failed: report ceilings; attention-seeded re-proposal inside "
                                            "parents (spec 5, V1) requires approval before any further stage",
     }
+    ensure_deviation_log(cfg)
+    d2 = read_deviations(cfg).get("D2", {}).get("status") == "approved"
+    if not passed and d2:
+        out["gate"]["continuation"] = "D2 approved: later stages run, labelled below_v1_gate"
     write_json(run / "metrics.json", out)
-    print(run, "gate passed" if passed else "GATE FAILED", g["part_recall"], g.get("feasible_path_coverage"))
-    if not passed and not args.smoke:
+    print(run, "gate passed" if passed else "GATE FAILED" + (" (continuing under D2)" if d2 else ""),
+          g["part_recall"], g.get("feasible_path_coverage"))
+    if not passed and not args.smoke and not d2:
         sys.exit(2)
 
 

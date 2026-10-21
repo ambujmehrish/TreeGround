@@ -13,11 +13,11 @@ from treeground.data import paco  # noqa: E402
 from treeground.identity import manifest_inputs, open_features, open_proposals, qwen_static  # noqa: E402
 from treeground.labels import paco_part_labels  # noqa: E402
 from treeground.metrics import mean_ci, ranked_ap  # noqa: E402
-from treeground.run import REPO, ProtocolError, load_config, start_run, write_json  # noqa: E402
+from treeground.run import REPO, ProtocolError, load_config, start_run, v1_gate, write_json  # noqa: E402
 
 
 def gallery_meta(cfg, smoke, manifest, mhash, wl):
-    props = open_proposals(cfg, smoke, manifest, mhash)
+    props = open_proposals(cfg, smoke, manifest, mhash, capped=True)
     images = paco.load(cfg["data"]["paco_lvis"], "val")
     rows = wl[wl.role == "paco_val"].drop_duplicates("image_key").sort_values("image_key")
     sha1s, img_idx, labels, parts, high = [], [], [], [], []
@@ -87,6 +87,7 @@ def main() -> None:
     ap.add_argument("--smoke", action="store_true")
     args = ap.parse_args()
     cfg = load_config(args.config)
+    gate = v1_gate(cfg, args.smoke)
     mrun, manifest, mhash, wl = manifest_inputs(cfg, args.smoke)
     static = qwen_static(cfg)
     store = open_features(cfg, args.smoke, manifest, mhash, static)
@@ -123,6 +124,7 @@ def main() -> None:
         "results": results, "chosen_layer": chosen, "rule": "I3: highest deterministic hidden-state mAP, ties -> smaller l",
         "feature_type_comparison_at_chosen_layer": at_chosen,
         "note": "feature-type comparison is descriptive; the representation stays decoder hidden states (spec 1)",
+        "v1_gate": gate,
     }
     write_json(run / "metrics.json", metrics)
     chosen_doc = {"layer": chosen, "v3_run": run.name, "smoke": args.smoke,

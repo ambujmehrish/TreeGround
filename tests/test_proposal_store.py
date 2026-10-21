@@ -42,3 +42,20 @@ def test_old_single_group_shards_fall_back(tmp_path):
     path = tmp_path / "x.parquet"
     df.to_parquet(path, index=False)
     assert S.row_groups(path) == {}
+
+
+def test_node_cap_keeps_top_k_by_score(tmp_path, monkeypatch):
+    df = _frame("a", 5)
+    df["stability"] = [0.1, 0.9, 0.5, 0.9, 0.3]
+    shard = tmp_path / "shards" / "00000.parquet"
+    shard.parent.mkdir()
+    S.write_by_image(df, shard)
+    pd.DataFrame({"sha1": ["a"], "shard": "00000.parquet", "h": 8, "w": 8, "row_group": [0]}).to_parquet(
+        tmp_path / "index.parquet", index=False)
+    monkeypatch.setattr("treeground.cache.check_identity", lambda *a: None)
+    monkeypatch.setattr("treeground.cache.require_complete", lambda *a: {})
+    store = ProposalStore(tmp_path, {}, None, {"k": 3, "order": "stability"})
+    kept = store.nodes("a", 0.9)
+    # src_index runs 4..0 down the frame; stabilities 0.9 at src 3 and 1, then 0.5 at src 2
+    assert list(kept["src_index"]) == [1, 2, 3]
+    assert len(store.nodes("a", None)["rles"]) == 5

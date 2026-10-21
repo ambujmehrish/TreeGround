@@ -80,10 +80,11 @@ def load_tensors(path: Path, keys: list[str] | None = None) -> tuple[dict[str, t
 
 
 class ProposalStore:
-    def __init__(self, path: Path, identity: dict, manifest: pd.DataFrame):
+    def __init__(self, path: Path, identity: dict, manifest: pd.DataFrame, cap: dict | None = None):
         check_identity(path, identity)
         require_complete(path)
         self.path = path
+        self.cap = cap
         self.index = pd.read_parquet(path / "index.parquet").set_index("sha1")
         self._shards: dict[str, dict[str, pd.DataFrame]] = {}
         self._files: dict[str, pq.ParquetFile] = {}
@@ -122,6 +123,11 @@ class ProposalStore:
         df = self.rows(sha1)
         if len(df) and tau is not None:
             df = df[df[keep_column(tau)].astype(bool)]
+            if self.cap and len(df) > self.cap["k"]:
+                # D4: top-k by a label-free score, ties to the lower proposal index; original order kept
+                ranked = df.assign(_s=-df[self.cap["order"]].astype(np.float64)).sort_values(["_s", "src_index"],
+                                                                                          kind="stable")
+                df = df.loc[ranked.index[:self.cap["k"]]].sort_values("src_index")
         h, w = int(self.index.loc[sha1, "h"]), int(self.index.loc[sha1, "w"])
         return {
             "h": h, "w": w,

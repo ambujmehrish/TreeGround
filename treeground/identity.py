@@ -3,12 +3,13 @@ import json
 from pathlib import Path
 
 import pandas as pd
+import yaml
 
 from treeground.cache import FeatureStore, ProposalStore, cache_dir, check_identity, code_version, require_complete
 from treeground.data.manifest import load_manifest
 from treeground.mllm import candidate_layers
 from treeground.proposals import ROUTE
-from treeground.run import ProtocolError, canonical_hash, resolve_run
+from treeground.run import REPO, ProtocolError, canonical_hash, require_approved, resolve_run
 
 FEATURE_TYPES = ("hidden", "value", "encoder", "siglip")
 
@@ -47,6 +48,18 @@ def qwen_static(cfg: dict) -> dict:
     }
 
 
+def node_cap(cfg: dict, smoke: bool) -> dict | None:
+    # D4 node budget, written by scripts/d4_node_cap.py from PACO train coverage; smoke runs stay uncapped
+    if smoke:
+        return None
+    path = REPO / "configs" / "node_cap.yaml"
+    if not path.exists():
+        raise ProtocolError("configs/node_cap.yaml missing: run scripts/d4_node_cap.py (deviation D4) first")
+    require_approved(cfg, ["D4"])
+    doc = yaml.safe_load(path.read_text())
+    return {"k": int(doc["k"]), "order": str(doc["order"]), "d4_run": doc["d4_run"]}
+
+
 def feature_identity(cfg: dict, smoke: bool, manifest_hash: str, static: dict) -> dict:
     f, q = cfg["features"], cfg["models"]["qwen"]
     ident = {
@@ -56,6 +69,9 @@ def feature_identity(cfg: dict, smoke: bool, manifest_hash: str, static: dict) -
         "proposals": canonical_hash(proposal_identity(cfg, smoke, manifest_hash)),
         "node_dedup": cfg["proposals"]["node_dedup"], "code": code_version("features"),
     }
+    cap = node_cap(cfg, smoke)
+    if cap:
+        ident["node_cap"] = {"k": cap["k"], "order": cap["order"]}
     if "siglip" in f["feature_types"]:
         ident["siglip_repo"] = cfg["models"]["siglip"]["repo"]
         ident["siglip_revision"] = cfg["models"]["siglip"]["revision"]
@@ -74,9 +90,9 @@ def query_identity(cfg: dict, smoke: bool, manifest_hash: str, static: dict, sel
     }
 
 
-def open_proposals(cfg: dict, smoke: bool, manifest: pd.DataFrame, mhash: str) -> ProposalStore:
+def open_proposals(cfg: dict, smoke: bool, manifest: pd.DataFrame, mhash: str, capped: bool = False) -> ProposalStore:
     ident = proposal_identity(cfg, smoke, mhash)
-    return ProposalStore(cache_dir(cfg, "proposals", ident), ident, manifest)
+    return ProposalStore(cache_dir(cfg, "proposals", ident), ident, manifest, node_cap(cfg, smoke) if capped else None)
 
 
 def open_features(cfg: dict, smoke: bool, manifest: pd.DataFrame, mhash: str, static: dict) -> FeatureStore:

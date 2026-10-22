@@ -63,7 +63,7 @@ def chain_inputs(cfg, sel, store, props, queries, qdir, li, layer, device):
         img = images[int(key.split(":")[1])]
         nodes = props.nodes(sha1, cfg["proposals"]["node_dedup"])
         z = store.load(sha1, [f"hidden_L{layer}"])[f"hidden_L{layer}"]
-        tree = T.build_tree(nodes["rles"])
+        tree = T.build_tree(nodes["rles"], device)
         rand = [T.randomised_tree(tree, tree_seed(s, sha1)) for s in seeds]
         box_tree = T.build_box_tree(nodes["boxes"])
         e = sel.nodes(z.to(device)) if len(z) else None

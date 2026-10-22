@@ -1,5 +1,6 @@
 import hashlib
 import json
+import threading
 from collections import OrderedDict
 from pathlib import Path
 
@@ -89,11 +90,16 @@ class ProposalStore:
         self._shards: dict[str, dict[str, pd.DataFrame]] = {}
         self._files: dict[str, pq.ParquetFile] = {}
         self._recent: OrderedDict[str, pd.DataFrame] = OrderedDict()
+        self._lock = threading.Lock()  # stages load images from several threads
 
     def has(self, sha1: str) -> bool:
         return sha1 in self.index.index
 
     def rows(self, sha1: str) -> pd.DataFrame:
+        with self._lock:
+            return self._rows(sha1)
+
+    def _rows(self, sha1: str) -> pd.DataFrame:
         if sha1 not in self.index.index:
             raise ProtocolError(f"image {sha1} has no proposal entry in {self.path}")
         shard = self.index.loc[sha1, "shard"]

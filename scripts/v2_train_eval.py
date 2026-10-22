@@ -1,8 +1,10 @@
 import argparse
 import json
 import math
+import os
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -26,6 +28,8 @@ from treeground.metrics import describe, mean_ci  # noqa: E402
 from treeground.run import (REPO, ProtocolError, canonical_hash, load_config, read_json, resolve_run,  # noqa: E402
                             start_run, v1_gate, write_json)
 from treeground.selector import Selector, selection_loss  # noqa: E402
+
+LOAD_WORKERS = min(8, os.cpu_count() or 1)
 
 
 TEXT_ONLY = "textonly"
@@ -80,12 +84,13 @@ class Probes:
         return self._cache[sha1][offset:offset + n_sel, self.li].clone()
 
 
-def image_record(sha1, key, store, props, feat_key, tau, img: paco.PacoImage | None) -> ImageRec:
+def image_record(sha1, key, store, props, feat_key, tau, img: paco.PacoImage | None,
+                 device: str | None = None) -> ImageRec:
     nodes = props.nodes(sha1, tau)
     z = store.load(sha1, [feat_key])[feat_key]
     if z.shape[0] != len(nodes["rles"]):
         raise ProtocolError(f"{key}: feature rows do not match proposal nodes")
-    tree = T.build_tree(nodes["rles"])
+    tree = T.build_tree(nodes["rles"], device)
     if img is not None:
         if (nodes["h"], nodes["w"]) != (img.h, img.w):
             raise ProtocolError(f"{key}: annotation size differs from proposal masks")
@@ -131,19 +136,29 @@ def build_train(cfg, smoke, manifest, mhash, wl, store, props, qdir, queries, la
     by_sha = {k: g for k, g in qtrain.groupby("sha1")}
     recs = []
     t0 = time.time()
-    for i, row in enumerate(wl[wl.role == "paco_train"].sort_values("image_key").itertuples(), 1):
-        if i % 1000 == 0:
-            print(f"loading training images {i} {time.time() - t0:.0f}s", flush=True)
+    rows = list(wl[wl.role == "paco_train"].sort_values("image_key").itertuples())
+    device = cfg.get("device")
+
+    def load(row):
+        return image_record(row.sha1, row.image_key, store, props, feat_key, tau,
+                            images[int(row.image_key.split(":")[1])], device)
+
+    # parallel reads (feature files, masks) and GPU tree building; results come back in worklist order
+    with ThreadPoolExecutor(max_workers=LOAD_WORKERS) as pool:
+        loaded = pool.map(load, rows)
+        for i, (row, rec) in enumerate(zip(rows, loaded), 1):
+            if i % 1000 == 0:
+                print(f"loading training images {i}/{len(rows)} {time.time() - t0:.0f}s", flush=True)
+            recs.append(rec)
+    for row, rec in zip(rows, recs):
         img = images[int(row.image_key.split(":")[1])]
-        rec = image_record(row.sha1, row.image_key, store, props, feat_key, tau, img)
         if row.sha1 in by_sha:
             attach_paco_queries(rec, img, by_sha[row.sha1], probes, counts)
         if not rec.queries:
             counts["images_without_queries"] += 1
-        recs.append(rec)
     absent = []
     for q in queries[(queries.kind == "absent") & (queries.split == "train")].sort_values("qid").itertuples():
-        rec = image_record(q.sha1, q.image_key, store, props, feat_key, tau, None)
+        rec = image_record(q.sha1, q.image_key, store, props, feat_key, tau, None, device)
         rec.absent = True
         rec.queries = [QRec(q.qid, "absent", probes.get(q.sha1, q.offset, 1), [S.StepTarget(np.zeros(0, np.int64),
                                                                                      np.zeros(0, np.int64))])]

@@ -73,10 +73,35 @@ def parents_from_overlaps(areas: np.ndarray, inter: np.ndarray) -> np.ndarray:
     return parent
 
 
+def intersections_dense(rles: list[M.Rle], device: str, block: int = 512) -> np.ndarray:
+    # exact pairwise pixel intersections on an accelerator: 0/1 masks, float32 matmul. Every partial sum is an
+    # integer below 2**24, so the result equals intersections(rles, rles) for images under 16.7 MP.
+    import torch
+    n = len(rles)
+    if not n:
+        return np.zeros((0, 0), dtype=np.int64)
+    h, w = rles[0]["size"]
+    if h * w >= 2 ** 24:
+        return M.intersections(rles, rles)
+    out = np.zeros((n, n), dtype=np.int64)
+    tf32 = torch.backends.cuda.matmul.allow_tf32
+    torch.backends.cuda.matmul.allow_tf32 = False
+    try:
+        dense = torch.empty((n, h * w), dtype=torch.float32, device=device)
+        for s in range(0, n, block):
+            chunk = np.stack([M.decode(r).reshape(-1) for r in rles[s:s + block]])
+            dense[s:s + len(chunk)] = torch.from_numpy(chunk).to(device, torch.float32)
+        for s in range(0, n, block):
+            out[s:s + block] = torch.round(dense[s:s + block] @ dense.T).to(torch.int64).cpu().numpy()
+    finally:
+        torch.backends.cuda.matmul.allow_tf32 = tf32
+    return out
+
+
 def build_tree(rles: list[M.Rle], device: str | None = None) -> Tree:
     # device: compute pairwise intersections on an accelerator (identical integers, much faster for 1000+ masks)
     areas = M.areas(rles)
-    inter = M.intersections_dense(rles, device) if device and len(rles) > 64 else M.intersections(rles, rles)
+    inter = intersections_dense(rles, device) if device and len(rles) > 64 else M.intersections(rles, rles)
     return from_parents(parents_from_overlaps(areas, inter))
 
 

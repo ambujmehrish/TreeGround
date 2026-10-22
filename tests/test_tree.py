@@ -89,6 +89,6 @@ def test_dense_intersections_match_rle():
     base = rng.random((70, 23, 31)) < 0.3
     nested = np.stack([base[k] | (rng.random((23, 31)) < 0.1 * (k % 3)) for k in range(70)])
     rles = M.encode(nested)
-    assert np.array_equal(M.intersections_dense(rles, "cpu", block=16), M.intersections(rles, rles))
+    assert np.array_equal(T.intersections_dense(rles, "cpu", block=16), M.intersections(rles, rles))
     a, b = T.build_tree(rles), T.build_tree(rles, "cpu")
     assert np.array_equal(a.parent, b.parent)

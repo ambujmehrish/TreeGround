@@ -86,6 +86,8 @@ def intersections_dense(rles: list[M.Rle], device: str, block: int = 512) -> np.
     hw = h * w
     if hw >= 2 ** 24:
         return M.intersections(rles, rles)
+    if str(device).startswith("cuda") and not torch.cuda.is_available():
+        device = "cpu"  # e.g. a login node: same exact integers, computed with CPU matmuls
     if str(device).startswith("cuda"):
         free, _ = torch.cuda.mem_get_info(torch.device(device))
         need = n * hw + 2 * min(block, n) * hw * 4 + n * min(block, n) * 4

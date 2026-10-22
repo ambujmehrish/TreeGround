@@ -130,7 +130,10 @@ def build_train(cfg, smoke, manifest, mhash, wl, store, props, qdir, queries, la
     qtrain = queries[(queries.split == "train") & queries.kind.isin(["object", "part", "chain"])]
     by_sha = {k: g for k, g in qtrain.groupby("sha1")}
     recs = []
-    for row in wl[wl.role == "paco_train"].sort_values("image_key").itertuples():
+    t0 = time.time()
+    for i, row in enumerate(wl[wl.role == "paco_train"].sort_values("image_key").itertuples(), 1):
+        if i % 1000 == 0:
+            print(f"loading training images {i} {time.time() - t0:.0f}s", flush=True)
         img = images[int(row.image_key.split(":")[1])]
         rec = image_record(row.sha1, row.image_key, store, props, feat_key, tau, img)
         if row.sha1 in by_sha:
@@ -247,6 +250,7 @@ def train(cfg, recs, absent, text_probes, d_node, d_query, run, device) -> Selec
         opt.step()
         sched.step()
         if step % c["log_every"] == 0 or step == c["steps"] - 1:
+            print(f"step {step}/{c['steps']} loss {loss.item():.4f}", flush=True)
             log.append({"step": step, "loss": loss.item(), "lr": sched.get_last_lr()[0], "terms": len(terms),
                         "seconds": time.time() - t0, **stats})
     pd.DataFrame(log).to_csv(run / "train_curve.csv", index=False)

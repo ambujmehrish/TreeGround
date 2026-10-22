@@ -75,27 +75,48 @@ def parents_from_overlaps(areas: np.ndarray, inter: np.ndarray, num: int = CONTA
 
 
 def intersections_dense(rles: list[M.Rle], device: str, block: int = 512) -> np.ndarray:
-    # exact pairwise pixel intersections on an accelerator: 0/1 masks, float32 matmul. Every partial sum is an
-    # integer below 2**24, so the result equals intersections(rles, rles) for images under 16.7 MP.
+    # exact pairwise pixel intersections on an accelerator: masks held as bytes, multiplied as float32 blocks.
+    # Every partial sum is an integer below 2**24, so the result equals intersections(rles, rles) for images
+    # under 16.7 MP. Falls back to the exact CPU route when the masks do not fit in accelerator memory.
     import torch
     n = len(rles)
     if not n:
         return np.zeros((0, 0), dtype=np.int64)
     h, w = rles[0]["size"]
-    if h * w >= 2 ** 24:
+    hw = h * w
+    if hw >= 2 ** 24:
         return M.intersections(rles, rles)
+    if str(device).startswith("cuda"):
+        free, _ = torch.cuda.mem_get_info(torch.device(device))
+        need = n * hw + 2 * min(block, n) * hw * 4 + n * min(block, n) * 4
+        if need > 0.8 * free:
+            return M.intersections(rles, rles)
     out = np.zeros((n, n), dtype=np.int64)
     tf32 = torch.backends.cuda.matmul.allow_tf32
     torch.backends.cuda.matmul.allow_tf32 = False
+    dense = None
     try:
-        dense = torch.empty((n, h * w), dtype=torch.float32, device=device)
+        dense = torch.empty((n, hw), dtype=torch.uint8, device=device)
         for s in range(0, n, block):
             chunk = np.stack([M.decode(r).reshape(-1) for r in rles[s:s + block]])
-            dense[s:s + len(chunk)] = torch.from_numpy(chunk).to(device, torch.float32)
+            dense[s:s + len(chunk)] = torch.from_numpy(chunk.astype(np.uint8)).to(device)
         for s in range(0, n, block):
-            out[s:s + block] = torch.round(dense[s:s + block] @ dense.T).to(torch.int64).cpu().numpy()
+            rows = dense[s:s + block].float()
+            for t in range(0, n, block):
+                cols = dense[t:t + block].float()
+                out[s:s + block, t:t + block] = torch.round(rows @ cols.T).to(torch.int64).cpu().numpy()
+                del cols
+            del rows
+    except torch.OutOfMemoryError:
+        dense = None
+        if str(device).startswith("cuda"):
+            torch.cuda.empty_cache()
+        return M.intersections(rles, rles)
     finally:
         torch.backends.cuda.matmul.allow_tf32 = tf32
+        del dense
+        if str(device).startswith("cuda"):
+            torch.cuda.empty_cache()
     return out
 
 

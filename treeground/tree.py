@@ -57,12 +57,13 @@ def from_parents(parent: np.ndarray) -> Tree:
     return Tree(parent, depth, children, np.array(order, dtype=np.int64), tin, tout)
 
 
-def parents_from_overlaps(areas: np.ndarray, inter: np.ndarray) -> np.ndarray:
+def parents_from_overlaps(areas: np.ndarray, inter: np.ndarray, num: int = CONTAIN_NUM,
+                          den: int = CONTAIN_DEN) -> np.ndarray:
     areas = np.asarray(areas, dtype=np.int64)
     n = len(areas)
     parent = np.full(n + 1, -1, dtype=np.int64)
     for i in range(n):
-        ok = (areas > areas[i]) & (CONTAIN_DEN * inter[i] >= CONTAIN_NUM * areas[i])
+        ok = (areas > areas[i]) & (den * inter[i] >= num * areas[i])
         cand = np.flatnonzero(ok)
         if len(cand) == 0:
             parent[i] = n

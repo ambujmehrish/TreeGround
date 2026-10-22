@@ -112,3 +112,21 @@ def test_v4_d5_pool_includes_anchor():
     true_s = strict[strict.structure == "true"].iloc[0]
     true_i = incl[incl.structure == "true"].iloc[0]
     assert not true_s.chain and true_i.chain and true_i.single_level
+
+
+def test_v4_d6_box_tree_block():
+    V4 = load_script("v4_tree_value")
+    mask_tree = T.from_parents(np.array([3, 3, 3, -1]))  # three nodes side by side under the root
+    box_tree = T.from_parents(np.array([3, 0, 0, -1]))   # nodes 1 and 2 inside node 0's box
+    ious = np.array([[0.9, 0.0, 0.0], [0.0, 0.8, 0.1]])
+    sig = np.array([[0.9, 0.1, 0.1], [0.1, 0.9, 0.2]])
+    chain = {"qid": "q", "image": "i", "tree": mask_tree, "rand": [], "box": box_tree, "ious": ious, "sig": sig,
+             "part_ratio": 0.1}
+    df, _ = V4.natural([chain], 0.5, box=True)
+    got = df.set_index("structure")
+    assert set(got.index) == {"flat", "true", "box"}
+    assert got.loc["box", "chain"] and got.loc["box", "feasible"]
+    assert not got.loc["true", "chain"] and not got.loc["true", "feasible"]
+    assert got.loc["flat", "chain"]
+    summary = V4.natural_summary(df, 0, {"n": 50, "seed": 0}, box=True)
+    assert set(summary) >= {"flat", "true", "box", "chains"}

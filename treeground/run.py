@@ -258,6 +258,19 @@ PROPOSED_DEVIATIONS = [
         "expected_impact": "higher chain coverage and success on single-level chains for every structure; the "
                            "two-level split isolates the effect of the tree on genuine object->part chains",
     },
+    {
+        "id": "D6",
+        "spec_section": "1 (Tree) / 5 (V4)",
+        "change": "additional V4 block: a box tree built from the same nodes' bounding boxes with the spec's parent "
+                  "rule (smallest larger box containing >= 80% of the node's box), compared with the mask tree and "
+                  "flat search on their own common eligible subset. Nodes, features and selector are unchanged; the "
+                  "spec-strict V4 block stays the reference",
+        "reason": "tree visualisations on the spec node set place occluded objects under the object occluding or "
+                  "holding them only by box containment (phone under the person holding it: mask tree depth 1, box "
+                  "tree depth 4); masks of occluded objects do not nest",
+        "expected_impact": "box-tree chains include support and occlusion relations; false links (an object behind a "
+                           "person inside the person's box) are possible and show up as lower box-tree success",
+    },
 ]
 
 

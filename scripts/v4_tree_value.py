@@ -65,6 +65,7 @@ def chain_inputs(cfg, sel, store, props, queries, qdir, li, layer, device):
         z = store.load(sha1, [f"hidden_L{layer}"])[f"hidden_L{layer}"]
         tree = T.build_tree(nodes["rles"])
         rand = [T.randomised_tree(tree, tree_seed(s, sha1)) for s in seeds]
+        box_tree = T.build_box_tree(nodes["boxes"])
         e = sel.nodes(z.to(device)) if len(z) else None
         probes = load_tensors(qdir / "probes" / f"{sha1}.safetensors", ["probes"])[0]["probes"]
         gts = paco.gt_rles(img)
@@ -77,7 +78,7 @@ def chain_inputs(cfg, sel, store, props, queries, qdir, li, layer, device):
                 qv = sel.queries(probes[q.offset:q.offset + 2, li].to(device))
                 sig = torch.sigmoid(sel.scores(qv, e)).cpu().numpy()
             ga = M.areas([gts[a] for a in gt])
-            out.append({"qid": q.qid, "image": key, "sha1": sha1, "tree": tree, "rand": rand,
+            out.append({"qid": q.qid, "image": key, "sha1": sha1, "tree": tree, "rand": rand, "box": box_tree,
                         "ious": step_ious, "sig": sig, "part_ratio": float(ga[1] / max(1, ga[0]))})
     return out
 
@@ -88,7 +89,8 @@ def feasible_inclusive(tree: T.Tree, ious: np.ndarray) -> bool:
     return any(p == o or tree.is_strict_descendant(p, o) for o in hits[0] for p in hits[1])
 
 
-def natural(chains: list[dict], tau: float, inclusive: bool = False) -> tuple[pd.DataFrame, list[int]]:
+def natural(chains: list[dict], tau: float, inclusive: bool = False,
+            box: bool = False) -> tuple[pd.DataFrame, list[int]]:
     rows, anchors = [], []
     for c in chains:
         n = c["ious"].shape[1]
@@ -97,7 +99,10 @@ def natural(chains: list[dict], tau: float, inclusive: bool = False) -> tuple[pd
         u1 = tree.root if a1 is None else a1
         s1 = a1 is not None and c["ious"][0, a1] >= THR
         anchors.append(len(tree.strict_descendants(u1)) if a1 is not None else -1)
-        structures = [("flat", None), ("true", tree)] + [(f"rand{k}", t) for k, t in enumerate(c["rand"])]
+        if box:  # D6 block: flat, mask tree and box tree only; step 1 is the same flat decision
+            structures = [("flat", None), ("true", tree), ("box", c["box"])]
+        else:
+            structures = [("flat", None), ("true", tree)] + [(f"rand{k}", t) for k, t in enumerate(c["rand"])]
         best2 = int(np.argmax(c["ious"][1])) if n else -1
         for name, t in structures:
             pool = np.arange(n) if t is None else t.strict_descendants(u1)
@@ -159,7 +164,7 @@ def count_controlled(chains: list[dict], tau: float, seeds: list[int], B: int) -
     return summary
 
 
-def natural_summary(df: pd.DataFrame, n_rand: int, bs: dict) -> dict:
+def natural_summary(df: pd.DataFrame, n_rand: int, bs: dict, box: bool = False) -> dict:
     wide = df.pivot(index="qid", columns="structure", values="feasible")
     common = wide.all(axis=1)
     out = {"chains": int(len(wide)), "common_eligible_subset": {"size": int(common.sum()),
@@ -174,7 +179,9 @@ def natural_summary(df: pd.DataFrame, n_rand: int, bs: dict) -> dict:
             v = v[subset.reindex(v.index).fillna(False).astype(bool)]
         return v
 
-    for name, structs in (("flat", ["flat"]), ("true", ["true"]), ("random", rand_names)):
+    groups = (("flat", ["flat"]), ("true", ["true"]), ("box", ["box"])) if box else \
+        (("flat", ["flat"]), ("true", ["true"]), ("random", rand_names))
+    for name, structs in groups:
         c = per_chain("chain", structs, common)
         s2 = per_chain("step2", structs, common)
         e2e = per_chain("chain", structs)
@@ -250,6 +257,16 @@ def main() -> None:
             "single_level": natural_summary(d5[d5.single_level], len(seeds), bs) if single.any() else None}
     else:
         metrics["natural_search_d5"] = "not computed: deviation D5 is not approved in deviations.jsonl"
+    if read_deviations(cfg).get("D6", {}).get("status") == "approved":
+        d6, _ = natural(chains, tau, box=True)
+        d6.to_csv(run / "chains_natural_d6_box.csv", index=False)
+        metrics["natural_search_d6_box_tree"] = {
+            "deviation": "D6: box-containment tree vs mask tree vs flat, on their own common eligible subset",
+            "all": natural_summary(d6, 0, bs, box=True),
+            "two_level": natural_summary(d6[~d6.single_level], 0, bs, box=True),
+            "single_level": natural_summary(d6[d6.single_level], 0, bs, box=True) if single.any() else None}
+    else:
+        metrics["natural_search_d6_box_tree"] = "not computed: deviation D6 is not approved in deviations.jsonl"
     write_json(run / "metrics.json", metrics)
     print(run)
 

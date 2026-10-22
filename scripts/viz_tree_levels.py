@@ -79,6 +79,8 @@ def main() -> None:
     ap.add_argument("--tau", type=float, default=0.95, help="dedup level of the nodes (0.95 keeps the most)")
     ap.add_argument("--stability", type=float, help="proposal cache built with this stability threshold")
     ap.add_argument("--max-levels", type=int, default=8)
+    ap.add_argument("--tree-from", choices=["masks", "boxes"], default="masks",
+                    help="containment of node masks (spec) or of their bounding boxes")
     ap.add_argument("--min-frac", type=float, default=0.001, help="outline hides nodes below this image fraction")
     args = ap.parse_args()
     cfg = load_config(args.config)
@@ -87,6 +89,7 @@ def main() -> None:
     mrun, manifest, mhash, wl = manifest_inputs(cfg, False)
     props = open_proposals(cfg, False, manifest, mhash)
     run = start_run("viz_tree_levels", cfg, False, {"proposals": str(props.path), "tau": args.tau,
+                                                     "tree_from": args.tree_from,
                                                      "images": args.images, "diagnostic": True})
     (run / "img").mkdir()
     rows = wl.drop_duplicates("image_key").set_index("image_key")
@@ -106,7 +109,8 @@ def main() -> None:
         image = load_rgb(row.path)
         nodes = props.nodes(row.sha1, args.tau)
         rles = nodes["rles"]
-        tree = T.build_tree(rles, cfg.get("device"))
+        tree = (T.build_box_tree(nodes["boxes"]) if args.tree_from == "boxes"
+                else T.build_tree(rles, cfg.get("device")))
         dense = np.stack([M.decode(r).astype(bool) for r in rles]) if rles else np.zeros((0,) + image.shape[:2], bool)
         names = names_for(rles, pacos.get(key))
         panels = [image.copy()] + level_panels(image, dense, tree, args.max_levels)
@@ -129,7 +133,7 @@ def main() -> None:
         print(f"{key}: nodes {len(rles)} max depth {rec['max_depth']} per depth {rec['nodes_per_depth']}", flush=True)
     page = ("<!doctype html><meta charset='utf-8'><title>TreeGround tree levels</title>"
             "<body style='font:14px sans-serif;margin:16px'>"
-            f"<h1>SAM 3 containment tree, tau_d {args.tau}</h1><p>{html.escape(str(props.path))}</p>"
+            f"<h1>SAM 3 containment tree ({args.tree_from}), tau_d {args.tau}</h1><p>{html.escape(str(props.path))}</p>"
             "<p>Each panel shows the nodes at one depth of the tree; the rest of the image is dimmed. "
             "Depth 1 hangs directly under the whole image; deeper levels lie inside the level above.</p>"
             + "".join(sections) + "</body>")

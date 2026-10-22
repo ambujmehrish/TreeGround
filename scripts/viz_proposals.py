@@ -193,8 +193,12 @@ def main() -> None:
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--tau", type=float, default=None, help="dedup threshold of the nodes to draw (default node_dedup)")
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--images", nargs="+", help="only these image keys, e.g. paco_lvis:110573")
+    ap.add_argument("--stability", type=float, help="open the proposal cache built with this stability threshold")
     args = ap.parse_args()
     cfg = load_config(args.config)
+    if args.stability is not None:
+        cfg["proposals"]["stability_thresh"] = args.stability
     tau = args.tau if args.tau is not None else cfg["proposals"]["node_dedup"]
     mrun, manifest, mhash, wl = manifest_inputs(cfg, args.smoke)
     props = open_proposals(cfg, args.smoke, manifest, mhash)
@@ -202,6 +206,11 @@ def main() -> None:
                                                         "tau": tau, "diagnostic": True})
     (run / "images").mkdir()
     keys = wl.drop_duplicates("image_key").sort_values(["role", "image_key"])
+    if args.images:
+        keys = keys[keys.image_key.isin(args.images)]
+        missing = set(args.images) - set(keys.image_key)
+        if missing:
+            raise SystemExit(f"not in the worklist: {sorted(missing)}")
     if args.limit:
         keys = keys.head(args.limit)
     sources = {"paco": {}, "partonomy": {}, "gref": {}}

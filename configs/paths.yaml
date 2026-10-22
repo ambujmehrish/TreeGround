@@ -14,6 +14,10 @@ data:
   pascal_part_ann: ${TG_DATA}/pascal_part/Annotations_Part      # Pascal-Part .mat files (trainval.tar.gz)
   pascal_voc: ${TG_DATA}/pascal_part/VOCdevkit/VOC2010          # JPEGImages/, ImageSets/Main/val.txt
   ade20k_parquet: ${TG_DATA}/ade20k/data/validation-00000-of-00001.parquet  # HF mirror 1aurent/ADE20K
+  lvis_val_json: ${TG_DATA}/lvis/lvis_v1_val.json                           # images from coco_images/{train,val}2017
+  openimages_boxes: ${TG_DATA}/openimages/validation-annotations-bbox.csv
+  openimages_classes: ${TG_DATA}/openimages/oidv7-class-descriptions-boxable.csv
+  openimages_images: ${TG_DATA}/openimages/validation                       # <ImageID>.jpg
 
 models:
   qwen: {repo: Qwen/Qwen3-VL-4B-Instruct, revision: ebb281ec70b05090aa6165b016eac8ec08e71b17}

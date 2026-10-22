@@ -47,3 +47,16 @@ def test_ade20k_chains_object_part_and_subpart():
     doors = [c for c in chains if c[2] == "door"][0]
     assert M.areas([doors[4]])[0] == 20 * 9 + 20 * 10   # both doors merged into one mask
     assert ade20k.short_name("person, individual, someone") == "person"
+
+
+def test_box_hierarchy_rules():
+    from treeground.data import lvis_hier, openimages_hier
+    assert lvis_hier.display("monitor_(computer_equipment) computer_monitor") == "monitor"
+    assert lvis_hier.display("teddy_bear") == "teddy bear"
+    car = openimages_hier.OIBox("car", np.array([0.0, 0.0, 0.8, 0.8]))
+    wheel = openimages_hier.OIBox("wheel", np.array([0.1, 0.5, 0.3, 0.8]))
+    dup = openimages_hier.OIBox("vehicle", np.array([0.0, 0.0, 0.79, 0.8]))   # same entity, second label
+    pairs = {("car", "wheel"): {}, ("vehicle", "car"): {}, ("car", "vehicle"): {}}
+    ch = openimages_hier.chains("x", [car, wheel, dup], pairs, 100, 100)
+    assert [c[1:3] for c in ch] == [("car", "wheel")]
+    assert np.allclose(ch[0][4], [10, 50, 30, 80])

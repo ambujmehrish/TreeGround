@@ -5,3 +5,5 @@ transfer:
   probe_batch: 16
   pascal_part: {split: val}
   ade20k: {split: validation}
+  lvis_hier: {split: val, rule: "2411.17490 App. B.3 (80% box containment, freq 5, prop 5%)"}
+  openimages_hier: {split: validation, rule: "2411.17490 App. A (80% box containment, freq 50, prop 10%), box-matched"}

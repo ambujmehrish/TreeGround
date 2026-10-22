@@ -277,7 +277,12 @@ PROPOSED_DEVIATIONS = [
         "change": "transfer evaluation of the PACO-trained V2 selector, without retraining, on Pascal-Part (VOC 2010 "
                   "val, left/right and numbered parts merged into one mask per part type) and ADE20K (2021 release, "
                   "validation, visible instance masks, object->part and part->subpart chains, same-name children "
-                  "merged); same proposals (D3), node budget (D4), chain template and V4 search incl. D5/D6. "
+                  "merged); LVIS v1 val and OpenImages validation box hierarchies rebuilt with the rule of arXiv 2411.17490 "
+                  "(80% box containment; pair frequency/proportion 5/5% on LVIS, 50/10% on OpenImages; boxes under 1% "
+                  "of the image and IsGroupOf dropped; additionally child boxes >= 90% of the parent box, i.e. the same "
+                  "entity labelled twice, dropped), LVIS scored with masks, OpenImages box-matched, LVIS images used "
+                  "by the PACO/gRefCOCO manifest excluded; same proposals (D3), node budget (D4), chain template and V4 "
+                  "search incl. D5/D6. "
                   "Reported per dataset as transfer results; PACO stays the main pilot",
         "reason": "PACO parts are dominated by small and boundary-less parts; recent part-grounding work evaluates on "
                   "Pascal-Part and ADE20K-Part; ADE20K adds deeper scene hierarchies",

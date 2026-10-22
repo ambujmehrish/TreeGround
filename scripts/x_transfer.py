@@ -20,7 +20,8 @@ from treeground import mllm  # noqa: E402
 from treeground import proposals as P  # noqa: E402
 from treeground import tree as T  # noqa: E402
 from treeground.cache import code_version  # noqa: E402
-from treeground.data import ade20k, pascal_part  # noqa: E402
+from treeground.data import ade20k, lvis_hier, openimages_hier, pascal_part  # noqa: E402
+from treeground.identity import manifest_inputs  # noqa: E402
 from treeground.data.images import load_rgb  # noqa: E402
 from treeground.data.paco import CHAIN_TEMPLATE  # noqa: E402
 from treeground.features import image_features  # noqa: E402
@@ -36,7 +37,7 @@ from treeground.selector import Selector  # noqa: E402
 # --merge pools the shards and writes the summaries. Every number is a transfer result, labelled per dataset.
 
 THR = 0.5
-DATASETS = ("pascal_part", "ade20k")
+DATASETS = ("pascal_part", "ade20k", "lvis_hier", "openimages_hier")
 
 
 def load_v4():
@@ -64,6 +65,27 @@ def records(cfg: dict, dataset: str, shard: int, num_shards: int):
         n = sum(k for _, k in ade20k.row_groups(path))
         for _, image, img in ade20k.iter_rows(path, set(range(shard, n, num_shards))):
             yield img.key, image, (img.h, img.w), ade20k.chains(img), ade20k.all_parts(img)
+    elif dataset == "lvis_hier":
+        imgs = lvis_hier.load(assert_real_path(cfg["data"]["lvis_val_json"]))
+        pairs = lvis_hier.class_pairs(imgs)
+        _, _, _, wl = manifest_inputs(cfg, False)
+        used = {int(k.split(":")[1]) for k in wl.image_key if k.split(":")[0] in ("paco_lvis", "grefcoco")}
+        ids = [i for i in sorted(imgs) if i not in used and lvis_hier.chains(imgs[i], pairs)]
+        for i in ids[shard::num_shards]:
+            img = imgs[i]
+            image = load_rgb(assert_real_path(Path(cfg["data"]["coco_images"]) / img.file_name))
+            ch = lvis_hier.chains(img, pairs)
+            yield img.key, image, (img.h, img.w), ch, [(c[0].split("|")[-1], c[4]) for c in ch]
+    elif dataset == "openimages_hier":
+        names = openimages_hier.class_names(assert_real_path(cfg["data"]["openimages_classes"]))
+        boxes = openimages_hier.load_boxes(assert_real_path(cfg["data"]["openimages_boxes"]), names)
+        pairs = openimages_hier.class_pairs(boxes)
+        ids = [i for i in sorted(boxes) if openimages_hier.chains(i, boxes[i], pairs, 1, 1)]
+        for i in ids[shard::num_shards]:
+            image = load_rgb(assert_real_path(Path(cfg["data"]["openimages_images"]) / f"{i}.jpg"))
+            h, w = image.shape[:2]
+            ch = openimages_hier.chains(i, boxes[i], pairs, w, h)
+            yield f"openimages:{i}", image, (h, w), ch, [(c[0].split("|")[-1], c[4]) for c in ch]
     else:
         raise ProtocolError(f"unknown transfer dataset {dataset}")
 
@@ -79,7 +101,8 @@ def node_cap() -> dict:
 
 def identity(cfg: dict, dataset: str, v2: Path) -> dict:
     p, m = cfg["proposals"], cfg["models"]
-    files = ["scripts/x_transfer.py", "treeground/data/pascal_part.py", "treeground/data/ade20k.py"]
+    files = ["scripts/x_transfer.py", "treeground/data/pascal_part.py", "treeground/data/ade20k.py",
+             "treeground/data/lvis_hier.py", "treeground/data/openimages_hier.py"]
     h = hashlib.sha256()
     for rel in files:
         h.update((REPO / rel).read_bytes())
@@ -105,6 +128,21 @@ def cap_nodes(rles, boxes, stability, src, cap):
     return np.sort(keep)
 
 
+def gt_ious(gts, rles, boxes) -> np.ndarray:
+    # IoU of every GT (rows) with every node (columns); boxes (x0, y0, x1, y1 arrays) are box-matched (I10)
+    if not rles:
+        return np.zeros((len(gts), 0))
+    if isinstance(gts[0], np.ndarray):
+        return M.box_iou(np.stack(gts), boxes)
+    return M.iou(rles, gts).T
+
+
+def gt_area(g) -> float:
+    if isinstance(g, np.ndarray):
+        return float(max(0.0, g[2] - g[0]) * max(0.0, g[3] - g[1]))
+    return float(M.areas([g])[0])
+
+
 @torch.no_grad()
 def process_image(models, cfg, key, image, hw, chains, parts, cap, V4):
     sam, sproc, qwen, qproc, sel, sel_id, layer, device = models
@@ -119,9 +157,10 @@ def process_image(models, cfg, key, image, hw, chains, parts, cap, V4):
     boxes, stab, src = out["boxes"][kept], out["stability"][kept], out["src_index"][kept]
     cov = []
     if parts:
-        best = M.iou(rles, [r for _, r in parts]).max(0) if rles else np.zeros(len(parts))
-        cov += [{"image": key, "kind": "part", "label": lab, "area_bin": area_bin(a), "best_iou": float(b)}
-                for (lab, _), a, b in zip(parts, M.areas([r for _, r in parts]), best)]
+        pi = gt_ious([r for _, r in parts], rles, boxes)
+        best = pi.max(1) if pi.shape[1] else np.zeros(len(parts))
+        cov += [{"image": key, "kind": "part", "label": lab, "area_bin": area_bin(gt_area(r)), "best_iou": float(b)}
+                for (lab, r), b in zip(parts, best)]
     full_tree = T.build_tree(rles, device) if rles else None
     c_idx = cap_nodes(rles, boxes, stab, src, cap)
     rc = [rles[i] for i in c_idx]
@@ -140,9 +179,9 @@ def process_image(models, cfg, key, image, hw, chains, parts, cap, V4):
                                cfg["transfer"]["probe_batch"])
     items = []
     for (qid, obj, part, orle, prle), pr in zip(chains, probes):
-        ious = M.iou(rc, [orle, prle]).T if rc else np.zeros((2, 0))
-        full = M.iou(rles, [orle, prle]).T if rles else np.zeros((2, 0))
-        ga = M.areas([orle, prle])
+        ious = gt_ious([orle, prle], rc, bc)
+        full = gt_ious([orle, prle], rles, boxes)
+        ga = np.array([gt_area(orle), gt_area(prle)])
         if rc:
             qv = sel.queries(torch.from_numpy(np.ascontiguousarray(pr[:, 0])).to(device))
             sig = torch.sigmoid(sel.scores(qv, e)).cpu().numpy()

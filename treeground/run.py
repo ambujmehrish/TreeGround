@@ -271,6 +271,18 @@ PROPOSED_DEVIATIONS = [
         "expected_impact": "box-tree chains include support and occlusion relations; false links (an object behind a "
                            "person inside the person's box) are possible and show up as lower box-tree success",
     },
+    {
+        "id": "D7",
+        "spec_section": "amendment (additional evaluation data)",
+        "change": "transfer evaluation of the PACO-trained V2 selector, without retraining, on Pascal-Part (VOC 2010 "
+                  "val, left/right and numbered parts merged into one mask per part type) and ADE20K (2021 release, "
+                  "validation, visible instance masks, object->part and part->subpart chains, same-name children "
+                  "merged); same proposals (D3), node budget (D4), chain template and V4 search incl. D5/D6. "
+                  "Reported per dataset as transfer results; PACO stays the main pilot",
+        "reason": "PACO parts are dominated by small and boundary-less parts; recent part-grounding work evaluates on "
+                  "Pascal-Part and ADE20K-Part; ADE20K adds deeper scene hierarchies",
+        "expected_impact": "coverage and chain success on datasets with coarser parts; no change to any PACO result",
+    },
 ]
 
 

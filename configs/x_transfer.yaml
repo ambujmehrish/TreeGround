@@ -1,0 +1,7 @@
+include: v4.yaml
+inputs: {manifest: latest, v2: latest}
+transfer:
+  num_shards: 64
+  probe_batch: 16
+  pascal_part: {split: val}
+  ade20k: {split: validation}

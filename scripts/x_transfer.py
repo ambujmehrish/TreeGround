@@ -216,7 +216,7 @@ def load_models(cfg: dict, v2: Path):
 
 
 def run_shard(cfg, dataset, shard, num_shards):
-    require_approved(cfg, ["D3", "D4", "D7"])
+    require_approved(cfg, ["D3", "D4", "D7"] + (["D8"] if dataset in ("lvis_hier", "openimages_hier") else []))
     v2 = selector_run(cfg)
     ident = identity(cfg, dataset, v2)
     d = out_dir(cfg, dataset, ident)

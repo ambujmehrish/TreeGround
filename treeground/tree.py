@@ -73,9 +73,11 @@ def parents_from_overlaps(areas: np.ndarray, inter: np.ndarray) -> np.ndarray:
     return parent
 
 
-def build_tree(rles: list[M.Rle]) -> Tree:
+def build_tree(rles: list[M.Rle], device: str | None = None) -> Tree:
+    # device: compute pairwise intersections on an accelerator (identical integers, much faster for 1000+ masks)
     areas = M.areas(rles)
-    return from_parents(parents_from_overlaps(areas, M.intersections(rles, rles)))
+    inter = M.intersections_dense(rles, device) if device and len(rles) > 64 else M.intersections(rles, rles)
+    return from_parents(parents_from_overlaps(areas, inter))
 
 
 def randomised_tree(tree: Tree, seed: int) -> Tree:

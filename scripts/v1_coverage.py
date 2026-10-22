@@ -1,5 +1,6 @@
 import argparse
 import sys
+import time
 from collections import defaultdict
 from pathlib import Path
 
@@ -39,7 +40,11 @@ def summarize_chains(rows: list[dict]) -> dict:
 def paco_val(cfg, props, wl, tau, chains: bool = True):
     images = paco.load(cfg["data"]["paco_lvis"], "val")
     parts, chain_rows, i1 = [], [], defaultdict(int)
-    for row in wl[wl.role == "paco_val"].drop_duplicates("image_key").sort_values("image_key").itertuples():
+    rows = wl[wl.role == "paco_val"].drop_duplicates("image_key").sort_values("image_key")
+    t0 = time.time()
+    for i, row in enumerate(rows.itertuples(), 1):
+        if i % 200 == 0 or i == len(rows):
+            print(f"[tau {tau}] {i}/{len(rows)} images {time.time() - t0:.0f}s", flush=True)
         img = images[int(row.image_key.split(":")[1])]
         nodes = props.nodes(row.sha1, tau)
         if (nodes["h"], nodes["w"]) != (img.h, img.w):
@@ -54,7 +59,7 @@ def paco_val(cfg, props, wl, tau, chains: bool = True):
             i1[k] += v
         if not chains:
             continue
-        tree = T.build_tree(nodes["rles"])
+        tree = T.build_tree(nodes["rles"], cfg.get("device"))
         gts = paco.gt_rles(img)
         for q in (q for q in queries if q.kind == "chain"):
             step = M.iou(nodes["rles"], [gts[a] for a in q.gt]).T if len(nodes["rles"]) else np.zeros((2, 0))
@@ -86,7 +91,7 @@ def partonomy_cov(cfg, props, wl, tau):
         if all_parts:
             best = M.iou(nodes["rles"], all_parts).max(0) if nodes["rles"] else np.zeros(len(all_parts))
             hits += list(best >= THR)
-        tree = T.build_tree(nodes["rles"])
+        tree = T.build_tree(nodes["rles"], cfg.get("device"))
         for name, root, part in partonomy.chains(img):
             step = M.iou(nodes["rles"], [root, part]).T if nodes["rles"] else np.zeros((2, 0))
             feas, best = chain_coverage(tree, step) if step.shape[1] else (False, False)
@@ -106,7 +111,7 @@ def sceneparser_cov(cfg, props, wl, tau):
         if img.key not in wanted:
             continue
         nodes = props.nodes(keys[img.key], tau)
-        tree = T.build_tree(nodes["rles"])
+        tree = T.build_tree(nodes["rles"], cfg.get("device"))
         for c in sceneparser.chains(img):
             step = M.box_iou(np.asarray(c["boxes"]), nodes["boxes"]) if len(nodes["rles"]) else np.zeros((len(c["boxes"]), 0))
             feas, best = chain_coverage(tree, step) if step.shape[1] else (False, False)

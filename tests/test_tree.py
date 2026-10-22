@@ -82,3 +82,13 @@ def test_mask_ops_with_many_masks():
     assert np.array_equal(M.areas(rles), ms.reshape(300, -1).sum(1))
     assert M.boxes_xyxy(rles).shape == (300, 4)
     assert M.iou(rles, rles).shape == (300, 300)
+
+
+def test_dense_intersections_match_rle():
+    rng = np.random.default_rng(0)
+    base = rng.random((70, 23, 31)) < 0.3
+    nested = np.stack([base[k] | (rng.random((23, 31)) < 0.1 * (k % 3)) for k in range(70)])
+    rles = M.encode(nested)
+    assert np.array_equal(M.intersections_dense(rles, "cpu", block=16), M.intersections(rles, rles))
+    a, b = T.build_tree(rles), T.build_tree(rles, "cpu")
+    assert np.array_equal(a.parent, b.parent)

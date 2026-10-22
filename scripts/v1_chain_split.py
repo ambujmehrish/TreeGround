@@ -35,7 +35,7 @@ def classify(tree: T.Tree, areas: np.ndarray, inter_po: int, o: int, p: int) -> 
     return "linked" if tree.is_strict_descendant(p, o) else "wrong_branch"
 
 
-def split(cfg, props, wl, tau, device, max_images):
+def split(cfg, props, wl, tau, device, max_images, tree_from="masks"):
     images = paco.load(cfg["data"]["paco_lvis"], "val")
     rows = wl[wl.role == "paco_val"].drop_duplicates("image_key").sort_values("image_key")
     if max_images:
@@ -54,9 +54,12 @@ def split(cfg, props, wl, tau, device, max_images):
         rles = nodes["rles"]
         trees = {}
         if rles:
-            areas = M.areas(rles)
-            inter_all = (T.intersections_dense(rles, device) if device and len(rles) > 64
-                         else M.intersections(rles, rles))
+            if tree_from == "boxes":
+                areas, inter_all = T.box_overlaps(nodes["boxes"])
+            else:
+                areas = M.areas(rles)
+                inter_all = (T.intersections_dense(rles, device) if device and len(rles) > 64
+                             else M.intersections(rles, rles))
             trees = {c: T.from_parents(T.parents_from_overlaps(areas, inter_all, n, d))
                      for c, (n, d) in CONTAINMENT.items()}
         tree = trees.get("0.8")
@@ -74,9 +77,14 @@ def split(cfg, props, wl, tau, device, max_images):
                       for c, t in trees.items()}}
             if rec["both_hit"] and not rec["tree_feasible"]:
                 o, p = int(np.argmax(step[0])), int(np.argmax(step[1]))
-                inter = int(M.intersections([rles[p]], [rles[o]])[0, 0])
-                rec["containment"] = inter / max(1, int(nodes["areas"][p]))
-                rec["reason"] = classify(tree, nodes["areas"], inter, o, p)
+                if tree_from == "boxes":
+                    inter = int(inter_all[p, o])
+                    rec["containment"] = inter / max(1, int(areas[p]))
+                    rec["reason"] = classify(tree, areas, inter, o, p)
+                else:
+                    inter = int(M.intersections([rles[p]], [rles[o]])[0, 0])
+                    rec["containment"] = inter / max(1, int(nodes["areas"][p]))
+                    rec["reason"] = classify(tree, nodes["areas"], inter, o, p)
             recs.append(rec)
     return pd.DataFrame(recs)
 
@@ -114,19 +122,21 @@ def main() -> None:
     ap.add_argument("--stability", type=float, help="open the proposal cache built with this stability threshold "
                                                      "(0.9 = spec cache; default: the current config, D3)")
     ap.add_argument("--max-images", type=int)
+    ap.add_argument("--tree-from", choices=["masks", "boxes"], default="masks",
+                    help="build the containment tree from node masks (spec) or from their bounding boxes")
     args = ap.parse_args()
     cfg = load_config(args.config)
     if args.stability is not None:
         cfg["proposals"]["stability_thresh"] = args.stability
     mrun, manifest, mhash, wl = manifest_inputs(cfg, False)
     props = open_proposals(cfg, False, manifest, mhash)
-    tag = f"stability{cfg['proposals']['stability_thresh']}"
+    tag = f"stability{cfg['proposals']['stability_thresh']}_tree-{args.tree_from}"
     run = start_run("v1_chain_split", cfg, False, {"manifest_run": str(mrun), "proposals": str(props.path),
                                                     "proposal_setting": tag})
     out = {"split": "PACO-LVIS val I1 chains", "label": "dev", "diagnostic": True, "proposal_setting": tag,
            "by_tau": {}}
     for tau in cfg["v1"]["taus"]:
-        df = split(cfg, props, wl, tau, cfg.get("device"), args.max_images)
+        df = split(cfg, props, wl, tau, cfg.get("device"), args.max_images, args.tree_from)
         df.to_csv(run / f"chains_tau{tau}.csv", index=False)
         out["by_tau"][str(tau)] = s = summary(df)
         print(f"tau {tau}: chains {s['chains']} object {s['object_found']:.3f} part {s['part_found']:.3f} "

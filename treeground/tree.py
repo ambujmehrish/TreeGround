@@ -120,6 +120,22 @@ def intersections_dense(rles: list[M.Rle], device: str, block: int = 512) -> np.
     return out
 
 
+def box_overlaps(boxes: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    # integer box areas and pairwise box intersections (RLE boxes are whole-pixel [x0, y0, x1, y1))
+    b = np.rint(np.asarray(boxes, dtype=np.float64).reshape(-1, 4)).astype(np.int64)
+    w = np.clip(b[:, 2] - b[:, 0], 0, None)
+    h = np.clip(b[:, 3] - b[:, 1], 0, None)
+    iw = np.clip(np.minimum(b[:, None, 2], b[None, :, 2]) - np.maximum(b[:, None, 0], b[None, :, 0]), 0, None)
+    ih = np.clip(np.minimum(b[:, None, 3], b[None, :, 3]) - np.maximum(b[:, None, 1], b[None, :, 1]), 0, None)
+    return w * h, iw * ih
+
+
+def build_box_tree(boxes: np.ndarray, num: int = CONTAIN_NUM, den: int = CONTAIN_DEN) -> Tree:
+    # same parent rule as build_tree, applied to the nodes' bounding boxes instead of their masks
+    areas, inter = box_overlaps(boxes)
+    return from_parents(parents_from_overlaps(areas, inter, num, den))
+
+
 def build_tree(rles: list[M.Rle], device: str | None = None) -> Tree:
     # device: compute pairwise intersections on an accelerator (identical integers, much faster for 1000+ masks)
     areas = M.areas(rles)

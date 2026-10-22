@@ -92,3 +92,13 @@ def test_dense_intersections_match_rle():
     assert np.array_equal(T.intersections_dense(rles, "cpu", block=16), M.intersections(rles, rles))
     a, b = T.build_tree(rles), T.build_tree(rles, "cpu")
     assert np.array_equal(a.parent, b.parent)
+
+
+def test_box_tree_nests_on_box_containment():
+    # table box contains a vase box that sits on it (pixels disjoint); the vase box contains its body box
+    boxes = np.array([[0, 40, 100, 80], [40, 20, 60, 70], [42, 30, 58, 68]], dtype=np.float64)
+    areas, inter = T.box_overlaps(boxes)
+    assert list(areas) == [4000, 1000, 608]
+    t = T.build_box_tree(boxes, 1, 2)  # 50% containment: the vase box is 60% inside the table box
+    assert t.parent[1] == 0 and t.parent[2] == 1
+    assert T.build_box_tree(boxes).parent[1] == t.root  # at the spec's 80% the vase stays under the root

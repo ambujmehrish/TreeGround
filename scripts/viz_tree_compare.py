@@ -107,14 +107,18 @@ def main() -> None:
     ap.add_argument("--tau", type=float, default=0.95)
     ap.add_argument("--stability", type=float)
     ap.add_argument("--max-levels", type=int, default=6)
-    ap.add_argument("--min-frac", type=float, default=0.002, help="hide nodes below this fraction of the image")
+    ap.add_argument("--min-frac", type=float, default=0.005, help="hide nodes below this fraction of the image")
+    ap.add_argument("--capped", action="store_true",
+                    help="use the selector's node set (D4: top nodes by stability), as V2/V4 see it")
+    ap.add_argument("--max-nodes", type=int, help="draw at most this many nodes, most stable first")
     args = ap.parse_args()
     cfg = load_config(args.config)
     if args.stability is not None:
         cfg["proposals"]["stability_thresh"] = args.stability
     mrun, manifest, mhash, wl = manifest_inputs(cfg, False)
-    props = open_proposals(cfg, False, manifest, mhash)
+    props = open_proposals(cfg, False, manifest, mhash, capped=args.capped)
     run = start_run("viz_tree_compare", cfg, False, {"proposals": str(props.path), "tau": args.tau,
+                                                      "capped": args.capped, "max_nodes": args.max_nodes,
                                                       "images": args.images, "diagnostic": True})
     (run / "img").mkdir()
     rows = wl.drop_duplicates("image_key").set_index("image_key")
@@ -139,6 +143,10 @@ def main() -> None:
         trees = {"mask tree (spec)": T.build_tree(rles, cfg.get("device")),
                  "box tree": T.build_box_tree(nodes["boxes"])}
         keep = areas >= args.min_frac * hw
+        if args.max_nodes and keep.sum() > args.max_nodes:
+            ranked = np.flatnonzero(keep)[np.lexsort((np.flatnonzero(keep), -nodes["stability"][keep]))]
+            keep = np.zeros_like(keep)
+            keep[ranked[:args.max_nodes]] = True
         dense = np.stack([M.decode(r).astype(bool) for r in rles]) if rles else np.zeros((0,) + image.shape[:2], bool)
         colors = node_colors(len(rles))
         names = names_for(rles, pacos.get(key))
@@ -182,7 +190,8 @@ def main() -> None:
         print(f"{key}: nodes {len(rles)} drawn {int(keep.sum())} different parent {changed} {stats}", flush=True)
     page = ("<!doctype html><meta charset='utf-8'><title>TreeGround tree comparison</title>"
             "<body style='font:14px sans-serif;margin:16px'>"
-            f"<h1>Mask tree vs box tree, tau_d {args.tau}</h1><p>{html.escape(str(props.path))}</p>"
+            f"<h1>Mask tree vs box tree, tau_d {args.tau}{' (selector node set, D4)' if args.capped else ''}</h1>"
+            f"<p>{html.escape(str(props.path))}</p>"
             "<p>Left: containment of SAM 3 masks (spec). Right: containment of the same nodes' bounding boxes. "
             "Rows are tree depths; each node has the same colour in both trees and in the outlines. "
             "Names are PACO objects or parts the node matches at IoU &ge; 0.5.</p>" + "".join(sections) + "</body>")

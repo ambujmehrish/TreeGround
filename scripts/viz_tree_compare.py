@@ -15,7 +15,7 @@ from treeground.data import paco  # noqa: E402
 from treeground.data.images import load_rgb  # noqa: E402
 from treeground.identity import manifest_inputs, open_proposals  # noqa: E402
 from treeground.run import load_config, start_run, write_json  # noqa: E402
-from viz_proposals import overlay  # noqa: E402
+from viz_proposals import DEPTH_COLS, DEPTH_NAMES, anchor, fit, label, legend, overlay, title  # noqa: E402
 from viz_tree_levels import names_for  # noqa: E402
 
 # Diagnostic: the same SAM 3 nodes arranged by mask containment (spec) and by bounding-box containment, side by
@@ -42,6 +42,42 @@ def depth_panel(image, dense, idx, colors, title):
     for t, c in (((0, 0, 0), 3), ((255, 255, 255), 1)):
         cv2.putText(pnl, title, (6, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.55, t, c, cv2.LINE_AA)
     return pnl
+
+
+def depth_view(image, dense, tree, keep):
+    base = (image * 0.3).astype(np.uint8)
+    out = base
+    dmax = int(tree.depth[:tree.n][keep].max(initial=0))
+    for d in range(1, dmax + 1):
+        idx = np.flatnonzero((tree.depth[:tree.n] == d) & keep)
+        out = overlay(out, [dense[i] for i in idx], [DEPTH_COLS[(d - 1) % len(DEPTH_COLS)]] * len(idx),
+                      alpha=0.55, contour=1)
+    key = " ".join(f"d{d}={DEPTH_NAMES[(d - 1) % len(DEPTH_NAMES)]}" for d in range(1, dmax + 1))
+    return out, key
+
+
+def overview(image, dense, trees, keep, colors, names):
+    drawn = np.flatnonzero(keep)
+    base = (image * 0.3).astype(np.uint8)
+    if len(drawn):
+        cov = dense[drawn].any(0)
+        base[cov] = image[cov]
+    order = drawn[np.argsort(-dense[drawn].reshape(len(drawn), -1).sum(1))] if len(drawn) else drawn
+    nodes_panel = overlay(base, [dense[i] for i in order], colors[order], alpha=0.45, contour=1)
+    scale = max(0.35, image.shape[1] / 1400)
+    for i in (i for i in order if names[i]):
+        label(nodes_panel, str(i), anchor(dense[i]), colors[i], scale)
+    panels = [title(fit(image), "image"),
+              title(fit(nodes_panel), f"{len(drawn)} nodes, own colour each (numbers: PACO match)")]
+    for name, t in trees.items():
+        view, key = depth_view(image, dense, t, keep)
+        panels.append(title(fit(view), f"{name}: {key}"))
+    hmax = max(p.shape[0] for p in panels)
+    panels = [np.vstack([p, np.zeros((hmax - p.shape[0], p.shape[1], 3), np.uint8)]) for p in panels]
+    strip = np.hstack(panels)
+    entries = [(f"{i}: {names[i]}  d{trees['mask tree (spec)'].depth[i]} mask / d{trees['box tree'].depth[i]} box",
+                tuple(int(c) for c in colors[i])) for i in order if names[i]]
+    return np.vstack([strip, legend(entries, strip.shape[1])])
 
 
 def chip(rgb) -> str:
@@ -120,6 +156,9 @@ def main() -> None:
         canvas = np.concatenate([head] + grid_rows, 0)
         fname = f"{k:02d}_{key.replace(':', '_')}.jpg"
         cv2.imwrite(str(run / "img" / fname), cv2.cvtColor(canvas, cv2.COLOR_RGB2BGR), [cv2.IMWRITE_JPEG_QUALITY, 88])
+        oname = f"{k:02d}_{key.replace(':', '_')}_overview.jpg"
+        cv2.imwrite(str(run / "img" / oname), cv2.cvtColor(overview(image, dense, trees, keep, colors, names),
+                                                           cv2.COLOR_RGB2BGR), [cv2.IMWRITE_JPEG_QUALITY, 88])
         stats = {}
         for name, t in trees.items():
             dep = t.depth[:t.n][keep]
@@ -135,7 +174,9 @@ def main() -> None:
         sections.append(f"<h2>{html.escape(key)}</h2><p>{len(rles)} nodes, {int(keep.sum())} drawn "
                         f"(at least {100 * args.min_frac:.1f}% of the image); {changed} drawn nodes have a different "
                         f"parent in the two trees. {html.escape(str(stats))}</p>"
-                        f"<img src='img/{fname}' style='max-width:100%'>"
+                        f"<img src='img/{oname}' style='max-width:100%'>"
+                        f"<details open><summary>per-depth comparison (left mask tree, right box tree)</summary>"
+                        f"<img src='img/{fname}' style='max-width:100%'></details>"
                         f"<details open><summary>tree outlines (same colours as the picture)</summary>"
                         f"<div style='display:flex;gap:24px;flex-wrap:wrap;font:12px monospace'>{cols}</div></details>")
         print(f"{key}: nodes {len(rles)} drawn {int(keep.sum())} different parent {changed} {stats}", flush=True)

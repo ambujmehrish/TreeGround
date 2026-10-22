@@ -18,10 +18,12 @@ from treeground.data import paco  # noqa: E402
 from treeground.identity import (manifest_inputs, open_features, open_proposals, open_queries,  # noqa: E402
                                  qwen_static)
 from treeground.metrics import describe, mean_ci  # noqa: E402
-from treeground.run import ProtocolError, load_config, read_json, resolve_run, start_run, v1_gate, write_json  # noqa: E402
+from treeground.run import (ProtocolError, load_config, read_deviations, read_json, resolve_run,  # noqa: E402
+                            start_run, v1_gate, write_json)  # noqa: E402
 from treeground.selector import Selector  # noqa: E402
 
 THR = 0.5
+SINGLE_LEVEL = 0.5  # D5 split: |GT part| >= 0.5 |GT object| makes the object's own mask a valid part answer
 I11_NOTE = ("confound (I11): the V2 checkpoint was trained with chain negatives drawn from the true subtree, "
             "so the true-tree row is evaluated under the candidate distribution it was trained on")
 
@@ -74,12 +76,19 @@ def chain_inputs(cfg, sel, store, props, queries, qdir, li, layer, device):
             else:
                 qv = sel.queries(probes[q.offset:q.offset + 2, li].to(device))
                 sig = torch.sigmoid(sel.scores(qv, e)).cpu().numpy()
+            ga = M.areas([gts[a] for a in gt])
             out.append({"qid": q.qid, "image": key, "sha1": sha1, "tree": tree, "rand": rand,
-                        "ious": step_ious, "sig": sig})
+                        "ious": step_ious, "sig": sig, "part_ratio": float(ga[1] / max(1, ga[0]))})
     return out
 
 
-def natural(chains: list[dict], tau: float) -> tuple[pd.DataFrame, list[int]]:
+def feasible_inclusive(tree: T.Tree, ious: np.ndarray) -> bool:
+    # D5: some object hit o and part hit p with p == o or p a strict descendant of o
+    hits = T.step_candidates(ious, THR)
+    return any(p == o or tree.is_strict_descendant(p, o) for o in hits[0] for p in hits[1])
+
+
+def natural(chains: list[dict], tau: float, inclusive: bool = False) -> tuple[pd.DataFrame, list[int]]:
     rows, anchors = [], []
     for c in chains:
         n = c["ious"].shape[1]
@@ -92,10 +101,18 @@ def natural(chains: list[dict], tau: float) -> tuple[pd.DataFrame, list[int]]:
         best2 = int(np.argmax(c["ious"][1])) if n else -1
         for name, t in structures:
             pool = np.arange(n) if t is None else t.strict_descendants(u1)
+            if inclusive and t is not None and a1 is not None:
+                pool = np.sort(np.append(pool, a1))
             a2 = decide(c["sig"][1], pool, tau)
             s2 = a2 is not None and c["ious"][1, a2] >= THR
-            feasible = T.flat_feasible(c["ious"]) if t is None else (n > 0 and T.max_iou_path(t, c["ious"]) is not None)
+            if t is None:
+                feasible = T.flat_feasible(c["ious"])
+            elif inclusive:
+                feasible = n > 0 and feasible_inclusive(t, c["ious"])
+            else:
+                feasible = n > 0 and T.max_iou_path(t, c["ious"]) is not None
             rows.append({"qid": c["qid"], "image": c["image"], "structure": name, "feasible": feasible,
+                         "single_level": c.get("part_ratio", 0.0) >= SINGLE_LEVEL,
                          "step1": bool(s1), "step2": bool(s2), "chain": bool(s1 and s2), "candidates": len(pool),
                          "best_id_step2": bool(a2 is not None and a2 == best2 and c["ious"][1, best2] >= THR),
                          "best_id_step1": bool(a1 is not None and a1 == int(np.argmax(c["ious"][0]))
@@ -216,6 +233,23 @@ def main() -> None:
         "notes": [I11_NOTE],
         "v1_gate": gate,
     }
+    bs = cfg["v4"]["bootstrap"]
+    single = df.drop_duplicates("qid").set_index("qid")["single_level"]
+    metrics["chain_split_spec_strict"] = {
+        "rule": f"single-level if |GT part| >= {SINGLE_LEVEL} |GT object|",
+        "single_level_chains": int(single.sum()), "two_level_chains": int((~single).sum()),
+        "two_level": natural_summary(df[~df.single_level], len(seeds), bs),
+        "single_level": natural_summary(df[df.single_level], len(seeds), bs) if single.any() else None}
+    if read_deviations(cfg).get("D5", {}).get("status") == "approved":
+        d5, _ = natural(chains, tau, inclusive=True)
+        d5.to_csv(run / "chains_natural_d5.csv", index=False)
+        metrics["natural_search_d5"] = {
+            "deviation": "D5: step-2 candidates are the step-1 node and its strict descendants",
+            "all": natural_summary(d5, len(seeds), bs),
+            "two_level": natural_summary(d5[~d5.single_level], len(seeds), bs),
+            "single_level": natural_summary(d5[d5.single_level], len(seeds), bs) if single.any() else None}
+    else:
+        metrics["natural_search_d5"] = "not computed: deviation D5 is not approved in deviations.jsonl"
     write_json(run / "metrics.json", metrics)
     print(run)
 

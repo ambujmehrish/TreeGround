@@ -243,6 +243,21 @@ PROPOSED_DEVIATIONS = [
         "expected_impact": "coverage of the capped node set is reported next to the uncapped V1 numbers on PACO val; "
                            "V2-V4 run on the capped trees",
     },
+    {
+        "id": "D5",
+        "spec_section": "5 (V4)",
+        "change": "additional V4 block: the step-2 candidate set is the step-1 node and its strict descendants "
+                  "(descendant-or-self) instead of strict descendants only; feasibility likewise. Also reported: "
+                  "the split into two-level chains (|GT part| < 0.5 |GT object|) and single-level chains (>= 0.5). "
+                  "The spec-strict V4 block is unchanged and stays the reference",
+        "reason": "chain audit on PACO val (no disagreement between tree code and a pixel brute force): 58 of 63 "
+                  "chains lost with both masks found (tau_d 0.95) have one proposal matching both object and part; "
+                  "their GT part covers a median 0.70 of the object (0.18 over all chains), e.g. phone back cover, "
+                  "vase body. Under IoU >= 0.5 the object's own mask is a correct part answer when |part| >= 0.5 "
+                  "|object|, so a strictly smaller node cannot exist",
+        "expected_impact": "higher chain coverage and success on single-level chains for every structure; the "
+                           "two-level split isolates the effect of the tree on genuine object->part chains",
+    },
 ]
 
 

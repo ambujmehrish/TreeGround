@@ -96,3 +96,19 @@ def test_v4_controller_and_count_controlled_diagnostic():
     sig[0, 0] = 0.2  # step-1 rejection keeps the root as anchor
     df2, anchors2 = v4.natural(chains, 0.5)
     assert anchors2 == [-1] and not df2.chain.any() and (df2[df2.structure == "true"].candidates == n).all()
+
+
+def test_v4_d5_pool_includes_anchor():
+    V4 = load_script("v4_tree_value")
+    parent = np.array([2, 0, -1])  # node 1 under node 0 under root 2
+    tree = T.from_parents(parent)
+    ious = np.array([[0.9, 0.1], [0.8, 0.2]])  # node 0 matches both object and part
+    assert not (T.max_iou_path(tree, ious) is not None)
+    assert V4.feasible_inclusive(tree, ious)
+    sig = np.array([[0.9, 0.1], [0.9, 0.2]])
+    chain = {"qid": "q", "image": "i", "tree": tree, "rand": [tree], "ious": ious, "sig": sig, "part_ratio": 0.9}
+    strict, _ = V4.natural([chain], 0.5)
+    incl, _ = V4.natural([chain], 0.5, inclusive=True)
+    true_s = strict[strict.structure == "true"].iloc[0]
+    true_i = incl[incl.structure == "true"].iloc[0]
+    assert not true_s.chain and true_i.chain and true_i.single_level

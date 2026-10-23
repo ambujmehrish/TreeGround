@@ -1,0 +1,29 @@
+source,setting,n,recall,small,medium,large,feasible,best_match,both_found,feasible_given_both
+PACO parts,"final tree, dedup 0.9",20667,0.409,0.280,0.752,0.887,0.498,0.380,–,–
+PACO parts,"final tree, dedup 0.95",20667,0.410,0.281,0.754,0.888,0.506,0.392,–,–
+PACO parts,before dedup,–,0.411,0.281,0.755,0.888,–,–,–,–
+PARTONOMY parts,"final tree, dedup 0.9",4968,0.853,–,–,–,–,–,–,–
+PARTONOMY parts,"final tree, dedup 0.95",4968,0.854,–,–,–,–,–,–,–
+PACO parts,no node cap,20667,0.409,0.280,0.752,0.887,–,–,–,–
+PACO parts,cap 256 by stability (chosen),20667,0.347,0.242,0.626,0.741,–,–,–,–
+PACO parts,cap 256 by sam_iou,20667,0.245,0.141,0.488,0.763,–,–,–,–
+PACO objects,"final tree, dedup 0.9",10817,0.581,0.419,0.825,0.735,–,–,–,–
+PACO objects,"final tree, dedup 0.95",10817,0.582,0.419,0.825,0.735,–,–,–,–
+PACO objects,before dedup,10817,0.582,0.419,0.827,0.735,–,–,–,–
+oracle object/own_box,any of 3 masks,10817,0.929,0.889,0.982,0.983,–,–,–,–
+oracle object/own_box,top scored mask,10817,0.868,0.798,0.963,0.961,–,–,–,–
+oracle object/own_box,stability and area filtered,10817,0.570,0.461,0.752,0.627,–,–,–,–
+oracle object/point,any of 3 masks,10817,0.831,0.740,0.961,0.937,–,–,–,–
+oracle object/point,top scored mask,10817,0.719,0.633,0.862,0.763,–,–,–,–
+oracle object/point,stability and area filtered,10817,0.579,0.497,0.748,0.542,–,–,–,–
+oracle part/own_box,any of 3 masks,20667,0.778,0.758,0.824,0.873,–,–,–,–
+oracle part/own_box,top scored mask,20667,0.653,0.609,0.769,0.814,–,–,–,–
+oracle part/own_box,stability and area filtered,20667,0.286,0.232,0.448,0.390,–,–,–,–
+oracle part/point,any of 3 masks,20667,0.451,0.370,0.662,0.770,–,–,–,–
+oracle part/point,top scored mask,20667,0.261,0.198,0.420,0.526,–,–,–,–
+oracle part/point,stability and area filtered,20667,0.236,0.189,0.376,0.340,–,–,–,–
+oracle part/point+parent_box,any of 3 masks,20667,0.290,0.215,0.470,0.648,–,–,–,–
+oracle part/point+parent_box,top scored mask,20667,0.230,0.168,0.371,0.539,–,–,–,–
+oracle part/point+parent_box,stability and area filtered,20667,0.163,0.120,0.281,0.320,–,–,–,–
+PACO chains (diagnostic),"stability0.9, dedup 0.9",5102,0.275,–,–,–,0.146,–,0.252,0.580
+PACO chains (diagnostic),"stability0.9, dedup 0.95",5102,0.277,–,–,–,0.189,–,0.254,0.744

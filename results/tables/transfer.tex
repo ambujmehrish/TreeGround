@@ -1,0 +1,25 @@
+\begin{tabular}{lllrrrrrrrr}
+\toprule
+Dataset & Selector & Search & Part recall & Chain feasible & Chains & Common & Flat & True & Random & Box \\
+\midrule
+Pascal-Part & V2 & spec & 49.5 & 57.5 & 27518 & 4009 & 7.4 \scriptsize{[6.6, 8.3]} & 7.1 \scriptsize{[6.3, 7.9]} & 3.4 \scriptsize{[3.0, 3.9]} & -- \\
+Pascal-Part & V2 & D5 inclusive & 49.5 & 57.5 & 27518 & 6109 & 7.5 \scriptsize{[6.8, 8.2]} & 8.0 \scriptsize{[7.3, 8.7]} & 7.8 \scriptsize{[7.2, 8.4]} & -- \\
+Pascal-Part & V2 & D6 box tree & 49.5 & 57.5 & 27518 & 11312 & 5.9 \scriptsize{[5.4, 6.3]} & 5.8 \scriptsize{[5.4, 6.3]} & -- & 5.3 \scriptsize{[4.8, 5.7]} \\
+Pascal-Part & S1 & spec & -- & -- & -- & -- & -- & -- & -- & -- \\
+\midrule
+ADE20K & V2 & spec & 63.9 & 64.2 & 3718 & 97 & 4.1 \scriptsize{[1.0, 8.5]} & 3.1 \scriptsize{[0.0, 7.1]} & 0.8 \scriptsize{[0.0, 2.0]} & -- \\
+ADE20K & V2 & D5 inclusive & 63.9 & 64.2 & 3718 & 670 & 8.7 \scriptsize{[6.5, 10.8]} & 10.3 \scriptsize{[7.9, 12.5]} & 12.3 \scriptsize{[9.8, 14.7]} & -- \\
+ADE20K & V2 & D6 box tree & 63.9 & 64.2 & 3718 & 1524 & 5.2 \scriptsize{[4.1, 6.4]} & 5.8 \scriptsize{[4.7, 7.1]} & -- & 5.4 \scriptsize{[4.3, 6.5]} \\
+ADE20K & S1 & spec & -- & -- & -- & -- & -- & -- & -- & -- \\
+\midrule
+LVIS hier. & V2 & spec & 91.9 & 55.4 & 1683 & 166 & 4.2 \scriptsize{[1.2, 7.8]} & 5.4 \scriptsize{[2.4, 9.2]} & 1.7 \scriptsize{[0.6, 3.0]} & -- \\
+LVIS hier. & V2 & D5 inclusive & 91.9 & 55.4 & 1683 & 354 & 9.6 \scriptsize{[7.0, 12.7]} & 15.5 \scriptsize{[11.8, 19.4]} & 17.5 \scriptsize{[13.6, 21.5]} & -- \\
+LVIS hier. & V2 & D6 box tree & 91.9 & 55.4 & 1683 & 597 & 7.0 \scriptsize{[5.1, 9.1]} & 9.7 \scriptsize{[7.5, 12.3]} & -- & 9.4 \scriptsize{[7.1, 11.9]} \\
+LVIS hier. & S1 & spec & -- & -- & -- & -- & -- & -- & -- & -- \\
+\midrule
+OpenImages hier. & V2 & spec & 94.8 & 92.0 & 31610 & 14273 & 0.2 \scriptsize{[0.1, 0.3]} & 0.2 \scriptsize{[0.1, 0.3]} & 0.1 \scriptsize{[0.1, 0.1]} & -- \\
+OpenImages hier. & V2 & D5 inclusive & 94.8 & 92.0 & 31610 & 18752 & 0.2 \scriptsize{[0.1, 0.3]} & 0.2 \scriptsize{[0.1, 0.3]} & 0.3 \scriptsize{[0.2, 0.4]} & -- \\
+OpenImages hier. & V2 & D6 box tree & 94.8 & 92.0 & 31610 & 23964 & 0.2 \scriptsize{[0.1, 0.2]} & 0.1 \scriptsize{[0.1, 0.2]} & -- & 0.2 \scriptsize{[0.1, 0.2]} \\
+OpenImages hier. & S1 & spec & -- & -- & -- & -- & -- & -- & -- & -- \\
+\bottomrule
+\end{tabular}

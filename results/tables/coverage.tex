@@ -1,0 +1,38 @@
+\begin{tabular}{llrrrrrrrrr}
+\toprule
+Source & Setting & N & Recall & Small & Medium & Large & Feasible path & Best-match path & Both found & Feasible $\mid$ both \\
+\midrule
+PACO parts & final tree, dedup 0.9 & 20667 & 40.9 & 28.0 & 75.2 & 88.7 & 49.8 & 38.0 & -- & -- \\
+PACO parts & final tree, dedup 0.95 & 20667 & 41.0 & 28.1 & 75.4 & 88.8 & 50.6 & 39.2 & -- & -- \\
+PACO parts & before dedup & -- & 41.1 & 28.1 & 75.5 & 88.8 & -- & -- & -- & -- \\
+PARTONOMY parts & final tree, dedup 0.9 & 4968 & 85.3 & -- & -- & -- & -- & -- & -- & -- \\
+PARTONOMY parts & final tree, dedup 0.95 & 4968 & 85.4 & -- & -- & -- & -- & -- & -- & -- \\
+\midrule
+PACO parts & no node cap & 20667 & 40.9 & 28.0 & 75.2 & 88.7 & -- & -- & -- & -- \\
+PACO parts & cap 256 by stability (chosen) & 20667 & 34.7 & 24.2 & 62.6 & 74.1 & -- & -- & -- & -- \\
+PACO parts & cap 256 by sam\_iou & 20667 & 24.5 & 14.1 & 48.8 & 76.3 & -- & -- & -- & -- \\
+\midrule
+PACO objects & final tree, dedup 0.9 & 10817 & 58.1 & 41.9 & 82.5 & 73.5 & -- & -- & -- & -- \\
+PACO objects & final tree, dedup 0.95 & 10817 & 58.2 & 41.9 & 82.5 & 73.5 & -- & -- & -- & -- \\
+PACO objects & before dedup & 10817 & 58.2 & 41.9 & 82.7 & 73.5 & -- & -- & -- & -- \\
+\midrule
+oracle object/own\_box & any of 3 masks & 10817 & 92.9 & 88.9 & 98.2 & 98.3 & -- & -- & -- & -- \\
+oracle object/own\_box & top scored mask & 10817 & 86.8 & 79.8 & 96.3 & 96.1 & -- & -- & -- & -- \\
+oracle object/own\_box & stability and area filtered & 10817 & 57.0 & 46.1 & 75.2 & 62.7 & -- & -- & -- & -- \\
+oracle object/point & any of 3 masks & 10817 & 83.1 & 74.0 & 96.1 & 93.7 & -- & -- & -- & -- \\
+oracle object/point & top scored mask & 10817 & 71.9 & 63.3 & 86.2 & 76.3 & -- & -- & -- & -- \\
+oracle object/point & stability and area filtered & 10817 & 57.9 & 49.7 & 74.8 & 54.2 & -- & -- & -- & -- \\
+oracle part/own\_box & any of 3 masks & 20667 & 77.8 & 75.8 & 82.4 & 87.3 & -- & -- & -- & -- \\
+oracle part/own\_box & top scored mask & 20667 & 65.3 & 60.9 & 76.9 & 81.4 & -- & -- & -- & -- \\
+oracle part/own\_box & stability and area filtered & 20667 & 28.6 & 23.2 & 44.8 & 39.0 & -- & -- & -- & -- \\
+oracle part/point & any of 3 masks & 20667 & 45.1 & 37.0 & 66.2 & 77.0 & -- & -- & -- & -- \\
+oracle part/point & top scored mask & 20667 & 26.1 & 19.8 & 42.0 & 52.6 & -- & -- & -- & -- \\
+oracle part/point & stability and area filtered & 20667 & 23.6 & 18.9 & 37.6 & 34.0 & -- & -- & -- & -- \\
+oracle part/point+parent\_box & any of 3 masks & 20667 & 29.0 & 21.5 & 47.0 & 64.8 & -- & -- & -- & -- \\
+oracle part/point+parent\_box & top scored mask & 20667 & 23.0 & 16.8 & 37.1 & 53.9 & -- & -- & -- & -- \\
+oracle part/point+parent\_box & stability and area filtered & 20667 & 16.3 & 12.0 & 28.1 & 32.0 & -- & -- & -- & -- \\
+\midrule
+PACO chains (diagnostic) & stability0.9, dedup 0.9 & 5102 & 27.5 & -- & -- & -- & 14.6 & -- & 25.2 & 58.0 \\
+PACO chains (diagnostic) & stability0.9, dedup 0.95 & 5102 & 27.7 & -- & -- & -- & 18.9 & -- & 25.4 & 74.4 \\
+\bottomrule
+\end{tabular}

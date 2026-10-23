@@ -24,5 +24,8 @@ squeue --me -o "%.14i %.28j %.8T %.10M %R" 2>/dev/null | grep -E "JOBID|tg_" | s
 git add -f "$out"
 if git diff --cached --quiet; then echo "nothing new to publish"; exit 0; fi
 git commit -q -m "results: ${1:-update $(date -u +%Y-%m-%dT%H:%MZ)}"
-for i in 1 2 3 4; do git push -q origin HEAD && break || sleep $((2 ** i)); done
+branch=$(git rev-parse --abbrev-ref HEAD)
+for i in 1 2 3 4; do
+  git pull -q --no-rebase --no-edit origin "$branch" && git push -q origin HEAD && break || sleep $((2 ** i))
+done
 git log --oneline -1

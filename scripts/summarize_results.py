@@ -19,7 +19,8 @@ def latest(root: Path, stage: str) -> Path | None:
 def ci(x) -> str:
     if not isinstance(x, dict) or "mean" not in x:
         return "n/a"
-    return f"{x['mean']:.3f} [{x.get('lo', float('nan')):.3f}, {x.get('hi', float('nan')):.3f}]"
+    lo, hi = (x.get("ci95") or [float("nan"), float("nan")])
+    return f"{x['mean']:.3f} [{lo:.3f}, {hi:.3f}] n={x.get('n')}"
 
 
 def search(title: str, summary: dict | None, names) -> None:
@@ -30,8 +31,12 @@ def search(title: str, summary: dict | None, names) -> None:
     print(f"   {title}: chains {summary.get('chains')} common eligible {sub.get('size')} ({sub.get('fraction')})")
     for n in names:
         b = summary.get(n) or {}
-        print(f"      {n:6s} chain success (common) {ci(b.get('chain_success_common'))}   end-to-end "
-              f"{ci(b.get('chain_success_end_to_end'))}   feasible {b.get('feasible_path_coverage')}")
+        print(f"      {n:6s} chain success (common) {ci(b.get('chain_success_common'))}   step2 (common) "
+              f"{ci(b.get('step2_success_common'))}   end-to-end {ci(b.get('chain_success_end_to_end'))}   "
+              f"feasible {b.get('feasible_path_coverage')}   best-id step2 "
+              f"{b.get('diagnostic_best_proposal_identification_step2')}")
+    if "diagnostic_best_proposal_identification_step1" in summary:
+        print(f"      step 1 picks the best proposal: {summary['diagnostic_best_proposal_identification_step1']}")
 
 
 def blocks(m: dict, strict, d5, d6) -> None:

@@ -355,6 +355,21 @@ PROPOSED_DEVIATIONS = [
         "expected_impact": "baseline numbers directly comparable with V2's end-to-end gIoU on present queries; no "
                            "change to any TreeGround result",
     },
+    {
+        "id": "D10",
+        "spec_section": "2.4 (S2)",
+        "change": "S2 chains from PACO-LVIS train I1 queries (object, part, object->part chain) instead of "
+                  "SceneParser-Bench / PARTONOMY chains (not available). Sequence: chat template [image; I1 query "
+                  "template with <SEL> removed] then an assistant answer span with one <SEL> right after each "
+                  "referent: '{object} <SEL>', '{part} of the {object} <SEL>', '{object} <SEL> {part} <SEL>'; "
+                  "text-only '{part} of a {object} <SEL>' (no image); gRefCOCO no-target '{expression} <SEL>'. "
+                  "L_sel as V2 (S1 recipe, 20% text-only, no-target examples); cross-image negatives come from the "
+                  "other images of the same per-GPU micro-batch",
+        "reason": "the spec's S2 chain sources are not available to us; PACO I1 chains are the only supplied "
+                  "object->part chains with masks; per-GPU micro-batches hold a few images, not the 32 of S1",
+        "expected_impact": "S2 is trained and evaluated on the same chain distribution as S1/V4; no "
+                           "object->part->affordance or explanatory chains",
+    },
 ]
 
 

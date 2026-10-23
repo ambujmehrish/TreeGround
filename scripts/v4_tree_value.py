@@ -207,43 +207,18 @@ def natural_summary(df: pd.DataFrame, n_rand: int, bs: dict, box: bool = False) 
     return out
 
 
-def main() -> None:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--config", required=True)
-    ap.add_argument("--smoke", action="store_true")
-    args = ap.parse_args()
-    cfg = load_config(args.config)
-    gate = v1_gate(cfg, args.smoke)
-    device = cfg["device"]
-    mrun, manifest, mhash, wl = manifest_inputs(cfg, args.smoke)
-    static = qwen_static(cfg)
-    store = open_features(cfg, args.smoke, manifest, mhash, static)
-    props = open_proposals(cfg, args.smoke, manifest, mhash, capped=True)
-    qdir, queries = open_queries(cfg, args.smoke, mhash, static)
-    sel, tau, layer, v2_run = load_selector(cfg, args.smoke, store)
-    sel = sel.to(device)
-    li = static["layers"].index(layer)
-    stage = cfg["inputs"].get("selector_stage", "v2")
-    run = start_run("v4" if stage == "v2" else f"v4_{stage}", cfg, args.smoke, {"manifest_run": str(mrun), "v2_run": str(v2_run), "layer": layer,
-                                             "tau_rej_chain": tau, "features_identity": store.identity_hash})
+def search_metrics(cfg: dict, chains: list[dict], tau: float, run: Path) -> dict:
     seeds = cfg["v4"]["seeds"]
-    chains = chain_inputs(cfg, sel, store, props, queries, qdir, li, layer, device)
+    bs = cfg["v4"]["bootstrap"]
     df, anchors = natural(chains, tau)
     df.to_csv(run / "chains_natural.csv", index=False)
     real_anchors = [a for a in anchors if a >= 0]
     B = int(np.median(real_anchors)) if real_anchors else 0
     metrics = {
-        "label": "dev", "split": "PACO-LVIS val supplied object->part chains (I1)", "smoke": args.smoke,
-        "tau_rej_chain": tau, "seeds": seeds,
-        "natural_search": natural_summary(df, len(seeds), cfg["v4"]["bootstrap"]),
+        "natural_search": natural_summary(df, len(seeds), bs),
         "count_controlled_diagnostic": count_controlled(chains, tau, seeds, B),
         "B_definition": "median |sub+(u1)| over PACO val chains whose step-1 controller anchor is a node",
-        "other_sources": {"partonomy": "not evaluated: S0 caches no probe states for PARTONOMY chains",
-                          "sceneparser": "not evaluated: S0 caches no probe states for SceneParser chains"},
-        "notes": [I11_NOTE],
-        "v1_gate": gate,
     }
-    bs = cfg["v4"]["bootstrap"]
     single = df.drop_duplicates("qid").set_index("qid")["single_level"]
     metrics["chain_split_spec_strict"] = {
         "rule": f"single-level if |GT part| >= {SINGLE_LEVEL} |GT object|",
@@ -280,6 +255,39 @@ def main() -> None:
             "single_level": natural_summary(nr[nr.single_level], len(seeds), bs) if single.any() else None}
     else:
         metrics["natural_no_rejection_d12"] = "not computed: deviation D12 is not approved in deviations.jsonl"
+    return metrics
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--config", required=True)
+    ap.add_argument("--smoke", action="store_true")
+    args = ap.parse_args()
+    cfg = load_config(args.config)
+    gate = v1_gate(cfg, args.smoke)
+    device = cfg["device"]
+    mrun, manifest, mhash, wl = manifest_inputs(cfg, args.smoke)
+    static = qwen_static(cfg)
+    store = open_features(cfg, args.smoke, manifest, mhash, static)
+    props = open_proposals(cfg, args.smoke, manifest, mhash, capped=True)
+    qdir, queries = open_queries(cfg, args.smoke, mhash, static)
+    sel, tau, layer, v2_run = load_selector(cfg, args.smoke, store)
+    sel = sel.to(device)
+    li = static["layers"].index(layer)
+    stage = cfg["inputs"].get("selector_stage", "v2")
+    run = start_run("v4" if stage == "v2" else f"v4_{stage}", cfg, args.smoke,
+                    {"manifest_run": str(mrun), "v2_run": str(v2_run), "layer": layer, "tau_rej_chain": tau,
+                     "features_identity": store.identity_hash})
+    chains = chain_inputs(cfg, sel, store, props, queries, qdir, li, layer, device)
+    metrics = {
+        "label": "dev", "split": "PACO-LVIS val supplied object->part chains (I1)", "smoke": args.smoke,
+        "tau_rej_chain": tau, "seeds": cfg["v4"]["seeds"],
+        "other_sources": {"partonomy": "not evaluated: S0 caches no probe states for PARTONOMY chains",
+                          "sceneparser": "not evaluated: S0 caches no probe states for SceneParser chains"},
+        "notes": [I11_NOTE],
+        "v1_gate": gate,
+    }
+    metrics.update(search_metrics(cfg, chains, tau, run))
     write_json(run / "metrics.json", metrics)
     print(run)
 

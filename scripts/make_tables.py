@@ -13,6 +13,7 @@ OURS = (("v2", "V2 (frozen, 10k img.)"), ("s1", "S1"), ("s2_eval", "S2"), ("s2_f
 CHAIN_OURS = (("v4", OURS[0][1]), ("v4_s1", "S1")) + OURS[2:]
 BASELINES = (("b_sam3_text_merge", "SAM 3 (text)"), ("b_qwen_box_sam_merge", "Qwen3-VL box + SAM 3"),
              ("b_sa2va_merge", "Sa2VA"))
+TRANSFER_BASELINES = (("sam3_text", BASELINES[0][1]), ("qwen_box_sam", BASELINES[1][1]), ("sa2va", BASELINES[2][1]))
 SPLITS = (("all", "all"), ("two_level", "two-level"), ("single_level", "single-level"))
 DATASETS = (("pascal_part", "Pascal-Part"), ("ade20k", "ADE20K"), ("lvis_hier", "LVIS hier."),
             ("openimages_hier", "OpenImages hier."))
@@ -187,7 +188,9 @@ def transfer(root: Path) -> tuple[list, list]:
     cols = [("dataset", "Dataset", "text"), ("selector", "Selector", "text"), ("search", "Search", "text"),
             ("part_recall", "Part recall", "frac"), ("chain_feasible", "Chain feasible", "frac"),
             ("chains", "Chains", "int"), ("common", "Common", "int"), ("flat", "Flat", "ci"), ("true", "True", "ci"),
-            ("random", "Random", "ci"), ("box", "Box", "ci")]
+            ("random", "Random", "ci"), ("box", "Box", "ci"), ("independent", "Indep.", "ci"),
+            ("end_to_end", "Chain succ. (all)", "ci"), ("part_gIoU", "Part gIoU", "ci"),
+            ("object_gIoU", "Object gIoU", "ci")]
     rows = []
     for ds, ds_label in DATASETS:
         for tag, sel in (("", "V2"), ("_s1", "S1")):
@@ -202,7 +205,19 @@ def transfer(root: Path) -> tuple[list, list]:
                 s = get(blk, "all")
                 rows.append({"_group": ds, "dataset": ds_label, "selector": sel, "search": search, **cov,
                              "chains": get(s, "chains"), "common": get(s, "common_eligible_subset", "size"),
-                             **{t: get(s, t, "chain_success_common") for t in ("flat", "true", "random", "box")}})
+                             **{t: get(s, t, "chain_success_common") for t in ("flat", "true", "random", "box")},
+                             "end_to_end": get(s, "true", "chain_success_end_to_end")})
+        for method, label in TRANSFER_BASELINES:
+            m = load(root, f"b_transfer_{method}_{ds}_merge")
+            if m is None:
+                continue
+            c = get(m, "common_eligible_subset")
+            rows.append({"_group": f"{ds}:baselines", "dataset": ds_label, "selector": label, "search": "independent",
+                         "chains": get(m, "chains", "all", "chains"), "common": get(c, "size"),
+                         "independent": get(c, "chains", "all", "chain_success_end_to_end"),
+                         "end_to_end": get(m, "chains", "all", "chain_success_end_to_end"),
+                         "part_gIoU": get(m, "by_kind", "part", "gIoU"),
+                         "object_gIoU": get(m, "by_kind", "object", "gIoU")})
     return cols, rows
 
 

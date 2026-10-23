@@ -1,0 +1,5 @@
+include: [x_transfer.yaml, baselines.yaml]
+b_transfer:
+  num_shards: 64
+  smoke_images: 4
+  common_stage: "x_transfer_{dataset}_merge"

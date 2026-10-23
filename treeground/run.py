@@ -413,6 +413,26 @@ PROPOSED_DEVIATIONS = [
                   "(present gIoU 0.086 although selector success rose 0.48 -> 0.64)",
         "expected_impact": "adds no-rejection and curve blocks; separates selection quality from abstention",
     },
+    {
+        "id": "D16",
+        "spec_section": "amendment (external baselines on the transfer sets)",
+        "change": "the three D13 baselines (same models, revisions, prompts and settings) on the D7/D8 transfer sets "
+                  "(Pascal-Part val, ADE20K-Part validation, LVIS / OpenImages box-containment hierarchies), on the "
+                  "same images, chains and GT as x_transfer (same records, D9 OpenImages resize, manifest LVIS "
+                  "images excluded). Per chain, one object query per distinct chain object in the image and one "
+                  "part query per chain, phrased with the I1 templates as in D13 on the names x_transfer puts in its "
+                  "chain template ('the {object}', 'the {part} of the {object}'; ADE20K part->subpart chains use "
+                  "the object '{part} of the {object}'). Masks scored by mask IoU (LVIS included); OpenImages GT "
+                  "boxes scored box-matched (I10) by the box IoU of the predicted mask's bounding box, as x_transfer "
+                  "scores nodes. Reported per dataset: object and part gIoU (empty = 0), box/mask cIoU, success@0.5, "
+                  "chain success (object and part IoU >= 0.5) and part-only success over all chains, two-level and "
+                  "single-level splits, and the same on the common eligible subset of the V2 x_transfer merge "
+                  "(chains_strict.csv: chains feasible under flat, true and all randomised trees); image-level "
+                  "bootstrap 95% CIs (v4 settings). No step-1 conditioning",
+        "reason": "transfer chain success of TreeGround needs an external reference on the same chains, GT and "
+                  "metric; published numbers use other query sets",
+        "expected_impact": "baseline rows in the transfer table; no change to any TreeGround or PACO baseline result",
+    },
 ]
 
 

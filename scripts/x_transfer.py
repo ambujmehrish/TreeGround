@@ -98,7 +98,8 @@ def records(cfg: dict, dataset: str, shard: int, num_shards: int):
 
 
 def selector_run(cfg: dict) -> Path:
-    return resolve_run(cfg, "v2", cfg.get("inputs", {}).get("v2", "latest"), False)
+    stage = cfg.get("inputs", {}).get("selector_stage", "v2")
+    return resolve_run(cfg, stage, cfg.get("inputs", {}).get(stage, "latest"), False)
 
 
 def node_cap() -> dict:
@@ -117,7 +118,8 @@ def identity(cfg: dict, dataset: str, v2: Path) -> dict:
             "sam3": [m["sam3"]["repo"], m["sam3"]["revision"]], "qwen": [m["qwen"]["repo"], m["qwen"]["revision"]],
             "proposals": {k: p[k] for k in ("points_per_side", "masks_per_point", "stability_thresh",
                                             "stability_offset", "mask_threshold", "min_area", "node_dedup", "dtype")},
-            "node_cap": node_cap(), "v2_run": v2.name, "templates": CHAIN_TEMPLATE,
+            "node_cap": node_cap(), "v2_run": v2.name, "selector_stage": cfg.get("inputs", {}).get("selector_stage", "v2"),
+            "templates": CHAIN_TEMPLATE,
             "code": [code_version("proposals"), code_version("features"), h.hexdigest()]}
 
 
@@ -271,7 +273,8 @@ def merge(cfg, dataset, num_shards):
         raise ProtocolError(f"{len(missing)} transfer shards missing for {dataset}, e.g. {missing[:5]}")
     parts = [pd.read_pickle(d / "shards" / f"{k:05d}.pkl") for k in range(num_shards)]
     V4 = load_v4()
-    run = start_run(f"x_transfer_{dataset}_merge", cfg, False, {"cache": str(d), "v2_run": str(v2)})
+    tag = "" if cfg.get("inputs", {}).get("selector_stage", "v2") == "v2" else "_" + cfg["inputs"]["selector_stage"]
+    run = start_run(f"x_transfer_{dataset}{tag}_merge", cfg, False, {"cache": str(d), "v2_run": str(v2)})
     cov = pd.concat([p["coverage"] for p in parts], ignore_index=True)
     bs, n_rand = cfg["v4"]["bootstrap"], len(cfg["v4"]["seeds"])
     out = {"label": f"transfer:{dataset}", "deviation": "D7", "v2_run": v2.name, "tau_rej_chain": parts[0]["tau"],

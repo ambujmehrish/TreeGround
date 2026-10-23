@@ -309,6 +309,21 @@ PROPOSED_DEVIATIONS = [
                   "1024-px resize matches the commonly distributed OpenImages image set",
         "expected_impact": "fewer pixels for very large photos; all OpenImages shards rerun with the same setting",
     },
+    {
+        "id": "D11",
+        "spec_section": "2.4 (S1) / 7 (train data)",
+        "change": "S1 at full scale on the train sources available: PACO-LVIS train (all manifest images), Pascal-Part "
+                  "train (original Pascal-Part on VOC 2010 train, parts merged as in D7, not the OV-PARTS -116 "
+                  "release) and gRefCOCO train (present-target referring expressions with every target's best node "
+                  "a positive, plus no-target queries as the only all-negative examples). RefCOCO/+/g (subsumed by "
+                  "gRefCOCO's expressions on the same images), PanoCaps, SceneParser and PARTONOMY train are not "
+                  "used. Same recipe as V2 (I7, I8, I13, 20% text-only) for 20k steps, packed per-shard caches of "
+                  "the D3/D4 node sets at layer l, checkpoint selection every 2k steps on PACO val single-step "
+                  "selector success, tau_rej calibrated by the V2 rule at the selected checkpoint",
+        "reason": "spec S1 trains on PACO, Pascal-Part-116, RefCOCO/+/g, gRefCOCO, PanoCaps, SceneParser and "
+                  "PARTONOMY; only the listed sources are available on the cluster",
+        "expected_impact": "a selector trained on ~6x more images than V2; results reported as S1 next to V2",
+    },
 ]
 
 

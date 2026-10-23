@@ -1,0 +1,8 @@
+include: v2.yaml
+inputs: {manifest: latest, v1: latest, v3: latest}
+s1:
+  sources: [paco_train, pascal_part_train, grefcoco_train]
+  num_shards: {paco_train: 256, pascal_part_train: 32, grefcoco_train: 128}
+  probe_batch: 16
+  steps: 20000
+  eval_every: 2000

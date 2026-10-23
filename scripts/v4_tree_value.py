@@ -40,7 +40,9 @@ def decide(sig: np.ndarray, pool: np.ndarray, tau: float) -> int | None:
 
 
 def load_selector(cfg: dict, smoke: bool, store) -> tuple[Selector, float, int, Path]:
-    run = resolve_run(cfg, "v2", cfg["inputs"].get("v2", "latest"), smoke)
+    # selector_stage: "v2" (pilot) or "s1" (full-scale S1 selector)
+    stage = cfg["inputs"].get("selector_stage", "v2")
+    run = resolve_run(cfg, stage, cfg["inputs"].get(stage, "latest"), smoke)
     ckpt = torch.load(run / "selector.pt", map_location="cpu")
     if ckpt["smoke"] != smoke:
         raise ProtocolError("V2 checkpoint smoke flag does not match the current mode")
@@ -221,7 +223,8 @@ def main() -> None:
     sel, tau, layer, v2_run = load_selector(cfg, args.smoke, store)
     sel = sel.to(device)
     li = static["layers"].index(layer)
-    run = start_run("v4", cfg, args.smoke, {"manifest_run": str(mrun), "v2_run": str(v2_run), "layer": layer,
+    stage = cfg["inputs"].get("selector_stage", "v2")
+    run = start_run("v4" if stage == "v2" else f"v4_{stage}", cfg, args.smoke, {"manifest_run": str(mrun), "v2_run": str(v2_run), "layer": layer,
                                              "tau_rej_chain": tau, "features_identity": store.identity_hash})
     seeds = cfg["v4"]["seeds"]
     chains = chain_inputs(cfg, sel, store, props, queries, qdir, li, layer, device)

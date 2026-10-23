@@ -1,0 +1,17 @@
+include: v2.yaml
+inputs: {manifest: latest, v2: latest}
+models:
+  sa2va: {repo: ByteDance/Sa2VA-Qwen3-VL-4B, revision: fa5f0ed5d0b0b71163572510121edeaa201e6bd8}
+baselines:
+  num_shards: 32
+  smoke_images: 4
+  sam3_text: {score_threshold: 0.5, mask_threshold: 0.5}
+  qwen_box_sam:
+    prompt: "Locate {phrase} in this image and output its bbox coordinates in JSON format."
+    max_new_tokens: 128
+    batch_size: 8
+    sam_batch: 64
+    mask_threshold: 0.0
+  sa2va:
+    prompt: "<image>\n Please segment {phrase} in this image."
+    dtype: bfloat16

@@ -16,6 +16,7 @@ REPO = Path(__file__).resolve().parents[1]
 PACKAGES = [
     "torch", "torchvision", "transformers", "accelerate", "huggingface_hub", "tokenizers", "pycocotools",
     "opencv-python-headless", "safetensors", "numpy", "scipy", "pyyaml", "pyarrow", "pandas", "pillow",
+    "qwen-vl-utils",
 ]
 _ENV = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")
 
@@ -333,6 +334,26 @@ PROPOSED_DEVIATIONS = [
         "reason": "transfer chain success is near zero (OpenImages step 1 0.17%); this separates wrong rejections "
                   "from wrong selections",
         "expected_impact": "none on primary numbers; adds natural_no_rejection blocks",
+    },
+    {
+        "id": "D13",
+        "spec_section": "amendment (external baselines)",
+        "change": "same-protocol baselines on the V2 evaluation set (PACO-LVIS val I1 object and part queries, "
+                  "gRefCOCO val no-target queries, same GT masks and image-level bootstrap): (a) SAM 3 text "
+                  "prompting (Sam3Model, same facebook/sam3 checkpoint), concept = the I1 query phrase without "
+                  "'Locate', the article and <SEL> ('mug', 'handle of the mug'), highest-scoring instance, empty "
+                  "if its score < 0.5; (b) Qwen3-VL-4B (pinned revision) asked for one bbox_2d in JSON (0-1000 "
+                  "relative coordinates) for 'the mug' / 'the handle of the mug', box prompted to the SAM 3 "
+                  "tracker, unparseable output = empty mask; (c) Sa2VA-Qwen3-VL-4B (pinned revision) with its "
+                  "RefCOCO prompt 'Please segment <phrase> in this image.', union of its [SEG] masks. No-target "
+                  "queries use the gRefCOCO expression. An empty mask is an abstention (IoU 0 on a present "
+                  "query, 1 on a no-target query). Reported: gIoU (mean per-query IoU over all present queries), "
+                  "cIoU, by kind, abstention, and chains scored from the object and part predictions of the same "
+                  "image (final part IoU >= 0.5; object and part both >= 0.5), without step-1 conditioning",
+        "reason": "the spec has no external baselines; published segmentation MLLMs report numbers on other data "
+                  "and query sets, so a fair comparison needs them on our exact queries, masks and metric",
+        "expected_impact": "baseline numbers directly comparable with V2's end-to-end gIoU on present queries; no "
+                           "change to any TreeGround result",
     },
 ]
 

@@ -7,7 +7,7 @@
 #SBATCH --mem=240G
 #SBATCH --time=08:00:00
 #SBATCH --output=logs/%x-%j.out
-# usage: sbatch slurm/s2_train.sbatch [scripts/s2_train.py|scripts/s2_eval.py] [--smoke]
+# usage: sbatch slurm/s2_train.sbatch [scripts/s2_train.py|scripts/s2_eval.py] [--smoke] (config: TG_S2_CONFIG, default configs/s2.yaml)
 # one process per allocated GPU (torchrun); configs/s2.yaml batch_images must be a multiple of GPUs x micro_batch
 set -euo pipefail
 if [ -n "${TG_MODULES:-}" ]; then module purge; module load $TG_MODULES; fi
@@ -16,4 +16,4 @@ export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 PYTHONUNBUFFERED=1 PYTHONUTF8=1 T
 export OMP_NUM_THREADS=4
 cd "$TG_REPO"
 NGPU=$(nvidia-smi -L | wc -l)
-torchrun --standalone --nproc_per_node="$NGPU" "${1:-scripts/s2_train.py}" --config configs/s2.yaml "${@:2}"
+torchrun --standalone --nproc_per_node="$NGPU" "${1:-scripts/s2_train.py}" --config "${TG_S2_CONFIG:-configs/s2.yaml}" "${@:2}"

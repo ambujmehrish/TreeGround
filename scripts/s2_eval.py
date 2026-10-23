@@ -37,7 +37,9 @@ class RecomputedStore:
 
 
 def load_checkpoint(cfg: dict, smoke: bool) -> tuple[dict, Path]:
-    run = resolve_run(cfg, "s2", cfg["inputs"].get("s2", "latest"), smoke)
+    stage = cfg["inputs"].get("selector_stage", "v2")
+    stage = "s2" if stage == "v2" else f"s2_from_{stage}"
+    run = resolve_run(cfg, stage, cfg["inputs"].get(stage, "latest"), smoke)
     ckpt = torch.load(run / cfg["s2_eval"]["checkpoint"], map_location="cpu")
     if ckpt["meta"]["smoke"] != smoke:
         raise ProtocolError("S2 checkpoint smoke flag does not match the current mode")
@@ -101,7 +103,7 @@ def main() -> None:
     torch.backends.cudnn.allow_tf32 = False
     run = None
     if rank == 0:
-        run = start_run("s2_eval", cfg, args.smoke, {
+        run = start_run(f"{S2T.s2_stage(cfg)}_eval", cfg, args.smoke, {
             "manifest_run": str(mrun), "s2_run": str(s2_run), "checkpoint": cfg["s2_eval"]["checkpoint"],
             "checkpoint_step": meta["step"], "layer": layer, "world_size": world})
     run = Path(S2T.broadcast(str(run) if run else None, world))

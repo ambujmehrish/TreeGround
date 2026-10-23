@@ -126,11 +126,17 @@ def wrap_model(model, processor, c: dict, static: dict | None):
                               "wrapped": wrapped}
 
 
+def s2_stage(cfg: dict) -> str:
+    stage = cfg["inputs"].get("selector_stage", "v2")
+    return "s2" if stage == "v2" else f"s2_from_{stage}"
+
+
 def warm_start(cfg: dict, smoke: bool, layer: int, d_model: int) -> tuple[Selector, str]:
-    run = resolve_run(cfg, "v2", cfg["inputs"].get("v2", "latest"), smoke)
+    stage = cfg["inputs"].get("selector_stage", "v2")
+    run = resolve_run(cfg, stage, cfg["inputs"].get(stage, "latest"), smoke)
     ckpt = torch.load(run / "selector.pt", map_location="cpu")
     if ckpt["smoke"] != smoke:
-        raise ProtocolError("V2 checkpoint smoke flag does not match the current mode")
+        raise ProtocolError(f"{stage} checkpoint smoke flag does not match the current mode")
     if int(ckpt["layer"]) != layer or ckpt["d_node"] != d_model or ckpt["d_query"] != d_model:
         raise ProtocolError(f"V2 checkpoint (layer {ckpt['layer']}, dims {ckpt['d_node']}/{ckpt['d_query']}) does not "
                             f"match layer {layer} / hidden {d_model}")
@@ -463,7 +469,7 @@ def main() -> None:
     sched = torch.optim.lr_scheduler.LambdaLR(opt, V2.lr_lambda(c["warmup_steps"], c["steps"]))
     run = None
     if rank == 0:
-        run = start_run("s2", cfg, args.smoke, {
+        run = start_run(s2_stage(cfg), cfg, args.smoke, {
             "manifest_run": str(mrun), "manifest_sha256": mhash, "queries": str(qdir), "layer": layer,
             "v3_run": v3_run, "v2_run": v2_run, "world_size": world, "accumulation": accum,
             "sel_init": extra["sel_init"], "lora_modules": len(extra["wrapped"]), "tied_embeddings": extra["tied"]})

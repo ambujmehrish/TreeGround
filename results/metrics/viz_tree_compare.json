@@ -1,0 +1,57 @@
+{
+  "diagnostic": true,
+  "images": [
+    {
+      "image": "paco_lvis:110573",
+      "nodes": 33,
+      "nodes_drawn": 19,
+      "nodes_with_different_parent": 10,
+      "trees": {
+        "box tree": {
+          "max_depth": 4,
+          "nodes_per_depth": {
+            "1": 5,
+            "2": 4,
+            "3": 7,
+            "4": 3
+          }
+        },
+        "mask tree (spec)": {
+          "max_depth": 3,
+          "nodes_per_depth": {
+            "1": 9,
+            "2": 9,
+            "3": 1
+          }
+        }
+      }
+    },
+    {
+      "image": "paco_lvis:112639",
+      "nodes": 61,
+      "nodes_drawn": 33,
+      "nodes_with_different_parent": 17,
+      "trees": {
+        "box tree": {
+          "max_depth": 5,
+          "nodes_per_depth": {
+            "1": 1,
+            "2": 9,
+            "3": 12,
+            "4": 9,
+            "5": 2
+          }
+        },
+        "mask tree (spec)": {
+          "max_depth": 3,
+          "nodes_per_depth": {
+            "1": 16,
+            "2": 13,
+            "3": 4
+          }
+        }
+      }
+    }
+  ],
+  "tau": 0.9
+}

@@ -1,0 +1,50 @@
+{
+  "grefcoco_no_target_queries": {
+    "train": 2000,
+    "val": 8275
+  },
+  "images_after": {
+    "grefcoco/testA": 750,
+    "grefcoco/testB": 750,
+    "grefcoco/train": 15402,
+    "grefcoco/val": 1400,
+    "paco_lvis/test": 9443,
+    "paco_lvis/train": 44406,
+    "paco_lvis/val": 2380,
+    "partonomy/test": 1065
+  },
+  "images_before": {
+    "grefcoco/testA": 750,
+    "grefcoco/testB": 750,
+    "grefcoco/train": 16994,
+    "grefcoco/val": 1501,
+    "paco_lvis/test": 9443,
+    "paco_lvis/train": 45790,
+    "paco_lvis/val": 2410,
+    "partonomy/test": 1065
+  },
+  "manifest_sha256": "3798bf46cad7e60fdb34ae3ffdcbf146c6fb95d719a65dc282fd3e9fe454d58d",
+  "removed": {
+    "grefcoco/train->dev": 425,
+    "grefcoco/train->eval": 1167,
+    "grefcoco/val->eval": 101,
+    "paco_lvis/train->dev": 688,
+    "paco_lvis/train->eval": 696,
+    "paco_lvis/val->eval": 30
+  },
+  "smoke": false,
+  "sources": {
+    "grefcoco": "present",
+    "paco_lvis": "present",
+    "partonomy": "present",
+    "sceneparser": "missing"
+  },
+  "unique_images": 67622,
+  "worklist_roles": {
+    "grefcoco_train_nt": 1860,
+    "grefcoco_val_nt": 1398,
+    "paco_train": 10000,
+    "paco_val": 2380,
+    "partonomy": 1065
+  }
+}

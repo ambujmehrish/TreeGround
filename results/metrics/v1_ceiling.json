@@ -1,0 +1,466 @@
+{
+  "diagnostic": true,
+  "iou_threshold": 0.5,
+  "label": "dev",
+  "objects": {
+    "0.9": {
+      "by_area_bin": {
+        "large": {
+          "n": 1341,
+          "recall": 0.7345264727815063
+        },
+        "medium": {
+          "n": 3291,
+          "recall": 0.8249772105742935
+        },
+        "small": {
+          "n": 6185,
+          "recall": 0.41875505254648343
+        }
+      },
+      "n": 10817,
+      "recall": 0.5814920957751687
+    },
+    "0.95": {
+      "by_area_bin": {
+        "large": {
+          "n": 1341,
+          "recall": 0.7345264727815063
+        },
+        "medium": {
+          "n": 3291,
+          "recall": 0.8252810695837132
+        },
+        "small": {
+          "n": 6185,
+          "recall": 0.4192400970088925
+        }
+      },
+      "n": 10817,
+      "recall": 0.5818618840713692
+    },
+    "pre_dedup": {
+      "by_area_bin": {
+        "large": {
+          "n": 1341,
+          "recall": 0.7345264727815063
+        },
+        "medium": {
+          "n": 3291,
+          "recall": 0.8268003646308113
+        },
+        "small": {
+          "n": 6185,
+          "recall": 0.4194017784963622
+        }
+      },
+      "n": 10817,
+      "recall": 0.5824165665156698
+    }
+  },
+  "oracle": {
+    "object/own_box": {
+      "any_of_3_masks": {
+        "by_area_bin": {
+          "large": {
+            "n": 1341,
+            "recall": 0.9828486204325131
+          },
+          "medium": {
+            "n": 3291,
+            "recall": 0.9817684594348223
+          },
+          "small": {
+            "n": 6185,
+            "recall": 0.8887631366208569
+          }
+        },
+        "n": 10817,
+        "recall": 0.9287233059073681
+      },
+      "stability_and_area_filtered": {
+        "by_area_bin": {
+          "large": {
+            "n": 1341,
+            "recall": 0.6271439224459359
+          },
+          "medium": {
+            "n": 3291,
+            "recall": 0.7520510483135825
+          },
+          "small": {
+            "n": 6185,
+            "recall": 0.4609539207760711
+          }
+        },
+        "n": 10817,
+        "recall": 0.5701211056670057
+      },
+      "top_scored_mask": {
+        "by_area_bin": {
+          "large": {
+            "n": 1341,
+            "recall": 0.9612229679343773
+          },
+          "medium": {
+            "n": 3291,
+            "recall": 0.9629292008508052
+          },
+          "small": {
+            "n": 6185,
+            "recall": 0.7975747776879547
+          }
+        },
+        "n": 10817,
+        "recall": 0.8681704724045484
+      }
+    },
+    "object/point": {
+      "any_of_3_masks": {
+        "by_area_bin": {
+          "large": {
+            "n": 1341,
+            "recall": 0.9366144668158091
+          },
+          "medium": {
+            "n": 3291,
+            "recall": 0.9608021877848678
+          },
+          "small": {
+            "n": 6185,
+            "recall": 0.7395311236863379
+          }
+        },
+        "n": 10817,
+        "recall": 0.831284089858556
+      },
+      "stability_and_area_filtered": {
+        "by_area_bin": {
+          "large": {
+            "n": 1341,
+            "recall": 0.5421327367636093
+          },
+          "medium": {
+            "n": 3291,
+            "recall": 0.7484047402005469
+          },
+          "small": {
+            "n": 6185,
+            "recall": 0.4965238480194018
+          }
+        },
+        "n": 10817,
+        "recall": 0.5788111306277156
+      },
+      "top_scored_mask": {
+        "by_area_bin": {
+          "large": {
+            "n": 1341,
+            "recall": 0.7628635346756152
+          },
+          "medium": {
+            "n": 3291,
+            "recall": 0.8620480097234883
+          },
+          "small": {
+            "n": 6185,
+            "recall": 0.6326596604688763
+          }
+        },
+        "n": 10817,
+        "recall": 0.7185911065914764
+      }
+    },
+    "part/own_box": {
+      "any_of_3_masks": {
+        "by_area_bin": {
+          "large": {
+            "n": 1051,
+            "recall": 0.8725023786869648
+          },
+          "medium": {
+            "n": 4310,
+            "recall": 0.8238979118329466
+          },
+          "small": {
+            "n": 15306,
+            "recall": 0.7583300666405332
+          }
+        },
+        "n": 20667,
+        "recall": 0.777810035322011
+      },
+      "stability_and_area_filtered": {
+        "by_area_bin": {
+          "large": {
+            "n": 1051,
+            "recall": 0.390104662226451
+          },
+          "medium": {
+            "n": 4310,
+            "recall": 0.448491879350348
+          },
+          "small": {
+            "n": 15306,
+            "recall": 0.2324578596628773
+          }
+        },
+        "n": 20667,
+        "recall": 0.28552765277979386
+      },
+      "top_scored_mask": {
+        "by_area_bin": {
+          "large": {
+            "n": 1051,
+            "recall": 0.813510941960038
+          },
+          "medium": {
+            "n": 4310,
+            "recall": 0.7693735498839908
+          },
+          "small": {
+            "n": 15306,
+            "recall": 0.6091728733829871
+          }
+        },
+        "n": 20667,
+        "recall": 0.6529733391396912
+      }
+    },
+    "part/point": {
+      "any_of_3_masks": {
+        "by_area_bin": {
+          "large": {
+            "n": 1051,
+            "recall": 0.7697431018078021
+          },
+          "medium": {
+            "n": 4310,
+            "recall": 0.6619489559164733
+          },
+          "small": {
+            "n": 15306,
+            "recall": 0.3703122958317
+          }
+        },
+        "n": 20667,
+        "recall": 0.45144433154303965
+      },
+      "stability_and_area_filtered": {
+        "by_area_bin": {
+          "large": {
+            "n": 1051,
+            "recall": 0.3396764985727878
+          },
+          "medium": {
+            "n": 4310,
+            "recall": 0.3763341067285383
+          },
+          "small": {
+            "n": 15306,
+            "recall": 0.18927218084411343
+          }
+        },
+        "n": 20667,
+        "recall": 0.23593167852131416
+      },
+      "top_scored_mask": {
+        "by_area_bin": {
+          "large": {
+            "n": 1051,
+            "recall": 0.5261655566127498
+          },
+          "medium": {
+            "n": 4310,
+            "recall": 0.4201856148491879
+          },
+          "small": {
+            "n": 15306,
+            "recall": 0.1978309159806612
+          }
+        },
+        "n": 20667,
+        "recall": 0.2608990177577781
+      }
+    },
+    "part/point+parent_box": {
+      "any_of_3_masks": {
+        "by_area_bin": {
+          "large": {
+            "n": 1051,
+            "recall": 0.647954329210276
+          },
+          "medium": {
+            "n": 4310,
+            "recall": 0.46960556844547563
+          },
+          "small": {
+            "n": 15306,
+            "recall": 0.21514438782176923
+          }
+        },
+        "n": 20667,
+        "recall": 0.2902211254657183
+      },
+      "stability_and_area_filtered": {
+        "by_area_bin": {
+          "large": {
+            "n": 1051,
+            "recall": 0.3196955280685062
+          },
+          "medium": {
+            "n": 4310,
+            "recall": 0.28074245939675174
+          },
+          "small": {
+            "n": 15306,
+            "recall": 0.11975695805566444
+          }
+        },
+        "n": 20667,
+        "recall": 0.16349736294575895
+      },
+      "top_scored_mask": {
+        "by_area_bin": {
+          "large": {
+            "n": 1051,
+            "recall": 0.5394862036156042
+          },
+          "medium": {
+            "n": 4310,
+            "recall": 0.37146171693735497
+          },
+          "small": {
+            "n": 15306,
+            "recall": 0.16836534692277538
+          }
+        },
+        "n": 20667,
+        "recall": 0.22959307107949872
+      }
+    }
+  },
+  "oracle_part_categories_point+parent_box": {
+    "basket:side": {
+      "n": 207,
+      "recall": 0.7632850241545893
+    },
+    "belt:strap": {
+      "n": 176,
+      "recall": 0.7840909090909091
+    },
+    "bench:seat": {
+      "n": 166,
+      "recall": 0.4578313253012048
+    },
+    "book:cover": {
+      "n": 832,
+      "recall": 0.8449519230769231
+    },
+    "book:page": {
+      "n": 272,
+      "recall": 0.30514705882352944
+    },
+    "bottle:body": {
+      "n": 327,
+      "recall": 0.5657492354740061
+    },
+    "bottle:cap": {
+      "n": 276,
+      "recall": 0.09782608695652174
+    },
+    "bottle:label": {
+      "n": 203,
+      "recall": 0.35467980295566504
+    },
+    "bottle:neck": {
+      "n": 269,
+      "recall": 0.05204460966542751
+    },
+    "bottle:shoulder": {
+      "n": 278,
+      "recall": 0.017985611510791366
+    },
+    "bowl:body": {
+      "n": 208,
+      "recall": 0.5913461538461539
+    },
+    "bowl:inner_body": {
+      "n": 178,
+      "recall": 0.38202247191011235
+    },
+    "bowl:rim": {
+      "n": 197,
+      "recall": 0.08629441624365482
+    },
+    "box:side": {
+      "n": 304,
+      "recall": 0.8552631578947368
+    },
+    "car_(automobile):bumper": {
+      "n": 209,
+      "recall": 0.06220095693779904
+    },
+    "car_(automobile):fender": {
+      "n": 185,
+      "recall": 0.032432432432432434
+    },
+    "car_(automobile):roof": {
+      "n": 208,
+      "recall": 0.019230769230769232
+    },
+    "car_(automobile):wheel": {
+      "n": 218,
+      "recall": 0.009174311926605505
+    },
+    "car_(automobile):window": {
+      "n": 172,
+      "recall": 0.046511627906976744
+    },
+    "car_(automobile):windshield": {
+      "n": 233,
+      "recall": 0.09871244635193133
+    },
+    "chair:back": {
+      "n": 473,
+      "recall": 0.7272727272727273
+    },
+    "chair:seat": {
+      "n": 231,
+      "recall": 0.1341991341991342
+    },
+    "glass_(drink_container):body": {
+      "n": 233,
+      "recall": 0.9227467811158798
+    },
+    "handbag:body": {
+      "n": 207,
+      "recall": 0.927536231884058
+    },
+    "plate:rim": {
+      "n": 175,
+      "recall": 0.15428571428571428
+    },
+    "shoe:outsole": {
+      "n": 286,
+      "recall": 0.13286713286713286
+    },
+    "shoe:quarter": {
+      "n": 239,
+      "recall": 0.0502092050209205
+    },
+    "shoe:toe_box": {
+      "n": 233,
+      "recall": 0.034334763948497854
+    },
+    "shoe:vamp": {
+      "n": 225,
+      "recall": 0.04
+    },
+    "vase:body": {
+      "n": 206,
+      "recall": 0.9174757281553398
+    }
+  },
+  "split": "PACO-LVIS val"
+}

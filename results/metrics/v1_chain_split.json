@@ -1,0 +1,102 @@
+{
+  "by_tau": {
+    "0.9": {
+      "both_found": 0.2524500196001568,
+      "by_part_area_bin": {
+        "large": {
+          "both_found": 0.39263803680981596,
+          "chains": 652,
+          "tree_feasible": 0.12269938650306748
+        },
+        "medium": {
+          "both_found": 0.35071090047393366,
+          "chains": 1688,
+          "tree_feasible": 0.21919431279620852
+        },
+        "small": {
+          "both_found": 0.15930485155684287,
+          "chains": 2762,
+          "tree_feasible": 0.10753077480086894
+        }
+      },
+      "chains": 5102,
+      "lost_containment_quantiles": {
+        "0.25": 1.0,
+        "0.5": 1.0,
+        "0.75": 1.0
+      },
+      "missing": {
+        "both_missing": 1031,
+        "object_only_missing": 115,
+        "part_only_missing": 2668
+      },
+      "object_found": 0.7753822030576245,
+      "part_found": 0.2749901999215994,
+      "structural_loss_chains": 541,
+      "structural_loss_reasons": {
+        "not_smaller": 521,
+        "spill": 19,
+        "wrong_branch": 1
+      },
+      "tree_feasible": 0.14641317130537043,
+      "tree_feasible_by_containment": {
+        "0.5": 0.14680517444139554,
+        "0.6": 0.14680517444139554,
+        "0.7": 0.146609172873383,
+        "0.8": 0.14641317130537043
+      },
+      "tree_feasible_given_both_found": 0.5799689440993789
+    },
+    "0.95": {
+      "both_found": 0.2542140337122697,
+      "by_part_area_bin": {
+        "large": {
+          "both_found": 0.39263803680981596,
+          "chains": 652,
+          "tree_feasible": 0.1901840490797546
+        },
+        "medium": {
+          "both_found": 0.3536729857819905,
+          "chains": 1688,
+          "tree_feasible": 0.28613744075829384
+        },
+        "small": {
+          "both_found": 0.16075307748008688,
+          "chains": 2762,
+          "tree_feasible": 0.12961622013034033
+        }
+      },
+      "chains": 5102,
+      "lost_containment_quantiles": {
+        "0.25": 1.0,
+        "0.5": 1.0,
+        "0.75": 1.0
+      },
+      "missing": {
+        "both_missing": 1030,
+        "object_only_missing": 115,
+        "part_only_missing": 2660
+      },
+      "object_found": 0.775578204625637,
+      "part_found": 0.27675421403371225,
+      "structural_loss_chains": 332,
+      "structural_loss_reasons": {
+        "not_smaller": 312,
+        "spill": 19,
+        "wrong_branch": 1
+      },
+      "tree_feasible": 0.18914151313210506,
+      "tree_feasible_by_containment": {
+        "0.5": 0.18953351626813014,
+        "0.6": 0.18953351626813014,
+        "0.7": 0.1893375147001176,
+        "0.8": 0.18914151313210506
+      },
+      "tree_feasible_given_both_found": 0.7440246723207402
+    }
+  },
+  "diagnostic": true,
+  "label": "dev",
+  "proposal_setting": "stability0.9",
+  "split": "PACO-LVIS val I1 chains"
+}

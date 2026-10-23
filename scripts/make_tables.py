@@ -121,6 +121,16 @@ def retrieval(root: Path) -> tuple[list, list]:
                      "n_acc": get(m, "iii_end_to_end_gIoU", "no_target_abstention_rate"),
                      "no_target": get(m, "queries", "no_target"),
                      "selector_success_covered": get(m, "ii_selector_success", "all")})
+    variants = get(load(root, "e2e_variants"), "stages") or {}
+    for stage, label in OURS:
+        v = variants.get(stage)
+        if not isinstance(v, dict):
+            continue
+        nr = v["no_rejection_present"]
+        rows.append({"_group": "ours (no rejection, D15)", "method": f"{label}, no rejection",
+                     "queries": v["present_queries"], "gIoU": nr.get("gIoU"), "cIoU": nr.get("cIoU"),
+                     "gIoU_object": get(nr, "by_kind", "object"), "gIoU_part": get(nr, "by_kind", "part"),
+                     "success_0.5": nr.get("success@0.5"), "no_target": v["no_target_queries"]})
     for stage, label in BASELINES:
         m = load(root, stage)
         rows.append({"_group": "baselines", "method": label, "queries": get(m, "present", "n"),

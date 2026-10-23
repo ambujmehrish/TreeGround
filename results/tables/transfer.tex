@@ -5,21 +5,37 @@ Dataset & Selector & Search & Part recall & Chain feasible & Chains & Common & F
 Pascal-Part & V2 & spec & 49.5 & 57.5 & 27518 & 4009 & 7.4 \scriptsize{[6.6, 8.3]} & 7.1 \scriptsize{[6.3, 7.9]} & 3.4 \scriptsize{[3.0, 3.9]} & -- \\
 Pascal-Part & V2 & D5 inclusive & 49.5 & 57.5 & 27518 & 6109 & 7.5 \scriptsize{[6.8, 8.2]} & 8.0 \scriptsize{[7.3, 8.7]} & 7.8 \scriptsize{[7.2, 8.4]} & -- \\
 Pascal-Part & V2 & D6 box tree & 49.5 & 57.5 & 27518 & 11312 & 5.9 \scriptsize{[5.4, 6.3]} & 5.8 \scriptsize{[5.4, 6.3]} & -- & 5.3 \scriptsize{[4.8, 5.7]} \\
-Pascal-Part & S1 & spec & -- & -- & -- & -- & -- & -- & -- & -- \\
+Pascal-Part & V2 & D12 no rejection & 49.5 & 57.5 & 27518 & 4009 & 9.9 \scriptsize{[8.9, 10.8]} & 10.2 \scriptsize{[9.2, 11.1]} & 5.6 \scriptsize{[5.1, 6.2]} & -- \\
+Pascal-Part & S1 & spec & 49.5 & 57.5 & 27518 & 4009 & 3.9 \scriptsize{[3.3, 4.6]} & 3.8 \scriptsize{[3.3, 4.5]} & 1.2 \scriptsize{[1.0, 1.5]} & -- \\
+Pascal-Part & S1 & D5 inclusive & 49.5 & 57.5 & 27518 & 6109 & 8.3 \scriptsize{[7.5, 9.0]} & 8.3 \scriptsize{[7.6, 9.0]} & 6.3 \scriptsize{[5.6, 6.9]} & -- \\
+Pascal-Part & S1 & D6 box tree & 49.5 & 57.5 & 27518 & 11312 & 5.3 \scriptsize{[4.9, 5.8]} & 5.0 \scriptsize{[4.6, 5.4]} & -- & 4.6 \scriptsize{[4.2, 5.1]} \\
+Pascal-Part & S1 & D12 no rejection & 49.5 & 57.5 & 27518 & 4009 & 58.1 \scriptsize{[56.4, 59.7]} & 57.2 \scriptsize{[55.6, 59.0]} & 23.3 \scriptsize{[22.2, 24.4]} & -- \\
 \midrule
 ADE20K & V2 & spec & 63.9 & 64.2 & 3718 & 97 & 4.1 \scriptsize{[1.0, 8.5]} & 3.1 \scriptsize{[0.0, 7.1]} & 0.8 \scriptsize{[0.0, 2.0]} & -- \\
 ADE20K & V2 & D5 inclusive & 63.9 & 64.2 & 3718 & 670 & 8.7 \scriptsize{[6.5, 10.8]} & 10.3 \scriptsize{[7.9, 12.5]} & 12.3 \scriptsize{[9.8, 14.7]} & -- \\
 ADE20K & V2 & D6 box tree & 63.9 & 64.2 & 3718 & 1524 & 5.2 \scriptsize{[4.1, 6.4]} & 5.8 \scriptsize{[4.7, 7.1]} & -- & 5.4 \scriptsize{[4.3, 6.5]} \\
-ADE20K & S1 & spec & -- & -- & -- & -- & -- & -- & -- & -- \\
+ADE20K & V2 & D12 no rejection & 63.9 & 64.2 & 3718 & 97 & 5.2 \scriptsize{[1.1, 10.1]} & 4.1 \scriptsize{[1.0, 8.6]} & 1.2 \scriptsize{[0.2, 2.5]} & -- \\
+ADE20K & S1 & spec & 63.9 & 64.2 & 3718 & 97 & 1.0 \scriptsize{[0.0, 3.9]} & 1.0 \scriptsize{[0.0, 3.9]} & 0.2 \scriptsize{[0.0, 0.8]} & -- \\
+ADE20K & S1 & D5 inclusive & 63.9 & 64.2 & 3718 & 670 & 2.2 \scriptsize{[1.2, 3.4]} & 2.4 \scriptsize{[1.4, 3.6]} & 1.6 \scriptsize{[0.7, 2.6]} & -- \\
+ADE20K & S1 & D6 box tree & 63.9 & 64.2 & 3718 & 1524 & 1.1 \scriptsize{[0.6, 1.6]} & 1.0 \scriptsize{[0.6, 1.6]} & -- & 1.0 \scriptsize{[0.6, 1.6]} \\
+ADE20K & S1 & D12 no rejection & 63.9 & 64.2 & 3718 & 97 & 17.5 \scriptsize{[10.0, 25.7]} & 17.5 \scriptsize{[10.1, 25.5]} & 5.4 \scriptsize{[3.2, 8.1]} & -- \\
 \midrule
 LVIS hier. & V2 & spec & 91.9 & 55.4 & 1683 & 166 & 4.2 \scriptsize{[1.2, 7.8]} & 5.4 \scriptsize{[2.4, 9.2]} & 1.7 \scriptsize{[0.6, 3.0]} & -- \\
 LVIS hier. & V2 & D5 inclusive & 91.9 & 55.4 & 1683 & 354 & 9.6 \scriptsize{[7.0, 12.7]} & 15.5 \scriptsize{[11.8, 19.4]} & 17.5 \scriptsize{[13.6, 21.5]} & -- \\
 LVIS hier. & V2 & D6 box tree & 91.9 & 55.4 & 1683 & 597 & 7.0 \scriptsize{[5.1, 9.1]} & 9.7 \scriptsize{[7.5, 12.3]} & -- & 9.4 \scriptsize{[7.1, 11.9]} \\
-LVIS hier. & S1 & spec & -- & -- & -- & -- & -- & -- & -- & -- \\
+LVIS hier. & V2 & D12 no rejection & 91.9 & 55.4 & 1683 & 166 & 5.4 \scriptsize{[1.8, 9.6]} & 7.2 \scriptsize{[3.6, 11.7]} & 3.7 \scriptsize{[1.8, 6.4]} & -- \\
+LVIS hier. & S1 & spec & 91.9 & 55.4 & 1683 & 166 & 0.0 \scriptsize{[0.0, 0.0]} & 0.0 \scriptsize{[0.0, 0.0]} & 0.0 \scriptsize{[0.0, 0.0]} & -- \\
+LVIS hier. & S1 & D5 inclusive & 91.9 & 55.4 & 1683 & 354 & 0.0 \scriptsize{[0.0, 0.0]} & 0.0 \scriptsize{[0.0, 0.0]} & 0.0 \scriptsize{[0.0, 0.0]} & -- \\
+LVIS hier. & S1 & D6 box tree & 91.9 & 55.4 & 1683 & 597 & 0.0 \scriptsize{[0.0, 0.0]} & 0.0 \scriptsize{[0.0, 0.0]} & -- & 0.0 \scriptsize{[0.0, 0.0]} \\
+LVIS hier. & S1 & D12 no rejection & 91.9 & 55.4 & 1683 & 166 & 22.9 \scriptsize{[16.7, 29.5]} & 28.9 \scriptsize{[22.0, 36.0]} & 9.5 \scriptsize{[6.9, 12.6]} & -- \\
 \midrule
 OpenImages hier. & V2 & spec & 94.8 & 92.0 & 31610 & 14273 & 0.2 \scriptsize{[0.1, 0.3]} & 0.2 \scriptsize{[0.1, 0.3]} & 0.1 \scriptsize{[0.1, 0.1]} & -- \\
 OpenImages hier. & V2 & D5 inclusive & 94.8 & 92.0 & 31610 & 18752 & 0.2 \scriptsize{[0.1, 0.3]} & 0.2 \scriptsize{[0.1, 0.3]} & 0.3 \scriptsize{[0.2, 0.4]} & -- \\
 OpenImages hier. & V2 & D6 box tree & 94.8 & 92.0 & 31610 & 23964 & 0.2 \scriptsize{[0.1, 0.2]} & 0.1 \scriptsize{[0.1, 0.2]} & -- & 0.2 \scriptsize{[0.1, 0.2]} \\
-OpenImages hier. & S1 & spec & -- & -- & -- & -- & -- & -- & -- & -- \\
+OpenImages hier. & V2 & D12 no rejection & 94.8 & 92.0 & 31610 & 14273 & 1.3 \scriptsize{[1.1, 1.6]} & 2.0 \scriptsize{[1.7, 2.4]} & 1.9 \scriptsize{[1.6, 2.1]} & -- \\
+OpenImages hier. & S1 & spec & 94.8 & 92.0 & 31610 & 14273 & 0.0 \scriptsize{[0.0, 0.0]} & 0.0 \scriptsize{[0.0, 0.0]} & 0.0 \scriptsize{[0.0, 0.0]} & -- \\
+OpenImages hier. & S1 & D5 inclusive & 94.8 & 92.0 & 31610 & 18752 & 0.0 \scriptsize{[0.0, 0.1]} & 0.0 \scriptsize{[0.0, 0.1]} & 0.0 \scriptsize{[0.0, 0.0]} & -- \\
+OpenImages hier. & S1 & D6 box tree & 94.8 & 92.0 & 31610 & 23964 & 0.0 \scriptsize{[0.0, 0.1]} & 0.0 \scriptsize{[0.0, 0.0]} & -- & 0.0 \scriptsize{[0.0, 0.0]} \\
+OpenImages hier. & S1 & D12 no rejection & 94.8 & 92.0 & 31610 & 14273 & 18.2 \scriptsize{[17.3, 19.1]} & 19.1 \scriptsize{[18.2, 20.1]} & 13.7 \scriptsize{[13.1, 14.2]} & -- \\
 \bottomrule
 \end{tabular}

@@ -401,6 +401,18 @@ PROPOSED_DEVIATIONS = [
                   "same-backbone baseline",
         "expected_impact": "a new task-3 result family; no change to any grounding result",
     },
+    {
+        "id": "D15",
+        "spec_section": "2.4 / V2 end-to-end reporting",
+        "change": "single-step end-to-end numbers recomputed from each stage's saved per-query table (V2, S1, S2): at "
+                  "the recorded calibrated tau_rej, and with rejection disabled on present queries (top node always "
+                  "returned, the protocol of present-only benchmarks and of the D13 baselines without abstention); "
+                  "no-target accuracy reported separately with the full threshold curve; primary numbers unchanged",
+        "reason": "S1, trained on gRefCOCO, scores gRefCOCO no-target expressions high, so Eq. 2 calibration on the "
+                  "8275 no-target vs 7225 present queries sets tau_rej 0.88 and S1 abstains on most present queries "
+                  "(present gIoU 0.086 although selector success rose 0.48 -> 0.64)",
+        "expected_impact": "adds no-rejection and curve blocks; separates selection quality from abstention",
+    },
 ]
 
 

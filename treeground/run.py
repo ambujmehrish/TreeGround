@@ -324,6 +324,16 @@ PROPOSED_DEVIATIONS = [
                   "PARTONOMY; only the listed sources are available on the cluster",
         "expected_impact": "a selector trained on ~6x more images than V2; results reported as S1 next to V2",
     },
+    {
+        "id": "D12",
+        "spec_section": "5 (V4) / transfer diagnostics",
+        "change": "an extra diagnostic block in V4 and transfer: natural search rerun with the rejection threshold "
+                  "disabled (tau_rej = -inf, every step takes the top-scoring candidate); the primary numbers keep "
+                  "the calibrated tau_rej",
+        "reason": "transfer chain success is near zero (OpenImages step 1 0.17%); this separates wrong rejections "
+                  "from wrong selections",
+        "expected_impact": "none on primary numbers; adds natural_no_rejection blocks",
+    },
 ]
 
 

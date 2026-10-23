@@ -27,7 +27,7 @@ from treeground.data.images import load_rgb  # noqa: E402
 from treeground.data.paco import CHAIN_TEMPLATE  # noqa: E402
 from treeground.features import image_features  # noqa: E402
 from treeground.metrics import area_bin  # noqa: E402
-from treeground.run import (REPO, ProtocolError, assert_real_path, canonical_hash, load_config, read_json,  # noqa: E402
+from treeground.run import (REPO, ProtocolError, assert_real_path, canonical_hash, load_config, read_deviations, read_json,  # noqa: E402
                             require_approved, resolve_run, start_run, write_json)
 from treeground.selector import Selector  # noqa: E402
 
@@ -242,7 +242,7 @@ def run_shard(cfg, dataset, shard, num_shards):
     V4 = load_v4()
     models, tau, layer = load_models(cfg, v2)
     cap = node_cap()
-    cov_all, nat = [], {"strict": [], "d5": [], "d6": []}
+    cov_all, nat = [], {"strict": [], "d5": [], "d6": [], "no_rejection": []}
     t0, n_img = time.time(), 0
     for key, image, hw, chains, parts in records(cfg, dataset, shard, num_shards):
         t1 = time.time()
@@ -252,6 +252,7 @@ def run_shard(cfg, dataset, shard, num_shards):
             nat["strict"].append(V4.natural(items, tau)[0])
             nat["d5"].append(V4.natural(items, tau, inclusive=True)[0])
             nat["d6"].append(V4.natural(items, tau, box=True)[0])
+            nat["no_rejection"].append(V4.natural(items, -np.inf)[0])
         n_img += 1
         print(f"[{n_img}] {key} nodes {n_nodes} capped {n_cap} chains {len(chains)} {time.time() - t1:.1f}s",
               flush=True)
@@ -289,8 +290,12 @@ def merge(cfg, dataset, num_shards):
         "chain_part_found": float((ch.best_iou >= THR).mean()) if len(ch) else None,
         "chain_feasible_mask_tree": float(ch.feasible_uncapped.mean()) if len(ch) else None,
         "single_level_chains": int((ch.part_ratio >= 0.5).sum())}
-    for mode, box in (("strict", False), ("d5", False), ("d6", True)):
-        df = pd.concat([p[mode] for p in parts if len(p[mode])], ignore_index=True)
+    for mode, box in (("strict", False), ("d5", False), ("d6", True), ("no_rejection", False)):
+        df = pd.concat([p[mode] for p in parts if len(p.get(mode, ()))], ignore_index=True) \
+            if any(len(p.get(mode, ())) for p in parts) else pd.DataFrame()
+        if mode == "no_rejection" and read_deviations(cfg).get("D12", {}).get("status") != "approved":
+            out[f"natural_{mode}"] = "not reported: deviation D12 is not approved in deviations.jsonl"
+            continue
         if not len(df):
             out[f"natural_{mode}"] = None
             continue

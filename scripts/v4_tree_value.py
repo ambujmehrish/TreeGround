@@ -270,6 +270,16 @@ def main() -> None:
             "single_level": natural_summary(d6[d6.single_level], 0, bs, box=True) if single.any() else None}
     else:
         metrics["natural_search_d6_box_tree"] = "not computed: deviation D6 is not approved in deviations.jsonl"
+    if read_deviations(cfg).get("D12", {}).get("status") == "approved":
+        nr, _ = natural(chains, -np.inf)
+        nr.to_csv(run / "chains_natural_no_rejection.csv", index=False)
+        metrics["natural_no_rejection_d12"] = {
+            "deviation": "D12: diagnostic, tau_rej disabled at both steps",
+            "all": natural_summary(nr, len(seeds), bs),
+            "two_level": natural_summary(nr[~nr.single_level], len(seeds), bs),
+            "single_level": natural_summary(nr[nr.single_level], len(seeds), bs) if single.any() else None}
+    else:
+        metrics["natural_no_rejection_d12"] = "not computed: deviation D12 is not approved in deviations.jsonl"
     write_json(run / "metrics.json", metrics)
     print(run)
 

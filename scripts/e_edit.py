@@ -94,6 +94,11 @@ def fit_dims(w: int, h: int, area: int, multiple: int) -> tuple[int, int]:
     return max(multiple, round(w * s / multiple) * multiple), max(multiple, round(h * s / multiple) * multiple)
 
 
+def stage_tag(cfg: dict) -> str:
+    stage = cfg["inputs"].get("selector_stage", "v2")
+    return "" if stage == "v2" else f"_{stage}"
+
+
 def select_identity(cfg: dict, dataset: str, sel_run: Path, ids: list[str], smoke: bool) -> dict:
     p, m = cfg["proposals"], cfg["models"]
     h = hashlib.sha256()
@@ -365,7 +370,7 @@ def run_shard(cfg: dict, editor: str, dataset: str, shard: int, num_shards: int,
         if not (d / "identity.json").exists():
             write_json(d / "identity.json", {"identity": ident, "hash": canonical_hash(ident)})
     mine = items[shard::num_shards]
-    run = start_run(f"e_{editor}_{dataset}", cfg, smoke, {"shard": shard, "num_shards": num_shards,
+    run = start_run(f"e_{editor}_{dataset}{stage_tag(cfg)}", cfg, smoke, {"shard": shard, "num_shards": num_shards,
                                                           "cache": str(edir), "select_cache": str(sdir),
                                                           "selector_run": str(sel_run)})
     t0 = time.time()
@@ -440,7 +445,7 @@ def merge(cfg: dict, editor: str, dataset: str, num_shards: int, smoke: bool) ->
     expected = {(s.sample_id, c) for s in items for c in conds}
     if set(zip(df.sample_id, df.condition)) != expected or df.duplicated(["sample_id", "condition"]).any():
         raise ProtocolError(f"{editor}/{dataset}: merged rows do not match the evaluation set")
-    run = start_run(f"e_{editor}_{dataset}_merge", cfg, smoke, {"cache": str(edir), "selector_run": str(sel_run)})
+    run = start_run(f"e_{editor}_{dataset}{stage_tag(cfg)}_merge", cfg, smoke, {"cache": str(edir), "selector_run": str(sel_run)})
     metrics, table = summarize(df, conds, cfg["edit"]["metrics"]["bootstrap"])
     lp = df.lpips_out.isna().all()
     metrics.update({"deviation": "D14", "label": "dev" if dataset == "paco_edit" else "edit benchmark",

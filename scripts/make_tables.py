@@ -114,6 +114,10 @@ def retrieval(root: Path) -> tuple[list, list]:
         m = get(m, "single_step") if stage.startswith("s2") else m
         rows.append({"_group": "ours", "method": label, "queries": get(m, "queries", "present"),
                      "gIoU": get(m, "iii_end_to_end_gIoU", "present"),
+                     "cIoU": get(m, "iii_end_to_end_gIoU", "cIoU_present"),
+                     "gIoU_object": get(m, "iii_end_to_end_gIoU", "by_kind", "object"),
+                     "gIoU_part": get(m, "iii_end_to_end_gIoU", "by_kind", "part"),
+                     "success_0.5": get(m, "iii_end_to_end_gIoU", "success@0.5_present"),
                      "n_acc": get(m, "iii_end_to_end_gIoU", "no_target_abstention_rate"),
                      "no_target": get(m, "queries", "no_target"),
                      "selector_success_covered": get(m, "ii_selector_success", "all")})

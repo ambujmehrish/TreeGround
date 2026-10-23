@@ -293,13 +293,17 @@ def evaluate(cfg, sel, store, props, queries, qdir, li, layer, wl, device) -> tu
             ious = M.iou(nodes["rles"], [gts[gt[0]]])[:, 0] if nodes["rles"] else np.zeros(0)
             if e is None:
                 rows.append({"qid": q.qid, "kind": q.kind, "image": key, "present": True, "max_sigma": -np.inf,
-                             "sel_iou": 0.0, "best_iou": 0.0, "is_best": False})
+                             "sel_iou": 0.0, "best_iou": 0.0, "is_best": False, "sel_inter": 0,
+                             "sel_union": 0, "gt_area": int(M.areas([gts[gt[0]]])[0])})
                 continue
             sig = torch.sigmoid(sel.scores(sel.queries(probes.get(sha1, q.offset, 1).to(device)), e)[0]).cpu().numpy()
             a = int(np.argmax(sig))
             b = int(np.argmax(ious))
+            inter = int(M.intersections([nodes["rles"][a]], [gts[gt[0]]])[0, 0])
+            area = M.areas([nodes["rles"][a], gts[gt[0]]])
             rows.append({"qid": q.qid, "kind": q.kind, "image": key, "present": True, "max_sigma": float(sig[a]),
-                         "sel_iou": float(ious[a]), "best_iou": float(ious[b]), "is_best": a == b})
+                         "sel_iou": float(ious[a]), "best_iou": float(ious[b]), "is_best": a == b,
+                         "sel_inter": inter, "sel_union": int(area.sum()) - inter, "gt_area": int(area[1])})
     for q in queries[(queries.kind == "absent") & (queries.split == "val")].itertuples():
         z = store.load(q.sha1, [feat_key])[feat_key]
         if len(z):
@@ -309,7 +313,8 @@ def evaluate(cfg, sel, store, props, queries, qdir, li, layer, wl, device) -> tu
         else:
             m = -np.inf
         rows.append({"qid": q.qid, "kind": "absent", "image": keys.get(q.sha1, q.image_key), "present": False,
-                     "max_sigma": m, "sel_iou": 0.0, "best_iou": 0.0, "is_best": False})
+                     "max_sigma": m, "sel_iou": 0.0, "best_iou": 0.0, "is_best": False, "sel_inter": 0,
+                     "sel_union": 0, "gt_area": 0})
     df = pd.DataFrame(rows)
     pres, absn = df[df.present], df[~df.present]
     tau_rej, curve = calibrate_rejection(pres.max_sigma.to_numpy(), pres.sel_iou.to_numpy(),
@@ -337,7 +342,14 @@ def evaluate(cfg, sel, store, props, queries, qdir, li, layer, wl, device) -> tu
         "iii_end_to_end_gIoU": {"present": ci(pres, "e2e_iou"),
                                 "present_and_no_target": ci(df, "e2e_iou"),
                                 "no_target_abstention_rate": float((~df[~df.present].accept).mean())
-                                if (~df.present).any() else None},
+                                if (~df.present).any() else None,
+                                # cIoU: a rejected present query adds its GT area to the union and nothing to the
+                                # intersection; success@0.5 and the per-kind gIoU are over all present queries
+                                "cIoU_present": float(np.where(pres.accept, pres.sel_inter, 0).sum()
+                                                      / np.where(pres.accept, pres.sel_union, pres.gt_area).sum())
+                                if len(pres) else None,
+                                "success@0.5_present": ci(pres.assign(s=pres.e2e_iou >= 0.5), "s"),
+                                "by_kind": {k: ci(g, "e2e_iou") for k, g in pres.groupby("kind")}},
         "proposal_failures_eval": int((pres.best_iou < 0.5).sum()),
         "queries": {"present": int(len(pres)), "no_target": int((~df.present).sum())},
     }

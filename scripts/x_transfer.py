@@ -7,6 +7,7 @@ import sys
 import time
 from pathlib import Path
 
+import cv2
 import numpy as np
 import pandas as pd
 import torch
@@ -37,6 +38,8 @@ from treeground.selector import Selector  # noqa: E402
 # --merge pools the shards and writes the summaries. Every number is a transfer result, labelled per dataset.
 
 THR = 0.5
+OPENIMAGES_MAX_SIDE = 1024  # the download bucket serves originals (up to several thousand px); resized like the
+#                             common 1024-px OpenImages release. GT boxes are normalised, so they scale exactly.
 DATASETS = ("pascal_part", "ade20k", "lvis_hier", "openimages_hier")
 
 
@@ -84,6 +87,10 @@ def records(cfg: dict, dataset: str, shard: int, num_shards: int):
         for i in ids[shard::num_shards]:
             image = load_rgb(assert_real_path(Path(cfg["data"]["openimages_images"]) / f"{i}.jpg"))
             h, w = image.shape[:2]
+            if max(h, w) > OPENIMAGES_MAX_SIDE:
+                s = OPENIMAGES_MAX_SIDE / max(h, w)
+                image = cv2.resize(image, (max(1, round(w * s)), max(1, round(h * s))), interpolation=cv2.INTER_AREA)
+                h, w = image.shape[:2]
             ch = openimages_hier.chains(i, boxes[i], pairs, w, h)
             yield f"openimages:{i}", image, (h, w), ch, [(c[0].split("|")[-1], c[4]) for c in ch]
     else:
@@ -216,7 +223,8 @@ def load_models(cfg: dict, v2: Path):
 
 
 def run_shard(cfg, dataset, shard, num_shards):
-    require_approved(cfg, ["D3", "D4", "D7"] + (["D8"] if dataset in ("lvis_hier", "openimages_hier") else []))
+    require_approved(cfg, ["D3", "D4", "D7"] + (["D8"] if dataset in ("lvis_hier", "openimages_hier") else [])
+                     + (["D9"] if dataset == "openimages_hier" else []))
     v2 = selector_run(cfg)
     ident = identity(cfg, dataset, v2)
     d = out_dir(cfg, dataset, ident)

@@ -1,0 +1,77 @@
+import argparse
+import glob
+import json
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from treeground.run import load_config, runs_root  # noqa: E402
+
+# Prints the V2 dev report, the PACO V4 chain search and every transfer merge in one compact view.
+
+
+def latest(root: Path, stage: str) -> Path | None:
+    runs = sorted(glob.glob(str(root / stage / "2*" / "metrics.json")))
+    return Path(runs[-1]) if runs else None
+
+
+def ci(x) -> str:
+    if not isinstance(x, dict) or "mean" not in x:
+        return "n/a"
+    return f"{x['mean']:.3f} [{x.get('lo', float('nan')):.3f}, {x.get('hi', float('nan')):.3f}]"
+
+
+def search(title: str, summary: dict | None, names) -> None:
+    if not isinstance(summary, dict):
+        print(f"   {title}: {summary}")
+        return
+    sub = summary.get("common_eligible_subset", {})
+    print(f"   {title}: chains {summary.get('chains')} common eligible {sub.get('size')} ({sub.get('fraction')})")
+    for n in names:
+        b = summary.get(n) or {}
+        print(f"      {n:6s} chain success (common) {ci(b.get('chain_success_common'))}   end-to-end "
+              f"{ci(b.get('chain_success_end_to_end'))}   feasible {b.get('feasible_path_coverage')}")
+
+
+def blocks(m: dict, strict, d5, d6) -> None:
+    for title, blk, names in (("spec", strict, ("flat", "true", "random")), ("D5", d5, ("flat", "true", "random")),
+                              ("D6 box", d6, ("flat", "true", "box"))):
+        if not isinstance(blk, dict):
+            print(f"   {title}: {blk}")
+            continue
+        for part in ("all", "two_level", "single_level"):
+            if part in blk:
+                search(f"{title}/{part}", blk[part], names)
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--config", default="configs/x_transfer.yaml")
+    cfg = load_config(ap.parse_args().config)
+    root = runs_root(cfg)
+    v2 = latest(root, "v2")
+    print("== PACO V2", v2)
+    if v2:
+        m = json.loads(v2.read_text())
+        print(json.dumps({k: v for k, v in m.items() if k not in ("per_category", "curve", "calibration_curve")},
+                         indent=1, default=str)[:4000])
+    v4 = latest(root, "v4")
+    print("== PACO V4", v4)
+    if v4:
+        m = json.loads(v4.read_text())
+        split = m.get("chain_split_spec_strict", {})
+        blocks(m, {"all": m.get("natural_search"), "two_level": split.get("two_level"),
+                   "single_level": split.get("single_level")}, m.get("natural_search_d5"),
+               m.get("natural_search_d6_box_tree"))
+    for ds in ("pascal_part", "ade20k", "lvis_hier", "openimages_hier"):
+        p = latest(root, f"x_transfer_{ds}_merge")
+        print(f"== transfer {ds}", p)
+        if p:
+            m = json.loads(p.read_text())
+            print("   coverage", json.dumps(m.get("coverage_uncapped"), default=str))
+            blocks(m, m.get("natural_strict"), m.get("natural_d5"), m.get("natural_d6"))
+
+
+if __name__ == "__main__":
+    main()

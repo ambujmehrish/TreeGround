@@ -299,6 +299,16 @@ PROPOSED_DEVIATIONS = [
                   "the parent mask), the case the box tree (D6) targets",
         "expected_impact": "object-in-object chains where box containment holds but mask containment mostly does not",
     },
+    {
+        "id": "D9",
+        "spec_section": "amendment (D8 preprocessing)",
+        "change": "OpenImages images are resized to at most 1024 px on the longest side (INTER_AREA) before SAM 3 and "
+                  "Qwen; GT boxes are normalised and scale exactly",
+        "reason": "the public download bucket serves original-resolution photos (several thousand px); 4 of 64 "
+                  "shards ran out of GPU memory in SAM 3 mask post-processing (34 GiB for one point batch); the "
+                  "1024-px resize matches the commonly distributed OpenImages image set",
+        "expected_impact": "fewer pixels for very large photos; all OpenImages shards rerun with the same setting",
+    },
 ]
 
 

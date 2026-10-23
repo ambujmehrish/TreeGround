@@ -1,0 +1,240 @@
+{
+  "cache_counts": {
+    "grefcoco_train:absent": 17377,
+    "grefcoco_train:proposal_failures": 12534,
+    "grefcoco_train:queries": 159777,
+    "grefcoco_train:unreachable_chains": 0,
+    "paco_train:absent": 0,
+    "paco_train:proposal_failures": 56133,
+    "paco_train:queries": 118214,
+    "paco_train:unreachable_chains": 57828,
+    "pascal_part_train:absent": 0,
+    "pascal_part_train:proposal_failures": 14030,
+    "pascal_part_train:queries": 30144,
+    "pascal_part_train:unreachable_chains": 14453
+  },
+  "caches": {
+    "grefcoco_train": {
+      "cache": "153e3f61763200cf",
+      "identity": "153e3f61763200cf8f8737fe784ef60aa7b919a17d3296ddcf315d929de8ead9"
+    },
+    "paco_train": {
+      "cache": "55233840de865e53",
+      "identity": "55233840de865e536cabc928e10a8702d1e9109a52f72f1c4ecabc4b432ae50a"
+    },
+    "pascal_part_train": {
+      "cache": "fefb3c363d4e6785",
+      "identity": "fefb3c363d4e6785133da86ae7069f8792d5eb7cfda21ff69485ea0e9d3ce6f9"
+    }
+  },
+  "calibration_grid": [
+    0.0,
+    1.0,
+    200
+  ],
+  "calibration_objective_max": 0.5610846586505684,
+  "checkpoint_rule": "highest PACO val single-step selector success (V2 definition)",
+  "deviation": "D11",
+  "diagnostic_best_proposal_identification": {
+    "ci95": [
+      0.30767035139655585,
+      0.33884909835531435
+    ],
+    "mean": 0.3235908141962422,
+    "n": 4311
+  },
+  "evals": [
+    {
+      "selector_success": 0.3767107399675249,
+      "step": 2000,
+      "tau_rej": 0.9045226130653267
+    },
+    {
+      "selector_success": 0.4541869635815356,
+      "step": 4000,
+      "tau_rej": 0.9095477386934674
+    },
+    {
+      "selector_success": 0.5309672929714684,
+      "step": 6000,
+      "tau_rej": 0.9597989949748744
+    },
+    {
+      "selector_success": 0.5525400139178844,
+      "step": 8000,
+      "tau_rej": 0.8844221105527639
+    },
+    {
+      "selector_success": 0.5555555555555556,
+      "step": 10000,
+      "tau_rej": 0.8844221105527639
+    },
+    {
+      "selector_success": 0.6010206448619809,
+      "step": 12000,
+      "tau_rej": 0.8994974874371859
+    },
+    {
+      "selector_success": 0.6177221062398516,
+      "step": 14000,
+      "tau_rej": 0.8894472361809045
+    },
+    {
+      "selector_success": 0.6341916028763628,
+      "step": 16000,
+      "tau_rej": 0.8743718592964824
+    },
+    {
+      "selector_success": 0.640222686151705,
+      "step": 18000,
+      "tau_rej": 0.8844221105527639
+    },
+    {
+      "selector_success": 0.6434701925307353,
+      "step": 20000,
+      "tau_rej": 0.8844221105527639
+    }
+  ],
+  "i_best_achievable_iou": {
+    "all": {
+      "max": 0.9927474070030414,
+      "mean": 0.5651081205870159,
+      "median": 0.6607286518790944,
+      "min": 0.0,
+      "n": 7225,
+      "p10": 0.05723811275636899,
+      "p25": 0.22702895959957098,
+      "p75": 0.8799541809851088,
+      "p90": 0.9338154297382424
+    },
+    "coverage_at_0.5": 0.5966782006920415,
+    "object": {
+      "max": 0.9927474070030414,
+      "mean": 0.8236363654571643,
+      "median": 0.8958925750394945,
+      "min": 0.0,
+      "n": 2123,
+      "p10": 0.6081572484436985,
+      "p25": 0.8143971830154136,
+      "p75": 0.9369261989001124,
+      "p90": 0.9610504883402793
+    },
+    "part": {
+      "max": 0.9835103409726104,
+      "mean": 0.4575315890583359,
+      "median": 0.44772012115921533,
+      "min": 0.0,
+      "n": 5102,
+      "p10": 0.04126664390576989,
+      "p25": 0.14141994602776417,
+      "p75": 0.7715050805618279,
+      "p90": 0.8902929336498665
+    }
+  },
+  "ii_selector_success": {
+    "all": {
+      "ci95": [
+        0.6280042290672833,
+        0.6589540689524558
+      ],
+      "mean": 0.6434701925307353,
+      "n": 4311
+    },
+    "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+    "gIoU_selected": {
+      "ci95": [
+        0.5330169587674846,
+        0.5569464200031339
+      ],
+      "mean": 0.5449956793758166,
+      "n": 4311
+    },
+    "object": {
+      "ci95": [
+        0.7609350883960108,
+        0.7977008835605378
+      ],
+      "mean": 0.7804381049414162,
+      "n": 1963
+    },
+    "part": {
+      "ci95": [
+        0.508000135987635,
+        0.5499164620372402
+      ],
+      "mean": 0.5289608177172062,
+      "n": 2348
+    }
+  },
+  "iii_end_to_end_gIoU": {
+    "by_kind": {
+      "object": {
+        "ci95": [
+          0.20108871746716706,
+          0.23052113311147848
+        ],
+        "mean": 0.21627883483498736,
+        "n": 2123
+      },
+      "part": {
+        "ci95": [
+          0.028107565200832935,
+          0.036297694676391976
+        ],
+        "mean": 0.03227209775169219,
+        "n": 5102
+      }
+    },
+    "cIoU_present": 0.17676847019802447,
+    "no_target_abstention_rate": 0.9877945619335348,
+    "present": {
+      "ci95": [
+        0.08023868112700037,
+        0.09258736501667159
+      ],
+      "mean": 0.08634079018461062,
+      "n": 7225
+    },
+    "present_and_no_target": {
+      "ci95": [
+        0.5467403355655439,
+        0.5861378841645564
+      ],
+      "mean": 0.5676007876828265,
+      "n": 15500
+    },
+    "success@0.5_present": {
+      "ci95": [
+        0.0913336503326823,
+        0.10589842970425475
+      ],
+      "mean": 0.0984083044982699,
+      "n": 7225
+    }
+  },
+  "label": "dev",
+  "proposal_failures_eval": 2914,
+  "queries": {
+    "no_target": 8275,
+    "present": 7225
+  },
+  "selected_step": 20000,
+  "sources": [
+    "paco_train",
+    "pascal_part_train",
+    "grefcoco_train"
+  ],
+  "split": "PACO-LVIS val (+ gRefCOCO val no-target for calibration)",
+  "stage": "S1",
+  "tau_rej": 0.8844221105527639,
+  "training_items": 63884,
+  "training_no_target": 17377,
+  "v1_gate": {
+    "below_v1_gate": true,
+    "deviation": "D2",
+    "v1_feasible_path_coverage": 0.4982359858878871,
+    "v1_gate_passed": false,
+    "v1_part_recall": 0.40896114578797116,
+    "v1_run": "20261022T074517344153Z_43208246"
+  }
+}

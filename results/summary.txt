@@ -134,7 +134,187 @@
   "v1_run": "20261022T074517344153Z_43208246"
  }
 }
-== PACO V4 $TG_RUNS/v4/20261022T203253847804Z_42029b38/metrics.json
+== PACO S1 $TG_RUNS/s1/20261023T121924199995Z_92812b0c/metrics.json
+{
+ "cache_counts": {
+  "grefcoco_train:absent": 17377,
+  "grefcoco_train:proposal_failures": 12534,
+  "grefcoco_train:queries": 159777,
+  "grefcoco_train:unreachable_chains": 0,
+  "paco_train:absent": 0,
+  "paco_train:proposal_failures": 56133,
+  "paco_train:queries": 118214,
+  "paco_train:unreachable_chains": 57828,
+  "pascal_part_train:absent": 0,
+  "pascal_part_train:proposal_failures": 14030,
+  "pascal_part_train:queries": 30144,
+  "pascal_part_train:unreachable_chains": 14453
+ },
+ "caches": {
+  "grefcoco_train": {
+   "cache": "153e3f61763200cf",
+   "identity": "153e3f61763200cf8f8737fe784ef60aa7b919a17d3296ddcf315d929de8ead9"
+  },
+  "paco_train": {
+   "cache": "55233840de865e53",
+   "identity": "55233840de865e536cabc928e10a8702d1e9109a52f72f1c4ecabc4b432ae50a"
+  },
+  "pascal_part_train": {
+   "cache": "fefb3c363d4e6785",
+   "identity": "fefb3c363d4e6785133da86ae7069f8792d5eb7cfda21ff69485ea0e9d3ce6f9"
+  }
+ },
+ "calibration_grid": [
+  0.0,
+  1.0,
+  200
+ ],
+ "calibration_objective_max": 0.5610846586505684,
+ "checkpoint_rule": "highest PACO val single-step selector success (V2 definition)",
+ "deviation": "D11",
+ "diagnostic_best_proposal_identification": {
+  "ci95": [
+   0.30767035139655585,
+   0.33884909835531435
+  ],
+  "mean": 0.3235908141962422,
+  "n": 4311
+ },
+ "evals": [
+  {
+   "selector_success": 0.3767107399675249,
+   "step": 2000,
+   "tau_rej": 0.9045226130653267
+  },
+  {
+   "selector_success": 0.4541869635815356,
+   "step": 4000,
+   "tau_rej": 0.9095477386934674
+  },
+  {
+   "selector_success": 0.5309672929714684,
+   "step": 6000,
+   "tau_rej": 0.9597989949748744
+  },
+  {
+   "selector_success": 0.5525400139178844,
+   "step": 8000,
+   "tau_rej": 0.8844221105527639
+  },
+  {
+   "selector_success": 0.5555555555555556,
+   "step": 10000,
+   "tau_rej": 0.8844221105527639
+  },
+  {
+   "selector_success": 0.6010206448619809,
+   "step": 12000,
+   "tau_rej": 0.8994974874371859
+  },
+  {
+   "selector_success": 0.6177221062398516,
+   "step": 14000,
+   "tau_rej": 0.8894472361809045
+  },
+  {
+   "selector_success": 0.6341916028763628,
+   "step": 16000,
+   "tau_rej": 0.8743718592964824
+  },
+  {
+   "selector_success": 0.640222686151705,
+   "step": 18000,
+   "tau_rej": 0.8844221105527639
+  },
+  {
+   "selector_success": 0.6434701925307353,
+   "step": 20000,
+   "tau_rej": 0.8844221105527639
+  }
+ ],
+ "i_best_achievable_iou": {
+  "all": {
+   "max": 0.9927474070030414,
+   "mean": 0.5651081205870159,
+   "median": 0.6607286518790944,
+   "min": 0.0,
+   "n": 7225,
+   "p10": 0.05723811275636899,
+   "p25": 0.22702895959957098,
+   "p75": 0.8799541809851088,
+   "p90": 0.9338154297382424
+  },
+  "coverage_at_0.5": 0.5966782006920415,
+  "object": {
+   "max": 0.9927474070030414,
+   "mean": 0.8236363654571643,
+   "median": 0.8958925750394945,
+   "min": 0.0,
+   "n": 2123,
+   "p10": 0.6081572484436985,
+   "p25": 0.8143971830154136,
+   "p75": 0.9369261989001124,
+   "p90": 0.9610504883402793
+  },
+  "part": {
+   "max": 0.9835103409726104,
+   "mean": 0.4575315890583359,
+   "median": 0.44772012115921533,
+   "min": 0.0,
+   "n": 5102,
+   "p10": 0.04126664390576989,
+   "p25": 0.14141994602776417,
+   "p75": 0.7715050805618279,
+   "p90": 0.8902929336498665
+  }
+ },
+ "ii_selector_success": {
+  "all": {
+   "ci95": [
+    0.6280042290672833,
+    0.6589540689524558
+   ],
+   "mean": 0.6434701925307353,
+   "n": 4311
+  },
+  "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+  "gIoU_selected": {
+   "ci95": [
+    0.5330169587674846,
+    0.5569464200031339
+   ],
+   "mean": 0.5449956793758166,
+   "n": 4311
+  },
+  "object": {
+   "ci95": [
+    0.7609350883960108,
+    0.7977008835605378
+   ],
+   "mean": 0.7804381049414162,
+   "n": 1963
+  },
+  "part": {
+   "ci95": [
+    0.508000135987635,
+    0.5499164620372402
+   ],
+   "mean": 0.5289608177172062,
+   "n": 2348
+  }
+ },
+ "iii_end_to_end_gIoU": {
+  "by_kind": {
+   "object": {
+    "ci95": [
+     0.20108871746716706,
+     0.23052113311147848
+    ],
+    "mean": 0.21627883483498736,
+    "n": 2123
+   },
+   "part": {
+== PACO V4 $TG_RUNS/v4/20261023T111404755688Z_1e3728d5/metrics.json
    spec/all: chains 5102 common eligible 352 (0.06899255194041552)
       flat   chain success (common) 0.312 [0.262, 0.359] n=352   step2 (common) 0.358 [0.307, 0.407] n=352   end-to-end 0.134 [0.126, 0.143] n=5102   feasible 0.4457075656605253   best-id step2 0.07702861622892983
       true   chain success (common) 0.295 [0.248, 0.341] n=352   step2 (common) 0.312 [0.266, 0.360] n=352   end-to-end 0.113 [0.105, 0.121] n=5102   feasible 0.40787926303410427   best-id step2 0.052332418659349275
@@ -152,7 +332,55 @@
       step 1 picks the best proposal: 0.27924217462932455
    D5: not computed: deviation D5 is not approved in deviations.jsonl
    D6 box: not computed: deviation D6 is not approved in deviations.jsonl
-== transfer pascal_part $TG_RUNS/x_transfer_pascal_part_merge/20261022T203801916749Z_42029b38/metrics.json
+   D12 no rejection/all: chains 5102 common eligible 352 (0.06899255194041552)
+      flat   chain success (common) 0.321 [0.269, 0.368] n=352   step2 (common) 0.364 [0.311, 0.412] n=352   end-to-end 0.138 [0.129, 0.146] n=5102   feasible 0.4457075656605253   best-id step2 0.07742061936495492
+      true   chain success (common) 0.304 [0.256, 0.348] n=352   step2 (common) 0.315 [0.269, 0.362] n=352   end-to-end 0.119 [0.110, 0.127] n=5102   feasible 0.40787926303410427   best-id step2 0.052724421795374364
+      random chain success (common) 0.119 [0.097, 0.140] n=352   step2 (common) 0.140 [0.120, 0.163] n=352   end-to-end 0.021 [0.018, 0.023] n=5102   feasible 0.1582516660133281   best-id step2 0.007448059584476676
+      step 1 picks the best proposal: 0.2892983143865151
+   D12 no rejection/two_level: chains 3888 common eligible 190 (0.048868312757201646)
+      flat   chain success (common) 0.163 [0.117, 0.209] n=190   step2 (common) 0.200 [0.151, 0.248] n=190   end-to-end 0.048 [0.042, 0.054] n=3888   feasible 0.3081275720164609   best-id step2 0.037037037037037035
+      true   chain success (common) 0.163 [0.119, 0.211] n=190   step2 (common) 0.184 [0.136, 0.236] n=190   end-to-end 0.061 [0.055, 0.068] n=3888   feasible 0.29218106995884774   best-id step2 0.0367798353909465
+      random chain success (common) 0.068 [0.049, 0.092] n=190   step2 (common) 0.077 [0.056, 0.101] n=190   end-to-end 0.013 [0.011, 0.015] n=3888   feasible 0.1213477366255144   best-id step2 0.006224279835390947
+      step 1 picks the best proposal: 0.2898662551440329
+   D12 no rejection/single_level: chains 1214 common eligible 162 (0.13344316309719934)
+      flat   chain success (common) 0.506 [0.423, 0.586] n=162   step2 (common) 0.556 [0.473, 0.639] n=162   end-to-end 0.424 [0.395, 0.451] n=1214   feasible 0.886326194398682   best-id step2 0.20675453047775946
+      true   chain success (common) 0.469 [0.387, 0.551] n=162   step2 (common) 0.469 [0.387, 0.551] n=162   end-to-end 0.305 [0.279, 0.330] n=1214   feasible 0.7784184514003295   best-id step2 0.10378912685337727
+      random chain success (common) 0.179 [0.144, 0.217] n=162   step2 (common) 0.215 [0.178, 0.252] n=162   end-to-end 0.046 [0.039, 0.055] n=1214   feasible 0.2764415156507414   best-id step2 0.011367380560131797
+      step 1 picks the best proposal: 0.28747940691927515
+== PACO V4_S1 $TG_RUNS/v4_s1/20261023T142228989577Z_92812b0c/metrics.json
+   spec/all: chains 5102 common eligible 352 (0.06899255194041552)
+      flat   chain success (common) 0.031 [0.014, 0.051] n=352   step2 (common) 0.043 [0.022, 0.065] n=352   end-to-end 0.022 [0.018, 0.027] n=5102   feasible 0.4457075656605253   best-id step2 0.01685613484907879
+      true   chain success (common) 0.028 [0.011, 0.048] n=352   step2 (common) 0.040 [0.020, 0.063] n=352   end-to-end 0.015 [0.011, 0.018] n=5102   feasible 0.40787926303410427   best-id step2 0.010388083104664837
+      random chain success (common) 0.011 [0.004, 0.021] n=352   step2 (common) 0.023 [0.010, 0.038] n=352   end-to-end 0.001 [0.001, 0.002] n=5102   feasible 0.1582516660133281   best-id step2 0.004900039200313603
+      step 1 picks the best proposal: 0.13876911015288124
+   spec/two_level: chains 3888 common eligible 190 (0.048868312757201646)
+      flat   chain success (common) 0.021 [0.005, 0.044] n=190   step2 (common) 0.032 [0.011, 0.057] n=190   end-to-end 0.006 [0.004, 0.008] n=3888   feasible 0.3081275720164609   best-id step2 0.00565843621399177
+      true   chain success (common) 0.016 [0.000, 0.036] n=190   step2 (common) 0.026 [0.006, 0.050] n=190   end-to-end 0.006 [0.004, 0.009] n=3888   feasible 0.29218106995884774   best-id step2 0.0059156378600823045
+      random chain success (common) 0.005 [0.000, 0.014] n=190   step2 (common) 0.016 [0.002, 0.034] n=190   end-to-end 0.001 [0.000, 0.001] n=3888   feasible 0.1213477366255144   best-id step2 0.002469135802469136
+      step 1 picks the best proposal: 0.14454732510288065
+   spec/single_level: chains 1214 common eligible 162 (0.13344316309719934)
+      flat   chain success (common) 0.043 [0.013, 0.078] n=162   step2 (common) 0.056 [0.025, 0.093] n=162   end-to-end 0.073 [0.060, 0.090] n=1214   feasible 0.886326194398682   best-id step2 0.05271828665568369
+      true   chain success (common) 0.043 [0.013, 0.078] n=162   step2 (common) 0.056 [0.025, 0.093] n=162   end-to-end 0.042 [0.032, 0.054] n=1214   feasible 0.7784184514003295   best-id step2 0.02471169686985173
+      random chain success (common) 0.019 [0.005, 0.037] n=162   step2 (common) 0.031 [0.011, 0.055] n=162   end-to-end 0.004 [0.002, 0.007] n=1214   feasible 0.2764415156507414   best-id step2 0.012685337726523888
+      step 1 picks the best proposal: 0.12026359143327842
+   D5: not computed: deviation D5 is not approved in deviations.jsonl
+   D6 box: not computed: deviation D6 is not approved in deviations.jsonl
+   D12 no rejection/all: chains 5102 common eligible 352 (0.06899255194041552)
+      flat   chain success (common) 0.560 [0.501, 0.616] n=352   step2 (common) 0.568 [0.511, 0.620] n=352   end-to-end 0.229 [0.217, 0.242] n=5102   feasible 0.4457075656605253   best-id step2 0.1350450803606429
+      true   chain success (common) 0.540 [0.483, 0.594] n=352   step2 (common) 0.543 [0.486, 0.596] n=352   end-to-end 0.194 [0.183, 0.205] n=5102   feasible 0.40787926303410427   best-id step2 0.09702077616620933
+      random chain success (common) 0.202 [0.173, 0.227] n=352   step2 (common) 0.208 [0.180, 0.233] n=352   end-to-end 0.030 [0.027, 0.033] n=5102   feasible 0.1582516660133281   best-id step2 0.008859270874166995
+      step 1 picks the best proposal: 0.39631517052136417
+   D12 no rejection/two_level: chains 3888 common eligible 190 (0.048868312757201646)
+      flat   chain success (common) 0.374 [0.300, 0.439] n=190   step2 (common) 0.384 [0.311, 0.452] n=190   end-to-end 0.114 [0.103, 0.125] n=3888   feasible 0.3081275720164609   best-id step2 0.08204732510288065
+      true   chain success (common) 0.379 [0.304, 0.442] n=190   step2 (common) 0.384 [0.311, 0.449] n=190   end-to-end 0.119 [0.108, 0.129] n=3888   feasible 0.29218106995884774   best-id step2 0.07510288065843622
+      random chain success (common) 0.123 [0.094, 0.152] n=190   step2 (common) 0.125 [0.097, 0.154] n=190   end-to-end 0.018 [0.016, 0.021] n=3888   feasible 0.1213477366255144   best-id step2 0.007355967078189301
+      step 1 picks the best proposal: 0.4038065843621399
+   D12 no rejection/single_level: chains 1214 common eligible 162 (0.13344316309719934)
+      flat   chain success (common) 0.778 [0.713, 0.843] n=162   step2 (common) 0.784 [0.715, 0.848] n=162   end-to-end 0.597 [0.567, 0.625] n=1214   feasible 0.886326194398682   best-id step2 0.30477759472817134
+      true   chain success (common) 0.728 [0.656, 0.796] n=162   step2 (common) 0.728 [0.656, 0.796] n=162   end-to-end 0.437 [0.406, 0.463] n=1214   feasible 0.7784184514003295   best-id step2 0.1672158154859967
+      random chain success (common) 0.294 [0.248, 0.343] n=162   step2 (common) 0.305 [0.260, 0.354] n=162   end-to-end 0.067 [0.058, 0.077] n=1214   feasible 0.2764415156507414   best-id step2 0.013673805601317958
+      step 1 picks the best proposal: 0.3723228995057661
+== transfer pascal_part $TG_RUNS/x_transfer_pascal_part_merge/20261023T113829034712Z_1e3728d5/metrics.json
    coverage {"chain_feasible_mask_tree": 0.5752234900792209, "chain_object_found": 0.9977469292826514, "chain_part_found": 0.5864161639654044, "chains": 27518, "part_recall": 0.49450848818536364, "part_recall_by_area_bin": {"large": 0.8968212610734758, "medium": 0.7095851865299083, "small": 0.2989958535245042}, "parts": 69744, "single_level_chains": 2841}
    spec/all: chains 27518 common eligible 4009 (0.14568645977178574)
       flat   chain success (common) 0.074 [0.066, 0.083] n=4009   step2 (common) 0.106 [0.097, 0.114] n=4009   end-to-end 0.027 [0.026, 0.030] n=27518   feasible 0.47979504324442185   best-id step2 0.021040773312013955
@@ -199,7 +427,84 @@
       true   chain success (common) 0.103 [0.090, 0.115] n=2430   step2 (common) 0.118 [0.105, 0.131] n=2430   end-to-end 0.088 [0.078, 0.099] n=2841   feasible 0.8627243928194298   best-id step2 0.025695177754311863
       box    chain success (common) 0.093 [0.081, 0.105] n=2430   step2 (common) 0.109 [0.097, 0.121] n=2430   end-to-end 0.080 [0.070, 0.090] n=2841   feasible 0.8570925730376628   best-id step2 0.020415346708905314
       step 1 picks the best proposal: 0.10172474480816614
-== transfer ade20k $TG_RUNS/x_transfer_ade20k_merge/20261022T204646027252Z_42029b38/metrics.json
+   D12 no rejection/all: chains 27518 common eligible 4009 (0.14568645977178574)
+      flat   chain success (common) 0.099 [0.089, 0.108] n=4009   step2 (common) 0.129 [0.119, 0.139] n=4009   end-to-end 0.040 [0.038, 0.043] n=27518   feasible 0.47979504324442185   best-id step2 0.025437895195871793
+      true   chain success (common) 0.102 [0.092, 0.111] n=4009   step2 (common) 0.115 [0.105, 0.125] n=4009   end-to-end 0.042 [0.040, 0.045] n=27518   feasible 0.4596991060396831   best-id step2 0.020931753761174503
+      random chain success (common) 0.056 [0.051, 0.062] n=4009   step2 (common) 0.073 [0.068, 0.078] n=4009   end-to-end 0.015 [0.014, 0.016] n=27518   feasible 0.26105821644014826   best-id step2 0.00614870266734501
+      step 1 picks the best proposal: 0.1773384693655062
+   D12 no rejection/two_level: chains 24677 common eligible 3070 (0.12440734286987884)
+      flat   chain success (common) 0.080 [0.071, 0.089] n=3070   step2 (common) 0.115 [0.106, 0.125] n=3070   end-to-end 0.030 [0.028, 0.032] n=24677   feasible 0.42796936418527376   best-id step2 0.023989950156015724
+      true   chain success (common) 0.082 [0.073, 0.091] n=3070   step2 (common) 0.099 [0.089, 0.109] n=3070   end-to-end 0.032 [0.029, 0.034] n=24677   feasible 0.41329983385338576   best-id step2 0.01920816955059367
+      random chain success (common) 0.038 [0.034, 0.043] n=3070   step2 (common) 0.054 [0.049, 0.059] n=3070   end-to-end 0.010 [0.010, 0.011] n=24677   feasible 0.23422620253677515   best-id step2 0.005754346152287555
+      step 1 picks the best proposal: 0.17485918061352676
+   D12 no rejection/single_level: chains 2841 common eligible 939 (0.33051742344244983)
+      flat   chain success (common) 0.160 [0.137, 0.184] n=939   step2 (common) 0.174 [0.149, 0.198] n=939   end-to-end 0.130 [0.119, 0.143] n=2841   feasible 0.9299542414642732   best-id step2 0.03801478352692714
+      true   chain success (common) 0.165 [0.141, 0.190] n=939   step2 (common) 0.168 [0.145, 0.194] n=939   end-to-end 0.133 [0.122, 0.144] n=2841   feasible 0.8627243928194298   best-id step2 0.03590285110876452
+      random chain success (common) 0.116 [0.103, 0.129] n=939   step2 (common) 0.135 [0.122, 0.148] n=939   end-to-end 0.055 [0.050, 0.061] n=2841   feasible 0.4941217881027807   best-id step2 0.009574093629003874
+      step 1 picks the best proposal: 0.1988736360436466
+== transfer pascal_part_s1 $TG_RUNS/x_transfer_pascal_part_s1_merge/20261023T142147330333Z_92812b0c/metrics.json
+   coverage {"chain_feasible_mask_tree": 0.5752234900792209, "chain_object_found": 0.9977469292826514, "chain_part_found": 0.5864161639654044, "chains": 27518, "part_recall": 0.49450848818536364, "part_recall_by_area_bin": {"large": 0.8968212610734758, "medium": 0.7095851865299083, "small": 0.2989958535245042}, "parts": 69744, "single_level_chains": 2841}
+   spec/all: chains 27518 common eligible 4009 (0.14568645977178574)
+      flat   chain success (common) 0.039 [0.033, 0.046] n=4009   step2 (common) 0.054 [0.048, 0.062] n=4009   end-to-end 0.025 [0.023, 0.027] n=27518   feasible 0.47979504324442185   best-id step2 0.01646195217675703
+      true   chain success (common) 0.038 [0.033, 0.045] n=4009   step2 (common) 0.053 [0.047, 0.060] n=4009   end-to-end 0.022 [0.020, 0.024] n=27518   feasible 0.4596991060396831   best-id step2 0.014899338614724908
+      random chain success (common) 0.012 [0.010, 0.015] n=4009   step2 (common) 0.027 [0.023, 0.032] n=4009   end-to-end 0.003 [0.003, 0.004] n=27518   feasible 0.26105821644014826   best-id step2 0.005516389272476198
+      step 1 picks the best proposal: 0.30380114833926886
+   spec/two_level: chains 24677 common eligible 3070 (0.12440734286987884)
+      flat   chain success (common) 0.014 [0.010, 0.018] n=3070   step2 (common) 0.021 [0.016, 0.027] n=3070   end-to-end 0.010 [0.009, 0.012] n=24677   feasible 0.42796936418527376   best-id step2 0.009158325566316813
+      true   chain success (common) 0.014 [0.010, 0.018] n=3070   step2 (common) 0.021 [0.016, 0.027] n=3070   end-to-end 0.010 [0.009, 0.012] n=24677   feasible 0.41329983385338576   best-id step2 0.009239372695222271
+      random chain success (common) 0.004 [0.003, 0.006] n=3070   step2 (common) 0.012 [0.008, 0.016] n=3070   end-to-end 0.001 [0.001, 0.002] n=24677   feasible 0.23422620253677515   best-id step2 0.0039550998905863765
+      step 1 picks the best proposal: 0.3095189852899461
+   spec/single_level: chains 2841 common eligible 939 (0.33051742344244983)
+      flat   chain success (common) 0.121 [0.101, 0.144] n=939   step2 (common) 0.162 [0.138, 0.187] n=939   end-to-end 0.152 [0.139, 0.165] n=2841   feasible 0.9299542414642732   best-id step2 0.07990144315381907
+      true   chain success (common) 0.118 [0.098, 0.140] n=939   step2 (common) 0.158 [0.134, 0.183] n=939   end-to-end 0.122 [0.111, 0.135] n=2841   feasible 0.8627243928194298   best-id step2 0.06406195001759944
+      random chain success (common) 0.039 [0.030, 0.047] n=939   step2 (common) 0.077 [0.062, 0.093] n=939   end-to-end 0.022 [0.018, 0.025] n=2841   feasible 0.4941217881027807   best-id step2 0.019077789510735656
+      step 1 picks the best proposal: 0.2541358676522351
+   D5/all: chains 27518 common eligible 6109 (0.22200014535940113)
+      flat   chain success (common) 0.083 [0.075, 0.090] n=6109   step2 (common) 0.104 [0.096, 0.112] n=6109   end-to-end 0.025 [0.023, 0.027] n=27518   feasible 0.47979504324442185   best-id step2 0.01646195217675703
+      true   chain success (common) 0.083 [0.076, 0.090] n=6109   step2 (common) 0.104 [0.096, 0.112] n=6109   end-to-end 0.025 [0.023, 0.027] n=27518   feasible 0.4667490369939676   best-id step2 0.016316592775637764
+      random chain success (common) 0.063 [0.056, 0.069] n=6109   step2 (common) 0.084 [0.076, 0.091] n=6109   end-to-end 0.015 [0.013, 0.016] n=27518   feasible 0.31462315575259825   best-id step2 0.008837851588051457
+      step 1 picks the best proposal: 0.30380114833926886
+   D5/two_level: chains 24677 common eligible 3481 (0.14106252785995055)
+      flat   chain success (common) 0.021 [0.017, 0.026] n=3481   step2 (common) 0.029 [0.024, 0.035] n=3481   end-to-end 0.010 [0.009, 0.012] n=24677   feasible 0.42796936418527376   best-id step2 0.009158325566316813
+      true   chain success (common) 0.020 [0.016, 0.025] n=3481   step2 (common) 0.028 [0.023, 0.034] n=3481   end-to-end 0.010 [0.009, 0.011] n=24677   feasible 0.41350245167564936   best-id step2 0.008996231308505897
+      random chain success (common) 0.007 [0.004, 0.009] n=3481   step2 (common) 0.015 [0.011, 0.019] n=3481   end-to-end 0.002 [0.001, 0.002] n=24677   feasible 0.2442193135308182   best-id step2 0.003955099890586376
+      step 1 picks the best proposal: 0.3095189852899461
+   D5/single_level: chains 2841 common eligible 2628 (0.925026399155227)
+      flat   chain success (common) 0.164 [0.149, 0.180] n=2628   step2 (common) 0.202 [0.188, 0.219] n=2628   end-to-end 0.152 [0.139, 0.165] n=2841   feasible 0.9299542414642732   best-id step2 0.07990144315381907
+      true   chain success (common) 0.166 [0.151, 0.182] n=2628   step2 (common) 0.204 [0.189, 0.220] n=2628   end-to-end 0.153 [0.140, 0.167] n=2841   feasible 0.9292502639915523   best-id step2 0.07990144315381907
+      random chain success (common) 0.138 [0.124, 0.151] n=2628   step2 (common) 0.175 [0.162, 0.191] n=2628   end-to-end 0.127 [0.115, 0.140] n=2841   feasible 0.9261527631115806   best-id step2 0.051249560014079557
+      step 1 picks the best proposal: 0.2541358676522351
+   D6 box/all: chains 27518 common eligible 11312 (0.41107638636528815)
+      flat   chain success (common) 0.053 [0.049, 0.058] n=11312   step2 (common) 0.070 [0.065, 0.075] n=11312   end-to-end 0.025 [0.023, 0.027] n=27518   feasible 0.47979504324442185   best-id step2 0.01646195217675703
+      true   chain success (common) 0.050 [0.046, 0.054] n=11312   step2 (common) 0.067 [0.062, 0.072] n=11312   end-to-end 0.022 [0.020, 0.024] n=27518   feasible 0.4596991060396831   best-id step2 0.014899338614724908
+      box    chain success (common) 0.046 [0.042, 0.051] n=11312   step2 (common) 0.063 [0.058, 0.068] n=11312   end-to-end 0.019 [0.017, 0.021] n=27518   feasible 0.41939821207936623   best-id step2 0.013809143106330402
+      step 1 picks the best proposal: 0.30380114833926886
+   D6 box/two_level: chains 24677 common eligible 8882 (0.3599302994691413)
+      flat   chain success (common) 0.024 [0.021, 0.028] n=8882   step2 (common) 0.036 [0.032, 0.040] n=8882   end-to-end 0.010 [0.009, 0.012] n=24677   feasible 0.42796936418527376   best-id step2 0.009158325566316813
+      true   chain success (common) 0.025 [0.021, 0.028] n=8882   step2 (common) 0.036 [0.032, 0.040] n=8882   end-to-end 0.010 [0.009, 0.012] n=24677   feasible 0.41329983385338576   best-id step2 0.009239372695222271
+      box    chain success (common) 0.023 [0.020, 0.027] n=8882   step2 (common) 0.035 [0.031, 0.039] n=8882   end-to-end 0.009 [0.007, 0.010] n=24677   feasible 0.36900757790655264   best-id step2 0.008388377841714957
+      step 1 picks the best proposal: 0.3095189852899461
+   D6 box/single_level: chains 2841 common eligible 2430 (0.8553326293558606)
+      flat   chain success (common) 0.159 [0.144, 0.175] n=2430   step2 (common) 0.196 [0.180, 0.213] n=2430   end-to-end 0.152 [0.139, 0.165] n=2841   feasible 0.9299542414642732   best-id step2 0.07990144315381907
+      true   chain success (common) 0.142 [0.128, 0.158] n=2430   step2 (common) 0.179 [0.164, 0.194] n=2430   end-to-end 0.122 [0.111, 0.135] n=2841   feasible 0.8627243928194298   best-id step2 0.06406195001759944
+      box    chain success (common) 0.130 [0.116, 0.145] n=2430   step2 (common) 0.167 [0.151, 0.182] n=2430   end-to-end 0.111 [0.100, 0.124] n=2841   feasible 0.8570925730376628   best-id step2 0.06089405139035551
+      step 1 picks the best proposal: 0.2541358676522351
+   D12 no rejection/all: chains 27518 common eligible 4009 (0.14568645977178574)
+      flat   chain success (common) 0.581 [0.564, 0.597] n=4009   step2 (common) 0.597 [0.582, 0.612] n=4009   end-to-end 0.265 [0.260, 0.271] n=27518   feasible 0.47979504324442185   best-id step2 0.13816411076386365
+      true   chain success (common) 0.572 [0.556, 0.590] n=4009   step2 (common) 0.580 [0.563, 0.596] n=4009   end-to-end 0.258 [0.253, 0.264] n=27518   feasible 0.4596991060396831   best-id step2 0.12998764445090485
+      random chain success (common) 0.233 [0.222, 0.244] n=4009   step2 (common) 0.240 [0.229, 0.250] n=4009   end-to-end 0.064 [0.062, 0.067] n=27518   feasible 0.26105821644014826   best-id step2 0.021971073479177268
+      step 1 picks the best proposal: 0.48949778326913296
+   D12 no rejection/two_level: chains 24677 common eligible 3070 (0.12440734286987884)
+      flat   chain success (common) 0.516 [0.496, 0.533] n=3070   step2 (common) 0.527 [0.508, 0.544] n=3070   end-to-end 0.213 [0.207, 0.218] n=24677   feasible 0.42796936418527376   best-id step2 0.11930137374883494
+      true   chain success (common) 0.511 [0.490, 0.530] n=3070   step2 (common) 0.517 [0.496, 0.536] n=3070   end-to-end 0.214 [0.208, 0.219] n=24677   feasible 0.41329983385338576   best-id step2 0.1170320541394821
+      random chain success (common) 0.194 [0.182, 0.206] n=3070   step2 (common) 0.198 [0.187, 0.210] n=3070   end-to-end 0.052 [0.050, 0.054] n=24677   feasible 0.23422620253677515   best-id step2 0.020196944523240265
+      step 1 picks the best proposal: 0.49588685820804795
+   D12 no rejection/single_level: chains 2841 common eligible 939 (0.33051742344244983)
+      flat   chain success (common) 0.793 [0.769, 0.819] n=939   step2 (common) 0.829 [0.806, 0.853] n=939   end-to-end 0.722 [0.704, 0.739] n=2841   feasible 0.9299542414642732   best-id step2 0.3020063357972545
+      true   chain success (common) 0.774 [0.746, 0.801] n=939   step2 (common) 0.784 [0.757, 0.810] n=939   end-to-end 0.644 [0.626, 0.663] n=2841   feasible 0.8627243928194298   best-id step2 0.24252023935234074
+      random chain success (common) 0.362 [0.345, 0.380] n=939   step2 (common) 0.376 [0.359, 0.394] n=939   end-to-end 0.173 [0.164, 0.183] n=2841   feasible 0.4941217881027807   best-id step2 0.03738120380147836
+      step 1 picks the best proposal: 0.43400211193241817
+== transfer ade20k $TG_RUNS/x_transfer_ade20k_merge/20261023T115110598458Z_1e3728d5/metrics.json
    coverage {"chain_feasible_mask_tree": 0.6420118343195266, "chain_object_found": 0.9790209790209791, "chain_part_found": 0.7299623453469607, "chains": 3718, "part_recall": 0.6386825848545846, "part_recall_by_area_bin": {"large": 0.9445745511319282, "medium": 0.7854810114770925, "small": 0.39659292376474214}, "parts": 28814, "single_level_chains": 676}
    spec/all: chains 3718 common eligible 97 (0.02608929532006455)
       flat   chain success (common) 0.041 [0.010, 0.085] n=97   step2 (common) 0.062 [0.021, 0.112] n=97   end-to-end 0.023 [0.019, 0.028] n=3718   feasible 0.5373856912318451   best-id step2 0.02608929532006455
@@ -246,7 +551,84 @@
       true   chain success (common) 0.128 [0.097, 0.159] n=431   step2 (common) 0.132 [0.100, 0.165] n=431   end-to-end 0.081 [0.063, 0.102] n=676   feasible 0.6479289940828402   best-id step2 0.05325443786982249
       box    chain success (common) 0.116 [0.087, 0.146] n=431   step2 (common) 0.121 [0.090, 0.150] n=431   end-to-end 0.074 [0.057, 0.093] n=676   feasible 0.6420118343195266   best-id step2 0.047337278106508875
       step 1 picks the best proposal: 0.09615384615384616
-== transfer lvis_hier $TG_RUNS/x_transfer_lvis_hier_merge/20261022T203526635111Z_42029b38/metrics.json
+   D12 no rejection/all: chains 3718 common eligible 97 (0.02608929532006455)
+      flat   chain success (common) 0.052 [0.011, 0.101] n=97   step2 (common) 0.093 [0.041, 0.152] n=97   end-to-end 0.026 [0.022, 0.032] n=3718   feasible 0.5373856912318451   best-id step2 0.0293168370091447
+      true   chain success (common) 0.041 [0.010, 0.086] n=97   step2 (common) 0.052 [0.011, 0.100] n=97   end-to-end 0.028 [0.023, 0.034] n=3718   feasible 0.43356643356643354   best-id step2 0.021785906401291015
+      random chain success (common) 0.012 [0.002, 0.025] n=97   step2 (common) 0.037 [0.019, 0.059] n=97   end-to-end 0.003 [0.002, 0.004] n=3718   feasible 0.11586874663797742   best-id step2 0.003550295857988166
+      step 1 picks the best proposal: 0.06535771920387305
+   D12 no rejection/two_level: chains 3042 common eligible 61 (0.020052596975673898)
+      flat   chain success (common) 0.016 [0.000, 0.053] n=61   step2 (common) 0.066 [0.016, 0.133] n=61   end-to-end 0.013 [0.009, 0.018] n=3042   feasible 0.47731755424063116   best-id step2 0.02564102564102564
+      true   chain success (common) 0.016 [0.000, 0.053] n=61   step2 (common) 0.033 [0.000, 0.086] n=61   end-to-end 0.016 [0.012, 0.020] n=3042   feasible 0.3859303090072321   best-id step2 0.01413543721236029
+      random chain success (common) 0.010 [0.000, 0.027] n=61   step2 (common) 0.026 [0.010, 0.047] n=61   end-to-end 0.002 [0.001, 0.002] n=3042   feasible 0.1029585798816568   best-id step2 0.0028928336620644315
+      step 1 picks the best proposal: 0.05621301775147929
+   D12 no rejection/single_level: chains 676 common eligible 36 (0.05325443786982249)
+      flat   chain success (common) 0.111 [0.026, 0.225] n=36   step2 (common) 0.139 [0.028, 0.257] n=36   end-to-end 0.084 [0.065, 0.104] n=676   feasible 0.8076923076923077   best-id step2 0.04585798816568047
+      true   chain success (common) 0.083 [0.000, 0.188] n=36   step2 (common) 0.083 [0.000, 0.188] n=36   end-to-end 0.084 [0.066, 0.104] n=676   feasible 0.6479289940828402   best-id step2 0.05621301775147929
+      random chain success (common) 0.017 [0.000, 0.036] n=36   step2 (common) 0.056 [0.022, 0.097] n=36   end-to-end 0.008 [0.005, 0.012] n=676   feasible 0.1739644970414201   best-id step2 0.006508875739644971
+      step 1 picks the best proposal: 0.10650887573964497
+== transfer ade20k_s1 $TG_RUNS/x_transfer_ade20k_s1_merge/20261023T143613933068Z_92812b0c/metrics.json
+   coverage {"chain_feasible_mask_tree": 0.6420118343195266, "chain_object_found": 0.9790209790209791, "chain_part_found": 0.7299623453469607, "chains": 3718, "part_recall": 0.6386825848545846, "part_recall_by_area_bin": {"large": 0.9445745511319282, "medium": 0.7854810114770925, "small": 0.39659292376474214}, "parts": 28814, "single_level_chains": 676}
+   spec/all: chains 3718 common eligible 97 (0.02608929532006455)
+      flat   chain success (common) 0.010 [0.000, 0.039] n=97   step2 (common) 0.021 [0.000, 0.052] n=97   end-to-end 0.005 [0.003, 0.007] n=3718   feasible 0.5373856912318451   best-id step2 0.005110274341043572
+      true   chain success (common) 0.010 [0.000, 0.039] n=97   step2 (common) 0.021 [0.000, 0.052] n=97   end-to-end 0.004 [0.002, 0.006] n=3718   feasible 0.43356643356643354   best-id step2 0.00457235072619688
+      random chain success (common) 0.002 [0.000, 0.008] n=97   step2 (common) 0.012 [0.000, 0.035] n=97   end-to-end 0.000 [0.000, 0.001] n=3718   feasible 0.11586874663797742   best-id step2 0.001828940290478752
+      step 1 picks the best proposal: 0.0392684238838085
+   spec/two_level: chains 3042 common eligible 61 (0.020052596975673898)
+      flat   chain success (common) 0.016 [0.000, 0.049] n=61   step2 (common) 0.016 [0.000, 0.049] n=61   end-to-end 0.001 [0.000, 0.003] n=3042   feasible 0.47731755424063116   best-id step2 0.0029585798816568047
+      true   chain success (common) 0.016 [0.000, 0.049] n=61   step2 (common) 0.016 [0.000, 0.049] n=61   end-to-end 0.002 [0.000, 0.003] n=3042   feasible 0.3859303090072321   best-id step2 0.0026298487836949377
+      random chain success (common) 0.003 [0.000, 0.010] n=61   step2 (common) 0.003 [0.000, 0.010] n=61   end-to-end 0.000 [0.000, 0.000] n=3042   feasible 0.1029585798816568   best-id step2 0.001775147928994083
+      step 1 picks the best proposal: 0.03616042077580539
+   spec/single_level: chains 676 common eligible 36 (0.05325443786982249)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=36   step2 (common) 0.028 [0.000, 0.088] n=36   end-to-end 0.021 [0.011, 0.033] n=676   feasible 0.8076923076923077   best-id step2 0.014792899408284023
+      true   chain success (common) 0.000 [0.000, 0.000] n=36   step2 (common) 0.028 [0.000, 0.088] n=36   end-to-end 0.016 [0.007, 0.026] n=676   feasible 0.6479289940828402   best-id step2 0.013313609467455622
+      random chain success (common) 0.000 [0.000, 0.000] n=36   step2 (common) 0.028 [0.000, 0.088] n=36   end-to-end 0.001 [0.000, 0.002] n=676   feasible 0.1739644970414201   best-id step2 0.0020710059171597634
+      step 1 picks the best proposal: 0.05325443786982249
+   D5/all: chains 3718 common eligible 670 (0.18020441097364173)
+      flat   chain success (common) 0.022 [0.012, 0.034] n=670   step2 (common) 0.027 [0.015, 0.040] n=670   end-to-end 0.005 [0.003, 0.007] n=3718   feasible 0.5373856912318451   best-id step2 0.005110274341043572
+      true   chain success (common) 0.024 [0.014, 0.036] n=670   step2 (common) 0.028 [0.017, 0.041] n=670   end-to-end 0.005 [0.003, 0.007] n=3718   feasible 0.4569661108122647   best-id step2 0.004841312533620226
+      random chain success (common) 0.016 [0.007, 0.026] n=670   step2 (common) 0.019 [0.010, 0.030] n=670   end-to-end 0.003 [0.001, 0.005] n=3718   feasible 0.24072081764389458   best-id step2 0.0025820333512641203
+      step 1 picks the best proposal: 0.0392684238838085
+   D5/two_level: chains 3042 common eligible 161 (0.05292570677186062)
+      flat   chain success (common) 0.006 [0.000, 0.019] n=161   step2 (common) 0.006 [0.000, 0.019] n=161   end-to-end 0.001 [0.000, 0.003] n=3042   feasible 0.47731755424063116   best-id step2 0.0029585798816568047
+      true   chain success (common) 0.006 [0.000, 0.019] n=161   step2 (common) 0.006 [0.000, 0.019] n=161   end-to-end 0.001 [0.000, 0.003] n=3042   feasible 0.38724523339907957   best-id step2 0.0026298487836949377
+      random chain success (common) 0.001 [0.000, 0.004] n=161   step2 (common) 0.001 [0.000, 0.004] n=161   end-to-end 0.000 [0.000, 0.000] n=3042   feasible 0.12570677186061802   best-id step2 0.0017094017094017094
+      step 1 picks the best proposal: 0.03616042077580539
+   D5/single_level: chains 676 common eligible 509 (0.7529585798816568)
+      flat   chain success (common) 0.028 [0.014, 0.042] n=509   step2 (common) 0.033 [0.020, 0.050] n=509   end-to-end 0.021 [0.011, 0.033] n=676   feasible 0.8076923076923077   best-id step2 0.014792899408284023
+      true   chain success (common) 0.029 [0.016, 0.045] n=509   step2 (common) 0.035 [0.021, 0.052] n=509   end-to-end 0.022 [0.012, 0.034] n=676   feasible 0.7707100591715976   best-id step2 0.014792899408284023
+      random chain success (common) 0.020 [0.009, 0.034] n=509   step2 (common) 0.025 [0.013, 0.039] n=509   end-to-end 0.015 [0.007, 0.025] n=676   feasible 0.7582840236686391   best-id step2 0.006508875739644971
+      step 1 picks the best proposal: 0.05325443786982249
+   D6 box/all: chains 3718 common eligible 1524 (0.40989779451317915)
+      flat   chain success (common) 0.011 [0.006, 0.016] n=1524   step2 (common) 0.017 [0.011, 0.024] n=1524   end-to-end 0.005 [0.003, 0.007] n=3718   feasible 0.5373856912318451   best-id step2 0.005110274341043572
+      true   chain success (common) 0.010 [0.006, 0.016] n=1524   step2 (common) 0.016 [0.011, 0.023] n=1524   end-to-end 0.004 [0.002, 0.006] n=3718   feasible 0.43356643356643354   best-id step2 0.00457235072619688
+      box    chain success (common) 0.010 [0.006, 0.016] n=1524   step2 (common) 0.016 [0.010, 0.023] n=1524   end-to-end 0.004 [0.002, 0.006] n=3718   feasible 0.4472834857450242   best-id step2 0.00457235072619688
+      step 1 picks the best proposal: 0.0392684238838085
+   D6 box/two_level: chains 3042 common eligible 1093 (0.35930309007232086)
+      flat   chain success (common) 0.004 [0.001, 0.007] n=1093   step2 (common) 0.009 [0.004, 0.015] n=1093   end-to-end 0.001 [0.000, 0.003] n=3042   feasible 0.47731755424063116   best-id step2 0.0029585798816568047
+      true   chain success (common) 0.005 [0.001, 0.009] n=1093   step2 (common) 0.010 [0.005, 0.017] n=1093   end-to-end 0.002 [0.000, 0.003] n=3042   feasible 0.3859303090072321   best-id step2 0.0026298487836949377
+      box    chain success (common) 0.005 [0.001, 0.009] n=1093   step2 (common) 0.010 [0.005, 0.017] n=1093   end-to-end 0.002 [0.000, 0.003] n=3042   feasible 0.40401051939513477   best-id step2 0.0026298487836949377
+      step 1 picks the best proposal: 0.03616042077580539
+   D6 box/single_level: chains 676 common eligible 431 (0.6375739644970414)
+      flat   chain success (common) 0.030 [0.016, 0.047] n=431   step2 (common) 0.037 [0.021, 0.056] n=431   end-to-end 0.021 [0.011, 0.033] n=676   feasible 0.8076923076923077   best-id step2 0.014792899408284023
+      true   chain success (common) 0.026 [0.014, 0.041] n=431   step2 (common) 0.032 [0.018, 0.050] n=431   end-to-end 0.016 [0.007, 0.026] n=676   feasible 0.6479289940828402   best-id step2 0.013313609467455622
+      box    chain success (common) 0.026 [0.013, 0.041] n=431   step2 (common) 0.032 [0.018, 0.050] n=431   end-to-end 0.016 [0.007, 0.026] n=676   feasible 0.6420118343195266   best-id step2 0.013313609467455622
+      step 1 picks the best proposal: 0.05325443786982249
+   D12 no rejection/all: chains 3718 common eligible 97 (0.02608929532006455)
+      flat   chain success (common) 0.175 [0.100, 0.257] n=97   step2 (common) 0.247 [0.158, 0.337] n=97   end-to-end 0.087 [0.077, 0.097] n=3718   feasible 0.5373856912318451   best-id step2 0.06912318450779989
+      true   chain success (common) 0.175 [0.101, 0.255] n=97   step2 (common) 0.206 [0.132, 0.289] n=97   end-to-end 0.093 [0.083, 0.104] n=3718   feasible 0.43356643356643354   best-id step2 0.05890263582571275
+      random chain success (common) 0.054 [0.032, 0.081] n=97   step2 (common) 0.082 [0.053, 0.115] n=97   end-to-end 0.011 [0.009, 0.013] n=3718   feasible 0.11586874663797742   best-id step2 0.006777837547068317
+      step 1 picks the best proposal: 0.21167294244217322
+   D12 no rejection/two_level: chains 3042 common eligible 61 (0.020052596975673898)
+      flat   chain success (common) 0.148 [0.055, 0.246] n=61   step2 (common) 0.213 [0.111, 0.328] n=61   end-to-end 0.063 [0.054, 0.072] n=3042   feasible 0.47731755424063116   best-id step2 0.06278763971071663
+      true   chain success (common) 0.180 [0.083, 0.278] n=61   step2 (common) 0.230 [0.127, 0.344] n=61   end-to-end 0.076 [0.066, 0.086] n=3042   feasible 0.3859303090072321   best-id step2 0.055226824457593686
+      random chain success (common) 0.046 [0.017, 0.078] n=61   step2 (common) 0.082 [0.044, 0.132] n=61   end-to-end 0.009 [0.007, 0.010] n=3042   feasible 0.1029585798816568   best-id step2 0.006443129520052597
+      step 1 picks the best proposal: 0.21531886916502302
+   D12 no rejection/single_level: chains 676 common eligible 36 (0.05325443786982249)
+      flat   chain success (common) 0.222 [0.102, 0.371] n=36   step2 (common) 0.306 [0.162, 0.471] n=36   end-to-end 0.194 [0.164, 0.223] n=676   feasible 0.8076923076923077   best-id step2 0.09763313609467456
+      true   chain success (common) 0.167 [0.054, 0.303] n=36   step2 (common) 0.167 [0.054, 0.303] n=36   end-to-end 0.172 [0.143, 0.199] n=676   feasible 0.6479289940828402   best-id step2 0.07544378698224852
+      random chain success (common) 0.067 [0.028, 0.111] n=36   step2 (common) 0.083 [0.044, 0.130] n=36   end-to-end 0.019 [0.013, 0.026] n=676   feasible 0.1739644970414201   best-id step2 0.008284023668639054
+      step 1 picks the best proposal: 0.1952662721893491
+== transfer lvis_hier $TG_RUNS/x_transfer_lvis_hier_merge/20261023T112859636636Z_1e3728d5/metrics.json
    coverage {"chain_feasible_mask_tree": 0.5537730243612596, "chain_object_found": 0.9916815210932858, "chain_part_found": 0.9191919191919192, "chains": 1683, "part_recall": 0.9191919191919192, "part_recall_by_area_bin": {"large": 0.9232673267326733, "medium": 0.9322459222082811, "small": 0.7435897435897436}, "parts": 1683, "single_level_chains": 446}
    spec/all: chains 1683 common eligible 166 (0.09863339275103981)
       flat   chain success (common) 0.042 [0.012, 0.078] n=166   step2 (common) 0.108 [0.061, 0.161] n=166   end-to-end 0.031 [0.023, 0.039] n=1683   feasible 0.7427213309566251   best-id step2 0.035056446821152706
@@ -293,7 +675,84 @@
       true   chain success (common) 0.192 [0.138, 0.246] n=213   step2 (common) 0.202 [0.148, 0.254] n=213   end-to-end 0.092 [0.066, 0.119] n=446   feasible 0.484304932735426   best-id step2 0.03811659192825112
       box    chain success (common) 0.174 [0.124, 0.226] n=213   step2 (common) 0.183 [0.134, 0.236] n=213   end-to-end 0.083 [0.060, 0.110] n=446   feasible 0.7130044843049327   best-id step2 0.042600896860986545
       step 1 picks the best proposal: 0.10986547085201794
-== transfer openimages_hier $TG_RUNS/x_transfer_openimages_hier_merge/20261023T101218539541Z_c9e11ab3/metrics.json
+   D12 no rejection/all: chains 1683 common eligible 166 (0.09863339275103981)
+      flat   chain success (common) 0.054 [0.018, 0.096] n=166   step2 (common) 0.127 [0.075, 0.179] n=166   end-to-end 0.037 [0.027, 0.046] n=1683   feasible 0.7427213309566251   best-id step2 0.038027332144979206
+      true   chain success (common) 0.072 [0.036, 0.117] n=166   step2 (common) 0.120 [0.074, 0.170] n=166   end-to-end 0.040 [0.031, 0.050] n=1683   feasible 0.37730243612596553   best-id step2 0.017825311942959002
+      random chain success (common) 0.037 [0.018, 0.064] n=166   step2 (common) 0.076 [0.048, 0.105] n=166   end-to-end 0.012 [0.008, 0.015] n=1683   feasible 0.3065953654188948   best-id step2 0.00487225193107546
+      step 1 picks the best proposal: 0.0885323826500297
+   D12 no rejection/two_level: chains 1237 common eligible 99 (0.08003233629749394)
+      flat   chain success (common) 0.010 [0.000, 0.039] n=99   step2 (common) 0.101 [0.049, 0.162] n=99   end-to-end 0.017 [0.010, 0.025] n=1237   feasible 0.7283751010509296   best-id step2 0.037186742118027485
+      true   chain success (common) 0.020 [0.000, 0.052] n=99   step2 (common) 0.081 [0.031, 0.139] n=99   end-to-end 0.017 [0.010, 0.025] n=1237   feasible 0.3387227162489895   best-id step2 0.01131770412287793
+      random chain success (common) 0.018 [0.006, 0.032] n=99   step2 (common) 0.063 [0.033, 0.095] n=99   end-to-end 0.008 [0.005, 0.011] n=1237   feasible 0.29975747776879547   best-id step2 0.004688763136620856
+      step 1 picks the best proposal: 0.07841552142279709
+   D12 no rejection/single_level: chains 446 common eligible 67 (0.15022421524663676)
+      flat   chain success (common) 0.119 [0.044, 0.209] n=67   step2 (common) 0.164 [0.075, 0.266] n=67   end-to-end 0.092 [0.065, 0.120] n=446   feasible 0.7825112107623319   best-id step2 0.04035874439461883
+      true   chain success (common) 0.149 [0.072, 0.243] n=67   step2 (common) 0.179 [0.091, 0.275] n=67   end-to-end 0.105 [0.078, 0.135] n=446   feasible 0.484304932735426   best-id step2 0.03587443946188341
+      random chain success (common) 0.066 [0.022, 0.125] n=67   step2 (common) 0.096 [0.048, 0.155] n=67   end-to-end 0.022 [0.013, 0.033] n=446   feasible 0.3255605381165919   best-id step2 0.005381165919282512
+      step 1 picks the best proposal: 0.11659192825112108
+== transfer lvis_hier_s1 $TG_RUNS/x_transfer_lvis_hier_s1_merge/20261023T142635227742Z_92812b0c/metrics.json
+   coverage {"chain_feasible_mask_tree": 0.5537730243612596, "chain_object_found": 0.9916815210932858, "chain_part_found": 0.9191919191919192, "chains": 1683, "part_recall": 0.9191919191919192, "part_recall_by_area_bin": {"large": 0.9232673267326733, "medium": 0.9322459222082811, "small": 0.7435897435897436}, "parts": 1683, "single_level_chains": 446}
+   spec/all: chains 1683 common eligible 166 (0.09863339275103981)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=166   step2 (common) 0.000 [0.000, 0.000] n=166   end-to-end 0.000 [0.000, 0.000] n=1683   feasible 0.7427213309566251   best-id step2 0.0
+      true   chain success (common) 0.000 [0.000, 0.000] n=166   step2 (common) 0.000 [0.000, 0.000] n=166   end-to-end 0.000 [0.000, 0.000] n=1683   feasible 0.37730243612596553   best-id step2 0.0
+      random chain success (common) 0.000 [0.000, 0.000] n=166   step2 (common) 0.000 [0.000, 0.000] n=166   end-to-end 0.000 [0.000, 0.000] n=1683   feasible 0.3065953654188948   best-id step2 0.0
+      step 1 picks the best proposal: 0.0368389780154486
+   spec/two_level: chains 1237 common eligible 99 (0.08003233629749394)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=99   step2 (common) 0.000 [0.000, 0.000] n=99   end-to-end 0.000 [0.000, 0.000] n=1237   feasible 0.7283751010509296   best-id step2 0.0
+      true   chain success (common) 0.000 [0.000, 0.000] n=99   step2 (common) 0.000 [0.000, 0.000] n=99   end-to-end 0.000 [0.000, 0.000] n=1237   feasible 0.3387227162489895   best-id step2 0.0
+      random chain success (common) 0.000 [0.000, 0.000] n=99   step2 (common) 0.000 [0.000, 0.000] n=99   end-to-end 0.000 [0.000, 0.000] n=1237   feasible 0.29975747776879547   best-id step2 0.0
+      step 1 picks the best proposal: 0.03233629749393695
+   spec/single_level: chains 446 common eligible 67 (0.15022421524663676)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=67   step2 (common) 0.000 [0.000, 0.000] n=67   end-to-end 0.000 [0.000, 0.000] n=446   feasible 0.7825112107623319   best-id step2 0.0
+      true   chain success (common) 0.000 [0.000, 0.000] n=67   step2 (common) 0.000 [0.000, 0.000] n=67   end-to-end 0.000 [0.000, 0.000] n=446   feasible 0.484304932735426   best-id step2 0.0
+      random chain success (common) 0.000 [0.000, 0.000] n=67   step2 (common) 0.000 [0.000, 0.000] n=67   end-to-end 0.000 [0.000, 0.000] n=446   feasible 0.3255605381165919   best-id step2 0.0
+      step 1 picks the best proposal: 0.04932735426008968
+   D5/all: chains 1683 common eligible 354 (0.2103386809269162)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=354   step2 (common) 0.000 [0.000, 0.000] n=354   end-to-end 0.000 [0.000, 0.000] n=1683   feasible 0.7427213309566251   best-id step2 0.0
+      true   chain success (common) 0.000 [0.000, 0.000] n=354   step2 (common) 0.000 [0.000, 0.000] n=354   end-to-end 0.000 [0.000, 0.000] n=1683   feasible 0.3879976232917409   best-id step2 0.0
+      random chain success (common) 0.000 [0.000, 0.000] n=354   step2 (common) 0.000 [0.000, 0.000] n=354   end-to-end 0.000 [0.000, 0.000] n=1683   feasible 0.38740344622697565   best-id step2 0.0
+      step 1 picks the best proposal: 0.0368389780154486
+   D5/two_level: chains 1237 common eligible 129 (0.10428455941794665)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=129   step2 (common) 0.000 [0.000, 0.000] n=129   end-to-end 0.000 [0.000, 0.000] n=1237   feasible 0.7283751010509296   best-id step2 0.0
+      true   chain success (common) 0.000 [0.000, 0.000] n=129   step2 (common) 0.000 [0.000, 0.000] n=129   end-to-end 0.000 [0.000, 0.000] n=1237   feasible 0.3395311236863379   best-id step2 0.0
+      random chain success (common) 0.000 [0.000, 0.000] n=129   step2 (common) 0.000 [0.000, 0.000] n=129   end-to-end 0.000 [0.000, 0.000] n=1237   feasible 0.3143088116410671   best-id step2 0.0
+      step 1 picks the best proposal: 0.03233629749393695
+   D5/single_level: chains 446 common eligible 225 (0.5044843049327354)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=225   step2 (common) 0.000 [0.000, 0.000] n=225   end-to-end 0.000 [0.000, 0.000] n=446   feasible 0.7825112107623319   best-id step2 0.0
+      true   chain success (common) 0.000 [0.000, 0.000] n=225   step2 (common) 0.000 [0.000, 0.000] n=225   end-to-end 0.000 [0.000, 0.000] n=446   feasible 0.5224215246636771   best-id step2 0.0
+      random chain success (common) 0.000 [0.000, 0.000] n=225   step2 (common) 0.000 [0.000, 0.000] n=225   end-to-end 0.000 [0.000, 0.000] n=446   feasible 0.5901345291479819   best-id step2 0.0
+      step 1 picks the best proposal: 0.04932735426008968
+   D6 box/all: chains 1683 common eligible 597 (0.35472370766488415)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=597   step2 (common) 0.000 [0.000, 0.000] n=597   end-to-end 0.000 [0.000, 0.000] n=1683   feasible 0.7427213309566251   best-id step2 0.0
+      true   chain success (common) 0.000 [0.000, 0.000] n=597   step2 (common) 0.000 [0.000, 0.000] n=597   end-to-end 0.000 [0.000, 0.000] n=1683   feasible 0.37730243612596553   best-id step2 0.0
+      box    chain success (common) 0.000 [0.000, 0.000] n=597   step2 (common) 0.000 [0.000, 0.000] n=597   end-to-end 0.000 [0.000, 0.000] n=1683   feasible 0.6636957813428401   best-id step2 0.0
+      step 1 picks the best proposal: 0.0368389780154486
+   D6 box/two_level: chains 1237 common eligible 384 (0.3104284559417947)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=384   step2 (common) 0.000 [0.000, 0.000] n=384   end-to-end 0.000 [0.000, 0.000] n=1237   feasible 0.7283751010509296   best-id step2 0.0
+      true   chain success (common) 0.000 [0.000, 0.000] n=384   step2 (common) 0.000 [0.000, 0.000] n=384   end-to-end 0.000 [0.000, 0.000] n=1237   feasible 0.3387227162489895   best-id step2 0.0
+      box    chain success (common) 0.000 [0.000, 0.000] n=384   step2 (common) 0.000 [0.000, 0.000] n=384   end-to-end 0.000 [0.000, 0.000] n=1237   feasible 0.6459175424413904   best-id step2 0.0
+      step 1 picks the best proposal: 0.03233629749393695
+   D6 box/single_level: chains 446 common eligible 213 (0.47757847533632286)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=213   step2 (common) 0.000 [0.000, 0.000] n=213   end-to-end 0.000 [0.000, 0.000] n=446   feasible 0.7825112107623319   best-id step2 0.0
+      true   chain success (common) 0.000 [0.000, 0.000] n=213   step2 (common) 0.000 [0.000, 0.000] n=213   end-to-end 0.000 [0.000, 0.000] n=446   feasible 0.484304932735426   best-id step2 0.0
+      box    chain success (common) 0.000 [0.000, 0.000] n=213   step2 (common) 0.000 [0.000, 0.000] n=213   end-to-end 0.000 [0.000, 0.000] n=446   feasible 0.7130044843049327   best-id step2 0.0
+      step 1 picks the best proposal: 0.04932735426008968
+   D12 no rejection/all: chains 1683 common eligible 166 (0.09863339275103981)
+      flat   chain success (common) 0.229 [0.167, 0.295] n=166   step2 (common) 0.319 [0.244, 0.390] n=166   end-to-end 0.138 [0.123, 0.157] n=1683   feasible 0.7427213309566251   best-id step2 0.08021390374331551
+      true   chain success (common) 0.289 [0.220, 0.360] n=166   step2 (common) 0.343 [0.271, 0.416] n=166   end-to-end 0.106 [0.092, 0.121] n=1683   feasible 0.37730243612596553   best-id step2 0.0398098633392751
+      random chain success (common) 0.095 [0.069, 0.126] n=166   step2 (common) 0.131 [0.103, 0.163] n=166   end-to-end 0.032 [0.027, 0.037] n=1683   feasible 0.3065953654188948   best-id step2 0.00808080808080808
+      step 1 picks the best proposal: 0.26737967914438504
+   D12 no rejection/two_level: chains 1237 common eligible 99 (0.08003233629749394)
+      flat   chain success (common) 0.192 [0.120, 0.280] n=99   step2 (common) 0.313 [0.219, 0.408] n=99   end-to-end 0.112 [0.096, 0.129] n=1237   feasible 0.7283751010509296   best-id step2 0.06628940986257073
+      true   chain success (common) 0.202 [0.125, 0.290] n=99   step2 (common) 0.283 [0.196, 0.375] n=99   end-to-end 0.078 [0.065, 0.093] n=1237   feasible 0.3387227162489895   best-id step2 0.034761519805982216
+      random chain success (common) 0.065 [0.040, 0.094] n=99   step2 (common) 0.107 [0.076, 0.143] n=99   end-to-end 0.029 [0.024, 0.034] n=1237   feasible 0.29975747776879547   best-id step2 0.008569118835893291
+      step 1 picks the best proposal: 0.27324171382376716
+   D12 no rejection/single_level: chains 446 common eligible 67 (0.15022421524663676)
+      flat   chain success (common) 0.284 [0.188, 0.388] n=67   step2 (common) 0.328 [0.229, 0.431] n=67   end-to-end 0.211 [0.173, 0.250] n=446   feasible 0.7825112107623319   best-id step2 0.11883408071748879
+      true   chain success (common) 0.418 [0.303, 0.529] n=67   step2 (common) 0.433 [0.323, 0.544] n=67   end-to-end 0.184 [0.150, 0.223] n=446   feasible 0.484304932735426   best-id step2 0.053811659192825115
+      random chain success (common) 0.140 [0.089, 0.200] n=67   step2 (common) 0.167 [0.114, 0.226] n=67   end-to-end 0.041 [0.029, 0.055] n=446   feasible 0.3255605381165919   best-id step2 0.00672645739910314
+      step 1 picks the best proposal: 0.25112107623318386
+== transfer openimages_hier $TG_RUNS/x_transfer_openimages_hier_merge/20261023T123119148666Z_92812b0c/metrics.json
    coverage {"chain_feasible_mask_tree": 0.9198354950964884, "chain_object_found": 0.9994621955077507, "chain_part_found": 0.9478013286934515, "chains": 31610, "part_recall": 0.9478013286934515, "part_recall_by_area_bin": {"large": 0.9569019569019569, "medium": 0.7368018362662586}, "parts": 31610, "single_level_chains": 8135}
    spec/all: chains 31610 common eligible 14273 (0.45153432458082887)
       flat   chain success (common) 0.002 [0.001, 0.003] n=14273   step2 (common) 0.010 [0.008, 0.013] n=14273   end-to-end 0.001 [0.001, 0.002] n=31610   feasible 0.8616260677000949   best-id step2 0.002024675735526732
@@ -340,3 +799,80 @@
       true   chain success (common) 0.003 [0.002, 0.005] n=7197   step2 (common) 0.007 [0.004, 0.010] n=7197   end-to-end 0.003 [0.001, 0.005] n=8135   feasible 0.8870313460356485   best-id step2 0.0004917025199754148
       box    chain success (common) 0.004 [0.002, 0.005] n=7197   step2 (common) 0.007 [0.005, 0.010] n=7197   end-to-end 0.003 [0.002, 0.005] n=8135   feasible 0.9028887523048555   best-id step2 0.0004917025199754148
       step 1 picks the best proposal: 0.002089735709895513
+   D12 no rejection/all: chains 31610 common eligible 14273 (0.45153432458082887)
+      flat   chain success (common) 0.013 [0.011, 0.016] n=14273   step2 (common) 0.033 [0.029, 0.037] n=14273   end-to-end 0.008 [0.006, 0.009] n=31610   feasible 0.8616260677000949   best-id step2 0.005472951597595698
+      true   chain success (common) 0.020 [0.017, 0.024] n=14273   step2 (common) 0.044 [0.040, 0.050] n=14273   end-to-end 0.012 [0.010, 0.014] n=31610   feasible 0.7838025941157861   best-id step2 0.0037329958873774122
+      random chain success (common) 0.019 [0.016, 0.021] n=14273   step2 (common) 0.048 [0.045, 0.051] n=14273   end-to-end 0.010 [0.009, 0.011] n=31610   feasible 0.581372983233154   best-id step2 0.0029421069281872826
+      step 1 picks the best proposal: 0.04318253717178108
+   D12 no rejection/two_level: chains 23475 common eligible 10103 (0.4303727369542066)
+      flat   chain success (common) 0.007 [0.005, 0.009] n=10103   step2 (common) 0.031 [0.026, 0.036] n=10103   end-to-end 0.004 [0.003, 0.005] n=23475   feasible 0.8284132055378062   best-id step2 0.0062619808306709265
+      true   chain success (common) 0.009 [0.007, 0.011] n=10103   step2 (common) 0.038 [0.033, 0.044] n=10103   end-to-end 0.006 [0.005, 0.007] n=23475   feasible 0.7480298189563366   best-id step2 0.004302449414270501
+      random chain success (common) 0.011 [0.010, 0.013] n=10103   step2 (common) 0.037 [0.034, 0.041] n=10103   end-to-end 0.006 [0.005, 0.007] n=23475   feasible 0.5670798722044729   best-id step2 0.0030074547390841317
+      step 1 picks the best proposal: 0.04536741214057508
+   D12 no rejection/single_level: chains 8135 common eligible 4170 (0.51259987707437)
+      flat   chain success (common) 0.029 [0.022, 0.037] n=4170   step2 (common) 0.039 [0.031, 0.049] n=4170   end-to-end 0.018 [0.014, 0.022] n=8135   feasible 0.9574677320221266   best-id step2 0.0031960663798401966
+      true   chain success (common) 0.048 [0.039, 0.059] n=4170   step2 (common) 0.060 [0.049, 0.071] n=4170   end-to-end 0.030 [0.024, 0.035] n=8135   feasible 0.8870313460356485   best-id step2 0.002089735709895513
+      random chain success (common) 0.036 [0.031, 0.042] n=4170   step2 (common) 0.075 [0.068, 0.082] n=4170   end-to-end 0.019 [0.016, 0.022] n=8135   feasible 0.6226183159188691   best-id step2 0.002753534111862323
+      step 1 picks the best proposal: 0.03687768899815612
+== transfer openimages_hier_s1 $TG_RUNS/x_transfer_openimages_hier_s1_merge/20261023T150554195463Z_92812b0c/metrics.json
+   coverage {"chain_feasible_mask_tree": 0.9198354950964884, "chain_object_found": 0.9994621955077507, "chain_part_found": 0.9478013286934515, "chains": 31610, "part_recall": 0.9478013286934515, "part_recall_by_area_bin": {"large": 0.9569019569019569, "medium": 0.7368018362662586}, "parts": 31610, "single_level_chains": 8135}
+   spec/all: chains 31610 common eligible 14273 (0.45153432458082887)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=14273   step2 (common) 0.000 [0.000, 0.001] n=14273   end-to-end 0.000 [0.000, 0.000] n=31610   feasible 0.8616260677000949   best-id step2 0.00012654223347042075
+      true   chain success (common) 0.000 [0.000, 0.000] n=14273   step2 (common) 0.000 [0.000, 0.000] n=14273   end-to-end 0.000 [0.000, 0.000] n=31610   feasible 0.7838025941157861   best-id step2 0.00012654223347042075
+      random chain success (common) 0.000 [0.000, 0.000] n=14273   step2 (common) 0.000 [0.000, 0.000] n=14273   end-to-end 0.000 [0.000, 0.000] n=31610   feasible 0.581372983233154   best-id step2 0.00010123378677633661
+      step 1 picks the best proposal: 0.08500474533375514
+   spec/two_level: chains 23475 common eligible 10103 (0.4303727369542066)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=10103   step2 (common) 0.000 [0.000, 0.000] n=10103   end-to-end 0.000 [0.000, 0.000] n=23475   feasible 0.8284132055378062   best-id step2 4.259850905218317e-05
+      true   chain success (common) 0.000 [0.000, 0.000] n=10103   step2 (common) 0.000 [0.000, 0.000] n=10103   end-to-end 0.000 [0.000, 0.000] n=23475   feasible 0.7480298189563366   best-id step2 4.259850905218317e-05
+      random chain success (common) 0.000 [0.000, 0.000] n=10103   step2 (common) 0.000 [0.000, 0.000] n=10103   end-to-end 0.000 [0.000, 0.000] n=23475   feasible 0.5670798722044729   best-id step2 4.259850905218317e-05
+      step 1 picks the best proposal: 0.08894568690095847
+   spec/single_level: chains 8135 common eligible 4170 (0.51259987707437)
+      flat   chain success (common) 0.001 [0.000, 0.002] n=4170   step2 (common) 0.001 [0.000, 0.002] n=4170   end-to-end 0.001 [0.000, 0.001] n=8135   feasible 0.9574677320221266   best-id step2 0.0003687768899815612
+      true   chain success (common) 0.000 [0.000, 0.001] n=4170   step2 (common) 0.000 [0.000, 0.001] n=4170   end-to-end 0.000 [0.000, 0.001] n=8135   feasible 0.8870313460356485   best-id step2 0.0003687768899815612
+      random chain success (common) 0.000 [0.000, 0.001] n=4170   step2 (common) 0.000 [0.000, 0.001] n=4170   end-to-end 0.000 [0.000, 0.001] n=8135   feasible 0.6226183159188691   best-id step2 0.0002704363859864782
+      step 1 picks the best proposal: 0.07363245236631838
+   D5/all: chains 31610 common eligible 18752 (0.5932299905093324)
+      flat   chain success (common) 0.000 [0.000, 0.001] n=18752   step2 (common) 0.000 [0.000, 0.001] n=18752   end-to-end 0.000 [0.000, 0.000] n=31610   feasible 0.8616260677000949   best-id step2 0.00012654223347042075
+      true   chain success (common) 0.000 [0.000, 0.001] n=18752   step2 (common) 0.000 [0.000, 0.001] n=18752   end-to-end 0.000 [0.000, 0.000] n=31610   feasible 0.8015817779183803   best-id step2 0.00012654223347042075
+      random chain success (common) 0.000 [0.000, 0.000] n=18752   step2 (common) 0.000 [0.000, 0.001] n=18752   end-to-end 0.000 [0.000, 0.000] n=31610   feasible 0.6832964251819045   best-id step2 9.490667510281556e-05
+      step 1 picks the best proposal: 0.08500474533375514
+   D5/two_level: chains 23475 common eligible 11093 (0.47254526091586796)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=11093   step2 (common) 0.000 [0.000, 0.000] n=11093   end-to-end 0.000 [0.000, 0.000] n=23475   feasible 0.8284132055378062   best-id step2 4.259850905218317e-05
+      true   chain success (common) 0.000 [0.000, 0.000] n=11093   step2 (common) 0.000 [0.000, 0.000] n=11093   end-to-end 0.000 [0.000, 0.000] n=23475   feasible 0.750457933972311   best-id step2 4.259850905218317e-05
+      random chain success (common) 0.000 [0.000, 0.000] n=11093   step2 (common) 0.000 [0.000, 0.000] n=11093   end-to-end 0.000 [0.000, 0.000] n=23475   feasible 0.5929201277955272   best-id step2 4.259850905218317e-05
+      step 1 picks the best proposal: 0.08894568690095847
+   D5/single_level: chains 8135 common eligible 7659 (0.9414874001229256)
+      flat   chain success (common) 0.001 [0.000, 0.001] n=7659   step2 (common) 0.001 [0.000, 0.002] n=7659   end-to-end 0.001 [0.000, 0.001] n=8135   feasible 0.9574677320221266   best-id step2 0.0003687768899815612
+      true   chain success (common) 0.001 [0.000, 0.001] n=7659   step2 (common) 0.001 [0.000, 0.002] n=7659   end-to-end 0.001 [0.000, 0.001] n=8135   feasible 0.9491087891825446   best-id step2 0.0003687768899815612
+      random chain success (common) 0.000 [0.000, 0.001] n=7659   step2 (common) 0.001 [0.000, 0.001] n=7659   end-to-end 0.000 [0.000, 0.001] n=8135   feasible 0.9440934234787953   best-id step2 0.0002458512599877074
+      step 1 picks the best proposal: 0.07363245236631838
+   D6 box/all: chains 31610 common eligible 23964 (0.7581145207212907)
+      flat   chain success (common) 0.000 [0.000, 0.001] n=23964   step2 (common) 0.000 [0.000, 0.001] n=23964   end-to-end 0.000 [0.000, 0.000] n=31610   feasible 0.8616260677000949   best-id step2 0.00012654223347042075
+      true   chain success (common) 0.000 [0.000, 0.000] n=23964   step2 (common) 0.000 [0.000, 0.001] n=23964   end-to-end 0.000 [0.000, 0.000] n=31610   feasible 0.7838025941157861   best-id step2 0.00012654223347042075
+      box    chain success (common) 0.000 [0.000, 0.000] n=23964   step2 (common) 0.000 [0.000, 0.001] n=23964   end-to-end 0.000 [0.000, 0.000] n=31610   feasible 0.8039228092375831   best-id step2 0.00012654223347042075
+      step 1 picks the best proposal: 0.08500474533375514
+   D6 box/two_level: chains 23475 common eligible 16767 (0.7142492012779553)
+      flat   chain success (common) 0.000 [0.000, 0.000] n=16767   step2 (common) 0.000 [0.000, 0.000] n=16767   end-to-end 0.000 [0.000, 0.000] n=23475   feasible 0.8284132055378062   best-id step2 4.259850905218317e-05
+      true   chain success (common) 0.000 [0.000, 0.000] n=16767   step2 (common) 0.000 [0.000, 0.000] n=16767   end-to-end 0.000 [0.000, 0.000] n=23475   feasible 0.7480298189563366   best-id step2 4.259850905218317e-05
+      box    chain success (common) 0.000 [0.000, 0.000] n=16767   step2 (common) 0.000 [0.000, 0.000] n=16767   end-to-end 0.000 [0.000, 0.000] n=23475   feasible 0.7696272630457934   best-id step2 4.259850905218317e-05
+      step 1 picks the best proposal: 0.08894568690095847
+   D6 box/single_level: chains 8135 common eligible 7197 (0.8846957590657653)
+      flat   chain success (common) 0.001 [0.000, 0.001] n=7197   step2 (common) 0.001 [0.000, 0.002] n=7197   end-to-end 0.001 [0.000, 0.001] n=8135   feasible 0.9574677320221266   best-id step2 0.0003687768899815612
+      true   chain success (common) 0.001 [0.000, 0.001] n=7197   step2 (common) 0.001 [0.000, 0.002] n=7197   end-to-end 0.000 [0.000, 0.001] n=8135   feasible 0.8870313460356485   best-id step2 0.0003687768899815612
+      box    chain success (common) 0.001 [0.000, 0.001] n=7197   step2 (common) 0.001 [0.000, 0.002] n=7197   end-to-end 0.000 [0.000, 0.001] n=8135   feasible 0.9028887523048555   best-id step2 0.0003687768899815612
+      step 1 picks the best proposal: 0.07363245236631838
+   D12 no rejection/all: chains 31610 common eligible 14273 (0.45153432458082887)
+      flat   chain success (common) 0.182 [0.173, 0.191] n=14273   step2 (common) 0.201 [0.191, 0.210] n=14273   end-to-end 0.143 [0.137, 0.148] n=31610   feasible 0.8616260677000949   best-id step2 0.05858905409680481
+      true   chain success (common) 0.191 [0.182, 0.201] n=14273   step2 (common) 0.204 [0.194, 0.213] n=14273   end-to-end 0.153 [0.148, 0.159] n=31610   feasible 0.7838025941157861   best-id step2 0.05824106295476115
+      random chain success (common) 0.137 [0.131, 0.142] n=14273   step2 (common) 0.150 [0.144, 0.156] n=14273   end-to-end 0.077 [0.073, 0.080] n=31610   feasible 0.581372983233154   best-id step2 0.016950332173362857
+      step 1 picks the best proposal: 0.3621322366339766
+   D12 no rejection/two_level: chains 23475 common eligible 10103 (0.4303727369542066)
+      flat   chain success (common) 0.155 [0.146, 0.165] n=10103   step2 (common) 0.171 [0.161, 0.181] n=10103   end-to-end 0.131 [0.124, 0.137] n=23475   feasible 0.8284132055378062   best-id step2 0.06628328008519702
+      true   chain success (common) 0.169 [0.159, 0.180] n=10103   step2 (common) 0.180 [0.170, 0.191] n=10103   end-to-end 0.146 [0.139, 0.152] n=23475   feasible 0.7480298189563366   best-id step2 0.06483493077742279
+      random chain success (common) 0.115 [0.109, 0.121] n=10103   step2 (common) 0.124 [0.119, 0.131] n=10103   end-to-end 0.066 [0.063, 0.069] n=23475   feasible 0.5670798722044729   best-id step2 0.01785729499467519
+      step 1 picks the best proposal: 0.36745473908413206
+   D12 no rejection/single_level: chains 8135 common eligible 4170 (0.51259987707437)
+      flat   chain success (common) 0.248 [0.230, 0.267] n=4170   step2 (common) 0.274 [0.254, 0.293] n=4170   end-to-end 0.176 [0.165, 0.187] n=8135   feasible 0.9574677320221266   best-id step2 0.0363859864781807
+      true   chain success (common) 0.246 [0.229, 0.266] n=4170   step2 (common) 0.262 [0.244, 0.283] n=4170   end-to-end 0.175 [0.164, 0.185] n=8135   feasible 0.8870313460356485   best-id step2 0.039213275968039335
+      random chain success (common) 0.189 [0.177, 0.202] n=4170   step2 (common) 0.213 [0.201, 0.225] n=4170   end-to-end 0.108 [0.100, 0.115] n=8135   feasible 0.6226183159188691   best-id step2 0.014333128457283345
+      step 1 picks the best proposal: 0.34677320221266134

@@ -16,7 +16,7 @@ REPO = Path(__file__).resolve().parents[1]
 PACKAGES = [
     "torch", "torchvision", "transformers", "accelerate", "huggingface_hub", "tokenizers", "pycocotools",
     "opencv-python-headless", "safetensors", "numpy", "scipy", "pyyaml", "pyarrow", "pandas", "pillow",
-    "qwen-vl-utils",
+    "qwen-vl-utils", "diffusers", "lpips",
 ]
 _ENV = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")
 
@@ -369,6 +369,37 @@ PROPOSED_DEVIATIONS = [
                   "object->part chains with masks; per-GPU micro-batches hold a few images, not the 32 of S1",
         "expected_impact": "S2 is trained and evaluated on the same chain distribution as S1/V4; no "
                            "object->part->affordance or explanatory chains",
+    },
+    {
+        "id": "D14",
+        "spec_section": "amendment (task 3: region-grounded editing)",
+        "change": "region-grounded editing, outside the frozen spec. Pipeline: (image, edit instruction, referent "
+                  "phrase) -> our selector (V2 checkpoint, or S1 under D11) on the D3/D4 node set with the I1 query "
+                  "'Locate {referent}. <SEL>', top-1 node taken without rejection (an edit always names a present "
+                  "region; sigma >= tau_rej recorded) -> mask -> diffusion editor. Datasets: (1) PartEdit-Bench "
+                  "(Aleksandar/PartEdit-Bench, real 13 + synth 60 rows), instruction instructp2p_edit2, referent "
+                  "'the {part} of the {subject}', GT = gt_mask; (2) GEdit-Bench and ImgEdit-Bench with the edited-"
+                  "region masks of wyh6666/GEditBench_ImgEditBench_with_mask (black = edited): local-edit subsets "
+                  "only (GEdit color_alter, material_alter, subject-replace, subject-remove; ImgEdit adjust, replace, "
+                  "remove), dropping edited_object naming the whole image or background and masks covering 0 or > 90% "
+                  "of the image; referent = 'the ' + the dataset's edited_object (no derivation needed); (3) "
+                  "PACO-LVIS val: 500 seeded (object, part) pairs eligible as I1 part queries with part area >= 1024 "
+                  "px, at most one per image, seeded recolor ('make the {part} of the {object} {color}') or material "
+                  "('make the {part} of the {object} look like {material}') instruction, GT = part mask (labelled "
+                  "dev: PACO val calibrated tau_rej). Editors (pinned): Qwen-Image-Edit-2511 (QwenImageEditPlus, bf16, "
+                  "model-card sampling) and FLUX.1-Fill-dev (FluxFill, bf16, ~1 MP). Conditions: free (instruction "
+                  "only, Qwen), {ours,gt,sam3text}_blend (Qwen output composited into the original with the mask "
+                  "dilated 8 px and Gaussian-feathered sigma 4) and {ours,gt,sam3text}_fill (Fill on the dilated mask, "
+                  "pasted back the same way); sam3text = SAM 3 text prompt on the referent, D13 route, top instance "
+                  "without its score threshold. Same seed per sample across conditions. Metrics w.r.t. the GT edit "
+                  "mask at source resolution: outside PSNR / SSIM (Gaussian 11, sigma 1.5) / LPIPS-alex (spatial), "
+                  "inside mean |change| and LPIPS, CLIP ViT-L/14 directional similarity and CLIP-T against fixed "
+                  "per-dataset captions, mask IoU vs GT (ours top-1, best node, SAM 3 text); image-level bootstrap "
+                  "95% CIs; edited PNGs kept for a later MLLM judge",
+        "reason": "the spec covers grounding only; editing tests whether tree-node selection gives editors usable "
+                  "part-level masks, with the GT mask as the localisation upper bound and SAM 3 text as the "
+                  "same-backbone baseline",
+        "expected_impact": "a new task-3 result family; no change to any grounding result",
     },
 ]
 

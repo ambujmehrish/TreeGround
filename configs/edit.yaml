@@ -1,0 +1,42 @@
+include: baselines.yaml
+inputs: {manifest: latest, v2: latest, selector_stage: v2}
+torch_home: ${TG_ROOT}/torch      # LPIPS AlexNet backbone (torchvision cache), fetched on the login node
+models:
+  qwen_image_edit: {repo: Qwen/Qwen-Image-Edit-2511, revision: 6f3ccc0b56e431dc6a0c2b2039706d7d26f22cb9}
+  flux_fill:   # gated: accept the FLUX.1 [dev] non-commercial licence on the Hub first
+    repo: black-forest-labs/FLUX.1-Fill-dev
+    revision: 358293da0354175698b67ec8299acf928313a78a
+    ignore_patterns: [flux1-fill-dev.safetensors, ae.safetensors]   # single-file copies, diffusers uses the folders
+  clip: {repo: openai/clip-vit-large-patch14, revision: 32bd64288804d66eefd0ccbe215aa642df71cc41}
+edit:
+  seed: 0
+  smoke_samples: 3
+  probe_batch: 1
+  num_shards: {partedit: 4, gedit: 8, imgedit: 8, paco_edit: 16}
+  datasets:
+    partedit: {}
+    gedit: {groups: [color_alter, material_alter, subject-replace, subject-remove], max_edit_frac: 0.9}
+    imgedit: {edit_types: [adjust, replace, remove], max_edit_frac: 0.9}
+    paco_edit: {n: 500, seed: 0, min_part_area: 1024, per_image: 1}
+  mask: {dilate_px: 8, feather_px: 4.0}
+  editors:
+    qwen_image_edit:
+      conditions: [free, ours_blend, gt_blend, sam3text_blend]
+      dtype: bfloat16
+      offload: model             # none | model | sequential
+      num_inference_steps: 40    # model card
+      true_cfg_scale: 4.0
+      guidance_scale: 1.0
+      negative_prompt: " "
+    flux_fill:
+      conditions: [ours_fill, gt_fill, sam3text_fill]
+      dtype: bfloat16
+      offload: none
+      num_inference_steps: 50    # model card
+      guidance_scale: 30.0
+      max_sequence_length: 512
+      target_area: 1048576       # ~1 MP, sides multiples of 16
+      paste_back: true           # composite the Fill output into the original with the same feathered mask
+  metrics:
+    lpips_net: alex
+    bootstrap: {n: 1000, seed: 0}

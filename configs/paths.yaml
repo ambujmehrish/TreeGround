@@ -18,6 +18,14 @@ data:
   openimages_boxes: ${TG_DATA}/openimages/validation-annotations-bbox.csv
   openimages_classes: ${TG_DATA}/openimages/oidv7-class-descriptions-boxable.csv
   openimages_images: ${TG_DATA}/openimages/validation                       # <ImageID>.jpg
+  partedit: ${TG_DATA}/partedit_bench            # data/{real,synth}-*.parquet
+  gedit_imgedit: ${TG_DATA}/gedit_imgedit_mask   # geditbench/{metafile_geditbench.json,fullset.zip}, imgedit/...
+
+datasets:   # Hub datasets fetched by scripts/fetch_models.py --datasets (login node)
+  partedit: {repo: Aleksandar/PartEdit-Bench, revision: 508a6a7c231b5ee8d940f6f150ca356be3ac9ce0,
+             dir: "${TG_DATA}/partedit_bench", allow_patterns: ["data/*.parquet", "README.md"]}
+  gedit_imgedit: {repo: wyh6666/GEditBench_ImgEditBench_with_mask, revision: 35434fda9af1db75f78901f7d2cbd028f7dad377,
+                  dir: "${TG_DATA}/gedit_imgedit_mask", allow_patterns: ["*/metafile_*.json", "*.zip", "README.md"]}
 
 models:
   qwen: {repo: Qwen/Qwen3-VL-4B-Instruct, revision: ebb281ec70b05090aa6165b016eac8ec08e71b17}

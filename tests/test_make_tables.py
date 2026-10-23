@@ -103,7 +103,8 @@ def test_transfer_and_coverage(tmp_path):
     out = setup(tmp_path)
     rows = read(out / "transfer.csv")
     ade = [r for r in rows if r["dataset"] == "ADE20K"]
-    assert [(r["selector"], r["search"]) for r in ade] == [("V2", "spec"), ("S1", "spec")]
+    assert [(r["selector"], r["search"]) for r in ade] == [("V2", "spec"), ("S1", "spec"), ("S2", "spec"),
+                                                          ("S2 (from S1)", "spec")]
     assert (ade[0]["part_recall"], ade[0]["random"], ade[0]["box"]) == ("0.640", "0.250", "–")
     assert all(r["flat"] == "–" for r in rows if r["dataset"] != "ADE20K")
     cov = read(out / "coverage.csv")

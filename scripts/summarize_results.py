@@ -75,7 +75,8 @@ def main() -> None:
         blocks(m, {"all": m.get("natural_search"), "two_level": split.get("two_level"),
                    "single_level": split.get("single_level")}, m.get("natural_search_d5"),
                m.get("natural_search_d6_box_tree"), m.get("natural_no_rejection_d12"))
-    for ds, tag in itertools.product(("pascal_part", "ade20k", "lvis_hier", "openimages_hier"), ("", "_s1")):
+    for ds, tag in itertools.product(("pascal_part", "ade20k", "lvis_hier", "openimages_hier"),
+                                     ("", "_s1", "_s2", "_s2_from_s1")):
         p = latest(root, f"x_transfer_{ds}{tag}_merge")
         print(f"== transfer {ds}{tag}", p)
         if p:

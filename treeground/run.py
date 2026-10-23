@@ -433,6 +433,22 @@ PROPOSED_DEVIATIONS = [
                   "metric; published numbers use other query sets",
         "expected_impact": "baseline rows in the transfer table; no change to any TreeGround or PACO baseline result",
     },
+    {
+        "id": "D17",
+        "spec_section": "amendment (D7/D8 transfer of S2)",
+        "change": "the D7/D8 transfer evaluation (Pascal-Part, ADE20K, LVIS and OpenImages hierarchies; same SAM 3 "
+                  "proposals, tau_d dedup, D4 node budget, trees and V4 search incl. D5/D6/D12) run with the S2 "
+                  "model (D10) instead of a frozen-Qwen selector: LoRA-adapted Qwen with the trained <SEL> row and "
+                  "the S2 selector of the S2 run's best.pt (from V2, and from S1), no retraining. Node features and "
+                  "chain probes are computed as s2_eval does on PACO: [image; chain query without <SEL>] followed "
+                  "by the teacher-forced answer '{object} <SEL> {part} <SEL>' with the dataset's GT names, "
+                  "layer-l states rounded to fp16; tau_rej is the PACO-val tau of the S2 eval run of that "
+                  "checkpoint. SAM 3 proposals are recomputed (transfer caches keep only per-shard results)",
+        "reason": "S2 is evaluated on PACO only; the transfer sets test whether adapting the MLLM helps or hurts "
+                  "selection on other part and object hierarchies, next to the V2 and S1 transfer rows",
+        "expected_impact": "new S2 and S2 (from S1) transfer rows (x_transfer_<ds>_s2[_from_s1]_merge); no change "
+                           "to any existing result",
+    },
 ]
 
 

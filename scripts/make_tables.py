@@ -193,7 +193,7 @@ def transfer(root: Path) -> tuple[list, list]:
             ("object_gIoU", "Object gIoU", "ci")]
     rows = []
     for ds, ds_label in DATASETS:
-        for tag, sel in (("", "V2"), ("_s1", "S1")):
+        for tag, sel in (("", "V2"), ("_s1", "S1"), ("_s2", "S2"), ("_s2_from_s1", "S2 (from S1)")):
             m = load(root, f"x_transfer_{ds}{tag}_merge")
             cov = {"part_recall": get(m, "coverage_uncapped", "part_recall"),
                    "chain_feasible": get(m, "coverage_uncapped", "chain_feasible_mask_tree")}

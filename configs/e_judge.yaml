@@ -1,0 +1,18 @@
+include: edit.yaml
+inputs: {manifest: latest, v2: latest, selector_stage: v2, edit_merge: latest}
+models:   # judges; fetch on the login node: python scripts/fetch_models.py --config configs/e_judge.yaml --only <key>
+  judge_qwen25vl_72b: {repo: Qwen/Qwen2.5-VL-72B-Instruct, revision: 89c86200743eec961a297729e7990e8f2ddbc4c5}
+  judge_qwen25vl_7b: {repo: Qwen/Qwen2.5-VL-7B-Instruct, revision: cc594898137f460bfe9f0759e9844b3ce807cfb5}
+  judge_qwen3vl_8b: {repo: Qwen/Qwen3-VL-8B-Instruct, revision: 0c351dd01ed87e9c1b53cbc748cba10e6187ff3b}
+judge:
+  model: judge_qwen25vl_72b      # GEdit-Bench's open judge (VIEScore-Qwen); --judge selects a fast-pass judge
+  models: [judge_qwen25vl_72b, judge_qwen25vl_7b, judge_qwen3vl_8b]
+  dtype: bfloat16
+  device_map: auto               # 72B: ~147 GB of bf16 weights split over the node's 4 GPUs
+  max_memory_gib: null           # e.g. [52, 60, 60, 60] to leave GPU 0 headroom for the vision tower
+  max_new_tokens: 512            # GEdit generation settings: greedy, one beam
+  batch_size: 8
+  target_area: 262144            # GEdit resizes both images to ~512x512 pixels, aspect kept
+  variants: [full, inside]
+  crop: {pad_frac: 0.25, min_side: 64}   # inside: GT-mask bbox padded by 25% of its side per edge
+  num_shards: {partedit: 1, gedit: 2, imgedit: 2, paco_edit: 4}

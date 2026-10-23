@@ -449,6 +449,27 @@ PROPOSED_DEVIATIONS = [
         "expected_impact": "new S2 and S2 (from S1) transfer rows (x_transfer_<ds>_s2[_from_s1]_merge); no change "
                            "to any existing result",
     },
+    {
+        "id": "D18",
+        "spec_section": "amendment (task 3 evaluation, extends D14)",
+        "change": "MLLM judge for every D14 edit cache (editor x dataset x selector stage), all conditions: GEdit-"
+                  "Bench VIEScore protocol (task 'tie', prompts verbatim from stepfun-ai/Step1X-Edit@4cca05df "
+                  "GEdit-Bench/viescore; source and edited image resized to ~512x512 px keeping the aspect ratio): "
+                  "SC = min(editing success, overediting) on [source, edited] with the dataset instruction, PQ = "
+                  "min(naturalness, artifacts) on the edited image, overall = sqrt(SC * PQ), each 0-10. Judge "
+                  "Qwen2.5-VL-72B-Instruct (pinned, bf16, greedy, 512 new tokens, batch 8, 4 GPUs) instead of "
+                  "GEdit's Qwen2.5-VL-72B-Instruct-AWQ fp16; an optional fast pass with Qwen3-VL-8B-Instruct or "
+                  "Qwen2.5-VL-7B-Instruct is reported under its own stage name. Second variant 'inside': the same "
+                  "prompts on a crop of source and edited image around the GT edit mask bbox padded by 25% per "
+                  "edge (min side 64 px). Unparseable outputs stay missing and are reported as a rate (VIEScore "
+                  "substitutes a random score). Image-level bootstrap 95% CIs per condition and variant",
+        "reason": "D14's pixel and CLIP metrics do not measure whether the instruction was carried out on the "
+                  "named part; GEdit-Bench's VIEScore is the standard instruction-editing judge with an open-"
+                  "weight setting, and the crop focuses the judge on the requested region instead of the whole "
+                  "image",
+        "expected_impact": "adds judge scores next to D14 metrics; MLLM judges are biased and noisy, so differences "
+                           "between conditions are read with their CIs; no change to any D14 number",
+    },
 ]
 
 

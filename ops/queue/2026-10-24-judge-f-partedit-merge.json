@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-24-judge-f-partedit-merge",
+ "what": "D18 judge merge, flux_fill partedit",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_judge.py",
+  "TG_ARGS": "--config configs/e_judge.yaml --editor flux_fill --dataset partedit --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-24-judge-f-partedit"
+ ],
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

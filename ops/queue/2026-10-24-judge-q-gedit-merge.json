@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-24-judge-q-gedit-merge",
+ "what": "D18 judge merge, qwen_image_edit gedit",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_judge.py",
+  "TG_ARGS": "--config configs/e_judge.yaml --editor qwen_image_edit --dataset gedit --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-24-judge-q-gedit"
+ ],
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

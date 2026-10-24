@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-coco-merge-q-gedit",
+ "what": "D25 edit merge qwen_image_edit gedit_full",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit.py",
+  "TG_ARGS": "--config configs/edit_cocoedit.yaml --editor qwen_image_edit --dataset gedit_full --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-24-coco-edit-q-gedit"
+ ],
+ "collect": true
+}

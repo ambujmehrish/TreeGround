@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-coco-edit-f-imgedit",
+ "what": "D25 flux_fill on all imgedit_full samples, all conditions",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit.py",
+  "TG_ARGS": "--config configs/edit_cocoedit.yaml --editor flux_fill --dataset imgedit_full"
+ },
+ "sbatch": {
+  "time": "08:00:00",
+  "array": "0-7"
+ },
+ "after": [
+  "2026-10-24-coco-select-imgedit"
+ ]
+}

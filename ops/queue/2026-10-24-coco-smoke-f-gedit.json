@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-coco-smoke-f-gedit",
+ "what": "D25 smoke: FLUX.1-Fill on the smoke masks of gedit_full, merged",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit.py",
+  "TG_ARGS": "--config configs/edit_cocoedit.yaml --editor flux_fill --dataset gedit_full --smoke --then-merge"
+ },
+ "sbatch": {
+  "time": "04:00:00"
+ },
+ "after": [
+  "2026-10-24-coco-smoke-q-gedit"
+ ],
+ "collect": true
+}

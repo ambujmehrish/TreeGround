@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-24-coco-smoke-q-imgedit",
+ "what": "D25 smoke: masks (all sources) + Qwen-Image-Edit on 1 sample per imgedit_full category, merged",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit.py",
+  "TG_ARGS": "--config configs/edit_cocoedit.yaml --editor qwen_image_edit --dataset imgedit_full --smoke --then-merge"
+ },
+ "sbatch": {
+  "time": "04:00:00"
+ },
+ "collect": true
+}

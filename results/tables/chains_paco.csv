@@ -35,30 +35,48 @@ S1,D12 no rejection,two-level,random,3888,190,0.123,0.094,0.152,0.018,0.016,0.02
 S1,D12 no rejection,single-level,flat,1214,162,0.778,0.713,0.843,0.597,0.567,0.625,0.886
 S1,D12 no rejection,single-level,true,1214,162,0.728,0.656,0.796,0.437,0.406,0.463,0.778
 S1,D12 no rejection,single-level,random,1214,162,0.294,0.248,0.343,0.067,0.058,0.077,0.276
-S2,spec,all,flat,–,–,–,–,–,–,–,–,–
-S2,spec,all,true,–,–,–,–,–,–,–,–,–
-S2,spec,all,random,–,–,–,–,–,–,–,–,–
-S2,spec,two-level,flat,–,–,–,–,–,–,–,–,–
-S2,spec,two-level,true,–,–,–,–,–,–,–,–,–
-S2,spec,two-level,random,–,–,–,–,–,–,–,–,–
-S2,spec,single-level,flat,–,–,–,–,–,–,–,–,–
-S2,spec,single-level,true,–,–,–,–,–,–,–,–,–
-S2,spec,single-level,random,–,–,–,–,–,–,–,–,–
-S2 (from S1),spec,all,flat,–,–,–,–,–,–,–,–,–
-S2 (from S1),spec,all,true,–,–,–,–,–,–,–,–,–
-S2 (from S1),spec,all,random,–,–,–,–,–,–,–,–,–
-S2 (from S1),spec,two-level,flat,–,–,–,–,–,–,–,–,–
-S2 (from S1),spec,two-level,true,–,–,–,–,–,–,–,–,–
-S2 (from S1),spec,two-level,random,–,–,–,–,–,–,–,–,–
-S2 (from S1),spec,single-level,flat,–,–,–,–,–,–,–,–,–
-S2 (from S1),spec,single-level,true,–,–,–,–,–,–,–,–,–
-S2 (from S1),spec,single-level,random,–,–,–,–,–,–,–,–,–
-SAM 3 (text),independent,all,–,–,–,–,–,–,–,–,–,–
-SAM 3 (text),independent,two-level,–,–,–,–,–,–,–,–,–,–
-SAM 3 (text),independent,single-level,–,–,–,–,–,–,–,–,–,–
-Qwen3-VL box + SAM 3,independent,all,–,–,–,–,–,–,–,–,–,–
-Qwen3-VL box + SAM 3,independent,two-level,–,–,–,–,–,–,–,–,–,–
-Qwen3-VL box + SAM 3,independent,single-level,–,–,–,–,–,–,–,–,–,–
+S2,spec,all,flat,5102,352,0.622,0.562,0.676,0.258,0.245,0.270,0.446
+S2,spec,all,true,5102,352,0.591,0.528,0.650,0.213,0.200,0.225,0.408
+S2,spec,all,random,5102,352,0.212,0.182,0.240,0.034,0.031,0.038,0.158
+S2,spec,two-level,flat,3888,190,0.453,0.371,0.526,0.131,0.119,0.144,0.308
+S2,spec,two-level,true,3888,190,0.453,0.369,0.533,0.137,0.125,0.150,0.292
+S2,spec,two-level,random,3888,190,0.155,0.116,0.194,0.023,0.020,0.027,0.121
+S2,spec,single-level,flat,1214,162,0.821,0.759,0.882,0.665,0.637,0.691,0.886
+S2,spec,single-level,true,1214,162,0.753,0.687,0.819,0.456,0.426,0.484,0.778
+S2,spec,single-level,random,1214,162,0.280,0.239,0.330,0.068,0.059,0.078,0.276
+S2,D12 no rejection,all,flat,5102,352,0.622,0.562,0.676,0.259,0.246,0.271,0.446
+S2,D12 no rejection,all,true,5102,352,0.591,0.528,0.650,0.213,0.200,0.225,0.408
+S2,D12 no rejection,all,random,5102,352,0.212,0.182,0.240,0.034,0.031,0.038,0.158
+S2,D12 no rejection,two-level,flat,3888,190,0.453,0.371,0.526,0.131,0.119,0.144,0.308
+S2,D12 no rejection,two-level,true,3888,190,0.453,0.369,0.533,0.137,0.125,0.150,0.292
+S2,D12 no rejection,two-level,random,3888,190,0.155,0.116,0.194,0.023,0.020,0.027,0.121
+S2,D12 no rejection,single-level,flat,1214,162,0.821,0.759,0.882,0.666,0.638,0.692,0.886
+S2,D12 no rejection,single-level,true,1214,162,0.753,0.687,0.819,0.456,0.427,0.485,0.778
+S2,D12 no rejection,single-level,random,1214,162,0.280,0.239,0.330,0.068,0.059,0.078,0.276
+S2 (from S1),spec,all,flat,5102,352,0.591,0.533,0.647,0.263,0.250,0.276,0.446
+S2 (from S1),spec,all,true,5102,352,0.562,0.504,0.617,0.215,0.202,0.227,0.408
+S2 (from S1),spec,all,random,5102,352,0.200,0.169,0.228,0.033,0.029,0.037,0.158
+S2 (from S1),spec,two-level,flat,3888,190,0.432,0.349,0.510,0.138,0.126,0.151,0.308
+S2 (from S1),spec,two-level,true,3888,190,0.426,0.341,0.506,0.140,0.128,0.152,0.292
+S2 (from S1),spec,two-level,random,3888,190,0.142,0.106,0.179,0.022,0.019,0.025,0.121
+S2 (from S1),spec,single-level,flat,1214,162,0.778,0.707,0.840,0.664,0.636,0.689,0.886
+S2 (from S1),spec,single-level,true,1214,162,0.722,0.652,0.791,0.454,0.424,0.483,0.778
+S2 (from S1),spec,single-level,random,1214,162,0.268,0.225,0.316,0.068,0.058,0.078,0.276
+S2 (from S1),D12 no rejection,all,flat,5102,352,0.602,0.546,0.658,0.267,0.253,0.279,0.446
+S2 (from S1),D12 no rejection,all,true,5102,352,0.571,0.512,0.626,0.217,0.204,0.230,0.408
+S2 (from S1),D12 no rejection,all,random,5102,352,0.206,0.175,0.235,0.034,0.030,0.038,0.158
+S2 (from S1),D12 no rejection,two-level,flat,3888,190,0.437,0.356,0.515,0.140,0.127,0.153,0.308
+S2 (from S1),D12 no rejection,two-level,true,3888,190,0.432,0.346,0.511,0.141,0.129,0.153,0.292
+S2 (from S1),D12 no rejection,two-level,random,3888,190,0.148,0.113,0.186,0.023,0.019,0.026,0.121
+S2 (from S1),D12 no rejection,single-level,flat,1214,162,0.796,0.732,0.856,0.673,0.645,0.697,0.886
+S2 (from S1),D12 no rejection,single-level,true,1214,162,0.735,0.663,0.802,0.461,0.431,0.489,0.778
+S2 (from S1),D12 no rejection,single-level,random,1214,162,0.274,0.232,0.319,0.070,0.060,0.080,0.276
+SAM 3 (text),independent,all,–,5102,–,–,–,–,0.270,0.257,0.282,–
+SAM 3 (text),independent,two-level,–,3888,–,–,–,–,0.234,0.218,0.248,–
+SAM 3 (text),independent,single-level,–,1214,–,–,–,–,0.387,0.361,0.413,–
+Qwen3-VL box + SAM 3,independent,all,–,5102,–,–,–,–,0.299,0.287,0.312,–
+Qwen3-VL box + SAM 3,independent,two-level,–,3888,–,–,–,–,0.160,0.146,0.173,–
+Qwen3-VL box + SAM 3,independent,single-level,–,1214,–,–,–,–,0.745,0.720,0.771,–
 Sa2VA,independent,all,–,–,–,–,–,–,–,–,–,–
 Sa2VA,independent,two-level,–,–,–,–,–,–,–,–,–,–
 Sa2VA,independent,single-level,–,–,–,–,–,–,–,–,–,–

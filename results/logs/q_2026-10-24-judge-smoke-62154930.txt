@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_judge.py", line 392, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_judge.py", line 388, in main
+    run_shard(cfg, args.editor, args.dataset, key, args.shard, num_shards, args.smoke)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_judge.py", line 276, in run_shard
+    require_approved(cfg, required(cfg))
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/run.py", line 596, in require_approved
+    raise ProtocolError(
+treeground.run.ProtocolError: deviation(s) ['D18'] are not approved in /leonardo_work/AIFAC_S07_041/treeground/runs/deviations.jsonl; set status to 'approved' to proceed

@@ -1,30 +1,3 @@
-Loading weights:  74%|███████▍  | 543/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.16.norm2.weight][A
-Loading weights:  74%|███████▍  | 543/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.16.norm2.weight][A
-Loading weights:  75%|███████▍  | 544/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.attn.proj.bias][A
-Loading weights:  75%|███████▍  | 544/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.attn.proj.bias][A
-Loading weights:  75%|███████▍  | 545/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.attn.proj.weight][A
-Loading weights:  75%|███████▍  | 545/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.attn.proj.weight][A
-Loading weights:  75%|███████▍  | 546/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.attn.qkv.bias]   [A
-Loading weights:  75%|███████▍  | 546/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.attn.qkv.bias][A
-Loading weights:  75%|███████▌  | 547/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.attn.qkv.weight][A
-Loading weights:  75%|███████▌  | 547/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.attn.qkv.weight][A
-Loading weights:  75%|███████▌  | 548/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.mlp.down_proj.bias][A
-Loading weights:  75%|███████▌  | 548/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.mlp.down_proj.bias][A
-Loading weights:  75%|███████▌  | 549/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.mlp.down_proj.weight][A
-Loading weights:  75%|███████▌  | 549/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.mlp.down_proj.weight][A
-Loading weights:  75%|███████▌  | 550/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.mlp.gate_proj.bias]  [A
-Loading weights:  75%|███████▌  | 550/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.mlp.gate_proj.bias][A
-Loading weights:  76%|███████▌  | 551/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.mlp.gate_proj.weight][A
-Loading weights:  76%|███████▌  | 551/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.mlp.gate_proj.weight][A
-Loading weights:  76%|███████▌  | 552/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.mlp.up_proj.bias]    [A
-Loading weights:  76%|███████▌  | 552/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.mlp.up_proj.bias][A
-Loading weights:  76%|███████▌  | 553/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.mlp.up_proj.weight][A
-Loading weights:  76%|███████▌  | 553/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.mlp.up_proj.weight][A
-Loading weights:  76%|███████▌  | 554/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.norm1.weight]      [A
-Loading weights:  76%|███████▌  | 554/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.norm1.weight][A
-Loading weights:  76%|███████▌  | 555/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.norm2.weight][A
-Loading weights:  76%|███████▌  | 555/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.17.norm2.weight][A
-Loading weights:  76%|███████▋  | 556/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.18.attn.proj.bias][A
 Loading weights:  76%|███████▋  | 556/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.18.attn.proj.bias][A
 Loading weights:  76%|███████▋  | 557/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.18.attn.proj.weight][A
 Loading weights:  76%|███████▋  | 557/729 [00:05<00:00, 360.00it/s, Materializing param=model.visual.blocks.18.attn.proj.weight][A
@@ -398,3 +371,30 @@ guidance_scale is passed as 1.0, but ignored since the model is not guidance-dis
 [raw qwen_image_edit 8/9] imgedit_full:543 99.5s
 guidance_scale is passed as 1.0, but ignored since the model is not guidance-distilled.
 [raw qwen_image_edit 9/9] imgedit_full:635 99.2s
+{
+ "ours": {
+  "n": 6,
+  "mask_iou": 0.16751723777021207,
+  "success@0.5": 0.16666666666666666,
+  "empty_rate": 0.0
+ },
+ "ours_s1": {
+  "n": 6,
+  "mask_iou": 0.9142013981267398,
+  "success@0.5": 1.0,
+  "empty_rate": 0.0
+ },
+ "sam3text": {
+  "n": 6,
+  "mask_iou": 0.7040597862786289,
+  "success@0.5": 0.6666666666666666,
+  "empty_rate": 0.0
+ },
+ "qwen_box_sam": {
+  "n": 6,
+  "mask_iou": 0.7289342436204785,
+  "success@0.5": 0.6666666666666666,
+  "empty_rate": 0.0
+ }
+}
+/leonardo_work/AIFAC_S07_041/treeground/runs/smoke/cocoedit_qwen_image_edit_imgedit_full_merge/20261024T195815437054Z_e8790fa7

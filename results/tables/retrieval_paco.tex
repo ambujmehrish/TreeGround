@@ -45,6 +45,14 @@ S2 (from S1) + SAM 3 refine (r1), no rejection & 7225 & 39.8 \scriptsize{[38.8, 
 S2 (from S1) + SAM 3 refine (r2), no rejection & 7225 & 40.6 \scriptsize{[39.6, 41.6]} & 48.3 \scriptsize{[46.4, 50.2]} & 67.7 \scriptsize{[66.3, 69.1]} & 29.3 \scriptsize{[28.4, 30.2]} & 41.7 \scriptsize{[40.4, 43.0]} & -- & 8275 & -- \\
 S2 (from S1) + SAM 3 refine (r3), no rejection & 7225 & 41.4 \scriptsize{[40.3, 42.4]} & 52.1 \scriptsize{[50.0, 54.1]} & 68.0 \scriptsize{[66.6, 69.3]} & 30.3 \scriptsize{[29.3, 31.2]} & 43.6 \scriptsize{[42.3, 44.8]} & -- & 8275 & -- \\
 \midrule
+V2 (frozen, 10k img.) + rerank (rule, k=10) & 7225 & 28.7 \scriptsize{[27.8, 29.6]} & 31.2 \scriptsize{[29.5, 32.9]} & 53.1 \scriptsize{[51.4, 54.7]} & 18.5 \scriptsize{[17.8, 19.3]} & 29.1 \scriptsize{[27.9, 30.2]} & 99.6 & 8275 & -- \\
+V2 (frozen, 10k img.) + rerank (pointwise, k=10) & 7225 & 29.0 \scriptsize{[28.1, 29.9]} & 32.4 \scriptsize{[30.7, 34.0]} & 54.4 \scriptsize{[52.7, 55.9]} & 18.4 \scriptsize{[17.7, 19.2]} & 30.1 \scriptsize{[29.1, 31.2]} & 99.6 & 8275 & -- \\
+V2 (frozen, 10k img.) + rerank (listwise, k=10) & 7225 & 28.8 \scriptsize{[28.0, 29.7]} & 31.3 \scriptsize{[29.6, 33.1]} & 54.3 \scriptsize{[52.6, 55.9]} & 18.2 \scriptsize{[17.6, 19.0]} & 29.8 \scriptsize{[28.8, 30.9]} & 99.6 & 8275 & -- \\
+\midrule
+V2 (frozen, 10k img.) + rerank (rule, k=10), no rejection & 7225 & 29.3 \scriptsize{[28.4, 30.3]} & 31.0 \scriptsize{[29.4, 32.6]} & 54.4 \scriptsize{[52.8, 55.9]} & 18.9 \scriptsize{[18.2, 19.6]} & 29.7 \scriptsize{[28.6, 30.8]} & -- & 8275 & -- \\
+V2 (frozen, 10k img.) + rerank (pointwise, k=10), no rejection & 7225 & 29.6 \scriptsize{[28.7, 30.5]} & 32.4 \scriptsize{[30.7, 33.9]} & 55.8 \scriptsize{[54.2, 57.3]} & 18.7 \scriptsize{[18.0, 19.4]} & 30.8 \scriptsize{[29.7, 31.9]} & -- & 8275 & -- \\
+V2 (frozen, 10k img.) + rerank (listwise, k=10), no rejection & 7225 & 29.5 \scriptsize{[28.6, 30.4]} & 31.2 \scriptsize{[29.5, 32.9]} & 55.7 \scriptsize{[54.0, 57.2]} & 18.6 \scriptsize{[18.0, 19.4]} & 30.5 \scriptsize{[29.4, 31.6]} & -- & 8275 & -- \\
+\midrule
 S2 + rerank (rule, k=10) & 7225 & 40.5 \scriptsize{[39.6, 41.5]} & 48.7 \scriptsize{[46.7, 50.6]} & 67.1 \scriptsize{[65.8, 68.4]} & 29.5 \scriptsize{[28.6, 30.3]} & 42.3 \scriptsize{[41.0, 43.6]} & 100.0 & 8275 & -- \\
 S2 + rerank (pointwise, k=10) & 7225 & 41.5 \scriptsize{[40.5, 42.5]} & 49.7 \scriptsize{[47.7, 51.7]} & 69.0 \scriptsize{[67.6, 70.3]} & 30.1 \scriptsize{[29.2, 30.9]} & 43.4 \scriptsize{[42.2, 44.8]} & 100.0 & 8275 & -- \\
 S2 + rerank (listwise, k=10) & 7225 & 41.7 \scriptsize{[40.7, 42.7]} & 49.5 \scriptsize{[47.4, 51.5]} & 69.5 \scriptsize{[68.1, 70.8]} & 30.1 \scriptsize{[29.1, 31.0]} & 43.6 \scriptsize{[42.4, 44.8]} & 100.0 & 8275 & -- \\

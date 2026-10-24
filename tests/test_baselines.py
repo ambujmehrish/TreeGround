@@ -110,3 +110,31 @@ def test_real_device_init_loads_exact_weights(tmp_path):
         model = B.checked_load(Qwen2ForCausalLM, str(tmp_path), "main", None, dtype=torch.float32)
     assert modeling_utils.PreTrainedModel.get_init_context == before
     assert all(torch.equal(a, b) for a, b in zip(model.state_dict().values(), ref.state_dict().values()))
+
+
+def test_real_device_init_handles_class_without_post_init(tmp_path):
+    import torch
+    from transformers import PretrainedConfig, PreTrainedModel, Qwen2Config, Qwen2ForCausalLM
+
+    class WrapConfig(PretrainedConfig):
+        model_type = "tg_wrap"
+
+    class Wrap(PreTrainedModel):  # like Sa2VA's remote class: never calls post_init()
+        config_class = WrapConfig
+
+        def __init__(self, config):
+            super().__init__(config)
+            self.language_model = Qwen2ForCausalLM(Qwen2Config(
+                hidden_size=32, intermediate_size=64, num_hidden_layers=1, num_attention_heads=2,
+                num_key_value_heads=1, vocab_size=100, tie_word_embeddings=True))
+            self.head = torch.nn.Linear(32, 3)
+            self.scale = torch.nn.Parameter(torch.full((1,), torch.linspace(0, 1, 3)[1].item()))  # .item() in __init__
+
+    ref = Wrap(WrapConfig())
+    ref.save_pretrained(tmp_path)
+    with pytest.raises((AttributeError, RuntimeError)):  # meta .item(), then the missing post_init() state
+        Wrap.from_pretrained(tmp_path)
+    with B.real_device_init():
+        model = B.checked_load(Wrap, str(tmp_path), "main", None, dtype=torch.float32)
+    assert all(torch.equal(a, b) for a, b in zip(model.state_dict().values(), ref.state_dict().values()))
+    assert model.language_model.lm_head.weight.data_ptr() == model.language_model.model.embed_tokens.weight.data_ptr()

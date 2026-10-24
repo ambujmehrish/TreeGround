@@ -274,11 +274,29 @@ def real_device_init():
     def ctx(klass, dtype, is_quantized, _is_ds_init_called):
         return [modeling_utils.local_torch_dtype(dtype, klass.__name__), initialization.no_init_weights()]
 
+    # its top-level class also skips post_init(), so the tied-weight registry transformers 5 reads while loading is
+    # built here from the class and its children, exactly as post_init() would (without re-initialising weights)
+    orig_load = cls.__dict__["_load_pretrained_model"]
+
+    def load(klass, model, *args, **kwargs):
+        if "all_tied_weights_keys" not in model.__dict__:
+            keys = model.get_expanded_tied_weights_keys(all_submodels=False)
+            for name, module in model.named_children():
+                if tied := getattr(module, "all_tied_weights_keys", None):
+                    keys.update({f"{name}.{k}": f"{name}.{v}" for k, v in tied.items()})
+            model.all_tied_weights_keys = keys
+            for plan in ("_tp_plan", "_ep_plan", "_pp_plan"):
+                if plan not in model.__dict__:
+                    setattr(model, plan, {})
+        return orig_load.__func__(klass, model, *args, **kwargs)
+
     cls.get_init_context = classmethod(ctx)
+    cls._load_pretrained_model = classmethod(load)
     try:
         yield
     finally:
         cls.get_init_context = orig
+        cls._load_pretrained_model = orig_load
 
 
 def checked_load(cls, repo: str, revision: str, cache_dir: str | None, **kw):

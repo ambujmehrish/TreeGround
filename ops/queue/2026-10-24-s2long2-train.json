@@ -1,0 +1,17 @@
+{
+ "id": "2026-10-24-s2long2-train",
+ "what": "D21 long S2 from S1, 12k steps, 3 sources (4 GPUs)",
+ "script": "q_gpu4.sbatch",
+ "env": {
+  "TG_PY": "scripts/s2_train.py",
+  "TG_ARGS": "--config configs/s2_long.yaml"
+ },
+ "sbatch": {
+  "time": "14:00:00"
+ },
+ "after": [
+  "2026-10-24-s2long2-nodes-pascal",
+  "2026-10-24-s2long2-nodes-gref"
+ ],
+ "collect": true
+}

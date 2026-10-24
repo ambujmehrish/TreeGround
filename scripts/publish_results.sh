@@ -12,7 +12,7 @@ scrub() { sed -e "s#${TG_RUNS}#\$TG_RUNS#g" -e "s#${TG_CACHE}#\$TG_CACHE#g" -e "
 for stage_dir in "$TG_RUNS"/*/; do
   stage=$(basename "$stage_dir")
   case "$stage" in smoke|logs) continue ;; esac
-  last=$(ls -d "$stage_dir"2*/ 2>/dev/null | while read -r d; do [ -f "$d/metrics.json" ] && echo "$d"; done | tail -1)
+  last=$(ls -d "$stage_dir"2*/ 2>/dev/null | while read -r d; do if [ -f "$d/metrics.json" ]; then echo "$d"; fi; done | tail -1)
   [ -n "$last" ] || continue
   scrub < "$last/metrics.json" > "$out/metrics/$stage.json"
   echo "$(basename "$last")" > "$out/metrics/$stage.run"

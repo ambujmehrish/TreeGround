@@ -1,0 +1,14 @@
+{
+ "id": "2026-10-24-xgiou-v2-pascal",
+ "what": "D22 part/object gIoU of the v2 selector on Pascal-Part (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/x_giou.py",
+  "TG_ARGS": "--config configs/x_transfer.yaml --dataset pascal_part"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-63%32"
+ },
+ "collect": false
+}

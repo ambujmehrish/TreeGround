@@ -1,0 +1,17 @@
+{
+ "id": "2026-10-24-rerank-v2",
+ "what": "D20 top-k rerank of the v2 selector on PACO val",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/rerank.py",
+  "TG_ARGS": "--config configs/rerank.yaml --stage v2"
+ },
+ "sbatch": {
+  "time": "03:00:00"
+ },
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

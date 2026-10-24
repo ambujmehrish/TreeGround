@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-d23b-edit-s2froms1-fluxfill-imgedit",
+ "what": "D23 ours2/ours2tree edits with flux_fill on imgedit (shards; D14 cache reused)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_edit_s2.py",
+  "TG_ARGS": "--config configs/edit_s2_s1.yaml --editor flux_fill --dataset imgedit"
+ },
+ "sbatch": {
+  "time": "03:00:00",
+  "array": "0-7"
+ },
+ "after": [
+  "2026-10-24-d23b-select-s2froms1-imgedit"
+ ]
+}

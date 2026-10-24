@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-24-d23b-edit-s2froms1-fluxfill-paco_edit-merge",
+ "what": "D14 + D23 merge, flux_fill, paco_edit, S1 / S2 (from S1)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_edit_s2.py",
+  "TG_ARGS": "--config configs/edit_s2_s1.yaml --editor flux_fill --dataset paco_edit --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-24-d23b-edit-s2froms1-fluxfill-paco_edit"
+ ],
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

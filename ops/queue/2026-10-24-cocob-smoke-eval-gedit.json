@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-cocob-smoke-eval-gedit",
+ "what": "D25 smoke: PSNR/SSIM/LPIPS + Overall of the gedit_full smoke Qwen edits",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit_eval.py",
+  "TG_ARGS": "--config configs/edit_cocoedit.yaml --editor qwen_image_edit --dataset gedit_full --smoke"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-24-cocob-smoke-judge-gedit"
+ ],
+ "collect": true
+}

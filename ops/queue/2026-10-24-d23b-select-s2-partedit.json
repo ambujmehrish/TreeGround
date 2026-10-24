@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-d23b-select-s2-partedit",
+ "what": "D23 edit-mask selection (s2, augmented pool, flat + tree) on partedit (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_select.py",
+  "TG_ARGS": "--config configs/edit_s2.yaml --dataset partedit"
+ },
+ "sbatch": {
+  "time": "02:00:00",
+  "array": "0-3"
+ },
+ "after": [
+  "2026-10-24-d23b-select-smoke"
+ ]
+}

@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-d23b-edit-s2froms1-qwenimageedit-gedit",
+ "what": "D23 ours2/ours2tree edits with qwen_image_edit on gedit (shards; D14 cache reused)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_edit_s2.py",
+  "TG_ARGS": "--config configs/edit_s2_s1.yaml --editor qwen_image_edit --dataset gedit"
+ },
+ "sbatch": {
+  "time": "01:00:00",
+  "array": "0-7"
+ },
+ "after": [
+  "2026-10-24-d23b-select-s2froms1-gedit"
+ ]
+}

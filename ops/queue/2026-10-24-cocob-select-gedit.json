@@ -1,0 +1,17 @@
+{
+ "id": "2026-10-24-cocob-select-gedit",
+ "what": "D25 masks of every localized gedit_full sample (ours V2/S1, sam3text, qwen_box_sam)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit.py",
+  "TG_ARGS": "--config configs/edit_cocoedit.yaml --editor qwen_image_edit --dataset gedit_full --select-only"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-7"
+ },
+ "after": [
+  "2026-10-24-cocob-smoke-f-gedit",
+  "2026-10-24-cocob-smoke-eval-gedit"
+ ]
+}

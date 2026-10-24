@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-d23b-select-s2froms1-imgedit",
+ "what": "D23 edit-mask selection (s2froms1, augmented pool, flat + tree) on imgedit (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_select.py",
+  "TG_ARGS": "--config configs/edit_s2_s1.yaml --dataset imgedit"
+ },
+ "sbatch": {
+  "time": "02:00:00",
+  "array": "0-7"
+ },
+ "after": [
+  "2026-10-24-d23b-select-smoke"
+ ]
+}

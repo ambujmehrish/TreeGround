@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-cocob-merge-f-imgedit",
+ "what": "D25 edit merge flux_fill imgedit_full",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit.py",
+  "TG_ARGS": "--config configs/edit_cocoedit.yaml --editor flux_fill --dataset imgedit_full --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-24-cocob-edit-f-imgedit"
+ ],
+ "collect": true
+}

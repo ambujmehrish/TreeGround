@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-cocob-edit-q-gedit",
+ "what": "D25 qwen_image_edit on all gedit_full samples, all conditions",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit.py",
+  "TG_ARGS": "--config configs/edit_cocoedit.yaml --editor qwen_image_edit --dataset gedit_full"
+ },
+ "sbatch": {
+  "time": "08:00:00",
+  "array": "0-7"
+ },
+ "after": [
+  "2026-10-24-cocob-select-gedit"
+ ]
+}

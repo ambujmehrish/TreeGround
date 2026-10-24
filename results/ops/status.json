@@ -1,8 +1,8 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 64,
-   "RUNNING": 20
+   "PENDING": 55,
+   "RUNNING": 19
   },
   "ended_24h": [
    {
@@ -131,6 +131,14 @@
     "exit": "0:0",
     "jobid": "61978274",
     "name": "sw_store-base_reader-base_B",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "21:33:51",
+    "end": "2026-10-24T20:00:37",
+    "exit": "0:0",
+    "jobid": "61978280",
+    "name": "tr_C-traj_lora_s0_M1",
     "state": "COMPLETED"
    },
    {
@@ -20980,6 +20988,22 @@
     "jobid": "62146410",
     "name": "fact-eval-base",
     "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:01:57",
+    "end": "2026-10-24T19:43:16",
+    "exit": "1:0",
+    "jobid": "62154930",
+    "name": "q_2026-10-24-judge-smoke",
+    "state": "FAILED"
+   },
+   {
+    "elapsed": "00:00:59",
+    "end": "2026-10-24T19:45:22",
+    "exit": "1:0",
+    "jobid": "62156006",
+    "name": "paperA_bmd",
+    "state": "FAILED"
    }
   ],
   "squeue": [
@@ -21032,16 +21056,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "30:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62154930",
-    "name": "q_2026-10-24-judge-smoke",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "2026-10-24T19:55:49",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
    },
    {
     "elapsed": "0:00",
@@ -21252,86 +21266,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "8:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62155420_[0]",
-    "name": "q_2026-10-24-judge-q-partedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(None)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62155417_[0-3]",
-    "name": "q_2026-10-24-judge-q-pacoedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(None)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62155414_[0-1]",
-    "name": "q_2026-10-24-judge-q-imgedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62155413_[0-1]",
-    "name": "q_2026-10-24-judge-q-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62155411_[0]",
-    "name": "q_2026-10-24-judge-f-partedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62155408_[0-3]",
-    "name": "q_2026-10-24-judge-f-pacoedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62155407_[0-1]",
-    "name": "q_2026-10-24-judge-f-imgedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62155404_[0-1]",
-    "name": "q_2026-10-24-judge-f-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
    },
    {
     "elapsed": "0:00",
@@ -21624,7 +21558,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "21:13:20",
+    "elapsed": "21:36:16",
     "jobid": "61978278",
     "name": "tr_Ours_lora_s0_M1",
     "nodes": "1",
@@ -21634,17 +21568,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "21:13:20",
-    "jobid": "61978280",
-    "name": "tr_C-traj_lora_s0_M1",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn1799",
-    "start": "2026-10-23T22:26:46",
-    "state": "RUNNING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "21:12:59",
+    "elapsed": "21:35:55",
     "jobid": "61978912",
     "name": "fact-c8_rd05_distill1",
     "nodes": "2",
@@ -21654,7 +21578,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "21:04:09",
+    "elapsed": "21:27:05",
     "jobid": "61816570",
     "name": "fact-ssl8rd05",
     "nodes": "2",
@@ -21664,7 +21588,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "16:50:37",
+    "elapsed": "17:13:33",
     "jobid": "61816481",
     "name": "fact-nc8rd05",
     "nodes": "2",
@@ -21674,7 +21598,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "7:46:40",
+    "elapsed": "8:09:36",
     "jobid": "61937350",
     "name": "fact-disjref",
     "nodes": "2",
@@ -21684,7 +21608,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "3:40:12",
+    "elapsed": "4:03:08",
     "jobid": "62131513",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -21694,7 +21618,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "3:40:12",
+    "elapsed": "4:03:08",
     "jobid": "62131519",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -21704,7 +21628,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "3:40:12",
+    "elapsed": "4:03:08",
     "jobid": "62131524",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -21714,7 +21638,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "3:38:08",
+    "elapsed": "4:01:04",
     "jobid": "62132118",
     "name": "rd_Ours_s0_r1",
     "nodes": "1",
@@ -21724,7 +21648,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "3:38:14",
+    "elapsed": "4:01:10",
     "jobid": "62132113",
     "name": "rd_GRPO_s0_r1",
     "nodes": "1",
@@ -21734,7 +21658,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "3:38:14",
+    "elapsed": "4:01:10",
     "jobid": "62132114",
     "name": "rd_MoT_s0_r1",
     "nodes": "1",
@@ -21744,7 +21668,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "1:58:16",
+    "elapsed": "2:21:12",
     "jobid": "62143308",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -21754,7 +21678,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "1:59:27",
+    "elapsed": "2:22:23",
     "jobid": "62143301",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -21764,7 +21688,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "2:01:19",
+    "elapsed": "2:24:15",
     "jobid": "62143258",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -21774,7 +21698,7 @@
     "time_limit": "16:00:00"
    },
    {
-    "elapsed": "2:01:19",
+    "elapsed": "2:24:15",
     "jobid": "62143274",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -21784,7 +21708,7 @@
     "time_limit": "16:00:00"
    },
    {
-    "elapsed": "2:01:19",
+    "elapsed": "2:24:15",
     "jobid": "62143278",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -21794,7 +21718,7 @@
     "time_limit": "16:00:00"
    },
    {
-    "elapsed": "2:01:19",
+    "elapsed": "2:24:15",
     "jobid": "62143283",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -21804,7 +21728,7 @@
     "time_limit": "16:00:00"
    },
    {
-    "elapsed": "1:29:39",
+    "elapsed": "1:52:35",
     "jobid": "62146411",
     "name": "fact-wavedec",
     "nodes": "2",
@@ -21814,7 +21738,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "43:12",
+    "elapsed": "1:06:08",
     "jobid": "62146109",
     "name": "q_2026-10-24-s2long3-train",
     "nodes": "1",
@@ -21889,15 +21813,15 @@
  ],
  "requests": {
   "2026-10-24-judge-f-gedit": {
-   "collected": null,
+   "collected": 1792863914.1036294,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792863914.1036284,
    "invalid": null,
    "jobid": "62155404",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1792863601.7601695,
@@ -21905,29 +21829,29 @@
   },
   "2026-10-24-judge-f-gedit-merge": {
    "collected": null,
-   "dependency_failed": null,
+   "dependency_failed": [
+    "2026-10-24-judge-f-gedit"
+   ],
    "finished": null,
    "invalid": null,
    "jobid": null,
    "post_error": null,
    "post_output_tail": null,
    "states": null,
-   "submit_error": null,
+   "submit_error": "sbatch: error: Batch job submission failed: Job dependency problem\n",
    "submitted": null,
-   "waiting_for": [
-    "2026-10-24-judge-f-gedit"
-   ]
+   "waiting_for": null
   },
   "2026-10-24-judge-f-imgedit": {
-   "collected": null,
+   "collected": 1792863914.109673,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792863914.1096716,
    "invalid": null,
    "jobid": "62155407",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1792863602.060094,
@@ -21935,29 +21859,29 @@
   },
   "2026-10-24-judge-f-imgedit-merge": {
    "collected": null,
-   "dependency_failed": null,
+   "dependency_failed": [
+    "2026-10-24-judge-f-imgedit"
+   ],
    "finished": null,
    "invalid": null,
    "jobid": null,
    "post_error": null,
    "post_output_tail": null,
    "states": null,
-   "submit_error": null,
+   "submit_error": "sbatch: error: Batch job submission failed: Job dependency problem\n",
    "submitted": null,
-   "waiting_for": [
-    "2026-10-24-judge-f-imgedit"
-   ]
+   "waiting_for": null
   },
   "2026-10-24-judge-f-pacoedit": {
-   "collected": null,
+   "collected": 1792863914.1150506,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792863914.1150491,
    "invalid": null,
    "jobid": "62155408",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1792863602.3908553,
@@ -21965,29 +21889,29 @@
   },
   "2026-10-24-judge-f-pacoedit-merge": {
    "collected": null,
-   "dependency_failed": null,
+   "dependency_failed": [
+    "2026-10-24-judge-f-pacoedit"
+   ],
    "finished": null,
    "invalid": null,
    "jobid": null,
    "post_error": null,
    "post_output_tail": null,
    "states": null,
-   "submit_error": null,
+   "submit_error": "sbatch: error: Batch job submission failed: Job dependency problem\n",
    "submitted": null,
-   "waiting_for": [
-    "2026-10-24-judge-f-pacoedit"
-   ]
+   "waiting_for": null
   },
   "2026-10-24-judge-f-partedit": {
-   "collected": null,
+   "collected": 1792863914.120588,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792863914.120587,
    "invalid": null,
    "jobid": "62155411",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1792863602.8351212,
@@ -21995,29 +21919,29 @@
   },
   "2026-10-24-judge-f-partedit-merge": {
    "collected": null,
-   "dependency_failed": null,
+   "dependency_failed": [
+    "2026-10-24-judge-f-partedit"
+   ],
    "finished": null,
    "invalid": null,
    "jobid": null,
    "post_error": null,
    "post_output_tail": null,
    "states": null,
-   "submit_error": null,
+   "submit_error": "sbatch: error: Batch job submission failed: Job dependency problem\n",
    "submitted": null,
-   "waiting_for": [
-    "2026-10-24-judge-f-partedit"
-   ]
+   "waiting_for": null
   },
   "2026-10-24-judge-q-gedit": {
-   "collected": null,
+   "collected": 1792863914.1258261,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792863914.1258247,
    "invalid": null,
    "jobid": "62155413",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1792863603.149087,
@@ -22025,29 +21949,29 @@
   },
   "2026-10-24-judge-q-gedit-merge": {
    "collected": null,
-   "dependency_failed": null,
+   "dependency_failed": [
+    "2026-10-24-judge-q-gedit"
+   ],
    "finished": null,
    "invalid": null,
    "jobid": null,
    "post_error": null,
    "post_output_tail": null,
    "states": null,
-   "submit_error": null,
+   "submit_error": "sbatch: error: Batch job submission failed: Job dependency problem\n",
    "submitted": null,
-   "waiting_for": [
-    "2026-10-24-judge-q-gedit"
-   ]
+   "waiting_for": null
   },
   "2026-10-24-judge-q-imgedit": {
-   "collected": null,
+   "collected": 1792863914.1308336,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792863914.1308327,
    "invalid": null,
    "jobid": "62155414",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1792863603.4266164,
@@ -22055,29 +21979,29 @@
   },
   "2026-10-24-judge-q-imgedit-merge": {
    "collected": null,
-   "dependency_failed": null,
+   "dependency_failed": [
+    "2026-10-24-judge-q-imgedit"
+   ],
    "finished": null,
    "invalid": null,
    "jobid": null,
    "post_error": null,
    "post_output_tail": null,
    "states": null,
-   "submit_error": null,
+   "submit_error": "sbatch: error: Batch job submission failed: Job dependency problem\n",
    "submitted": null,
-   "waiting_for": [
-    "2026-10-24-judge-q-imgedit"
-   ]
+   "waiting_for": null
   },
   "2026-10-24-judge-q-pacoedit": {
-   "collected": null,
+   "collected": 1792863914.1361902,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792863914.1361895,
    "invalid": null,
    "jobid": "62155417",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1792863605.3322744,
@@ -22085,29 +22009,29 @@
   },
   "2026-10-24-judge-q-pacoedit-merge": {
    "collected": null,
-   "dependency_failed": null,
+   "dependency_failed": [
+    "2026-10-24-judge-q-pacoedit"
+   ],
    "finished": null,
    "invalid": null,
    "jobid": null,
    "post_error": null,
    "post_output_tail": null,
    "states": null,
-   "submit_error": null,
+   "submit_error": "sbatch: error: Batch job submission failed: Job dependency problem\n",
    "submitted": null,
-   "waiting_for": [
-    "2026-10-24-judge-q-pacoedit"
-   ]
+   "waiting_for": null
   },
   "2026-10-24-judge-q-partedit": {
-   "collected": null,
+   "collected": 1792863914.1414971,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792863914.1414964,
    "invalid": null,
    "jobid": "62155420",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1792863605.628714,
@@ -22115,29 +22039,29 @@
   },
   "2026-10-24-judge-q-partedit-merge": {
    "collected": null,
-   "dependency_failed": null,
+   "dependency_failed": [
+    "2026-10-24-judge-q-partedit"
+   ],
    "finished": null,
    "invalid": null,
    "jobid": null,
    "post_error": null,
    "post_output_tail": null,
    "states": null,
-   "submit_error": null,
+   "submit_error": "sbatch: error: Batch job submission failed: Job dependency problem\n",
    "submitted": null,
-   "waiting_for": [
-    "2026-10-24-judge-q-partedit"
-   ]
+   "waiting_for": null
   },
   "2026-10-24-judge-smoke": {
-   "collected": null,
+   "collected": 1792863914.1465988,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792863914.146598,
    "invalid": null,
    "jobid": "62154930",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "FAILED"
    ],
    "submit_error": null,
    "submitted": 1792863297.2225075,
@@ -22789,5 +22713,5 @@
    "waiting_for": null
   }
  },
- "updated": 1792863606.517993
+ "updated": 1792864982.3599527
 }

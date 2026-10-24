@@ -1,0 +1,25 @@
+\begin{tabular}{llrrrr}
+\toprule
+Dataset & Mask source & n & Mask IoU & Succ.@0.5 & SAM 3 inst. picked \\
+\midrule
+PartEdit & V2 top-1 (D14) & 73 & 1.6 \scriptsize{[0.9, 2.5]} & 0.0 \scriptsize{[0.0, 0.0]} & -- \\
+PartEdit & SAM 3 text & 73 & 79.5 \scriptsize{[76.0, 82.8]} & 95.9 \scriptsize{[90.4, 100.0]} & -- \\
+PartEdit & best capped node & 73 & 61.1 \scriptsize{[54.3, 67.9]} & 65.8 \scriptsize{[54.8, 76.7]} & -- \\
+PartEdit & S1 top-1 (D14) & 73 & 24.7 \scriptsize{[18.2, 31.2]} & 19.2 \scriptsize{[11.0, 27.4]} & -- \\
+\midrule
+GEdit & V2 top-1 (D14) & 192 & 19.9 \scriptsize{[15.1, 25.0]} & 19.8 \scriptsize{[14.6, 25.5]} & -- \\
+GEdit & SAM 3 text & 192 & 69.3 \scriptsize{[64.4, 74.3]} & 74.0 \scriptsize{[67.7, 79.7]} & -- \\
+GEdit & best capped node & 192 & 78.8 \scriptsize{[75.0, 82.6]} & 82.3 \scriptsize{[77.1, 87.5]} & -- \\
+GEdit & S1 top-1 (D14) & 192 & 44.0 \scriptsize{[38.3, 50.0]} & 45.3 \scriptsize{[38.5, 52.6]} & -- \\
+\midrule
+ImgEdit & V2 top-1 (D14) & 269 & 13.3 \scriptsize{[8.0, 19.0]} & 11.9 \scriptsize{[6.3, 18.0]} & -- \\
+ImgEdit & SAM 3 text & 269 & 78.6 \scriptsize{[73.5, 83.2]} & 81.0 \scriptsize{[74.9, 86.5]} & -- \\
+ImgEdit & best capped node & 269 & 73.7 \scriptsize{[66.6, 80.5]} & 73.6 \scriptsize{[64.6, 82.3]} & -- \\
+ImgEdit & S1 top-1 (D14) & 269 & 61.0 \scriptsize{[53.0, 68.9]} & 63.2 \scriptsize{[54.1, 71.9]} & -- \\
+\midrule
+PACO edit (dev) & V2 top-1 (D14) & 500 & 27.5 \scriptsize{[25.0, 30.2]} & 28.0 \scriptsize{[24.2, 31.6]} & -- \\
+PACO edit (dev) & SAM 3 text & 500 & 54.3 \scriptsize{[51.3, 57.3]} & 58.6 \scriptsize{[54.2, 62.8]} & -- \\
+PACO edit (dev) & best capped node & 500 & 61.3 \scriptsize{[58.7, 63.7]} & 64.4 \scriptsize{[60.2, 68.4]} & -- \\
+PACO edit (dev) & S1 top-1 (D14) & 500 & 38.3 \scriptsize{[35.4, 41.3]} & 39.8 \scriptsize{[35.6, 44.2]} & -- \\
+\bottomrule
+\end{tabular}

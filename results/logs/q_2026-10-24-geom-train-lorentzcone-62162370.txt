@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s1_geom_train.py", line 162, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s1_geom_train.py", line 67, in main
+    require_approved(cfg, ["D11", "D24"])
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/run.py", line 690, in require_approved
+    raise ProtocolError(
+treeground.run.ProtocolError: deviation(s) ['D24'] are not approved in /leonardo_work/AIFAC_S07_041/treeground/runs/deviations.jsonl; set status to 'approved' to proceed

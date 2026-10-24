@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/x_transfer_clean.py", line 312, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/x_transfer_clean.py", line 242, in main
+    require_approved(cfg, ["D7", "D8", "D26"])
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/run.py", line 739, in require_approved
+    raise ProtocolError(
+treeground.run.ProtocolError: deviation(s) ['D26'] are not approved in /leonardo_work/AIFAC_S07_041/treeground/runs/deviations.jsonl; set status to 'approved' to proceed

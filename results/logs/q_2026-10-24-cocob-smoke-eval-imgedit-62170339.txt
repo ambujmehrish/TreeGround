@@ -1,0 +1,13 @@
+/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torchvision/models/_utils.py:207: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torchvision/models/_utils.py:222: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=AlexNet_Weights.IMAGENET1K_V1`. You can also use `weights=AlexNet_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+         editor      dataset          condition  overall      psnr  psnr_capped     ssim  ssim_masked    lpips  psnr_pooled  at_cap_rate  n_scored
+qwen_image_edit imgedit_full         bbox_blend 3.475714 22.684996    22.684996 0.638675     0.809940 0.125099    17.306184          0.0         6
+qwen_image_edit imgedit_full               free 3.522857 20.108777    20.108777 0.589458     0.756538 0.191726    16.223146          0.0         6
+qwen_image_edit imgedit_full           gt_blend 3.238571 26.278805    26.278805 0.702252     0.949701 0.054702    23.499235          0.0         6
+qwen_image_edit imgedit_full         ours_blend 2.332857 38.121131    38.121131 0.973971     0.995273 0.004262    35.211614          0.0         6
+qwen_image_edit imgedit_full      ours_s1_blend      NaN 26.117573    26.117573 0.696685     0.933972 0.068878    22.508044          0.0         6
+qwen_image_edit imgedit_full qwen_box_sam_blend 3.428571 25.688627    25.688627 0.738811     0.931463 0.062370    23.214491          0.0         6
+qwen_image_edit imgedit_full     sam3text_blend 3.142857 24.715767    24.715767 0.690731     0.921326 0.108088    20.951696          0.0         6
+/leonardo_work/AIFAC_S07_041/treeground/runs/smoke/cocoedit_eval_qwen_image_edit_imgedit_full/20261024T201425346951Z_dbe3aa26

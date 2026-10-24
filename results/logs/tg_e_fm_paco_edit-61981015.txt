@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit.py", line 498, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit.py", line 490, in main
+    merge(cfg, args.editor, args.dataset, num_shards, args.smoke)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit.py", line 441, in merge
+    raise ProtocolError(f"{len(missing)} {editor}/{dataset} shards missing under {edir}, e.g. {missing[:5]}")
+treeground.run.ProtocolError: 16 flux_fill/paco_edit shards missing under /leonardo_scratch/large/userexternal/amehrish/treeground/cache/full/edit/flux_fill/paco_edit/8acc6d556545b0b5, e.g. [0, 1, 2, 3, 4]

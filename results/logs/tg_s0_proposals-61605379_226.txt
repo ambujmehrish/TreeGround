@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s0_proposals.py", line 135, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s0_proposals.py", line 131, in main
+    run_shard(cfg, args.smoke, args.shard, num_shards)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s0_proposals.py", line 42, in run_shard
+    mrun, manifest, mhash, wl = manifest_inputs(cfg, smoke)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/identity.py", line 17, in manifest_inputs
+    run = resolve_run(cfg, "s0_manifest", cfg.get("inputs", {}).get("manifest", "latest"), smoke)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/run.py", line 155, in resolve_run
+    raise ProtocolError(f"no completed {stage} run under {root}")
+treeground.run.ProtocolError: no completed s0_manifest run under /leonardo_work/AIFAC_S07_041/treeground/runs/s0_manifest

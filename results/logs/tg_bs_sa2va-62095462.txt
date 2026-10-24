@@ -1,0 +1,41 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines.py", line 400, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines.py", line 396, in main
+    run_shard(cfg, args.method, args.shard, num_shards, args.smoke)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines.py", line 315, in run_shard
+    predict = PREDICTORS[method](cfg)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines.py", line 244, in __init__
+    self.model = checked_load(AutoModel, m["repo"], m["revision"], cfg.get("hf_home"),
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines.py", line 265, in checked_load
+    model, info = cls.from_pretrained(repo, revision=revision, cache_dir=cache_dir, output_loading_info=True, **kw)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 365, in from_pretrained
+    return model_class.from_pretrained(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 4072, in from_pretrained
+    model = cls(config, *model_args, **model_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/hf/modules/transformers_modules/ByteDance/Sa2VA_hyphen_Qwen3_hyphen_VL_hyphen_4B/fa5f0ed5d0b0b71163572510121edeaa201e6bd8/modeling_sa2va_qwen.py", line 57, in __init__
+    self.grounding_encoder = SAM2()
+                             ^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/hf/modules/transformers_modules/ByteDance/Sa2VA_hyphen_Qwen3_hyphen_VL_hyphen_4B/fa5f0ed5d0b0b71163572510121edeaa201e6bd8/sam2.py", line 83, in __init__
+    image_encoder = self.build_image_encoder()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/hf/modules/transformers_modules/ByteDance/Sa2VA_hyphen_Qwen3_hyphen_VL_hyphen_4B/fa5f0ed5d0b0b71163572510121edeaa201e6bd8/sam2.py", line 181, in build_image_encoder
+    trunk = build_trunk()
+            ^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/hf/modules/transformers_modules/ByteDance/Sa2VA_hyphen_Qwen3_hyphen_VL_hyphen_4B/fa5f0ed5d0b0b71163572510121edeaa201e6bd8/sam2.py", line 145, in build_trunk
+    ret = Hiera(
+          ^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/hf/modules/transformers_modules/ByteDance/Sa2VA_hyphen_Qwen3_hyphen_VL_hyphen_4B/fa5f0ed5d0b0b71163572510121edeaa201e6bd8/sam2.py", line 1107, in __init__
+    x.item() for x in torch.linspace(0, drop_path_rate, depth)
+    ^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/utils/_device.py", line 122, in __torch_function__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/_meta_registrations.py", line 8375, in meta_local_scalar_dense
+    raise RuntimeError("Tensor.item() cannot be called on meta tensors")
+RuntimeError: Tensor.item() cannot be called on meta tensors

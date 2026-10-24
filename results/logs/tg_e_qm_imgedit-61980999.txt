@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit.py", line 498, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit.py", line 490, in main
+    merge(cfg, args.editor, args.dataset, num_shards, args.smoke)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit.py", line 441, in merge
+    raise ProtocolError(f"{len(missing)} {editor}/{dataset} shards missing under {edir}, e.g. {missing[:5]}")
+treeground.run.ProtocolError: 8 qwen_image_edit/imgedit shards missing under /leonardo_scratch/large/userexternal/amehrish/treeground/cache/full/edit/qwen_image_edit/imgedit/eec0f42cbcb0de3d, e.g. [0, 1, 2, 3, 4]

@@ -240,14 +240,16 @@ class QwenBoxSam:
 class Sa2VA:
     # follows the model card's predict_forward usage at the pinned revision (remote code)
     def __init__(self, cfg: dict):
-        from transformers import AutoModel, AutoProcessor
+        from transformers import AutoModel, Qwen3VLProcessor
         m, self.s = cfg["models"]["sa2va"], cfg["baselines"]["sa2va"]
         with real_device_init():
             self.model = checked_load(AutoModel, m["repo"], m["revision"], cfg.get("hf_home"),
                                       dtype=getattr(torch, self.s["dtype"]), trust_remote_code=True)
         self.model = self.model.to(cfg["device"]).eval()
-        self.proc = AutoProcessor.from_pretrained(m["repo"], revision=m["revision"], cache_dir=cfg.get("hf_home"),
-                                                  trust_remote_code=True)
+        # the repo's preprocessor_config names Qwen3VLProcessor; AutoProcessor under transformers 5 returns only the
+        # tokenizer for it, while the remote predict_forward needs processor.tokenizer and the image processor
+        self.proc = Qwen3VLProcessor.from_pretrained(m["repo"], revision=m["revision"], cache_dir=cfg.get("hf_home"),
+                                                     trust_remote_code=True)
 
     @torch.no_grad()
     def __call__(self, image: np.ndarray, phrases: list[str]) -> list[tuple]:

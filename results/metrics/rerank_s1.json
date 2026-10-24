@@ -1,0 +1,1904 @@
+{
+  "consistency": {
+    "chains_saved": null,
+    "single_missing_in_saved": 0,
+    "single_sel_iou_agreement": 1.0,
+    "single_sigma_max_abs_diff": 1.1102230246251565e-16
+  },
+  "detail": {
+    "k10": {
+      "candidates": 72250,
+      "folds": 5,
+      "importances": {
+        "listwise": [
+          {
+            "coef_mean": -1.9400052663877188,
+            "coef_std": 0.05198844205176126,
+            "feature": "stability x part"
+          },
+          {
+            "coef_mean": 0.9963657867097876,
+            "coef_std": 0.023516958942114783,
+            "feature": "stability"
+          },
+          {
+            "coef_mean": 0.8715783133298054,
+            "coef_std": 0.02278061854149546,
+            "feature": "logit"
+          },
+          {
+            "coef_mean": -0.8429415084263129,
+            "coef_std": 0.023751303929922776,
+            "feature": "logit_gap"
+          },
+          {
+            "coef_mean": -0.730866614159955,
+            "coef_std": 0.04465066538254775,
+            "feature": "sam_iou x part"
+          },
+          {
+            "coef_mean": 0.5579287598404712,
+            "coef_std": 0.026525188064003766,
+            "feature": "sam_iou"
+          },
+          {
+            "coef_mean": 0.5378339257836777,
+            "coef_std": 0.03272966235650238,
+            "feature": "log_sam_iou x part"
+          },
+          {
+            "coef_mean": 0.4717256336389243,
+            "coef_std": 0.02971763934259487,
+            "feature": "log_area_frac"
+          },
+          {
+            "coef_mean": -0.4235520530595954,
+            "coef_std": 0.01891930036239886,
+            "feature": "log_sam_iou"
+          },
+          {
+            "coef_mean": -0.42175932872242267,
+            "coef_std": 0.017722486307286494,
+            "feature": "log_descendants x part"
+          },
+          {
+            "coef_mean": 0.4158059362450482,
+            "coef_std": 0.03980974838669293,
+            "feature": "log_area_frac x part"
+          },
+          {
+            "coef_mean": -0.39224037913109094,
+            "coef_std": 0.03450569240064465,
+            "feature": "depth"
+          },
+          {
+            "coef_mean": 0.3410165886119818,
+            "coef_std": 0.0539278662090512,
+            "feature": "depth x part"
+          },
+          {
+            "coef_mean": 0.3048047634456482,
+            "coef_std": 0.014914868422126071,
+            "feature": "parent_sigma x part"
+          },
+          {
+            "coef_mean": -0.2405747873826046,
+            "coef_std": 0.03505255334818324,
+            "feature": "sigma_gap"
+          },
+          {
+            "coef_mean": 0.23688076825830312,
+            "coef_std": 0.02214250817414834,
+            "feature": "log_descendants"
+          },
+          {
+            "coef_mean": 0.23588536706973673,
+            "coef_std": 0.034844209106009515,
+            "feature": "sigma"
+          },
+          {
+            "coef_mean": 0.11500184374398821,
+            "coef_std": 0.021500648881753046,
+            "feature": "rank"
+          },
+          {
+            "coef_mean": -0.10664507957998093,
+            "coef_std": 0.01693061069911404,
+            "feature": "best_child_sigma"
+          },
+          {
+            "coef_mean": 0.09385672206740357,
+            "coef_std": 0.06236604835813859,
+            "feature": "logit_gap x part"
+          },
+          {
+            "coef_mean": -0.09246613807513128,
+            "coef_std": 0.061288655875922395,
+            "feature": "logit x part"
+          },
+          {
+            "coef_mean": -0.08414283481321853,
+            "coef_std": 0.01629867200079948,
+            "feature": "ancestor_of_top1 x part"
+          },
+          {
+            "coef_mean": -0.08231014128824085,
+            "coef_std": 0.02407363063899391,
+            "feature": "parent_sigma"
+          },
+          {
+            "coef_mean": 0.07777937289526149,
+            "coef_std": 0.0393353553364222,
+            "feature": "descendant_of_top1 x part"
+          },
+          {
+            "coef_mean": 0.06560957120962183,
+            "coef_std": 0.014807170919583234,
+            "feature": "rank x part"
+          },
+          {
+            "coef_mean": 0.05659901405490323,
+            "coef_std": 0.06935458173854653,
+            "feature": "sigma_gap x part"
+          },
+          {
+            "coef_mean": 0.05652776597093927,
+            "coef_std": 0.021781588807718973,
+            "feature": "is_top1 x part"
+          },
+          {
+            "coef_mean": 0.05083538168766194,
+            "coef_std": 0.01982508861326876,
+            "feature": "parent_is_root x part"
+          },
+          {
+            "coef_mean": 0.048954026582827374,
+            "coef_std": 0.01806335781221049,
+            "feature": "parent_is_root"
+          },
+          {
+            "coef_mean": 0.036773977021501744,
+            "coef_std": 0.017613989369526697,
+            "feature": "is_top1"
+          },
+          {
+            "coef_mean": -0.031454791335707014,
+            "coef_std": 0.03654770327777498,
+            "feature": "descendant_of_top1"
+          },
+          {
+            "coef_mean": -0.02374091640830519,
+            "coef_std": 0.028995555262915484,
+            "feature": "sigma x part"
+          },
+          {
+            "coef_mean": 0.014397429150720323,
+            "coef_std": 0.026372910840473263,
+            "feature": "best_child_sigma x part"
+          },
+          {
+            "coef_mean": 0.0016544149357241513,
+            "coef_std": 0.013212909462156761,
+            "feature": "ancestor_of_top1"
+          },
+          {
+            "coef_mean": -5.906765225721703e-16,
+            "coef_std": 9.163948955487648e-16,
+            "feature": "is_part"
+          }
+        ],
+        "pointwise": [
+          {
+            "coef_mean": -0.6658273791181919,
+            "coef_std": 0.05761952316889949,
+            "feature": "logit_gap"
+          },
+          {
+            "coef_mean": 0.6553463595332811,
+            "coef_std": 0.034317843460072085,
+            "feature": "logit"
+          },
+          {
+            "coef_mean": 0.5589522154790562,
+            "coef_std": 0.01989577288876015,
+            "feature": "sam_iou"
+          },
+          {
+            "coef_mean": -0.5269245394903991,
+            "coef_std": 0.010535430176970968,
+            "feature": "sam_iou x part"
+          },
+          {
+            "coef_mean": 0.5190965542064129,
+            "coef_std": 0.02220095817181258,
+            "feature": "ancestor_of_top1"
+          },
+          {
+            "coef_mean": 0.49235450558550653,
+            "coef_std": 0.030875816632731413,
+            "feature": "log_area_frac"
+          },
+          {
+            "coef_mean": 0.47526898733972767,
+            "coef_std": 0.014936500477649913,
+            "feature": "descendant_of_top1"
+          },
+          {
+            "coef_mean": 0.3153184959113986,
+            "coef_std": 0.017285440905318993,
+            "feature": "is_top1"
+          },
+          {
+            "coef_mean": -0.2920086628281685,
+            "coef_std": 0.015404717540245026,
+            "feature": "log_descendants x part"
+          },
+          {
+            "coef_mean": 0.276692871051993,
+            "coef_std": 0.005285880722142397,
+            "feature": "log_sam_iou x part"
+          },
+          {
+            "coef_mean": -0.26424324000363775,
+            "coef_std": 0.013342623671488267,
+            "feature": "ancestor_of_top1 x part"
+          },
+          {
+            "coef_mean": -0.25662523612092897,
+            "coef_std": 0.016412554856627185,
+            "feature": "log_sam_iou"
+          },
+          {
+            "coef_mean": -0.1877062413414689,
+            "coef_std": 0.02673260687784834,
+            "feature": "sigma_gap"
+          },
+          {
+            "coef_mean": 0.17387372295616035,
+            "coef_std": 0.01663217274401975,
+            "feature": "log_descendants"
+          },
+          {
+            "coef_mean": 0.15266543833974308,
+            "coef_std": 0.008368952053006508,
+            "feature": "best_child_sigma"
+          },
+          {
+            "coef_mean": -0.12822660829711996,
+            "coef_std": 0.014165742275654446,
+            "feature": "rank"
+          },
+          {
+            "coef_mean": 0.12015296525602581,
+            "coef_std": 0.039847910387826514,
+            "feature": "logit x part"
+          },
+          {
+            "coef_mean": 0.11932237000229753,
+            "coef_std": 0.02467938162209362,
+            "feature": "rank x part"
+          },
+          {
+            "coef_mean": -0.11587366130539756,
+            "coef_std": 0.015062371037312674,
+            "feature": "descendant_of_top1 x part"
+          },
+          {
+            "coef_mean": 0.10792774191820169,
+            "coef_std": 0.010590616039659722,
+            "feature": "depth x part"
+          },
+          {
+            "coef_mean": -0.10564801335125981,
+            "coef_std": 0.017503921780934226,
+            "feature": "is_top1 x part"
+          },
+          {
+            "coef_mean": 0.09149291881534205,
+            "coef_std": 0.05445428720099678,
+            "feature": "sigma"
+          },
+          {
+            "coef_mean": 0.0902085400944991,
+            "coef_std": 0.01609155586409794,
+            "feature": "parent_sigma"
+          },
+          {
+            "coef_mean": 0.08054766316211318,
+            "coef_std": 0.0333364383138613,
+            "feature": "sigma_gap x part"
+          },
+          {
+            "coef_mean": -0.0797088837213912,
+            "coef_std": 0.014223176346458161,
+            "feature": "sigma x part"
+          },
+          {
+            "coef_mean": -0.06764105235066326,
+            "coef_std": 0.014602030114734698,
+            "feature": "is_part"
+          },
+          {
+            "coef_mean": 0.05255601285580804,
+            "coef_std": 0.014798424262710027,
+            "feature": "parent_is_root x part"
+          },
+          {
+            "coef_mean": 0.0453008148015379,
+            "coef_std": 0.018924706519422862,
+            "feature": "parent_sigma x part"
+          },
+          {
+            "coef_mean": -0.04100335859238727,
+            "coef_std": 0.02057855608454988,
+            "feature": "logit_gap x part"
+          },
+          {
+            "coef_mean": -0.03201996012397745,
+            "coef_std": 0.01367217855573808,
+            "feature": "parent_is_root"
+          },
+          {
+            "coef_mean": 0.026240990206889497,
+            "coef_std": 0.019640621715611574,
+            "feature": "stability"
+          },
+          {
+            "coef_mean": -0.014704010980851934,
+            "coef_std": 0.02764750484929327,
+            "feature": "stability x part"
+          },
+          {
+            "coef_mean": 0.012104459133864848,
+            "coef_std": 0.012909863360651575,
+            "feature": "depth"
+          },
+          {
+            "coef_mean": -0.010543930350666402,
+            "coef_std": 0.019760036140766806,
+            "feature": "best_child_sigma x part"
+          },
+          {
+            "coef_mean": 0.0022114964178772726,
+            "coef_std": 0.030224810129807933,
+            "feature": "log_area_frac x part"
+          }
+        ]
+      },
+      "pick_changes_vs_selector": {
+        "listwise": {
+          "changed": 0.426159169550173,
+          "improved": 1486,
+          "mean_iou_delta_changed": 0.031091036714573826,
+          "worsened": 973
+        },
+        "oracle_topk": {
+          "changed": 0.6456747404844291,
+          "improved": 4665,
+          "mean_iou_delta_changed": 0.23688088635417784,
+          "worsened": 0
+        },
+        "pointwise": {
+          "changed": 0.5222145328719723,
+          "improved": 1795,
+          "mean_iou_delta_changed": 0.02704337516671698,
+          "worsened": 1249
+        },
+        "rule": {
+          "changed": 0.4207612456747405,
+          "improved": 1402,
+          "mean_iou_delta_changed": 0.024449720786394895,
+          "worsened": 958
+        }
+      },
+      "rule_weight_per_fold": [
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "k5": {
+      "candidates": 36125,
+      "folds": 5,
+      "importances": {
+        "listwise": [
+          {
+            "coef_mean": -1.8253518164170495,
+            "coef_std": 0.03015073519625124,
+            "feature": "stability x part"
+          },
+          {
+            "coef_mean": 0.8864865608032664,
+            "coef_std": 0.023900202662386967,
+            "feature": "stability"
+          },
+          {
+            "coef_mean": -0.7544800071121613,
+            "coef_std": 0.024918127295728044,
+            "feature": "logit_gap"
+          },
+          {
+            "coef_mean": 0.640028273341629,
+            "coef_std": 0.018675178524493255,
+            "feature": "logit"
+          },
+          {
+            "coef_mean": -0.6051452529090945,
+            "coef_std": 0.03597613702515178,
+            "feature": "sam_iou x part"
+          },
+          {
+            "coef_mean": 0.5670455191643383,
+            "coef_std": 0.01946981160525782,
+            "feature": "sam_iou"
+          },
+          {
+            "coef_mean": 0.5512997499426566,
+            "coef_std": 0.041569447379482496,
+            "feature": "log_area_frac"
+          },
+          {
+            "coef_mean": 0.43421034769238726,
+            "coef_std": 0.023854626789180763,
+            "feature": "log_sam_iou x part"
+          },
+          {
+            "coef_mean": -0.4131233192408167,
+            "coef_std": 0.021795661004789146,
+            "feature": "log_sam_iou"
+          },
+          {
+            "coef_mean": 0.385877349339636,
+            "coef_std": 0.04887703994516825,
+            "feature": "log_descendants"
+          },
+          {
+            "coef_mean": -0.3709765068384497,
+            "coef_std": 0.01742412979212256,
+            "feature": "depth"
+          },
+          {
+            "coef_mean": -0.3137094938097689,
+            "coef_std": 0.03741507740797698,
+            "feature": "log_descendants x part"
+          },
+          {
+            "coef_mean": 0.2824544534117477,
+            "coef_std": 0.03829663720777496,
+            "feature": "depth x part"
+          },
+          {
+            "coef_mean": 0.2725404158671654,
+            "coef_std": 0.04146581074254514,
+            "feature": "log_area_frac x part"
+          },
+          {
+            "coef_mean": 0.23344077111251407,
+            "coef_std": 0.05919355222834732,
+            "feature": "sigma_gap x part"
+          },
+          {
+            "coef_mean": 0.2265803119262748,
+            "coef_std": 0.021348725762150553,
+            "feature": "parent_sigma x part"
+          },
+          {
+            "coef_mean": -0.19776037121239848,
+            "coef_std": 0.0173682403552059,
+            "feature": "sigma_gap"
+          },
+          {
+            "coef_mean": 0.16675809212533604,
+            "coef_std": 0.01004730998949267,
+            "feature": "rank"
+          },
+          {
+            "coef_mean": 0.16601288111416493,
+            "coef_std": 0.014904868781154065,
+            "feature": "sigma"
+          },
+          {
+            "coef_mean": -0.14737295349253046,
+            "coef_std": 0.01631304880233242,
+            "feature": "best_child_sigma"
+          },
+          {
+            "coef_mean": 0.1409847011663195,
+            "coef_std": 0.04065024628587172,
+            "feature": "descendant_of_top1 x part"
+          },
+          {
+            "coef_mean": -0.12978820617455908,
+            "coef_std": 0.03884548789304805,
+            "feature": "descendant_of_top1"
+          },
+          {
+            "coef_mean": 0.09781189508769701,
+            "coef_std": 0.03319513840167066,
+            "feature": "is_top1 x part"
+          },
+          {
+            "coef_mean": -0.07541821660378542,
+            "coef_std": 0.015222803411090741,
+            "feature": "ancestor_of_top1 x part"
+          },
+          {
+            "coef_mean": -0.07417540836231624,
+            "coef_std": 0.009886973772448186,
+            "feature": "ancestor_of_top1"
+          },
+          {
+            "coef_mean": -0.0599809491863141,
+            "coef_std": 0.015566894776358602,
+            "feature": "sigma x part"
+          },
+          {
+            "coef_mean": 0.054292155568228626,
+            "coef_std": 0.028610311441500384,
+            "feature": "parent_is_root"
+          },
+          {
+            "coef_mean": 0.0504673093677815,
+            "coef_std": 0.029981389335173816,
+            "feature": "best_child_sigma x part"
+          },
+          {
+            "coef_mean": -0.034689239656773105,
+            "coef_std": 0.035105469842781754,
+            "feature": "parent_sigma"
+          },
+          {
+            "coef_mean": -0.009185595612805516,
+            "coef_std": 0.02032778004351329,
+            "feature": "is_top1"
+          },
+          {
+            "coef_mean": -0.004330026671256702,
+            "coef_std": 0.011756203576037584,
+            "feature": "rank x part"
+          },
+          {
+            "coef_mean": 0.0022390915964019473,
+            "coef_std": 0.05417513234633686,
+            "feature": "logit_gap x part"
+          },
+          {
+            "coef_mean": 0.0017619537673605706,
+            "coef_std": 0.02335260290655362,
+            "feature": "parent_is_root x part"
+          },
+          {
+            "coef_mean": -0.0010696336930007416,
+            "coef_std": 0.03518425511658888,
+            "feature": "logit x part"
+          },
+          {
+            "coef_mean": -5.344282735601376e-16,
+            "coef_std": 1.1895212444501766e-15,
+            "feature": "is_part"
+          }
+        ],
+        "pointwise": [
+          {
+            "coef_mean": 0.6609076314402349,
+            "coef_std": 0.04886705960156444,
+            "feature": "logit"
+          },
+          {
+            "coef_mean": -0.6257761659581196,
+            "coef_std": 0.030468274270847095,
+            "feature": "logit_gap"
+          },
+          {
+            "coef_mean": 0.6084257750527805,
+            "coef_std": 0.013476956611146406,
+            "feature": "sam_iou"
+          },
+          {
+            "coef_mean": -0.5614746143711543,
+            "coef_std": 0.008918427627708331,
+            "feature": "sam_iou x part"
+          },
+          {
+            "coef_mean": 0.5292751774099286,
+            "coef_std": 0.02954298089197507,
+            "feature": "ancestor_of_top1"
+          },
+          {
+            "coef_mean": 0.4894695004640134,
+            "coef_std": 0.045066091569248186,
+            "feature": "log_area_frac"
+          },
+          {
+            "coef_mean": 0.4490973941558991,
+            "coef_std": 0.020129638537881887,
+            "feature": "descendant_of_top1"
+          },
+          {
+            "coef_mean": 0.3561716257928321,
+            "coef_std": 0.02617208738991277,
+            "feature": "is_top1"
+          },
+          {
+            "coef_mean": -0.3248516618191058,
+            "coef_std": 0.007681264398059673,
+            "feature": "log_sam_iou"
+          },
+          {
+            "coef_mean": 0.31200525421321057,
+            "coef_std": 0.013118922240083675,
+            "feature": "log_sam_iou x part"
+          },
+          {
+            "coef_mean": -0.2870813404855845,
+            "coef_std": 0.01687551094841618,
+            "feature": "log_descendants x part"
+          },
+          {
+            "coef_mean": -0.24518566981119583,
+            "coef_std": 0.02630659871896426,
+            "feature": "ancestor_of_top1 x part"
+          },
+          {
+            "coef_mean": 0.18256442669137515,
+            "coef_std": 0.01705627159838256,
+            "feature": "log_descendants"
+          },
+          {
+            "coef_mean": 0.1508963736492764,
+            "coef_std": 0.01970131238469478,
+            "feature": "depth x part"
+          },
+          {
+            "coef_mean": 0.14504275780091236,
+            "coef_std": 0.01148468070909306,
+            "feature": "best_child_sigma"
+          },
+          {
+            "coef_mean": -0.13308268691874323,
+            "coef_std": 0.018385887528266545,
+            "feature": "descendant_of_top1 x part"
+          },
+          {
+            "coef_mean": 0.11997866826686172,
+            "coef_std": 0.05874028165367362,
+            "feature": "sigma"
+          },
+          {
+            "coef_mean": -0.10790036673117884,
+            "coef_std": 0.031833086491142325,
+            "feature": "logit_gap x part"
+          },
+          {
+            "coef_mean": -0.10238109123113845,
+            "coef_std": 0.02351480578470187,
+            "feature": "is_top1 x part"
+          },
+          {
+            "coef_mean": 0.08926799227985946,
+            "coef_std": 0.016247677608807982,
+            "feature": "rank x part"
+          },
+          {
+            "coef_mean": 0.08305487341270738,
+            "coef_std": 0.019483777056131746,
+            "feature": "stability"
+          },
+          {
+            "coef_mean": -0.07459510076760345,
+            "coef_std": 0.026531490570561,
+            "feature": "stability x part"
+          },
+          {
+            "coef_mean": 0.07420203384942307,
+            "coef_std": 0.017374012042175035,
+            "feature": "parent_sigma"
+          },
+          {
+            "coef_mean": 0.07226701987686161,
+            "coef_std": 0.02157210442781088,
+            "feature": "parent_is_root x part"
+          },
+          {
+            "coef_mean": 0.07119121986645356,
+            "coef_std": 0.02283167894183727,
+            "feature": "parent_sigma x part"
+          },
+          {
+            "coef_mean": -0.051094164999232985,
+            "coef_std": 0.02018623892265322,
+            "feature": "is_part"
+          },
+          {
+            "coef_mean": 0.04536285886139028,
+            "coef_std": 0.04617046772853171,
+            "feature": "logit x part"
+          },
+          {
+            "coef_mean": -0.04212253122883216,
+            "coef_std": 0.015280245232705578,
+            "feature": "rank"
+          },
+          {
+            "coef_mean": 0.04201240055962811,
+            "coef_std": 0.04606665794307442,
+            "feature": "sigma_gap x part"
+          },
+          {
+            "coef_mean": -0.03519805771768936,
+            "coef_std": 0.029445640641349413,
+            "feature": "sigma x part"
+          },
+          {
+            "coef_mean": 0.03486139864031843,
+            "coef_std": 0.020369125077936392,
+            "feature": "sigma_gap"
+          },
+          {
+            "coef_mean": -0.03169319181689264,
+            "coef_std": 0.020861469163940848,
+            "feature": "depth"
+          },
+          {
+            "coef_mean": -0.02845094853280796,
+            "coef_std": 0.01985941018711087,
+            "feature": "best_child_sigma x part"
+          },
+          {
+            "coef_mean": -0.027545865880027352,
+            "coef_std": 0.02471216881271646,
+            "feature": "parent_is_root"
+          },
+          {
+            "coef_mean": -0.010951902617671047,
+            "coef_std": 0.041652315605939925,
+            "feature": "log_area_frac x part"
+          }
+        ]
+      },
+      "pick_changes_vs_selector": {
+        "listwise": {
+          "changed": 0.4615916955017301,
+          "improved": 1712,
+          "mean_iou_delta_changed": 0.04211546979367308,
+          "worsened": 965
+        },
+        "oracle_topk": {
+          "changed": 0.5676124567474048,
+          "improved": 4101,
+          "mean_iou_delta_changed": 0.19787194061730098,
+          "worsened": 0
+        },
+        "pointwise": {
+          "changed": 0.533840830449827,
+          "improved": 1815,
+          "mean_iou_delta_changed": 0.028408165138557994,
+          "worsened": 1266
+        },
+        "rule": {
+          "changed": 0.4110726643598616,
+          "improved": 1363,
+          "mean_iou_delta_changed": 0.025291231894047063,
+          "worsened": 934
+        }
+      },
+      "rule_weight_per_fold": [
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ]
+    }
+  },
+  "deviation": "D20",
+  "eval_run": "20261023T121924199995Z_92812b0c",
+  "features": [
+    "logit",
+    "sigma",
+    "rank",
+    "sigma_gap",
+    "logit_gap",
+    "sam_iou",
+    "log_sam_iou",
+    "stability",
+    "log_area_frac",
+    "depth",
+    "log_descendants",
+    "is_top1",
+    "ancestor_of_top1",
+    "descendant_of_top1",
+    "parent_sigma",
+    "parent_is_root",
+    "best_child_sigma"
+  ],
+  "images": 1547,
+  "label": "dev (image-level K-fold CV on PACO val, not a held-out test)",
+  "layer": 12,
+  "methods": {
+    "listwise": "L2 conditional logit over the query's top-k, target = highest-IoU candidate",
+    "oracle_topk": "highest-IoU candidate of the top-k (reranking ceiling)",
+    "pointwise": "L2 logistic regression, target IoU >= 0.5, features + features x part + part",
+    "rule": "logit + w log(max(sam_iou, 1e-3)), w from rule_grid by CV (max mean IoU on train folds)",
+    "selector": "top-1 by sigma (stage's own pick)"
+  },
+  "no_target": {
+    "abstention_rate": 0.9877945619335348,
+    "n": 8275,
+    "note": "reranking does not change accept decisions; from the stage's saved table"
+  },
+  "node_cap": {
+    "d4_run": "20261021T171747189970Z_8e7d0286",
+    "k": 256,
+    "order": "stability"
+  },
+  "oracle_all_nodes": {
+    "by_kind": {
+      "object": {
+        "ci95": [
+          0.8144665134436938,
+          0.8321726247418882
+        ],
+        "mean": 0.8236363654571643,
+        "n": 2123
+      },
+      "part": {
+        "ci95": [
+          0.4463001710405659,
+          0.4679728710761128
+        ],
+        "mean": 0.4575315890583359,
+        "n": 5102
+      }
+    },
+    "cIoU": {
+      "ci95": [
+        0.6170353075051929,
+        0.6599987419476084
+      ],
+      "value": 0.6388358249380488
+    },
+    "gIoU": {
+      "ci95": [
+        0.5555248666140232,
+        0.5748206382375654
+      ],
+      "mean": 0.5651081205870159,
+      "n": 7225
+    },
+    "n": 7225,
+    "success@0.5": {
+      "ci95": [
+        0.5841087888568149,
+        0.6104368977454884
+      ],
+      "mean": 0.5966782006920415,
+      "n": 7225
+    }
+  },
+  "primary_k": 10,
+  "seconds": 1174.2860918045044,
+  "selector_run": "20261023T121924199995Z_92812b0c",
+  "settings": {
+    "folds": 5,
+    "ks": [
+      5,
+      10
+    ],
+    "l2": 0.001,
+    "primary_k": 10,
+    "rule_grid": [
+      0.0,
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0,
+      8.0,
+      16.0,
+      32.0
+    ],
+    "seed": 0,
+    "smoke_images": 8
+  },
+  "single_step": {
+    "k10": {
+      "listwise": {
+        "calibrated": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.2086028434396212,
+                0.23944400906715071
+              ],
+              "mean": 0.22426896226422408,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.02870140613856082,
+                0.03712659473785041
+              ],
+              "mean": 0.03297779553148264,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.15906491655617028,
+              0.20622220584134712
+            ],
+            "value": 0.18189954275320078
+          },
+          "gIoU": {
+            "ci95": [
+              0.082785032734311,
+              0.09564325908961058
+            ],
+            "mean": 0.0891869508219477,
+            "n": 7225
+          },
+          "gIoU_present_and_no_target": {
+            "ci95": [
+              0.5478986407913642,
+              0.5872995883429952
+            ],
+            "mean": 0.5689274657863596,
+            "n": 15500
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.09216182711637258,
+              0.10734785478594762
+            ],
+            "mean": 0.09951557093425606,
+            "n": 7225
+          }
+        },
+        "no_rejection": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.649618965765232,
+                0.6796143793856115
+              ],
+              "mean": 0.6640184046922626,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.24180304659724167,
+                0.2597897611293731
+              ],
+              "mean": 0.25088354174614136,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.4326908314212184,
+              0.4728388805134653
+            ],
+            "value": 0.4536648603104509
+          },
+          "gIoU": {
+            "ci95": [
+              0.362831164302008,
+              0.3816208241924036
+            ],
+            "mean": 0.3722794329620051,
+            "n": 7225
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.38296056925903543,
+              0.4064401557451487
+            ],
+            "mean": 0.394878892733564,
+            "n": 7225
+          }
+        }
+      },
+      "oracle_topk": {
+        "calibrated": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.22302687847210664,
+                0.25523228715840973
+              ],
+              "mean": 0.2393153168328043,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.03531705206733478,
+                0.045137981599146886
+              ],
+              "mean": 0.04015231238957119,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.1628852591754098,
+              0.21070838514356235
+            ],
+            "value": 0.18618404762953242
+          },
+          "gIoU": {
+            "ci95": [
+              0.09174143213250814,
+              0.10588081590209639
+            ],
+            "mean": 0.09867453501005338,
+            "n": 7225
+          },
+          "gIoU_present_and_no_target": {
+            "ci95": [
+              0.5525662327486256,
+              0.5914741183938124
+            ],
+            "mean": 0.5733499042224282,
+            "n": 15500
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.10052689533607141,
+              0.11635459695763344
+            ],
+            "mean": 0.10823529411764705,
+            "n": 7225
+          }
+        },
+        "no_rejection": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.7698409929945199,
+                0.7933991881652653
+              ],
+              "mean": 0.7821012358690191,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.38951892514543845,
+                0.4088922009424372
+              ],
+              "mean": 0.39957624700090666,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.5464942478016354,
+              0.5889715781274327
+            ],
+            "value": 0.5680868285155751
+          },
+          "gIoU": {
+            "ci95": [
+              0.5020238150751647,
+              0.5220169878316766
+            ],
+            "mean": 0.5119777073977236,
+            "n": 7225
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.5239759061624123,
+              0.55070270149006
+            ],
+            "mean": 0.5366089965397924,
+            "n": 7225
+          }
+        }
+      },
+      "pointwise": {
+        "calibrated": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.20460994163871674,
+                0.23506495922121828
+              ],
+              "mean": 0.21993885711653707,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.028679392375384645,
+                0.03693616677724389
+              ],
+              "mean": 0.03277260429307137,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.15450223294765553,
+              0.20130804716219847
+            ],
+            "value": 0.1771267688395388
+          },
+          "gIoU": {
+            "ci95": [
+              0.08164139956679618,
+              0.09401984136084936
+            ],
+            "mean": 0.08776969145490081,
+            "n": 7225
+          },
+          "gIoU_present_and_no_target": {
+            "ci95": [
+              0.5471150566400845,
+              0.5865433782602487
+            ],
+            "mean": 0.5682668400491392,
+            "n": 15500
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.09257029256723934,
+              0.10721212443356995
+            ],
+            "mean": 0.09965397923875433,
+            "n": 7225
+          }
+        },
+        "no_rejection": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.643260197691857,
+                0.6718568986665597
+              ],
+              "mean": 0.6577624640094387,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.2461672844228729,
+                0.2628215113246841
+              ],
+              "mean": 0.2547225685061346,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.4441696740960989,
+              0.48612957240941573
+            ],
+            "value": 0.46512863894743905
+          },
+          "gIoU": {
+            "ci95": [
+              0.3639258370385036,
+              0.38299105127216326
+            ],
+            "mean": 0.37315214610523695,
+            "n": 7225
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.38506894217772625,
+              0.40933278797413364
+            ],
+            "mean": 0.3965397923875433,
+            "n": 7225
+          }
+        }
+      },
+      "rule": {
+        "calibrated": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.2047350383528298,
+                0.23471866937393815
+              ],
+              "mean": 0.2199758470234111,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.028980236778266933,
+                0.03734589216292316
+              ],
+              "mean": 0.03312974554472333,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.15353634034432478,
+              0.1996735788754803
+            ],
+            "value": 0.17597697891038544
+          },
+          "gIoU": {
+            "ci95": [
+              0.08180909131860348,
+              0.094317418407234
+            ],
+            "mean": 0.0880327591695336,
+            "n": 7225
+          },
+          "gIoU_present_and_no_target": {
+            "ci95": [
+              0.5473315951689098,
+              0.5868488040731255
+            ],
+            "mean": 0.5683894635483794,
+            "n": 15500
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.09301182234628173,
+              0.10760420786767695
+            ],
+            "mean": 0.1002076124567474,
+            "n": 7225
+          }
+        },
+        "no_rejection": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.6369332445043878,
+                0.6655379821356658
+              ],
+              "mean": 0.651309466171534,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.2433920442053708,
+                0.26054548097664987
+              ],
+              "mean": 0.25197701991665783,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.43981673334502713,
+              0.48052111944716025
+            ],
+            "value": 0.4603459187244008
+          },
+          "gIoU": {
+            "ci95": [
+              0.3600838873528645,
+              0.379108665860685
+            ],
+            "mean": 0.3693171975497515,
+            "n": 7225
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.3816894163162664,
+              0.4061166669545461
+            ],
+            "mean": 0.3934948096885813,
+            "n": 7225
+          }
+        }
+      },
+      "selector": {
+        "calibrated": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.20108871746716706,
+                0.23052113311147848
+              ],
+              "mean": 0.21627883483498736,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.028107565200832935,
+                0.036297694676391976
+              ],
+              "mean": 0.03227209775169219,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.15422668279635915,
+              0.2009457340721269
+            ],
+            "value": 0.17676847019802447
+          },
+          "gIoU": {
+            "ci95": [
+              0.08023868112700037,
+              0.09258736501667159
+            ],
+            "mean": 0.08634079018461062,
+            "n": 7225
+          },
+          "gIoU_present_and_no_target": {
+            "ci95": [
+              0.5467403355655439,
+              0.5861378841645564
+            ],
+            "mean": 0.5676007876828265,
+            "n": 15500
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.0913336503326823,
+              0.10589842970425475
+            ],
+            "mean": 0.0984083044982699,
+            "n": 7225
+          }
+        },
+        "no_rejection": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.6124823102908947,
+                0.6409758160373016
+              ],
+              "mean": 0.6265113573754739,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.23884848305711867,
+                0.2564626976324244
+              ],
+              "mean": 0.24772755574248975,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.4490958041678258,
+              0.4911202528714719
+            ],
+            "value": 0.47069047224061805
+          },
+          "gIoU": {
+            "ci95": [
+              0.3496466044169456,
+              0.3690507235796569
+            ],
+            "mean": 0.3590297025752684,
+            "n": 7225
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.372479084765707,
+              0.39666681561941425
+            ],
+            "mean": 0.38394463667820067,
+            "n": 7225
+          }
+        }
+      }
+    },
+    "k5": {
+      "listwise": {
+        "calibrated": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.2090729168336577,
+                0.23960734754361346
+              ],
+              "mean": 0.224583346520079,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.029176656158523415,
+                0.037624414442363176
+              ],
+              "mean": 0.03338346379018113,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.15882948983682868,
+              0.20639649607204819
+            ],
+            "value": 0.18182623435577952
+          },
+          "gIoU": {
+            "ci95": [
+              0.08325621391961098,
+              0.0961674386002257
+            ],
+            "mean": 0.08956579611344385,
+            "n": 7225
+          },
+          "gIoU_present_and_no_target": {
+            "ci95": [
+              0.548013455613051,
+              0.5873719894604152
+            ],
+            "mean": 0.56910405657546,
+            "n": 15500
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.09251764312245482,
+              0.10775986067464458
+            ],
+            "mean": 0.09993079584775086,
+            "n": 7225
+          }
+        },
+        "no_rejection": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.6509666643540841,
+                0.6809679999647226
+              ],
+              "mean": 0.6656550171364336,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.25012791336221596,
+                0.2673962443366852
+              ],
+              "mean": 0.2589688536823923,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.43911391065894845,
+              0.47930242484077484
+            ],
+            "value": 0.46016892022894357
+          },
+          "gIoU": {
+            "ci95": [
+              0.3691697483272285,
+              0.3879200615020982
+            ],
+            "mean": 0.37846985368418185,
+            "n": 7225
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.38895005493366525,
+              0.41280098779671365
+            ],
+            "mean": 0.4006920415224913,
+            "n": 7225
+          }
+        }
+      },
+      "oracle_topk": {
+        "calibrated": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.2207188501343619,
+                0.25239555195165786
+              ],
+              "mean": 0.23696228904510147,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.03390181106648337,
+                0.04358418126321726
+              ],
+              "mean": 0.038659740053896476,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.16208895818038097,
+              0.21014616400821362
+            ],
+            "value": 0.18547672491927772
+          },
+          "gIoU": {
+            "ci95": [
+              0.0900482603847135,
+              0.10400868709325382
+            ],
+            "mean": 0.09692912572978965,
+            "n": 7225
+          },
+          "gIoU_present_and_no_target": {
+            "ci95": [
+              0.5517015758321517,
+              0.5907423857347586
+            ],
+            "mean": 0.5725363182837245,
+            "n": 15500
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.09874150682877683,
+              0.11421985103519779
+            ],
+            "mean": 0.10629757785467128,
+            "n": 7225
+          }
+        },
+        "no_rejection": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.7351962468539136,
+                0.7606768138506802
+              ],
+              "mean": 0.7478386922104635,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.3463655103846421,
+                0.365485242793881
+              ],
+              "mean": 0.35629182399354203,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.5199291947481582,
+              0.5597878547351158
+            ],
+            "value": 0.539295205898612
+          },
+          "gIoU": {
+            "ci95": [
+              0.46124864973406127,
+              0.4814554002619548
+            ],
+            "mean": 0.4713442809104312,
+            "n": 7225
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.4797562465803242,
+              0.5053181456900536
+            ],
+            "mean": 0.492318339100346,
+            "n": 7225
+          }
+        }
+      },
+      "pointwise": {
+        "calibrated": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.2054922414505028,
+                0.23578870098901084
+              ],
+              "mean": 0.2207325738874739,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.028970439393595053,
+                0.037354656078107125
+              ],
+              "mean": 0.03314130997986123,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.1560376831248454,
+              0.2031544691531704
+            ],
+            "value": 0.1787320298120983
+          },
+          "gIoU": {
+            "ci95": [
+              0.08217476000455393,
+              0.09464884827320263
+            ],
+            "mean": 0.08826328275160679,
+            "n": 7225
+          },
+          "gIoU_present_and_no_target": {
+            "ci95": [
+              0.54738731631417,
+              0.586833715556071
+            ],
+            "mean": 0.5684969172826039,
+            "n": 15500
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.09272862078164545,
+              0.10746197884648614
+            ],
+            "mean": 0.09979238754325259,
+            "n": 7225
+          }
+        },
+        "no_rejection": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.643820941557953,
+                0.6724091455566251
+              ],
+              "mean": 0.658250502132636,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.24738319603571665,
+                0.26435680397344263
+              ],
+              "mean": 0.25599648726345475,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.4454357293449441,
+              0.487368764072744
+            ],
+            "value": 0.4668137056245357
+          },
+          "gIoU": {
+            "ci95": [
+              0.36508411118237183,
+              0.38412731871093886
+            ],
+            "mean": 0.374195141044392,
+            "n": 7225
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.3863259568932613,
+              0.4104855019613136
+            ],
+            "mean": 0.3977854671280277,
+            "n": 7225
+          }
+        }
+      },
+      "rule": {
+        "calibrated": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.2048341357540643,
+                0.23483718369673937
+              ],
+              "mean": 0.22009303269400424,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.02895180608423883,
+                0.03731417485774802
+              ],
+              "mean": 0.033088912386611,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.1536444515755402,
+              0.19980532766655443
+            ],
+            "value": 0.17614589781747486
+          },
+          "gIoU": {
+            "ci95": [
+              0.0818094839324159,
+              0.0943350763388069
+            ],
+            "mean": 0.0880383583952748,
+            "n": 7225
+          },
+          "gIoU_present_and_no_target": {
+            "ci95": [
+              0.5473468613209058,
+              0.5868797053464381
+            ],
+            "mean": 0.5683920735100556,
+            "n": 15500
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.09306132801589816,
+              0.10758320978873338
+            ],
+            "mean": 0.1002076124567474,
+            "n": 7225
+          }
+        },
+        "no_rejection": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.6366069410035228,
+                0.6654720445026775
+              ],
+              "mean": 0.6510520401682767,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.24367339543424174,
+                0.2608589779304257
+              ],
+              "mean": 0.25223854930505346,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.44288711439276823,
+              0.48349254642345063
+            ],
+            "value": 0.4634428685061329
+          },
+          "gIoU": {
+            "ci95": [
+              0.360078628211561,
+              0.3794379873520528
+            ],
+            "mean": 0.36942623665489743,
+            "n": 7225
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.38276798943399937,
+              0.4065325750457045
+            ],
+            "mean": 0.39418685121107266,
+            "n": 7225
+          }
+        }
+      },
+      "selector": {
+        "calibrated": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.20108871746716706,
+                0.23052113311147848
+              ],
+              "mean": 0.21627883483498736,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.028107565200832935,
+                0.036297694676391976
+              ],
+              "mean": 0.03227209775169219,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.15422668279635915,
+              0.2009457340721269
+            ],
+            "value": 0.17676847019802447
+          },
+          "gIoU": {
+            "ci95": [
+              0.08023868112700037,
+              0.09258736501667159
+            ],
+            "mean": 0.08634079018461062,
+            "n": 7225
+          },
+          "gIoU_present_and_no_target": {
+            "ci95": [
+              0.5467403355655439,
+              0.5861378841645564
+            ],
+            "mean": 0.5676007876828265,
+            "n": 15500
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.0913336503326823,
+              0.10589842970425475
+            ],
+            "mean": 0.0984083044982699,
+            "n": 7225
+          }
+        },
+        "no_rejection": {
+          "by_kind": {
+            "object": {
+              "ci95": [
+                0.6124823102908947,
+                0.6409758160373016
+              ],
+              "mean": 0.6265113573754739,
+              "n": 2123
+            },
+            "part": {
+              "ci95": [
+                0.23884848305711867,
+                0.2564626976324244
+              ],
+              "mean": 0.24772755574248975,
+              "n": 5102
+            }
+          },
+          "cIoU": {
+            "ci95": [
+              0.4490958041678258,
+              0.4911202528714719
+            ],
+            "value": 0.47069047224061805
+          },
+          "gIoU": {
+            "ci95": [
+              0.3496466044169456,
+              0.3690507235796569
+            ],
+            "mean": 0.3590297025752684,
+            "n": 7225
+          },
+          "n": 7225,
+          "success@0.5": {
+            "ci95": [
+              0.372479084765707,
+              0.39666681561941425
+            ],
+            "mean": 0.38394463667820067,
+            "n": 7225
+          }
+        }
+      }
+    }
+  },
+  "smoke": false,
+  "split": "PACO-LVIS val I1 object/part queries (+ gRefCOCO val no-target, accept unchanged)",
+  "stage": "s1",
+  "tau_rej": 0.8844221105527639,
+  "v1_gate": {
+    "below_v1_gate": true,
+    "deviation": "D2",
+    "v1_feasible_path_coverage": 0.4982359858878871,
+    "v1_gate_passed": false,
+    "v1_part_recall": 0.40896114578797116,
+    "v1_run": "20261022T074517344153Z_43208246"
+  }
+}

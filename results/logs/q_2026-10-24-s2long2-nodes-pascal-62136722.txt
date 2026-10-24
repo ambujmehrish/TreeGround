@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s2_nodes.py", line 171, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s2_nodes.py", line 167, in main
+    run_shard(load_config(args.config), args.source, args.shard, args.smoke)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s2_nodes.py", line 122, in run_shard
+    require_approved(cfg, ["D3", "D4", "D21"])
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/run.py", line 596, in require_approved
+    raise ProtocolError(
+treeground.run.ProtocolError: deviation(s) ['D21'] are not approved in /leonardo_work/AIFAC_S07_041/treeground/runs/deviations.jsonl; set status to 'approved' to proceed

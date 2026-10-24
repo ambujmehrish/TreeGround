@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
+import s2_nodes as S2N  # noqa: E402
 import v2_train_eval as V2  # noqa: E402
 from treeground import lora as LR  # noqa: E402
 from treeground import masks as M  # noqa: E402
@@ -60,6 +61,8 @@ class ImageMeta:
     high: np.ndarray
     queries: list[Query]
     absent: bool = False
+    source: str = "paco_train"
+    nodes: str | None = None           # node cache file (D21 sources); PACO reads the proposal store
 
 
 def dist_env() -> tuple[int, int, int]:
@@ -92,12 +95,25 @@ def broadcast(obj, world: int):
     return box[0]
 
 
+def deviations(cfg: dict) -> list[str]:
+    c = cfg.get("s2", {})
+    return ["D10"] + (["D21"] if c.get("stage_suffix") or set(c.get("sources", {})) - {"paco_train"} else [])
+
+
 def require_d10(cfg: dict, rank: int, world: int) -> None:
     if rank == 0:
         ensure_deviation_log(cfg)
     if world > 1:
         dist.barrier()
-    require_approved(cfg, ["D10"])
+    require_approved(cfg, deviations(cfg))
+
+
+def source_weights(c: dict) -> dict[str, float]:
+    w = c.get("sources", {"paco_train": 1.0})
+    if not w or set(w) - {"paco_train", *S2N.SOURCES} or min(w.values()) <= 0:
+        raise ProtocolError(f"invalid S2 sources {w}")
+    total = sum(w.values())
+    return {k: v / total for k, v in w.items()}
 
 
 def stage_cfg(cfg: dict, smoke: bool) -> dict:
@@ -128,7 +144,7 @@ def wrap_model(model, processor, c: dict, static: dict | None):
 
 def s2_stage(cfg: dict) -> str:
     stage = cfg["inputs"].get("selector_stage", "v2")
-    return "s2" if stage == "v2" else f"s2_from_{stage}"
+    return ("s2" if stage == "v2" else f"s2_from_{stage}") + cfg.get("s2", {}).get("stage_suffix", "")
 
 
 def warm_start(cfg: dict, smoke: bool, layer: int, d_model: int) -> tuple[Selector, str]:
@@ -216,17 +232,71 @@ def train_meta(cfg, wl, props, queries, device, rank, world) -> tuple[list[Image
     return metas + absent, counts
 
 
-def all_train_meta(cfg, wl, props, queries, device, rank, world) -> tuple[list[ImageMeta], dict]:
-    metas, counts = train_meta(cfg, wl, props, queries, device, rank, world)
-    parts = gather((metas, counts), world)
-    allm = [m for p, _ in parts for m in p]
-    total = Counter()
-    for _, c in parts:
-        total.update(c)
-    paco_items = sorted((m for m in allm if not m.absent and m.queries), key=lambda m: m.key)
-    absent = sorted((m for m in allm if m.absent), key=lambda m: m.queries[0].qid)
-    total["training_images"] = sum(1 for m in allm if not m.absent)
-    return paco_items + absent, dict(total)
+def all_train_meta(cfg, wl, props, queries, device, rank, world, sources=("paco_train",), smoke=False
+                   ) -> tuple[list[ImageMeta], dict]:
+    out, total = [], Counter()
+    if "paco_train" in sources:
+        metas, counts = train_meta(cfg, wl, props, queries, device, rank, world)
+        parts = gather((metas, counts), world)
+        allm = [m for p, _ in parts for m in p]
+        for _, c in parts:
+            total.update(c)
+        paco_items = sorted((m for m in allm if not m.absent and m.queries), key=lambda m: m.key)
+        absent = sorted((m for m in allm if m.absent), key=lambda m: m.queries[0].qid)
+        total["training_images"] = sum(1 for m in allm if not m.absent)
+        out = paco_items + absent
+    for source in sources:
+        if source != "paco_train":
+            metas, counts = node_meta(cfg, source, smoke)
+            out += metas
+            total.update(counts)
+    return out, dict(total)
+
+
+def node_cache(cfg: dict, source: str, smoke: bool) -> tuple[Path, list[Path]]:
+    d = S2N.out_dir(cfg, S2N.identity(cfg, source, smoke))
+    files = sorted((d / "shards").glob("*.pt"))
+    n = S2N.num_shards(cfg, source, smoke)
+    if len(files) != n:
+        raise ProtocolError(f"{source}: {len(files)} of {n} S2 node shards present in {d} (run scripts/s2_nodes.py)")
+    return d, files
+
+
+def query_from_cache(q: dict) -> Query:
+    # gRefCOCO expressions (present or not) are answered with the expression itself, as D10's no-target queries
+    steps = [S.StepTarget(np.asarray(p, np.int64), np.asarray(i, np.int64)) for p, i in q["steps"]]
+    user = S2.user_text(q["text"])
+    if q["kind"] == "referring":
+        return Query(q["qid"], "object", user, f"{user} {mllm.SEL}", steps, q["path"])
+    return Query(q["qid"], q["kind"], user, S2.answer_text(q["kind"], q["qid"], q["text"]), steps, q["path"])
+
+
+def node_meta(cfg: dict, source: str, smoke: bool) -> tuple[list[ImageMeta], Counter]:
+    d, files = node_cache(cfg, source, smoke)
+    metas, counts = [], Counter()
+    empty_step = S.StepTarget(np.zeros(0, np.int64), np.zeros(0, np.int64))
+    for f in files:
+        blob = torch.load(f, map_location="cpu", weights_only=False)
+        counts.update({f"{source}:{k}": v for k, v in blob["counts"].items()})
+        for r in blob["records"]:
+            parents = np.asarray(r["parent"], np.int64)
+            n = len(parents) - 1
+            empty = np.full(n, "", dtype=object)
+            base = dict(sha1=r["key"], key=r["key"], file=r["path"], n=n, parents=parents, labels=empty, parts=empty,
+                        high=np.zeros(n, dtype=bool), source=source, nodes=str(d / r["nodes"]))
+            if r["queries"]:
+                metas.append(ImageMeta(queries=[query_from_cache(q) for q in r["queries"]], **base))
+            for a in r["absent"]:
+                q = Query(a["qid"], "absent", S2.user_text(a["text"]), S2.answer_text("absent", a["qid"], a["text"]),
+                          [empty_step])
+                metas.append(ImageMeta(queries=[q], absent=True, **base))
+    counts[f"{source}:training_items"] = len(metas)
+    return metas, counts
+
+
+def read_nodes(path: str) -> dict:
+    doc = json.loads(Path(path).read_text())
+    return {"h": doc["h"], "w": doc["w"], "rles": [{"size": [doc["h"], doc["w"]], "counts": c} for c in doc["counts"]]}
 
 
 def val_meta(cfg, wl, props, queries, device, n_images: int, seed: int, rank: int, world: int) -> list[ImageMeta]:
@@ -251,14 +321,26 @@ def plan(items: list[ImageMeta], c: dict, text_labels: set[str], world: int, ran
         raise ProtocolError(f"{len(items)} training items for a batch of {B}")
     rng = np.random.default_rng(c["seed"])
     n_text = int(round(c["text_only_fraction"] * B))
-    order, ptr = rng.permutation(len(items)), 0
+    weights = source_weights(c)
+    groups = [np.flatnonzero([m.source == s for m in items]) for s in weights]
+    if min(len(g) for g in groups) < B:
+        raise ProtocolError(f"a training source has fewer than {B} items: {dict(zip(weights, map(len, groups)))}")
+    # one epoch-wise permutation stream per source; a single source draws exactly as before D21
+    streams = [[g[rng.permutation(len(g))], 0] for g in groups]
+    p = np.array(list(weights.values()))
     out = []
     share = B // world
     for step in range(c["steps"]):
-        if ptr + B > len(order):
-            order, ptr = rng.permutation(len(items)), 0
-        idx = order[ptr:ptr + B]
-        ptr += B
+        idx = []
+        for k, n in enumerate(rng.multinomial(B, p) if len(groups) > 1 else [B]):
+            order, ptr = streams[k]
+            if ptr + n > len(order):
+                order, ptr = groups[k][rng.permutation(len(groups[k]))], 0
+            idx.extend(order[ptr:ptr + n])
+            streams[k] = [order, ptr + n]
+        idx = np.asarray(idx)
+        if len(groups) > 1:
+            idx = idx[rng.permutation(B)]
         batch, left = [], n_text
         for j, i in enumerate(idx):
             r = items[i]
@@ -293,7 +375,7 @@ class Source:
         image = Image.fromarray(load_rgb(assert_real_path(m.file)))
         seqs = [S2.encode(self.processor, self.sel_id, q.user, q.answer, image) for q in queries]
         grid = mllm.merged_grid(seqs[0].image_grid_thw, self.merge)
-        nodes = self.props.nodes(m.sha1, self.tau)
+        nodes = read_nodes(m.nodes) if m.nodes else self.props.nodes(m.sha1, self.tau)
         if len(nodes["rles"]) != m.n or (nodes["h"], nodes["w"]) != (image.height, image.width):
             raise ProtocolError(f"{m.key}: proposal nodes do not match the image or its metadata")
         cov = mllm.sparse_coverages((M.decode(r) for r in nodes["rles"]), *grid)
@@ -452,7 +534,8 @@ def main() -> None:
     torch.manual_seed(c["seed"] * 1000 + rank)  # LoRA dropout masks differ across ranks
 
     text_labels = set(queries[queries.kind == "text"].label)
-    items, counts = all_train_meta(cfg, wl, props, queries, device, rank, world)
+    weights = source_weights(c)
+    items, counts = all_train_meta(cfg, wl, props, queries, device, rank, world, list(weights), args.smoke)
     if not items:
         raise ProtocolError("no training items")
     vmetas = val_meta(cfg, wl, props, queries, device, c["eval_images"], c["seed"], rank, world)
@@ -529,7 +612,7 @@ def main() -> None:
             "best_val_selector_success": best[0], "selection": "PACO val fixed subset, single-step selector success",
             "eval_images": c["eval_images"], "eval_curve": evals, "training_exclusions": counts,
             "training_items": len(items), "world_size": world, "accumulation": accum, "v1_gate": gate,
-            "deviations": ["D10"]})
+            "sources": weights, "deviations": deviations(cfg)})
         print(run)
     if world > 1:
         dist.barrier()

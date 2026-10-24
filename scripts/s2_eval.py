@@ -37,8 +37,7 @@ class RecomputedStore:
 
 
 def load_checkpoint(cfg: dict, smoke: bool) -> tuple[dict, Path]:
-    stage = cfg["inputs"].get("selector_stage", "v2")
-    stage = "s2" if stage == "v2" else f"s2_from_{stage}"
+    stage = S2T.s2_stage(cfg)
     run = resolve_run(cfg, stage, cfg["inputs"].get(stage, "latest"), smoke)
     ckpt = torch.load(run / cfg["s2_eval"]["checkpoint"], map_location="cpu")
     if ckpt["meta"]["smoke"] != smoke:
@@ -126,7 +125,7 @@ def main() -> None:
             "smoke": args.smoke, "layer": layer, "s2_run": s2_run.name, "checkpoint_step": meta["step"],
             "checkpoint_val": meta["val"], "single_step": metrics, "chains": chain_metrics,
             "features": "node features and probes recomputed with the LoRA model at layer l", "v1_gate": gate,
-            "deviations": ["D10"]})
+            "deviations": S2T.deviations(cfg)})
         print(run, "tau_rej", tau)
     if world > 1:
         dist.barrier()

@@ -532,6 +532,31 @@ PROPOSED_DEVIATIONS = [
                            "numbers and are not comparable to the zero-fit baselines without that caveat; no change "
                            "to any existing result",
     },
+    {
+        "id": "D21",
+        "spec_section": "2.4 (S2) / 7 (train data), extends D10 with the D11 sources",
+        "change": "a longer, larger S2 run (configs/s2_long.yaml, stage s2_from_s1_long): the D10 recipe (LoRA r16 "
+                  "on the decoder, trained <SEL> row, selector warm-started from S1, global batch 32, 20% text-only, "
+                  "L_sel + L_LM) for 12000 steps with a PACO val subset checkpoint every 1000 steps, on three "
+                  "sources mixed per step by a multinomial draw of the 32 batch slots with weights 0.6/0.2/0.2: "
+                  "(a) PACO-LVIS train I1 object/part/chain queries plus the manifest's gRefCOCO train no-target "
+                  "queries (the D10 training set, unchanged); (b) Pascal-Part train (VOC 2010 train, parts merged "
+                  "as in D7): object and part queries and object->part chains of single-instance objects, I1 "
+                  "templates and D10 answer spans; (c) gRefCOCO train: present expressions with the best node of "
+                  "every target with IoU >= 0.5 a positive (multi-target) and every node with IoU >= 0.5 to any "
+                  "target ignored, answer '{expression} <SEL>'; no-target expressions as all-negative examples "
+                  "(as D10). Images, queries, GT masks and step targets are those of the S1 cache (D11, "
+                  "s1_cache.items and its target rules); the D3 proposals with tau_d dedup and the D4 node budget "
+                  "are computed once per image (scripts/s2_nodes.py, SAM 3 only) and node features are recomputed "
+                  "by the LoRA model every step as in D10. Within a source, items are drawn by epoch-wise "
+                  "permutation; (b) and (c) give no text-only samples (no PACO labels). Evaluation as D10 (s2_eval, "
+                  "x_transfer_s2 with the same stage)",
+        "reason": "S2 (2000 steps, PACO only) reaches PACO val gIoU 0.403 and selector success 0.71-0.72 against "
+                  "an oracle best node of 0.565, while S1 gained from more data and steps; this tests whether the "
+                  "LoRA model gains the same way",
+        "expected_impact": "a separate S2 (from S1, long) row; the S2 and S2 (from S1) runs and their numbers are "
+                           "unchanged (the default sources are PACO only, no stage suffix)",
+    },
 ]
 
 

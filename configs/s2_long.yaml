@@ -1,0 +1,9 @@
+include: s2_s1.yaml
+s2:
+  steps: 12000
+  eval_every: 1000
+  stage_suffix: _long             # runs/s2_from_s1_long; never the latest s2 / s2_from_s1 run
+  sources: {paco_train: 0.6, pascal_part_train: 0.2, grefcoco_train: 0.2}   # D21: per-step multinomial batch shares
+s2_nodes:
+  num_shards: {pascal_part_train: 32, grefcoco_train: 128}
+  smoke_images: 16

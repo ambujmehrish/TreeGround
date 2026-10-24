@@ -557,6 +557,38 @@ PROPOSED_DEVIATIONS = [
         "expected_impact": "a separate S2 (from S1, long) row; the S2 and S2 (from S1) runs and their numbers are "
                            "unchanged (the default sources are PACO only, no stage suffix)",
     },
+    {
+        "id": "D23",
+        "spec_section": "amendment (task 3: edit-mask selection, extends D14)",
+        "change": "new edit-mask sources next to D14's, D14 conditions unchanged. Selector: the S2 model (D10; LoRA "
+                  "Qwen, trained <SEL> row and S2 selector of the S2 run's best.pt; stages s2, s2_from_s1, "
+                  "s2_from_s1_long) with node features and probes computed as in D17 (x_transfer_s2). CANDIDATE POOL "
+                  "AUGMENTED WITH SAM 3 TEXT INSTANCES: the D3/D4 capped SAM 3 nodes plus the top-N (N = 3) SAM 3 "
+                  "text-prompt instances (D13/D14 sam3text route: same model, scoring and mask threshold, no score "
+                  "threshold, empty masks dropped) of the referent and, for referents 'the {part} of the {object}', "
+                  "of 'the {object}'; the instances are ordinary candidates (mask -> pooled node feature, no flag, "
+                  "no score feature) and one containment tree is built over the union (build_tree). Two picks, no "
+                  "rejection: 'ours2' (flat) = top-1 sigma over the pool for the I1 query 'Locate {referent}.' with "
+                  "the single-step answer '{referent} <SEL>'; 'ours2tree' (tree-constrained, V4 natural search) = "
+                  "for part-of-object referents the chain query (CHAIN_TEMPLATE, answer '{object} <SEL> {part} "
+                  "<SEL>'): object = top-1 of probe 1 over the pool, part = top-1 of probe 2 among the strict "
+                  "descendants of the object pick (the object pick itself when it has none); plain referents "
+                  "(most GEdit/ImgEdit) fall back to the flat pick. Editors, settings, seeds and metrics as D14 "
+                  "(conditions ours2_blend / ours2tree_blend reuse the D14 Qwen instruction edit of the sample, "
+                  "ours2_fill / ours2tree_fill run FLUX Fill). Reported: mask IoU and success@0.5 vs the GT edit mask "
+                  "of both picks, of S2 top-1 on nodes only, of sam3text and of the best node / best pool member "
+                  "(pool ceiling incl. instances), the rate at which a SAM 3 text instance is picked, how often the "
+                  "flat pick lies outside the tree's object pick; diagnostic only: the D20 rule reranker (logit + w "
+                  "log sam_iou, w and k from the stage's PACO-val CV run) on the capped nodes (instances excluded: "
+                  "they have no SAM 3 predicted IoU or stability, the features the rule was fit on)",
+        "reason": "D14 masks of V2/S1 reach mask IoU 0.02-0.61 against 0.54-0.80 for SAM 3 text; S2 is our best "
+                  "PACO selector, the node pool caps the reachable IoU below SAM 3 text on PartEdit/ImgEdit, and the "
+                  "tree constraint tests whether the object context helps part edits",
+        "expected_impact": "new 'ours2'/'ours2tree' rows (e_<editor>_<dataset>_<s2 stage>_merge, "
+                           "e_select_<dataset>_<s2 stage>_merge). The pool contains SAM 3 text masks, so these rows "
+                           "are a hybrid of our selector and the sam3text baseline and are not a pure tree-node "
+                           "selector; no change to any D14 number",
+    },
 ]
 
 

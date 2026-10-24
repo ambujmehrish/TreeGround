@@ -1,0 +1,4 @@
+include: edit_s2_s1.yaml
+inputs: {s2_from_s1_long: latest, s2_from_s1_long_eval: latest}
+s2: {stage_suffix: _long}
+edit_select: {rerank: none}      # no D20 run of the long stage

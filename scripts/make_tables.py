@@ -22,6 +22,8 @@ SPLITS = (("all", "all"), ("two_level", "two-level"), ("single_level", "single-l
 DATASETS = (("pascal_part", "Pascal-Part"), ("ade20k", "ADE20K"), ("lvis_hier", "LVIS hier."),
             ("openimages_hier", "OpenImages hier."))
 BINS = ("small", "medium", "large")
+EDIT_DATASETS = (("partedit", "PartEdit"), ("gedit", "GEdit"), ("imgedit", "ImgEdit"), ("paco_edit", "PACO edit (dev)"))
+EDIT_S2 = (("s2", "S2"), ("s2_from_s1", "S2 (from S1)"), ("s2_from_s1_long", "S2 long (from S1)"))
 
 
 def get(m, *path):
@@ -323,7 +325,42 @@ def coverage(root: Path) -> tuple[list, list]:
     return cols, rows
 
 
-TABLES = {"retrieval_paco": retrieval, "chains_paco": chains, "transfer": transfer, "coverage": coverage}
+def edit_localization(root: Path) -> tuple[list, list]:
+    # edit-mask localisation vs the GT edit mask: D14 picks (V2, S1) and D23 picks (S2 flat / tree, pool = nodes +
+    # SAM 3 text instances), with SAM 3 text and the capped-node / pool ceilings
+    cols = [("dataset", "Dataset", "text"), ("source", "Mask source", "text"), ("n", "n", "int"),
+            ("iou", "Mask IoU", "ci"), ("success", "Succ.@0.5", "ci"), ("instance_rate", "SAM 3 inst. picked", "frac")]
+    rows = []
+    for ds, label in EDIT_DATASETS:
+        for tag, sel in (("", "V2"), ("_s1", "S1")):
+            loc = get(load(root, f"e_qwen_image_edit_{ds}{tag}_merge"), "localization")
+            if loc is None:
+                continue
+            keys = [("ours_mask_iou", "ours_success@0.5", f"{sel} top-1 (D14)")] + (
+                [("sam3text_mask_iou", "sam3text_success@0.5", "SAM 3 text"),
+                 ("ours_best_node_iou", "ours_best_node_success@0.5", "best capped node")] if not tag else [])
+            for iou, succ, src in keys:
+                rows.append({"_group": ds, "dataset": label, "source": src, "iou": loc.get(iou),
+                             "success": loc.get(succ), "n": get(loc, iou, "n")})
+        for stage, sel in EDIT_S2:
+            loc = get(load(root, f"e_select_{ds}_{stage}_merge"), "localization")
+            if loc is None:
+                continue
+            for key, src, rate in (("ours2", f"{sel} flat (D23)", "ours2_instance_pick_rate"),
+                                   ("ours2tree", f"{sel} tree (D23)", "ours2tree_instance_pick_rate"),
+                                   ("s2_nodes_only", f"{sel} nodes only", None),
+                                   ("s2_nodes_rule", f"{sel} nodes + D20 rule", None),
+                                   ("sam3text", "SAM 3 text", None), ("best_node", "best capped node", None),
+                                   ("best_pool", "best of pool (nodes + SAM 3 inst.)", None)):
+                if f"{key}_mask_iou" in loc:
+                    rows.append({"_group": f"{ds}:{stage}", "dataset": label, "source": src,
+                                 "n": get(loc, f"{key}_mask_iou", "n"), "iou": loc[f"{key}_mask_iou"],
+                                 "success": loc.get(f"{key}_success@0.5"), "instance_rate": loc.get(rate)})
+    return cols, rows
+
+
+TABLES = {"retrieval_paco": retrieval, "chains_paco": chains, "transfer": transfer, "coverage": coverage,
+          "edit_localization": edit_localization}
 
 
 def main() -> None:

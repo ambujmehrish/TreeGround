@@ -1,0 +1,11 @@
+include: edit.yaml
+inputs: {manifest: latest, v2: latest, selector_stage: v2, s2: latest, s2_eval: latest, rerank_s2: latest}
+s2_eval: {checkpoint: best.pt}
+edit_select:                     # D23 (scripts/e_select.py)
+  sam3_instances: 3              # top-N SAM 3 text instances of the referent (and of the object for chain referents)
+  answer: "{referent} <SEL>"     # teacher-forced single-step answer span
+  rerank: rule                   # diagnostic only: D20 rule on the capped nodes (w, k from rerank_<s2 stage>); or none
+edit_s2:                         # D23 conditions (scripts/e_edit_s2.py); D14 conditions above stay unchanged
+  conditions:
+    qwen_image_edit: [ours2_blend, ours2tree_blend]
+    flux_fill: [ours2_fill, ours2tree_fill]

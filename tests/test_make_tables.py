@@ -131,6 +131,26 @@ def test_refine_rows_appear_only_for_published_variants(tmp_path):
     assert rows["S2 + SAM 3 refine (r1), no rejection"]["n_acc"] == "–"
 
 
+def test_rerank_rows_use_the_primary_k(tmp_path):
+    m = tmp_path / "metrics"
+    m.mkdir()
+    blk = {"n": 100, "gIoU": ci(0.45, 0.44, 0.46), "cIoU": {"value": 0.5, "ci95": [0.48, 0.52]},
+           "success@0.5": ci(0.4, 0.39, 0.41), "by_kind": {"object": ci(0.7, 0.6, 0.8), "part": ci(0.3, 0.2, 0.4)}}
+    other = dict(blk, gIoU=ci(0.1, 0.0, 0.2))
+    meths = ("selector", "rule", "pointwise", "listwise", "oracle_topk")
+    ref = {"primary_k": 10, "no_target": {"n": 50, "abstention_rate": 0.8},
+           "single_step": {"k5": {v: {"calibrated": other, "no_rejection": other} for v in meths},
+                           "k10": {v: {"calibrated": blk, "no_rejection": blk} for v in meths}}}
+    (m / "rerank_s1.json").write_text(json.dumps(ref))
+    MT.write(tmp_path / "t", "retrieval_paco", *MT.retrieval(m))
+    rows = {r["method"]: r for r in read(tmp_path / "t" / "retrieval_paco.csv")}
+    assert sorted(k for k in rows if "rerank" in k) == sorted(
+        f"S1 + rerank ({v}, k=10){s}" for v in ("rule", "pointwise", "listwise") for s in ("", ", no rejection"))
+    r = rows["S1 + rerank (listwise, k=10)"]
+    assert (r["gIoU"], r["gIoU_part"], r["n_acc"]) == ("0.450", "0.300", "0.800")
+    assert rows["S1 + rerank (rule, k=10), no rejection"]["n_acc"] == "–"
+
+
 def test_tex_escaping():
     assert MT.esc("a_b & 5%") == r"a\_b \& 5\%"
     assert MT.tex_cell("ci", {"value": 0.5, "ci95": [float("nan"), 0.6]}) == "50.0"

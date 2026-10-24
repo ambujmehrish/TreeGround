@@ -1,0 +1,11 @@
+include: [v2.yaml, v4.yaml]
+inputs: {manifest: latest, v1: latest, v3: latest, v2: latest, s1: latest, s2: latest, s2_from_s1: latest}
+s2_eval: {checkpoint: best.pt}
+rerank:
+  ks: [5, 10]
+  primary_k: 10
+  folds: 5
+  seed: 0
+  l2: 1.0e-3
+  rule_grid: [0.0, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0, 32.0]
+  smoke_images: 8

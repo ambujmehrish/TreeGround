@@ -508,6 +508,30 @@ PROPOSED_DEVIATIONS = [
                   "published part gIoU (Pascal-Part-116) needs the IoU of each pick",
         "expected_impact": "part/object gIoU for our rows in the transfer table; no change to any existing result",
     },
+    {
+        "id": "D20",
+        "spec_section": "amendment (post-hoc re-ranking of the selector's top-k nodes)",
+        "change": "for V2, S1, S2 and S2 (from S1) without retraining the selector: per PACO-LVIS val present "
+                  "object/part query, the top-k nodes by sigma (k in {5, 10}; same selector, features, probes, capped "
+                  "proposals and tau_rej as the stage's evaluation; rank 0 = the stage's own pick) are re-ranked with "
+                  "cheap per-node features (selector logit and sigma, rank, sigma/logit gap to the top-1, SAM 3 "
+                  "predicted IoU and its log, stability, log area fraction, tree depth, log #descendants, top-1 / "
+                  "ancestor / descendant of the top-1 flags, parent sigma, best child sigma; all also crossed with "
+                  "the query kind, plus the kind). Rankers: (a) rule logit + w log(max(sam_iou, 1e-3)), w from a "
+                  "fixed grid; (b) pointwise L2 logistic regression on IoU >= 0.5; (c) listwise L2 conditional logit "
+                  "with the highest-IoU candidate as target (fixed l2 1e-3 on standardized features). All are FIT ON "
+                  "PACO VAL with image-level 5-fold cross-validation (fixed seed 0): every query is scored by the "
+                  "model fit on the folds that do not contain its image. Accept decisions unchanged. Reported with "
+                  "the V2/D15 metrics (present gIoU calibrated and without rejection, by kind, cIoU, success@0.5, "
+                  "image-level bootstrap 95% CIs), the best-of-top-k ceiling, the best-of-all-nodes oracle and "
+                  "standardized coefficients as feature importances",
+        "reason": "the best capped node reaches gIoU 0.565 while the selectors' top-1 reaches 0.40: the gap is "
+                  "selection, and the SAM 3 quality scores and the tree context are unused by the selector",
+        "expected_impact": "new '+ rerank' rows (rerank_<stage>), labelled dev: the rankers are fit on the "
+                           "evaluation split itself (cross-validated over images), so they are not held-out test "
+                           "numbers and are not comparable to the zero-fit baselines without that caveat; no change "
+                           "to any existing result",
+    },
 ]
 
 

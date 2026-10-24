@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-24-d23-select-s2-gedit-merge",
+ "what": "D23 selection merge + localisation (s2, gedit)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_select.py",
+  "TG_ARGS": "--config configs/edit_s2.yaml --dataset gedit --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-10-24-d23-select-s2-gedit"
+ ],
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

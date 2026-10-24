@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-d23-edit-s2froms1-qwenimageedit-partedit",
+ "what": "D23 ours2/ours2tree edits with qwen_image_edit on partedit (shards; D14 cache reused)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_edit_s2.py",
+  "TG_ARGS": "--config configs/edit_s2_s1.yaml --editor qwen_image_edit --dataset partedit"
+ },
+ "sbatch": {
+  "time": "01:00:00",
+  "array": "0-3"
+ },
+ "after": [
+  "2026-10-24-d23-select-s2froms1-partedit"
+ ]
+}

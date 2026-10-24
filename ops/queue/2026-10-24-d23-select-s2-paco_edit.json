@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-d23-select-s2-paco_edit",
+ "what": "D23 edit-mask selection (s2, augmented pool, flat + tree) on paco_edit (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_select.py",
+  "TG_ARGS": "--config configs/edit_s2.yaml --dataset paco_edit"
+ },
+ "sbatch": {
+  "time": "02:00:00",
+  "array": "0-15"
+ },
+ "after": [
+  "2026-10-24-d23-select-smoke"
+ ]
+}

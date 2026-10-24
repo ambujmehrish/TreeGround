@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-24-d23-select-smoke",
+ "what": "D23 smoke: S2 (from S1) edit-mask selection, 3 PACO edit samples",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_select.py",
+  "TG_ARGS": "--config configs/edit_s2_s1.yaml --dataset paco_edit --smoke"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "collect": true
+}

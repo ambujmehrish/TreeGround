@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-24-d23-select-s2froms1-paco_edit-merge",
+ "what": "D23 selection merge + localisation (s2froms1, paco_edit)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_select.py",
+  "TG_ARGS": "--config configs/edit_s2_s1.yaml --dataset paco_edit --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-10-24-d23-select-s2froms1-paco_edit"
+ ],
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

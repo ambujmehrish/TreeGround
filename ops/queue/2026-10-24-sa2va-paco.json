@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-sa2va-paco",
+ "what": "D13 Sa2VA PACO baseline shards",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_baselines.py",
+  "TG_ARGS": "--config configs/baselines.yaml --method sa2va"
+ },
+ "sbatch": {
+  "time": "06:00:00",
+  "array": "0-31"
+ },
+ "after": [
+  "2026-10-24-sa2va-smoke-merge"
+ ]
+}

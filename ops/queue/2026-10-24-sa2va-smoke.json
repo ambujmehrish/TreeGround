@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-24-sa2va-smoke",
+ "what": "D13 Sa2VA PACO baseline smoke (fixed processor)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_baselines.py",
+  "TG_ARGS": "--config configs/baselines.yaml --method sa2va --smoke"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "collect": true
+}

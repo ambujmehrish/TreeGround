@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-24-xgiou-s2froms1-pascal",
+ "what": "D22 part/object gIoU of the s2_from_s1 model on Pascal-Part (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/x_giou.py",
+  "TG_ARGS": "--config configs/x_transfer_s2_s1.yaml --dataset pascal_part"
+ },
+ "sbatch": {
+  "time": "06:00:00",
+  "array": "0-63%32"
+ }
+}

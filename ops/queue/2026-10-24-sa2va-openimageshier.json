@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-sa2va-openimageshier",
+ "what": "D16 Sa2VA transfer baseline shards, openimages_hier",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_transfer.py",
+  "TG_ARGS": "--config configs/b_transfer.yaml --method sa2va --dataset openimages_hier"
+ },
+ "sbatch": {
+  "time": "06:00:00",
+  "array": "0-63%32"
+ },
+ "after": [
+  "2026-10-24-sa2va-smoke-merge"
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-24-sa2va-ade20k-merge",
+ "what": "D16 Sa2VA transfer merge, ade20k",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_transfer.py",
+  "TG_ARGS": "--config configs/b_transfer.yaml --method sa2va --dataset ade20k --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-24-sa2va-ade20k"
+ ],
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

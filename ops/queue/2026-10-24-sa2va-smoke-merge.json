@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-sa2va-smoke-merge",
+ "what": "D13 Sa2VA smoke merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_baselines.py",
+  "TG_ARGS": "--config configs/baselines.yaml --method sa2va --smoke --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-10-24-sa2va-smoke"
+ ],
+ "collect": true
+}

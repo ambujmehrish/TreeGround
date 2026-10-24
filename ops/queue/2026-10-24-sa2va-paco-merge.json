@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-24-sa2va-paco-merge",
+ "what": "D13 Sa2VA PACO baseline merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_baselines.py",
+  "TG_ARGS": "--config configs/baselines.yaml --method sa2va --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-24-sa2va-paco"
+ ],
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

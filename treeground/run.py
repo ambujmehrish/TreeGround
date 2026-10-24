@@ -470,6 +470,30 @@ PROPOSED_DEVIATIONS = [
         "expected_impact": "adds judge scores next to D14 metrics; MLLM judges are biased and noisy, so differences "
                            "between conditions are read with their CIs; no change to any D14 number",
     },
+    {
+        "id": "D19",
+        "spec_section": "amendment (post-hoc mask refinement of the selected node)",
+        "change": "selection + re-prompt refinement, evaluated for V2, S1, S2 and S2 (from S1) without retraining: "
+                  "the selector's top-1 node (same selector, features, probes, capped proposals and tau_rej as the "
+                  "stage's evaluation; single step as V2.evaluate, chains as V4 natural search on the true tree with "
+                  "both the object and the part node refined) is re-prompted to the proposals' SAM 3 tracker "
+                  "(same repo/revision/dtype, multimask_output, logits > mask_threshold) on the image, and the "
+                  "refined mask replaces the node mask. Variants: r0 node mask (unchanged), r1 node bbox, r2 bbox + "
+                  "positive point at the node's interior point (max distance transform, V1-ceiling rule), r3 bbox + "
+                  "node mask as dense prompt (binary mask resized to the 288x288 low-res frame, logits 20 m - 10), "
+                  "r4 r2 + up to 2 negative points inside the node's tree parent and outside the node (greedy "
+                  "interior points, clearance >= 2 px; none when the parent is the root). Output: the multimask "
+                  "output with the highest predicted IoU. Accept decisions unchanged. Reported with the V2/D15 "
+                  "metrics (present gIoU calibrated and without rejection, by kind, cIoU, success@0.5, no-target "
+                  "abstention, image-level bootstrap 95% CIs) and chain success (D12 no-rejection included); "
+                  "ceilings: r1/r2 of the highest-IoU node and the GT box prompt on the same queries, next to the "
+                  "V1-ceiling own-box recall",
+        "reason": "our masks are limited to the fixed proposal set (a node with IoU >= 0.5 exists for ~45-60% of "
+                  "queries) while the D13 baselines prompt SAM 3 directly; refinement tests whether the tree "
+                  "selection is a good prompt even when no proposal matches the target exactly",
+        "expected_impact": "new '+ SAM 3 refine' rows (refine_<stage>_merge); r0 must reproduce each stage's "
+                           "saved numbers; no change to any existing result",
+    },
 ]
 
 

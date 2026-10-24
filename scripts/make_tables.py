@@ -11,6 +11,8 @@ from pathlib import Path
 DASH = "–"
 OURS = (("v2", "V2 (frozen, 10k img.)"), ("s1", "S1"), ("s2_eval", "S2"), ("s2_from_s1_eval", "S2 (from S1)"))
 CHAIN_OURS = (("v4", OURS[0][1]), ("v4_s1", "S1")) + OURS[2:]
+REFINE = (("v2", OURS[0][1]), ("s1", "S1"), ("s2", "S2"), ("s2_from_s1", "S2 (from S1)"))
+REFINE_VARIANTS = ("r1", "r2", "r3")
 BASELINES = (("b_sam3_text_merge", "SAM 3 (text)"), ("b_qwen_box_sam_merge", "Qwen3-VL box + SAM 3"),
              ("b_sa2va_merge", "Sa2VA"))
 TRANSFER_BASELINES = (("sam3_text", BASELINES[0][1]), ("qwen_box_sam", BASELINES[1][1]), ("sa2va", BASELINES[2][1]))
@@ -132,6 +134,20 @@ def retrieval(root: Path) -> tuple[list, list]:
                      "queries": v["present_queries"], "gIoU": nr.get("gIoU"), "cIoU": nr.get("cIoU"),
                      "gIoU_object": get(nr, "by_kind", "object"), "gIoU_part": get(nr, "by_kind", "part"),
                      "success_0.5": nr.get("success@0.5"), "no_target": v["no_target_queries"]})
+    for stage, label in REFINE:
+        m = load(root, f"refine_{stage}_merge")
+        for mode, suffix in (("calibrated", ""), ("no_rejection", ", no rejection")):
+            for v in REFINE_VARIANTS:
+                b = get(m, "single_step", v, mode)
+                if not isinstance(b, dict):
+                    continue
+                rows.append({"_group": f"ours + refine ({mode}, D19)",
+                             "method": f"{label} + SAM 3 refine ({v}){suffix}", "queries": get(b, "n"),
+                             "gIoU": b.get("gIoU"), "cIoU": b.get("cIoU"),
+                             "gIoU_object": get(b, "by_kind", "object"), "gIoU_part": get(b, "by_kind", "part"),
+                             "success_0.5": b.get("success@0.5"),
+                             "n_acc": get(m, "no_target", "abstention_rate") if mode == "calibrated" else None,
+                             "no_target": get(m, "no_target", "n")})
     for stage, label in BASELINES:
         m = load(root, stage)
         rows.append({"_group": "baselines", "method": label, "queries": get(m, "present", "n"),

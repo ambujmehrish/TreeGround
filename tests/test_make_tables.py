@@ -113,6 +113,24 @@ def test_transfer_and_coverage(tmp_path):
     assert "40.0" in (out / "coverage.tex").read_text()
 
 
+def test_refine_rows_appear_only_for_published_variants(tmp_path):
+    m = tmp_path / "metrics"
+    m.mkdir()
+    blk = {"n": 100, "gIoU": ci(0.45, 0.44, 0.46), "cIoU": {"value": 0.5, "ci95": [0.48, 0.52]},
+           "success@0.5": ci(0.4, 0.39, 0.41), "by_kind": {"object": ci(0.7, 0.6, 0.8), "part": ci(0.3, 0.2, 0.4)}}
+    ref = {"single_step": {v: {"calibrated": blk, "no_rejection": blk} for v in ("r0", "r1", "r2")},
+           "no_target": {"n": 50, "abstention_rate": 0.8}}
+    (m / "refine_s2_merge.json").write_text(json.dumps(ref))
+    MT.write(tmp_path / "t", "retrieval_paco", *MT.retrieval(m))
+    rows = {r["method"]: r for r in read(tmp_path / "t" / "retrieval_paco.csv")}
+    assert sorted(k for k in rows if "refine" in k) == sorted([
+        "S2 + SAM 3 refine (r1)", "S2 + SAM 3 refine (r2)",
+        "S2 + SAM 3 refine (r1), no rejection", "S2 + SAM 3 refine (r2), no rejection"])
+    r = rows["S2 + SAM 3 refine (r2)"]
+    assert (r["gIoU"], r["cIoU"], r["gIoU_part"], r["n_acc"]) == ("0.450", "0.500", "0.300", "0.800")
+    assert rows["S2 + SAM 3 refine (r1), no rejection"]["n_acc"] == "–"
+
+
 def test_tex_escaping():
     assert MT.esc("a_b & 5%") == r"a\_b \& 5\%"
     assert MT.tex_cell("ci", {"value": 0.5, "ci95": [float("nan"), 0.6]}) == "50.0"

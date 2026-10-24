@@ -1,0 +1,11 @@
+include: [v2.yaml, v4.yaml]
+inputs: {manifest: latest, v1: latest, v3: latest, v2: latest, s1: latest, s2: latest, s2_from_s1: latest}
+s2_eval: {checkpoint: best.pt}
+refine:
+  num_shards: 8
+  smoke_images: 4
+  variants: [r1, r2, r3, r4]
+  oracle_variants: [r1, r2]
+  batch: 32
+  mask_prompt: {scale: 20.0, bias: -10.0}   # binary node mask -> logits 20 m - 10 (SAM 2 mask-as-output convention)
+  negatives: {max_points: 2, min_distance: 2.0}

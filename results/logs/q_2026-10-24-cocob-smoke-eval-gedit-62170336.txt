@@ -1,0 +1,13 @@
+/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torchvision/models/_utils.py:207: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torchvision/models/_utils.py:222: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=AlexNet_Weights.IMAGENET1K_V1`. You can also use `weights=AlexNet_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+         editor    dataset          condition  overall      psnr  psnr_capped     ssim  ssim_masked    lpips  psnr_pooled  at_cap_rate  n_scored       sc       pq
+qwen_image_edit gedit_full         bbox_blend 5.947135 26.175210    26.175210 0.784179     0.796004 0.132810    18.634682          0.0         8 6.333333 7.333333
+qwen_image_edit gedit_full               free 7.778833 20.631781    20.631781 0.733684     0.742710 0.165390    17.413099          0.0         8 8.222222 7.444444
+qwen_image_edit gedit_full           gt_blend 4.523678 30.087769    30.087769 0.871513     0.943383 0.072641    24.432345          0.0         8 5.222222 6.555556
+qwen_image_edit gedit_full         ours_blend 4.007597 31.516639    30.587718 0.893524     0.885705 0.096030    20.688096          0.0         8 4.444444 7.111111
+qwen_image_edit gedit_full      ours_s1_blend 5.653134 27.380088    27.380088 0.870277     0.859542 0.102329    20.308497          0.0         8 6.000000 7.111111
+qwen_image_edit gedit_full qwen_box_sam_blend 6.670774 27.332114    27.332114 0.908831     0.892385 0.070393    21.603258          0.0         8 7.111111 7.111111
+qwen_image_edit gedit_full     sam3text_blend 5.781885 29.473425    29.368664 0.854662     0.878045 0.080852    20.211778          0.0         8 6.222222 7.111111
+/leonardo_work/AIFAC_S07_041/treeground/runs/smoke/cocoedit_eval_qwen_image_edit_gedit_full/20261024T201743914449Z_ced91376

@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/rerank.py", line 213, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/rerank.py", line 171, in main
+    qs, cand = extract(cfg, src, props, queries, sha1s, device)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/rerank.py", line 94, in extract
+    a, b = image_rows(src, props, probes, sha1, s, annos[int(keys[sha1].split(":")[1])], k,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/rerank.py", line 45, in image_rows
+    gt_ids = sorted({json.loads(g)[0] for g in s.gt})
+                                               ^^^^
+TypeError: 'method' object is not iterable

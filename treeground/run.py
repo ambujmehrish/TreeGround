@@ -16,7 +16,7 @@ REPO = Path(__file__).resolve().parents[1]
 PACKAGES = [
     "torch", "torchvision", "transformers", "accelerate", "huggingface_hub", "tokenizers", "pycocotools",
     "opencv-python-headless", "safetensors", "numpy", "scipy", "pyyaml", "pyarrow", "pandas", "pillow",
-    "qwen-vl-utils", "diffusers", "lpips",
+    "qwen-vl-utils", "diffusers", "lpips", "scikit-image",
 ]
 _ENV = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")
 
@@ -588,6 +588,51 @@ PROPOSED_DEVIATIONS = [
                            "e_select_<dataset>_<s2 stage>_merge). The pool contains SAM 3 text masks, so these rows "
                            "are a hybrid of our selector and the sam3text baseline and are not a pure tree-node "
                            "selector; no change to any D14 number",
+    },
+    {
+        "id": "D25",
+        "spec_section": "amendment (task 3 evaluation, extends D14/D18)",
+        "change": "region-grounded editing on the full GEdit-Bench-EN (606) and ImgEdit-Bench single-turn (737) sets of "
+                  "wyh6666/GEditBench_ImgEditBench_with_mask under the CoCoEdit (arXiv 2602.14068) masked-benchmark "
+                  "protocol, reproducing its released {geditbench,imgedit}/run_psnr_score.py exactly: RGB float32 / "
+                  "255 at source resolution (edited image brought to the source size by uint8 PIL bilinear if needed); "
+                  "mask > 128 = preserved region where the metric is computed, inverted for ImgEdit edit_type "
+                  "'background' (metric on the object), not for GEdit background_change; no dilation; PSNR = 10 "
+                  "log10(1 / MSE), MSE = sum(mask diff^2) / (3 sum(mask)), 100 dB if MSE = 0, NaN for an empty mask, "
+                  "NaN-dropped mean of per-sample dB; SSIM = skimage structural_similarity(data_range 1, win 11, "
+                  "gaussian, population covariance, mask=...) per channel averaged, where skimage ignores mask (full-"
+                  "image SSIM, reproduced as released). PSNR/SSIM on 446 GEdit samples (without style_change, "
+                  "tone_transfer, subject-add) and 425 ImgEdit samples (edit_type without style/extract/add). MLLM "
+                  "Overall = unweighted mean of per-category judge means over 9 GEdit categories (all but style_change, "
+                  "tone_transfer; 506 samples; VIEScore O = sqrt(SC PQ) as D18) and 7 ImgEdit categories (add, adjust, "
+                  "background, replace, remove, action, compose; 520 samples; ImgEdit Basic prompts.json verbatim, "
+                  "PKU-YuanGroup/ImgEdit@c14480ac, text then [source, edited], score = mean of the three 1-5 scores "
+                  "rounded to 2, category means rounded to 2), judge Qwen2.5-VL-72B-Instruct (D18 settings; ImgEdit "
+                  "images at the ImgEdit-Judge processor range 1016064-1354752 px instead of GPT-4o; unparseable "
+                  "outputs dropped and counted). Editing: referent 'the ' + edited_object; GT edit region = complement "
+                  "of the metric region (for ImgEdit background: the background); for background edits the referent "
+                  "names the background (edited_object) and the predicted mask of it is the composite region. "
+                  "Conditions (config-driven): Qwen-Image-Edit-2511 free, and its output composited (dilate 8 px, "
+                  "feather sigma 4) with bbox (filled bbox of the GT edit region, oracle), qwen_box_sam (Qwen3-VL-4B "
+                  "box -> SAM 3 tracker box prompt, D13 route, CoCoEdit-style automatic mask), sam3text (D13), ours "
+                  "(V2 selector top-1 as D14) and ours_s1 (D11), gt (oracle); FLUX.1-Fill-dev with the same masks "
+                  "(Fill on the dilated mask, pasted back). Samples outside the PSNR/SSIM set (add, style, tone, "
+                  "extract) get no localisation: every Qwen condition uses the free edit and every Fill condition "
+                  "the Fill on the GT edit region (whole image if empty); an empty predicted or GT mask returns the "
+                  "source. Outputs saved as lossless PNG at source resolution (editor output resized with PIL "
+                  "bilinear). Additions reported next to the protocol numbers: masked SSIM (same SSIM map averaged "
+                  "over the metric region inside the 5-px border crop), PSNR clipped at 50 dB, pooled-MSE PSNR, share "
+                  "of samples at the 100 dB cap, LPIPS-alex (lpips 0.1, full source resolution) of the edited image "
+                  "with the GT edit region replaced by source pixels vs the source, per-category tables, image-level "
+                  "bootstrap 95% CIs, mask IoU of each source vs the GT edit region; CoCoEdit's published Tables 1, 2, "
+                  "5, 7 rows embedded as constants in the combined table",
+        "reason": "places our region-grounded edits in CoCoEdit's GEdit/ImgEdit tables with their exact numbers; the "
+                  "released SSIM is not masked and the per-sample PSNR mean is dominated by the 100 dB cap of "
+                  "unchanged regions, so corrected variants are reported beside it",
+        "expected_impact": "new cocoedit_* runs and results/cocoedit tables; D14/D18 caches and numbers unchanged "
+                           "(separate datasets gedit_full/imgedit_full, separate scripts and caches). Differences "
+                           "from CoCoEdit: Qwen-Image-Edit-2511 vs their 2509, open 72B judge for ImgEdit vs GPT-based "
+                           "scoring if they used it, unknown judge image sizes",
     },
 ]
 

@@ -1,0 +1,30 @@
+include: e_judge.yaml
+inputs: {manifest: latest, v2: latest, s1: latest, cocoedit_merge: latest, cocoedit_judge: latest}
+cocoedit:   # deviation D25: CoCoEdit masked-benchmark protocol on the full GEdit-Bench-EN / ImgEdit-Bench sets
+  seed: 0
+  smoke_per_category: 1
+  num_shards: {gedit_full: 8, imgedit_full: 8}
+  judge_shards: {gedit_full: 4, imgedit_full: 4}
+  mask: {dilate_px: 8, feather_px: 4.0}
+  # mask sources besides the built-in gt (GT edit region) and bbox (filled bbox of the GT edit region); a new source
+  # is one entry here: kind selector | sam3_text | qwen_box_sam, or kind script with {script, attr} naming a class
+  # in scripts/<script>.py with identity(cfg, spec), requires(spec), __init__(cfg, spec), __call__(image, referent)
+  sources:
+    ours: {kind: selector, stage: v2}
+    ours_s1: {kind: selector, stage: s1}
+    sam3text: {kind: sam3_text}
+    qwen_box_sam: {kind: qwen_box_sam}
+  editors:
+    qwen_image_edit:
+      conditions: [free, bbox_blend, qwen_box_sam_blend, sam3text_blend, ours_blend, ours_s1_blend, gt_blend]
+    flux_fill:
+      conditions: [bbox_fill, qwen_box_sam_fill, sam3text_fill, ours_fill, ours_s1_fill, gt_fill]
+      free_type_region: gt   # add/style/tone/extract samples: Fill on the GT edit region (whole image if empty)
+  judge:
+    model: judge_qwen25vl_72b
+    gedit: {target_area: 262144}                              # VIEScore inputs as GEdit-Bench (e_judge settings)
+    imgedit: {min_pixels: 1016064, max_pixels: 1354752, max_new_tokens: 512}   # ImgEdit-Judge processor range
+    imgedit_prompts_source: "PKU-YuanGroup/ImgEdit@c14480ac5e7b622e08cd8c46f96624a48eb9ab46:Benchmark/Basic/prompts.json"
+  eval:
+    lpips_net: alex
+    bootstrap: {n: 1000, seed: 0}

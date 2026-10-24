@@ -27,7 +27,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest==9.1.1"]
 baselines = ["qwen-vl-utils==0.0.14"]  # Sa2VA remote code imports it
-edit = ["diffusers==0.41.0", "lpips==0.1.4"]  # D14 editing
+edit = ["diffusers==0.41.0", "lpips==0.1.4", "scikit-image==0.26.0"]  # D14 editing, D25 SSIM
 
 [tool.setuptools.packages.find]
 include = ["treeground*"]

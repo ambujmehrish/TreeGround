@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_judge.py", line 392, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_judge.py", line 388, in main
+    run_shard(cfg, args.editor, args.dataset, key, args.shard, num_shards, args.smoke)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_judge.py", line 278, in run_shard
+    edir, e_hash, items, merge_run = edit_cache(cfg, editor, dataset, smoke, E)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_judge.py", line 247, in edit_cache
+    merge_run = resolve_run(cfg, f"e_{editor}_{dataset}{E.stage_tag(cfg)}_merge",
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/run.py", line 166, in resolve_run
+    raise ProtocolError(f"no completed {stage} run under {root}")
+treeground.run.ProtocolError: no completed e_qwen_image_edit_partedit_merge run under /leonardo_work/AIFAC_S07_041/treeground/runs/smoke/e_qwen_image_edit_partedit_merge

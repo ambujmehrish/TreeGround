@@ -1,8 +1,8 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 55,
-   "RUNNING": 19
+   "PENDING": 59,
+   "RUNNING": 14
   },
   "ended_24h": [
    {
@@ -131,6 +131,14 @@
     "exit": "0:0",
     "jobid": "61978274",
     "name": "sw_store-base_reader-base_B",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "21:38:31",
+    "end": "2026-10-24T20:05:17",
+    "exit": "0:0",
+    "jobid": "61978278",
+    "name": "tr_Ours_lora_s0_M1",
     "state": "COMPLETED"
    },
    {
@@ -19662,6 +19670,38 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "02:44:35",
+    "end": "2026-10-24T20:23:22",
+    "exit": "0:0",
+    "jobid": "62143258",
+    "name": "fact-eval-base",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "02:40:50",
+    "end": "2026-10-24T20:19:37",
+    "exit": "0:0",
+    "jobid": "62143274",
+    "name": "fact-eval-base",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "02:45:30",
+    "end": "2026-10-24T20:24:17",
+    "exit": "0:0",
+    "jobid": "62143278",
+    "name": "fact-eval-base",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "02:42:29",
+    "end": "2026-10-24T20:21:16",
+    "exit": "0:0",
+    "jobid": "62143283",
+    "name": "fact-eval-base",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "01:30:18",
     "end": "2026-10-24T19:09:05",
     "exit": "0:0",
@@ -21059,6 +21099,46 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "62160763",
+    "name": "q_2026-10-24-d23-select-smoke",
+    "nodes": "1",
+    "reason_or_nodelist": "(None)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62160764",
+    "name": "q_2026-10-24-judge2-smoke",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62160762",
+    "name": "q_2026-10-24-coco-smoke-q-imgedit",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "4:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62160750",
+    "name": "q_2026-10-24-coco-smoke-q-gedit",
+    "nodes": "1",
+    "reason_or_nodelist": "(None)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "4:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62146750",
     "name": "q_2026-10-24-s2long3-eval",
     "nodes": "1",
@@ -21558,17 +21638,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "21:36:16",
-    "jobid": "61978278",
-    "name": "tr_Ours_lora_s0_M1",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn1301",
-    "start": "2026-10-23T22:26:46",
-    "state": "RUNNING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "21:35:55",
+    "elapsed": "21:58:31",
     "jobid": "61978912",
     "name": "fact-c8_rd05_distill1",
     "nodes": "2",
@@ -21578,7 +21648,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "21:27:05",
+    "elapsed": "21:49:41",
     "jobid": "61816570",
     "name": "fact-ssl8rd05",
     "nodes": "2",
@@ -21588,7 +21658,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "17:13:33",
+    "elapsed": "17:36:09",
     "jobid": "61816481",
     "name": "fact-nc8rd05",
     "nodes": "2",
@@ -21598,7 +21668,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "8:09:36",
+    "elapsed": "8:32:12",
     "jobid": "61937350",
     "name": "fact-disjref",
     "nodes": "2",
@@ -21608,7 +21678,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "4:03:08",
+    "elapsed": "4:25:44",
     "jobid": "62131513",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -21618,7 +21688,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "4:03:08",
+    "elapsed": "4:25:44",
     "jobid": "62131519",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -21628,7 +21698,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "4:03:08",
+    "elapsed": "4:25:44",
     "jobid": "62131524",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -21638,7 +21708,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "4:01:04",
+    "elapsed": "4:23:40",
     "jobid": "62132118",
     "name": "rd_Ours_s0_r1",
     "nodes": "1",
@@ -21648,7 +21718,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "4:01:10",
+    "elapsed": "4:23:46",
     "jobid": "62132113",
     "name": "rd_GRPO_s0_r1",
     "nodes": "1",
@@ -21658,7 +21728,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "4:01:10",
+    "elapsed": "4:23:46",
     "jobid": "62132114",
     "name": "rd_MoT_s0_r1",
     "nodes": "1",
@@ -21668,7 +21738,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "2:21:12",
+    "elapsed": "2:43:48",
     "jobid": "62143308",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -21678,7 +21748,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "2:22:23",
+    "elapsed": "2:44:59",
     "jobid": "62143301",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -21688,47 +21758,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "2:24:15",
-    "jobid": "62143258",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3077",
-    "start": "2026-10-24T17:38:47",
-    "state": "RUNNING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "2:24:15",
-    "jobid": "62143274",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3077",
-    "start": "2026-10-24T17:38:47",
-    "state": "RUNNING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "2:24:15",
-    "jobid": "62143278",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3077",
-    "start": "2026-10-24T17:38:47",
-    "state": "RUNNING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "2:24:15",
-    "jobid": "62143283",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3211",
-    "start": "2026-10-24T17:38:47",
-    "state": "RUNNING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "1:52:35",
+    "elapsed": "2:15:11",
     "jobid": "62146411",
     "name": "fact-wavedec",
     "nodes": "2",
@@ -21738,7 +21768,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "1:06:08",
+    "elapsed": "1:28:44",
     "jobid": "62146109",
     "name": "q_2026-10-24-s2long3-train",
     "nodes": "1",
@@ -21750,6 +21780,69 @@
   ]
  },
  "queue": [
+  "2026-10-24-coco-edit-f-gedit",
+  "2026-10-24-coco-edit-f-imgedit",
+  "2026-10-24-coco-edit-q-gedit",
+  "2026-10-24-coco-edit-q-imgedit",
+  "2026-10-24-coco-eval-f-gedit",
+  "2026-10-24-coco-eval-f-imgedit",
+  "2026-10-24-coco-eval-q-gedit",
+  "2026-10-24-coco-eval-q-imgedit",
+  "2026-10-24-coco-judge-f-gedit",
+  "2026-10-24-coco-judge-f-imgedit",
+  "2026-10-24-coco-judge-merge-f-gedit",
+  "2026-10-24-coco-judge-merge-f-imgedit",
+  "2026-10-24-coco-judge-merge-q-gedit",
+  "2026-10-24-coco-judge-merge-q-imgedit",
+  "2026-10-24-coco-judge-q-gedit",
+  "2026-10-24-coco-judge-q-imgedit",
+  "2026-10-24-coco-merge-f-gedit",
+  "2026-10-24-coco-merge-f-imgedit",
+  "2026-10-24-coco-merge-q-gedit",
+  "2026-10-24-coco-merge-q-imgedit",
+  "2026-10-24-coco-select-gedit",
+  "2026-10-24-coco-select-imgedit",
+  "2026-10-24-coco-smoke-eval-gedit",
+  "2026-10-24-coco-smoke-eval-imgedit",
+  "2026-10-24-coco-smoke-f-gedit",
+  "2026-10-24-coco-smoke-f-imgedit",
+  "2026-10-24-coco-smoke-judge-gedit",
+  "2026-10-24-coco-smoke-judge-imgedit",
+  "2026-10-24-coco-smoke-q-gedit",
+  "2026-10-24-coco-smoke-q-imgedit",
+  "2026-10-24-d23-edit-s2froms1-fluxfill-gedit",
+  "2026-10-24-d23-edit-s2froms1-fluxfill-gedit-merge",
+  "2026-10-24-d23-edit-s2froms1-fluxfill-imgedit",
+  "2026-10-24-d23-edit-s2froms1-fluxfill-imgedit-merge",
+  "2026-10-24-d23-edit-s2froms1-fluxfill-paco_edit",
+  "2026-10-24-d23-edit-s2froms1-fluxfill-paco_edit-merge",
+  "2026-10-24-d23-edit-s2froms1-fluxfill-partedit",
+  "2026-10-24-d23-edit-s2froms1-fluxfill-partedit-merge",
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-gedit",
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-gedit-merge",
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-imgedit",
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-imgedit-merge",
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-paco_edit",
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-paco_edit-merge",
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-partedit",
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-partedit-merge",
+  "2026-10-24-d23-select-s2-gedit",
+  "2026-10-24-d23-select-s2-gedit-merge",
+  "2026-10-24-d23-select-s2-imgedit",
+  "2026-10-24-d23-select-s2-imgedit-merge",
+  "2026-10-24-d23-select-s2-paco_edit",
+  "2026-10-24-d23-select-s2-paco_edit-merge",
+  "2026-10-24-d23-select-s2-partedit",
+  "2026-10-24-d23-select-s2-partedit-merge",
+  "2026-10-24-d23-select-s2froms1-gedit",
+  "2026-10-24-d23-select-s2froms1-gedit-merge",
+  "2026-10-24-d23-select-s2froms1-imgedit",
+  "2026-10-24-d23-select-s2froms1-imgedit-merge",
+  "2026-10-24-d23-select-s2froms1-paco_edit",
+  "2026-10-24-d23-select-s2froms1-paco_edit-merge",
+  "2026-10-24-d23-select-s2froms1-partedit",
+  "2026-10-24-d23-select-s2froms1-partedit-merge",
+  "2026-10-24-d23-select-smoke",
   "2026-10-24-judge-f-gedit",
   "2026-10-24-judge-f-gedit-merge",
   "2026-10-24-judge-f-imgedit",
@@ -21767,6 +21860,23 @@
   "2026-10-24-judge-q-partedit",
   "2026-10-24-judge-q-partedit-merge",
   "2026-10-24-judge-smoke",
+  "2026-10-24-judge2-f-gedit",
+  "2026-10-24-judge2-f-gedit-merge",
+  "2026-10-24-judge2-f-imgedit",
+  "2026-10-24-judge2-f-imgedit-merge",
+  "2026-10-24-judge2-f-pacoedit",
+  "2026-10-24-judge2-f-pacoedit-merge",
+  "2026-10-24-judge2-f-partedit",
+  "2026-10-24-judge2-f-partedit-merge",
+  "2026-10-24-judge2-q-gedit",
+  "2026-10-24-judge2-q-gedit-merge",
+  "2026-10-24-judge2-q-imgedit",
+  "2026-10-24-judge2-q-imgedit-merge",
+  "2026-10-24-judge2-q-pacoedit",
+  "2026-10-24-judge2-q-pacoedit-merge",
+  "2026-10-24-judge2-q-partedit",
+  "2026-10-24-judge2-q-partedit-merge",
+  "2026-10-24-judge2-smoke",
   "2026-10-24-rerank-s1",
   "2026-10-24-rerank-s2",
   "2026-10-24-rerank-s2_from_s1",
@@ -21812,6 +21922,953 @@
   "2026-10-24-xgiou-v2-pascal-merge"
  ],
  "requests": {
+  "2026-10-24-coco-edit-f-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-select-gedit"
+   ]
+  },
+  "2026-10-24-coco-edit-f-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-select-imgedit"
+   ]
+  },
+  "2026-10-24-coco-edit-q-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-select-gedit"
+   ]
+  },
+  "2026-10-24-coco-edit-q-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-select-imgedit"
+   ]
+  },
+  "2026-10-24-coco-eval-f-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-judge-merge-f-gedit"
+   ]
+  },
+  "2026-10-24-coco-eval-f-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-judge-merge-f-imgedit"
+   ]
+  },
+  "2026-10-24-coco-eval-q-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-judge-merge-q-gedit"
+   ]
+  },
+  "2026-10-24-coco-eval-q-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-judge-merge-q-imgedit"
+   ]
+  },
+  "2026-10-24-coco-judge-f-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-merge-f-gedit"
+   ]
+  },
+  "2026-10-24-coco-judge-f-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-merge-f-imgedit"
+   ]
+  },
+  "2026-10-24-coco-judge-merge-f-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-judge-f-gedit"
+   ]
+  },
+  "2026-10-24-coco-judge-merge-f-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-judge-f-imgedit"
+   ]
+  },
+  "2026-10-24-coco-judge-merge-q-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-judge-q-gedit"
+   ]
+  },
+  "2026-10-24-coco-judge-merge-q-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-judge-q-imgedit"
+   ]
+  },
+  "2026-10-24-coco-judge-q-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-merge-q-gedit"
+   ]
+  },
+  "2026-10-24-coco-judge-q-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-merge-q-imgedit"
+   ]
+  },
+  "2026-10-24-coco-merge-f-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-edit-f-gedit"
+   ]
+  },
+  "2026-10-24-coco-merge-f-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-edit-f-imgedit"
+   ]
+  },
+  "2026-10-24-coco-merge-q-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-edit-q-gedit"
+   ]
+  },
+  "2026-10-24-coco-merge-q-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-edit-q-imgedit"
+   ]
+  },
+  "2026-10-24-coco-select-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-smoke-f-gedit",
+    "2026-10-24-coco-smoke-eval-gedit"
+   ]
+  },
+  "2026-10-24-coco-select-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-smoke-f-imgedit",
+    "2026-10-24-coco-smoke-eval-imgedit"
+   ]
+  },
+  "2026-10-24-coco-smoke-eval-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-smoke-judge-gedit"
+   ]
+  },
+  "2026-10-24-coco-smoke-eval-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-smoke-judge-imgedit"
+   ]
+  },
+  "2026-10-24-coco-smoke-f-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-smoke-q-gedit"
+   ]
+  },
+  "2026-10-24-coco-smoke-f-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-smoke-q-imgedit"
+   ]
+  },
+  "2026-10-24-coco-smoke-judge-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-smoke-q-gedit"
+   ]
+  },
+  "2026-10-24-coco-smoke-judge-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-coco-smoke-q-imgedit"
+   ]
+  },
+  "2026-10-24-coco-smoke-q-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": "62160750",
+   "post_error": null,
+   "post_output_tail": null,
+   "states": [
+    "PENDING"
+   ],
+   "submit_error": null,
+   "submitted": 1792866335.2106268,
+   "waiting_for": null
+  },
+  "2026-10-24-coco-smoke-q-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": "62160762",
+   "post_error": null,
+   "post_output_tail": null,
+   "states": [
+    "PENDING"
+   ],
+   "submit_error": null,
+   "submitted": 1792866335.7669458,
+   "waiting_for": null
+  },
+  "2026-10-24-d23-edit-s2froms1-fluxfill-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2froms1-gedit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-fluxfill-gedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-edit-s2froms1-fluxfill-gedit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-fluxfill-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2froms1-imgedit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-fluxfill-imgedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-edit-s2froms1-fluxfill-imgedit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-fluxfill-paco_edit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2froms1-paco_edit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-fluxfill-paco_edit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-edit-s2froms1-fluxfill-paco_edit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-fluxfill-partedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2froms1-partedit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-fluxfill-partedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-edit-s2froms1-fluxfill-partedit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2froms1-gedit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-gedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-edit-s2froms1-qwenimageedit-gedit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2froms1-imgedit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-imgedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-edit-s2froms1-qwenimageedit-imgedit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-paco_edit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2froms1-paco_edit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-paco_edit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-edit-s2froms1-qwenimageedit-paco_edit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-partedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2froms1-partedit"
+   ]
+  },
+  "2026-10-24-d23-edit-s2froms1-qwenimageedit-partedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-edit-s2froms1-qwenimageedit-partedit"
+   ]
+  },
+  "2026-10-24-d23-select-s2-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-smoke"
+   ]
+  },
+  "2026-10-24-d23-select-s2-gedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2-gedit"
+   ]
+  },
+  "2026-10-24-d23-select-s2-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-smoke"
+   ]
+  },
+  "2026-10-24-d23-select-s2-imgedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2-imgedit"
+   ]
+  },
+  "2026-10-24-d23-select-s2-paco_edit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-smoke"
+   ]
+  },
+  "2026-10-24-d23-select-s2-paco_edit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2-paco_edit"
+   ]
+  },
+  "2026-10-24-d23-select-s2-partedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-smoke"
+   ]
+  },
+  "2026-10-24-d23-select-s2-partedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2-partedit"
+   ]
+  },
+  "2026-10-24-d23-select-s2froms1-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-smoke"
+   ]
+  },
+  "2026-10-24-d23-select-s2froms1-gedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2froms1-gedit"
+   ]
+  },
+  "2026-10-24-d23-select-s2froms1-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-smoke"
+   ]
+  },
+  "2026-10-24-d23-select-s2froms1-imgedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2froms1-imgedit"
+   ]
+  },
+  "2026-10-24-d23-select-s2froms1-paco_edit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-smoke"
+   ]
+  },
+  "2026-10-24-d23-select-s2froms1-paco_edit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2froms1-paco_edit"
+   ]
+  },
+  "2026-10-24-d23-select-s2froms1-partedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-smoke"
+   ]
+  },
+  "2026-10-24-d23-select-s2froms1-partedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-d23-select-s2froms1-partedit"
+   ]
+  },
+  "2026-10-24-d23-select-smoke": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": "62160763",
+   "post_error": null,
+   "post_output_tail": null,
+   "states": [
+    "PENDING"
+   ],
+   "submit_error": null,
+   "submitted": 1792866336.287013,
+   "waiting_for": null
+  },
   "2026-10-24-judge-f-gedit": {
    "collected": 1792863914.1036294,
    "dependency_failed": null,
@@ -22065,6 +23122,261 @@
    ],
    "submit_error": null,
    "submitted": 1792863297.2225075,
+   "waiting_for": null
+  },
+  "2026-10-24-judge2-f-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-smoke"
+   ]
+  },
+  "2026-10-24-judge2-f-gedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-f-gedit"
+   ]
+  },
+  "2026-10-24-judge2-f-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-smoke"
+   ]
+  },
+  "2026-10-24-judge2-f-imgedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-f-imgedit"
+   ]
+  },
+  "2026-10-24-judge2-f-pacoedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-smoke"
+   ]
+  },
+  "2026-10-24-judge2-f-pacoedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-f-pacoedit"
+   ]
+  },
+  "2026-10-24-judge2-f-partedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-smoke"
+   ]
+  },
+  "2026-10-24-judge2-f-partedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-f-partedit"
+   ]
+  },
+  "2026-10-24-judge2-q-gedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-smoke"
+   ]
+  },
+  "2026-10-24-judge2-q-gedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-q-gedit"
+   ]
+  },
+  "2026-10-24-judge2-q-imgedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-smoke"
+   ]
+  },
+  "2026-10-24-judge2-q-imgedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-q-imgedit"
+   ]
+  },
+  "2026-10-24-judge2-q-pacoedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-smoke"
+   ]
+  },
+  "2026-10-24-judge2-q-pacoedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-q-pacoedit"
+   ]
+  },
+  "2026-10-24-judge2-q-partedit": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-smoke"
+   ]
+  },
+  "2026-10-24-judge2-q-partedit-merge": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": null,
+   "post_error": null,
+   "post_output_tail": null,
+   "states": null,
+   "submit_error": null,
+   "submitted": null,
+   "waiting_for": [
+    "2026-10-24-judge2-q-partedit"
+   ]
+  },
+  "2026-10-24-judge2-smoke": {
+   "collected": null,
+   "dependency_failed": null,
+   "finished": null,
+   "invalid": null,
+   "jobid": "62160764",
+   "post_error": null,
+   "post_output_tail": null,
+   "states": [
+    "PENDING"
+   ],
+   "submit_error": null,
+   "submitted": 1792866336.7180586,
    "waiting_for": null
   },
   "2026-10-24-rerank-s1": {
@@ -22713,5 +24025,5 @@
    "waiting_for": null
   }
  },
- "updated": 1792864982.3599527
+ "updated": 1792866338.3426502
 }

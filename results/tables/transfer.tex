@@ -2,14 +2,14 @@
 \toprule
 Dataset & Selector & Search & Part recall & Chain feasible & Chains & Common & Flat & True & Random & Box & Indep. & Chain succ. (all) & Part gIoU & Part gIoU (flat) & Object gIoU \\
 \midrule
-Pascal-Part & V2 & spec & 49.5 & 57.5 & 27518 & 4009 & 7.4 \scriptsize{[6.6, 8.3]} & 7.1 \scriptsize{[6.3, 7.9]} & 3.4 \scriptsize{[3.0, 3.9]} & -- & -- & 2.7 \scriptsize{[2.5, 2.9]} & -- & -- & -- \\
+Pascal-Part & V2 & spec & 49.5 & 57.5 & 27518 & 4009 & 7.4 \scriptsize{[6.6, 8.3]} & 7.1 \scriptsize{[6.3, 7.9]} & 3.4 \scriptsize{[3.0, 3.9]} & -- & -- & 2.7 \scriptsize{[2.5, 2.9]} & 4.4 \scriptsize{[4.2, 4.6]} & 4.9 \scriptsize{[4.7, 5.1]} & 22.5 \scriptsize{[21.4, 23.7]} \\
 Pascal-Part & V2 & D5 inclusive & 49.5 & 57.5 & 27518 & 6109 & 7.5 \scriptsize{[6.8, 8.2]} & 8.0 \scriptsize{[7.3, 8.7]} & 7.8 \scriptsize{[7.2, 8.4]} & -- & -- & 2.8 \scriptsize{[2.6, 3.0]} & -- & -- & -- \\
 Pascal-Part & V2 & D6 box tree & 49.5 & 57.5 & 27518 & 11312 & 5.9 \scriptsize{[5.4, 6.3]} & 5.8 \scriptsize{[5.4, 6.3]} & -- & 5.3 \scriptsize{[4.8, 5.7]} & -- & 2.7 \scriptsize{[2.5, 2.9]} & -- & -- & -- \\
-Pascal-Part & V2 & D12 no rejection & 49.5 & 57.5 & 27518 & 4009 & 9.9 \scriptsize{[8.9, 10.8]} & 10.2 \scriptsize{[9.2, 11.1]} & 5.6 \scriptsize{[5.1, 6.2]} & -- & -- & 4.2 \scriptsize{[4.0, 4.5]} & -- & -- & -- \\
-Pascal-Part & S1 & spec & 49.5 & 57.5 & 27518 & 4009 & 3.9 \scriptsize{[3.3, 4.6]} & 3.8 \scriptsize{[3.3, 4.5]} & 1.2 \scriptsize{[1.0, 1.5]} & -- & -- & 2.2 \scriptsize{[2.0, 2.4]} & -- & -- & -- \\
+Pascal-Part & V2 & D12 no rejection & 49.5 & 57.5 & 27518 & 4009 & 9.9 \scriptsize{[8.9, 10.8]} & 10.2 \scriptsize{[9.2, 11.1]} & 5.6 \scriptsize{[5.1, 6.2]} & -- & -- & 4.2 \scriptsize{[4.0, 4.5]} & 5.5 \scriptsize{[5.3, 5.8]} & 6.3 \scriptsize{[6.1, 6.6]} & 40.0 \scriptsize{[38.8, 41.2]} \\
+Pascal-Part & S1 & spec & 49.5 & 57.5 & 27518 & 4009 & 3.9 \scriptsize{[3.3, 4.6]} & 3.8 \scriptsize{[3.3, 4.5]} & 1.2 \scriptsize{[1.0, 1.5]} & -- & -- & 2.2 \scriptsize{[2.0, 2.4]} & 2.6 \scriptsize{[2.4, 2.8]} & 2.9 \scriptsize{[2.8, 3.1]} & 42.8 \scriptsize{[41.6, 44.1]} \\
 Pascal-Part & S1 & D5 inclusive & 49.5 & 57.5 & 27518 & 6109 & 8.3 \scriptsize{[7.5, 9.0]} & 8.3 \scriptsize{[7.6, 9.0]} & 6.3 \scriptsize{[5.6, 6.9]} & -- & -- & 2.5 \scriptsize{[2.3, 2.7]} & -- & -- & -- \\
 Pascal-Part & S1 & D6 box tree & 49.5 & 57.5 & 27518 & 11312 & 5.3 \scriptsize{[4.9, 5.8]} & 5.0 \scriptsize{[4.6, 5.4]} & -- & 4.6 \scriptsize{[4.2, 5.1]} & -- & 2.2 \scriptsize{[2.0, 2.4]} & -- & -- & -- \\
-Pascal-Part & S1 & D12 no rejection & 49.5 & 57.5 & 27518 & 4009 & 58.1 \scriptsize{[56.4, 59.7]} & 57.2 \scriptsize{[55.6, 59.0]} & 23.3 \scriptsize{[22.2, 24.4]} & -- & -- & 25.8 \scriptsize{[25.3, 26.4]} & -- & -- & -- \\
+Pascal-Part & S1 & D12 no rejection & 49.5 & 57.5 & 27518 & 4009 & 58.1 \scriptsize{[56.4, 59.7]} & 57.2 \scriptsize{[55.6, 59.0]} & 23.3 \scriptsize{[22.2, 24.4]} & -- & -- & 25.8 \scriptsize{[25.3, 26.4]} & 26.8 \scriptsize{[26.4, 27.2]} & 28.1 \scriptsize{[27.7, 28.5]} & 78.2 \scriptsize{[77.5, 78.9]} \\
 Pascal-Part & S2 & spec & 49.5 & 57.5 & 27518 & 3999 & 25.8 \scriptsize{[24.1, 27.5]} & 25.8 \scriptsize{[24.2, 27.6]} & 10.5 \scriptsize{[9.7, 11.4]} & -- & -- & 10.5 \scriptsize{[10.0, 11.0]} & -- & -- & -- \\
 Pascal-Part & S2 & D5 inclusive & 49.5 & 57.5 & 27518 & 6116 & 29.0 \scriptsize{[27.7, 30.4]} & 29.3 \scriptsize{[28.0, 30.7]} & 22.3 \scriptsize{[21.1, 23.4]} & -- & -- & 10.8 \scriptsize{[10.3, 11.3]} & -- & -- & -- \\
 Pascal-Part & S2 & D6 box tree & 49.5 & 57.5 & 27518 & 11318 & 22.8 \scriptsize{[21.8, 23.8]} & 22.8 \scriptsize{[21.8, 23.8]} & -- & 20.1 \scriptsize{[19.1, 21.0]} & -- & 10.5 \scriptsize{[10.0, 11.0]} & -- & -- & -- \\

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_select.py", line 325, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_select.py", line 317, in main
+    merge(cfg, args.dataset, num_shards, args.smoke)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_select.py", line 278, in merge
+    raise ProtocolError(f"{len(missing)} select shards of {dataset} missing under {d}, e.g. {missing[:5]}")
+treeground.run.ProtocolError: 4 select shards of partedit missing under /leonardo_scratch/large/userexternal/amehrish/treeground/cache/full/edit/select_s2/partedit/7c66ee5290df17d7, e.g. [0, 1, 2, 3]

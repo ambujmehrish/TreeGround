@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit_s2.py", line 218, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit_s2.py", line 210, in main
+    merge(cfg, args.editor, args.dataset, num_shards, args.smoke)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit_s2.py", line 169, in merge
+    sel2 = shards(ES.cache_dir(cfg, dataset, sel_ident, smoke), num_shards, "D23 selection")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit_s2.py", line 158, in shards
+    raise ProtocolError(f"{len(missing)} {what} shards missing under {d}, e.g. {missing[:5]}")
+treeground.run.ProtocolError: 8 D23 selection shards missing under /leonardo_scratch/large/userexternal/amehrish/treeground/cache/full/edit/select_s2/gedit/019e6f6914fcb2ff, e.g. [0, 1, 2, 3, 4]

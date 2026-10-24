@@ -7,10 +7,34 @@ PartEdit & SAM 3 text & 73 & 79.5 \scriptsize{[76.0, 82.8]} & 95.9 \scriptsize{[
 PartEdit & best capped node & 73 & 61.1 \scriptsize{[54.3, 67.9]} & 65.8 \scriptsize{[54.8, 76.7]} & -- \\
 PartEdit & S1 top-1 (D14) & 73 & 24.7 \scriptsize{[18.2, 31.2]} & 19.2 \scriptsize{[11.0, 27.4]} & -- \\
 \midrule
+PartEdit & S2 flat (D23) & 73 & 37.3 \scriptsize{[29.4, 44.6]} & 42.5 \scriptsize{[31.5, 52.1]} & 27.4 \\
+PartEdit & S2 tree (D23) & 73 & 32.5 \scriptsize{[24.2, 40.4]} & 38.4 \scriptsize{[27.4, 49.3]} & 24.7 \\
+PartEdit & S2 nodes only & 73 & 28.1 \scriptsize{[20.4, 35.4]} & 28.8 \scriptsize{[19.2, 38.4]} & -- \\
+PartEdit & S2 nodes + D20 rule & 73 & 29.6 \scriptsize{[21.5, 37.6]} & 31.5 \scriptsize{[20.5, 42.5]} & -- \\
+PartEdit & SAM 3 text & 73 & 79.5 \scriptsize{[76.0, 82.8]} & 95.9 \scriptsize{[90.4, 100.0]} & -- \\
+PartEdit & best capped node & 73 & 61.0 \scriptsize{[54.3, 67.8]} & 65.8 \scriptsize{[54.8, 76.7]} & -- \\
+PartEdit & best of pool (nodes + SAM 3 inst.) & 73 & 83.5 \scriptsize{[80.6, 86.2]} & 98.6 \scriptsize{[95.9, 100.0]} & -- \\
+\midrule
 GEdit & V2 top-1 (D14) & 192 & 19.9 \scriptsize{[15.1, 25.0]} & 19.8 \scriptsize{[14.6, 25.5]} & -- \\
 GEdit & SAM 3 text & 192 & 69.3 \scriptsize{[64.4, 74.3]} & 74.0 \scriptsize{[67.7, 79.7]} & -- \\
 GEdit & best capped node & 192 & 78.8 \scriptsize{[75.0, 82.6]} & 82.3 \scriptsize{[77.1, 87.5]} & -- \\
 GEdit & S1 top-1 (D14) & 192 & 44.0 \scriptsize{[38.3, 50.0]} & 45.3 \scriptsize{[38.5, 52.6]} & -- \\
+\midrule
+GEdit & S2 flat (D23) & 192 & 44.4 \scriptsize{[38.7, 50.5]} & 46.9 \scriptsize{[39.6, 54.2]} & 17.2 \\
+GEdit & S2 tree (D23) & 192 & 44.4 \scriptsize{[38.7, 50.5]} & 46.9 \scriptsize{[39.6, 54.2]} & 17.2 \\
+GEdit & S2 nodes only & 192 & 41.9 \scriptsize{[36.3, 48.0]} & 44.3 \scriptsize{[37.0, 51.6]} & -- \\
+GEdit & S2 nodes + D20 rule & 192 & 43.7 \scriptsize{[37.9, 50.0]} & 46.9 \scriptsize{[40.1, 54.2]} & -- \\
+GEdit & SAM 3 text & 192 & 69.3 \scriptsize{[64.4, 74.3]} & 74.0 \scriptsize{[67.7, 79.7]} & -- \\
+GEdit & best capped node & 192 & 79.1 \scriptsize{[75.4, 83.1]} & 82.8 \scriptsize{[77.6, 88.0]} & -- \\
+GEdit & best of pool (nodes + SAM 3 inst.) & 192 & 85.9 \scriptsize{[83.2, 88.5]} & 90.6 \scriptsize{[86.5, 94.3]} & -- \\
+\midrule
+GEdit & S2 (from S1) flat (D23) & 192 & 49.7 \scriptsize{[43.7, 55.9]} & 54.2 \scriptsize{[46.9, 61.5]} & 20.3 \\
+GEdit & S2 (from S1) tree (D23) & 192 & 49.7 \scriptsize{[43.7, 55.9]} & 54.2 \scriptsize{[46.9, 61.5]} & 20.3 \\
+GEdit & S2 (from S1) nodes only & 192 & 45.0 \scriptsize{[38.8, 51.4]} & 48.4 \scriptsize{[41.1, 55.7]} & -- \\
+GEdit & S2 (from S1) nodes + D20 rule & 192 & 45.1 \scriptsize{[38.7, 51.4]} & 47.9 \scriptsize{[40.6, 55.2]} & -- \\
+GEdit & SAM 3 text & 192 & 69.3 \scriptsize{[64.4, 74.3]} & 74.0 \scriptsize{[67.7, 79.7]} & -- \\
+GEdit & best capped node & 192 & 79.1 \scriptsize{[75.4, 83.1]} & 82.8 \scriptsize{[77.6, 88.0]} & -- \\
+GEdit & best of pool (nodes + SAM 3 inst.) & 192 & 85.9 \scriptsize{[83.2, 88.5]} & 90.6 \scriptsize{[86.5, 94.3]} & -- \\
 \midrule
 ImgEdit & V2 top-1 (D14) & 269 & 13.3 \scriptsize{[8.0, 19.0]} & 11.9 \scriptsize{[6.3, 18.0]} & -- \\
 ImgEdit & SAM 3 text & 269 & 78.6 \scriptsize{[73.5, 83.2]} & 81.0 \scriptsize{[74.9, 86.5]} & -- \\
@@ -21,5 +45,13 @@ PACO edit (dev) & V2 top-1 (D14) & 500 & 27.5 \scriptsize{[25.0, 30.2]} & 28.0 \
 PACO edit (dev) & SAM 3 text & 500 & 54.3 \scriptsize{[51.3, 57.3]} & 58.6 \scriptsize{[54.2, 62.8]} & -- \\
 PACO edit (dev) & best capped node & 500 & 61.3 \scriptsize{[58.7, 63.7]} & 64.4 \scriptsize{[60.2, 68.4]} & -- \\
 PACO edit (dev) & S1 top-1 (D14) & 500 & 38.3 \scriptsize{[35.4, 41.3]} & 39.8 \scriptsize{[35.6, 44.2]} & -- \\
+\midrule
+PACO edit (dev) & S2 flat (D23) & 500 & 47.8 \scriptsize{[45.0, 50.5]} & 50.6 \scriptsize{[46.4, 55.2]} & 33.6 \\
+PACO edit (dev) & S2 tree (D23) & 500 & 45.9 \scriptsize{[42.7, 48.9]} & 48.6 \scriptsize{[44.2, 53.0]} & 34.2 \\
+PACO edit (dev) & S2 nodes only & 500 & 44.2 \scriptsize{[41.3, 46.9]} & 45.8 \scriptsize{[41.6, 50.2]} & -- \\
+PACO edit (dev) & S2 nodes + D20 rule & 500 & 43.6 \scriptsize{[40.8, 46.3]} & 45.6 \scriptsize{[41.4, 49.8]} & -- \\
+PACO edit (dev) & SAM 3 text & 500 & 54.3 \scriptsize{[51.3, 57.3]} & 58.8 \scriptsize{[54.4, 63.2]} & -- \\
+PACO edit (dev) & best capped node & 500 & 61.4 \scriptsize{[58.7, 63.7]} & 64.4 \scriptsize{[60.2, 68.4]} & -- \\
+PACO edit (dev) & best of pool (nodes + SAM 3 inst.) & 500 & 69.2 \scriptsize{[67.0, 71.3]} & 74.8 \scriptsize{[70.8, 78.6]} & -- \\
 \bottomrule
 \end{tabular}

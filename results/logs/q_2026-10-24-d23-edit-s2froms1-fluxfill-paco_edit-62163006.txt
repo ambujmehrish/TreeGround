@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit_s2.py", line 218, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit_s2.py", line 214, in main
+    run_shard(cfg, args.editor, args.dataset, args.shard, num_shards, args.smoke)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit_s2.py", line 124, in run_shard
+    sel2 = pd.read_parquet(required(ES.shard_path(cfg, dataset, items, shard, smoke), "D23 selection shard "
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_edit_s2.py", line 102, in required
+    raise ProtocolError(f"missing {what}: {path}")
+treeground.run.ProtocolError: missing D23 selection shard (run scripts/e_select.py first): /leonardo_scratch/large/userexternal/amehrish/treeground/cache/full/edit/select_s2/paco_edit/fc8e54cfc47cdedb/shards/00007.parquet

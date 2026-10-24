@@ -3,3 +3,18 @@
 [600/1547] queries 2803 434s
 [800/1547] queries 3778 596s
 [1000/1547] queries 4620 746s
+[1200/1547] queries 5544 889s
+[1400/1547] queries 6503 1034s
+[1547/1547] queries 7225 1140s
+v2 k=5 selector: gIoU calibrated 0.273 no rejection 0.278 part 0.183
+v2 k=5 rule: gIoU calibrated 0.284 no rejection 0.290 part 0.187
+v2 k=5 pointwise: gIoU calibrated 0.289 no rejection 0.295 part 0.187
+v2 k=5 listwise: gIoU calibrated 0.292 no rejection 0.298 part 0.192
+v2 k=5 oracle_topk: gIoU calibrated 0.385 no rejection 0.396 part 0.285
+v2 k=10 selector: gIoU calibrated 0.273 no rejection 0.278 part 0.183
+v2 k=10 rule: gIoU calibrated 0.287 no rejection 0.293 part 0.189
+v2 k=10 pointwise: gIoU calibrated 0.290 no rejection 0.296 part 0.187
+v2 k=10 listwise: gIoU calibrated 0.288 no rejection 0.295 part 0.186
+v2 k=10 oracle_topk: gIoU calibrated 0.443 no rejection 0.456 part 0.341
+{"single_missing_in_saved": 0, "single_sel_iou_agreement": 1.0, "single_sigma_max_abs_diff": 1.1102230246251565e-16, "chains_saved": null}
+/leonardo_work/AIFAC_S07_041/treeground/runs/rerank_v2/20261024T111520648192Z_388934a7

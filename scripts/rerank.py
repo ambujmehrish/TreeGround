@@ -42,7 +42,7 @@ def image_rows(src: R.Source, props, probes: V2.Probes, sha1: str, s: pd.DataFra
     if (nodes["h"], nodes["w"]) != (img.h, img.w):
         raise ProtocolError(f"{key}: annotation size differs from proposal masks")
     gts = paco.gt_rles(img)
-    gt_ids = sorted({json.loads(g)[0] for g in s.gt})
+    gt_ids = sorted({json.loads(g)[0] for g in s["gt"]})
     col = {g: j for j, g in enumerate(gt_ids)}
     ga = M.areas([gts[g] for g in gt_ids]).astype(np.int64)
     n = len(rles)

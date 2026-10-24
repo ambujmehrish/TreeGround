@@ -1,0 +1,17 @@
+{
+ "id": "2026-10-24-rerank2-s1",
+ "what": "D20 rerank of the s1 selector (rerun after the s.gt fix)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/rerank.py",
+  "TG_ARGS": "--config configs/rerank.yaml --stage s1"
+ },
+ "sbatch": {
+  "time": "03:00:00"
+ },
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

@@ -494,6 +494,20 @@ PROPOSED_DEVIATIONS = [
         "expected_impact": "new '+ SAM 3 refine' rows (refine_<stage>_merge); r0 must reproduce each stage's "
                            "saved numbers; no change to any existing result",
     },
+    {
+        "id": "D22",
+        "spec_section": "amendment (transfer reporting)",
+        "change": "per-chain IoU of our picks on the D7/D8 transfer sets, scored like the D16 baselines: the transfer "
+                  "pipeline (x_transfer.py for V2/S1, x_transfer_s2.py for S2) is rerun unchanged per image and, per "
+                  "chain, the object pick (argmax over the capped nodes), the part pick over all nodes (flat) and the "
+                  "part pick inside the object pick's subtree (true tree, V4 natural search) are recorded with their "
+                  "IoU (mask IoU, OpenImages box-matched as in D8); empty node set or rejection = 0. Reported: object "
+                  "gIoU per distinct object per image, part gIoU and part success@0.5 per chain, flat and tree, "
+                  "without rejection and at the stage's tau_rej; image-level bootstrap 95% CIs",
+        "reason": "transfer runs stored chain success flags only; part gIoU next to the D16 baselines and the "
+                  "published part gIoU (Pascal-Part-116) needs the IoU of each pick",
+        "expected_impact": "part/object gIoU for our rows in the transfer table; no change to any existing result",
+    },
 ]
 
 

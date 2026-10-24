@@ -200,17 +200,26 @@ def chains(root: Path) -> tuple[list, list]:
     return CHAIN_COLS, rows
 
 
+def giou(g, mode) -> dict:
+    # D22: our part (true-tree pick and flat pick) and object gIoU, scored like the D16 baselines
+    if mode is None or not isinstance(g, dict):
+        return {}
+    return {"part_gIoU": get(g, mode, "part_gIoU_tree"), "part_gIoU_flat": get(g, mode, "part_gIoU_flat"),
+            "object_gIoU": get(g, mode, "object_gIoU")}
+
+
 def transfer(root: Path) -> tuple[list, list]:
     cols = [("dataset", "Dataset", "text"), ("selector", "Selector", "text"), ("search", "Search", "text"),
             ("part_recall", "Part recall", "frac"), ("chain_feasible", "Chain feasible", "frac"),
             ("chains", "Chains", "int"), ("common", "Common", "int"), ("flat", "Flat", "ci"), ("true", "True", "ci"),
             ("random", "Random", "ci"), ("box", "Box", "ci"), ("independent", "Indep.", "ci"),
             ("end_to_end", "Chain succ. (all)", "ci"), ("part_gIoU", "Part gIoU", "ci"),
-            ("object_gIoU", "Object gIoU", "ci")]
+            ("part_gIoU_flat", "Part gIoU (flat)", "ci"), ("object_gIoU", "Object gIoU", "ci")]
     rows = []
     for ds, ds_label in DATASETS:
         for tag, sel in (("", "V2"), ("_s1", "S1"), ("_s2", "S2"), ("_s2_from_s1", "S2 (from S1)")):
             m = load(root, f"x_transfer_{ds}{tag}_merge")
+            g = get(load(root, f"x_giou_{tag[1:] or 'v2'}_{ds}_merge"), "all")
             cov = {"part_recall": get(m, "coverage_uncapped", "part_recall"),
                    "chain_feasible": get(m, "coverage_uncapped", "chain_feasible_mask_tree")}
             for key, search in (("natural_strict", "spec"), ("natural_d5", "D5 inclusive"),
@@ -222,7 +231,9 @@ def transfer(root: Path) -> tuple[list, list]:
                 rows.append({"_group": ds, "dataset": ds_label, "selector": sel, "search": search, **cov,
                              "chains": get(s, "chains"), "common": get(s, "common_eligible_subset", "size"),
                              **{t: get(s, t, "chain_success_common") for t in ("flat", "true", "random", "box")},
-                             "end_to_end": get(s, "true", "chain_success_end_to_end")})
+                             "end_to_end": get(s, "true", "chain_success_end_to_end"),
+                             **giou(g, "norej" if key == "natural_no_rejection" else "calib"
+                                    if key == "natural_strict" else None)})
         for method, label in TRANSFER_BASELINES:
             m = load(root, f"b_transfer_{method}_{ds}_merge")
             if m is None:

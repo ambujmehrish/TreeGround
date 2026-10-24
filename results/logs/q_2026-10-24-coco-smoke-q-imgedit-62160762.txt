@@ -1,17 +1,3 @@
-Loading weights:  74%|███████▍  | 539/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.16.mlp.gate_proj.weight][A
-Loading weights:  74%|███████▍  | 539/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.16.mlp.gate_proj.weight][A
-Loading weights:  74%|███████▍  | 540/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.16.mlp.up_proj.bias]    [A
-Loading weights:  74%|███████▍  | 540/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.16.mlp.up_proj.bias][A
-Loading weights:  74%|███████▍  | 541/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.16.mlp.up_proj.weight][A
-Loading weights:  74%|███████▍  | 541/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.16.mlp.up_proj.weight][A
-Loading weights:  74%|███████▍  | 542/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.16.norm1.weight]      [A
-Loading weights:  74%|███████▍  | 542/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.16.norm1.weight][A
-Loading weights:  74%|███████▍  | 543/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.16.norm2.weight][A
-Loading weights:  74%|███████▍  | 543/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.16.norm2.weight][A
-Loading weights:  75%|███████▍  | 544/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.17.attn.proj.bias][A
-Loading weights:  75%|███████▍  | 544/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.17.attn.proj.bias][A
-Loading weights:  75%|███████▍  | 545/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.17.attn.proj.weight][A
-Loading weights:  75%|███████▍  | 545/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.17.attn.proj.weight][A
 Loading weights:  75%|███████▍  | 546/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.17.attn.qkv.bias]   [A
 Loading weights:  75%|███████▍  | 546/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.17.attn.qkv.bias][A
 Loading weights:  75%|███████▌  | 547/729 [00:06<00:00, 362.57it/s, Materializing param=model.visual.blocks.17.attn.qkv.weight][A
@@ -398,3 +384,17 @@ guidance_scale is passed as 1.0, but ignored since the model is not guidance-dis
 guidance_scale is passed as 1.0, but ignored since the model is not guidance-distilled.
 [raw qwen_image_edit 8/9] imgedit_full:543 101.3s
 guidance_scale is passed as 1.0, but ignored since the model is not guidance-distilled.
+[raw qwen_image_edit 9/9] imgedit_full:635 100.9s
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_cocoedit.py", line 505, in <module>
+    if args.then_merge:
+    ^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_cocoedit.py", line 501, in main
+    if args.select_only:
+        ^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_cocoedit.py", line 452, in merge
+    p = plan(cfg, editor, dataset, smoke)
+                    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_cocoedit.py", line 441, in read_shards
+    
+treeground.run.ProtocolError: 1 qwen_image_edit/imgedit_full/free shards missing under /leonardo_scratch/large/userexternal/amehrish/treeground/cache/smoke/cocoedit/edit/qwen_image_edit/imgedit_full/free/c375b738217bfc51, e.g. [0]

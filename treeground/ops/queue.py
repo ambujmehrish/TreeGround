@@ -281,6 +281,14 @@ def _tick(repo: Path, state_path: Path, run, environ: dict, now) -> dict:
             e["waiting_for"] = missing
             continue
         e.pop("waiting_for", None)
+        # a parent that already finished is resolved here: Slurm forgets finished jobs after MinJobAge and then
+        # rejects afterok on them ("Job dependency problem")
+        done = {a: reqs[a].get("states") or [] for a in req.get("after", []) if reqs[a].get("finished")}
+        failed = [a for a, sts in done.items() if any(x != "COMPLETED" for x in sts)]
+        if failed:
+            e["dependency_failed"] = failed
+            continue
+        deps = [j for a, j in zip(req.get("after", []), deps) if a not in done]
         try:
             env = environ | {k: expand(v, environ) for k, v in req.get("env", {}).items()}
         except ValueError as err:
@@ -342,6 +350,7 @@ def _tick(repo: Path, state_path: Path, run, environ: dict, now) -> dict:
         rid: {"jobid": e.get("job_id"), "states": e.get("states"), "submitted": e.get("submitted"),
               "finished": e.get("finished"), "collected": e.get("collected"), "submit_error": e.get("submit_error"),
               "post_error": e.get("post_error"), "invalid": e.get("invalid"), "waiting_for": e.get("waiting_for"),
+              "dependency_failed": e.get("dependency_failed"),
               "post_output_tail": (e.get("post_output_tail") or "")[-800:] or None}
         for rid, e in reqs.items()}}
     if "TG_ROOT" in environ:

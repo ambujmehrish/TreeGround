@@ -262,3 +262,24 @@ def test_repo_queue_is_valid():
     root = Path(__file__).resolve().parents[1]
     valid, invalid = Q.load_requests(root)
     assert not invalid, invalid
+
+
+def test_finished_parent_resolved_without_afterok(repo, tmp_path):
+    put(repo, "a", **sub())
+    fake = Fake(sacct="101|COMPLETED\n")
+    tick(repo, tmp_path, fake)
+    put(repo, "b", **sub(after=["a"]))
+    tick(repo, tmp_path, fake, t=1100.0)
+    b = fake.of("sbatch")[-1]
+    assert b["cmd"][-1] == "slurm/q_gpu.sbatch" and not any(x.startswith("--dependency") for x in b["cmd"])
+
+
+def test_failed_parent_blocks_child(repo, tmp_path):
+    put(repo, "a", **sub())
+    fake = Fake(sacct="101|FAILED\n")
+    tick(repo, tmp_path, fake)
+    put(repo, "b", **sub(after=["a"]))
+    tick(repo, tmp_path, fake, t=1100.0)
+    assert len(fake.of("sbatch")) == 1
+    st = json.loads((tmp_path / "state" / "state.json").read_text())["requests"]["b"]
+    assert st["dependency_failed"] == ["a"] and "job_id" not in st

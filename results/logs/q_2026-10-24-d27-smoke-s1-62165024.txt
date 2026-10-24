@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/grefcoco_style_eval.py", line 453, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/grefcoco_style_eval.py", line 449, in main
+    run_shard(cfg, args.method, args.shard, num_shards, args.smoke)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/grefcoco_style_eval.py", line 245, in run_shard
+    require_approved(cfg, approvals(method))
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/run.py", line 739, in require_approved
+    raise ProtocolError(
+treeground.run.ProtocolError: deviation(s) ['D27'] are not approved in /leonardo_work/AIFAC_S07_041/treeground/runs/deviations.jsonl; set status to 'approved' to proceed

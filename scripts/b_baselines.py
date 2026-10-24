@@ -1,4 +1,5 @@
 import argparse
+from contextlib import contextmanager
 import hashlib
 import json
 import os
@@ -241,8 +242,9 @@ class Sa2VA:
     def __init__(self, cfg: dict):
         from transformers import AutoModel, AutoProcessor
         m, self.s = cfg["models"]["sa2va"], cfg["baselines"]["sa2va"]
-        self.model = checked_load(AutoModel, m["repo"], m["revision"], cfg.get("hf_home"),
-                                  dtype=getattr(torch, self.s["dtype"]), trust_remote_code=True)
+        with real_device_init():
+            self.model = checked_load(AutoModel, m["repo"], m["revision"], cfg.get("hf_home"),
+                                      dtype=getattr(torch, self.s["dtype"]), trust_remote_code=True)
         self.model = self.model.to(cfg["device"]).eval()
         self.proc = AutoProcessor.from_pretrained(m["repo"], revision=m["revision"], cache_dir=cfg.get("hf_home"),
                                                   trust_remote_code=True)
@@ -259,6 +261,24 @@ class Sa2VA:
             m = np.logical_or.reduce(ms) if ms else None
             out.append((m, float("nan"), r["prediction"], m is not None))
         return out
+
+
+@contextmanager
+def real_device_init():
+    # transformers 5 builds models under torch.device("meta"); Sa2VA's remote SAM 2 calls .item() in __init__
+    # (written for 4.57), so it is built on the CPU with weight init disabled, then filled from the checkpoint
+    from transformers import initialization, modeling_utils
+    cls = modeling_utils.PreTrainedModel
+    orig = cls.__dict__["get_init_context"]
+
+    def ctx(klass, dtype, is_quantized, _is_ds_init_called):
+        return [modeling_utils.local_torch_dtype(dtype, klass.__name__), initialization.no_init_weights()]
+
+    cls.get_init_context = classmethod(ctx)
+    try:
+        yield
+    finally:
+        cls.get_init_context = orig
 
 
 def checked_load(cls, repo: str, revision: str, cache_dir: str | None, **kw):

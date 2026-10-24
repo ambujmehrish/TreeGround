@@ -95,3 +95,18 @@ def test_summary_gIoU_cIoU_and_chains():
     assert out["chains"]["two_level"]["chains"] == 1
     lo, hi = pres["cIoU"]["ci95"]
     assert lo <= pres["cIoU"]["value"] <= hi
+
+
+def test_real_device_init_loads_exact_weights(tmp_path):
+    import torch
+    from transformers import Qwen2Config, Qwen2ForCausalLM, modeling_utils
+    cfg = Qwen2Config(hidden_size=32, intermediate_size=64, num_hidden_layers=1, num_attention_heads=2,
+                      num_key_value_heads=1, vocab_size=100)
+    ref = Qwen2ForCausalLM(cfg)
+    ref.save_pretrained(tmp_path)
+    before = modeling_utils.PreTrainedModel.get_init_context
+    with B.real_device_init():
+        assert torch.linspace(0, 1, 3).device.type == "cpu"
+        model = B.checked_load(Qwen2ForCausalLM, str(tmp_path), "main", None, dtype=torch.float32)
+    assert modeling_utils.PreTrainedModel.get_init_context == before
+    assert all(torch.equal(a, b) for a, b in zip(model.state_dict().values(), ref.state_dict().values()))

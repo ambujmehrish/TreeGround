@@ -15,7 +15,7 @@ from treeground.run import ProtocolError, load_config, read_json, require_approv
 # recorded calibrated tau_rej and once with rejection disabled on present queries (always answer the top node, the
 # protocol of present-only benchmarks); no-target accuracy is reported separately, plus the full threshold curve.
 
-STAGES = ("v2", "s1", "s2_eval", "s2_from_s1_eval")
+STAGES = ("v2", "s1", "s2_eval", "s2_from_s1_eval", "s2_from_s1_long_eval")
 
 
 def block(pres: pd.DataFrame, iou: np.ndarray, bs: dict) -> dict:

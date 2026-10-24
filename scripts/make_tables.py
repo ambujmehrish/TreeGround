@@ -9,7 +9,8 @@ from pathlib import Path
 # is shown as a dash.
 
 DASH = "–"
-OURS = (("v2", "V2 (frozen, 10k img.)"), ("s1", "S1"), ("s2_eval", "S2"), ("s2_from_s1_eval", "S2 (from S1)"))
+OURS = (("v2", "V2 (frozen, 10k img.)"), ("s1", "S1"), ("s2_eval", "S2"), ("s2_from_s1_eval", "S2 (from S1)"),
+        ("s2_from_s1_long_eval", "S2 long (from S1, 3 sources)"))
 CHAIN_OURS = (("v4", OURS[0][1]), ("v4_s1", "S1")) + OURS[2:]
 REFINE = (("v2", OURS[0][1]), ("s1", "S1"), ("s2", "S2"), ("s2_from_s1", "S2 (from S1)"))
 REFINE_VARIANTS = ("r1", "r2", "r3")

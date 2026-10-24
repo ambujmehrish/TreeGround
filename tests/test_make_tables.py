@@ -70,7 +70,7 @@ def setup(tmp_path):
 def test_retrieval_rows_use_the_same_definitions_and_dash_missing(tmp_path):
     out = setup(tmp_path)
     rows = {r["method"]: r for r in read(out / "retrieval_paco.csv")}
-    assert len(rows) == 7
+    assert len(rows) == 8
     v2, sa2va, s2 = rows["V2 (frozen, 10k img.)"], rows["Sa2VA"], rows["S2"]
     assert (v2["gIoU"], v2["gIoU_lo"], v2["n_acc"], v2["queries"]) == ("0.273", "0.263", "0.900", "100")
     assert v2["cIoU"] == v2["success_0.5"] == "–" and v2["selector_success_covered"] == "0.500"

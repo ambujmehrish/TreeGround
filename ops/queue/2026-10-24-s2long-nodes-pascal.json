@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-24-s2long-nodes-pascal",
+ "what": "D21 SAM 3 node cache, Pascal-Part train",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s2_nodes.py",
+  "TG_ARGS": "--config configs/s2_long.yaml --source pascal_part_train"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-31"
+ }
+}

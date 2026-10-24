@@ -28,3 +28,12 @@ def test_calibrated_vs_no_rejection():
     assert np.isclose(out["calibrated"]["cIoU"], 80 / 160)
     assert set(out["no_rejection_present"]["by_kind"]) == {"object", "part"}
     assert len(curve) == len(E.GRID) and curve.present_gIoU.iloc[0] >= curve.present_gIoU.iloc[-1]
+
+
+def test_cious_count_wrong_answered_predictions():
+    df = pd.DataFrame({"image": ["a", "b"], "kind": ["part", "part"], "present": [True, True],
+                       "max_sigma": [0.9, 0.9], "sel_iou": [0.5, 0.0], "sel_inter": [50, 0], "sel_union": [100, 70],
+                       "gt_area": [60, 20]})
+    out, _ = E.variants(df, 0.5, BS)
+    assert np.isclose(out["no_rejection_present"]["cIoU"], 50 / 170)
+    assert np.isclose(out["calibrated"]["cIoU"], 50 / 170)

@@ -18,14 +18,15 @@ from treeground.run import ProtocolError, load_config, read_json, require_approv
 STAGES = ("v2", "s1", "s2_eval", "s2_from_s1_eval", "s2_from_s1_long_eval")
 
 
-def block(pres: pd.DataFrame, iou: np.ndarray, bs: dict) -> dict:
+def block(pres: pd.DataFrame, iou: np.ndarray, answered: np.ndarray, bs: dict) -> dict:
     def ci(v, frame=pres):
         return mean_ci(np.asarray(v, float), frame.image.to_numpy(), bs["n"], bs["seed"])
 
     out = {"gIoU": ci(iou), "success@0.5": ci(iou >= 0.5),
            "by_kind": {k: ci(iou[(pres.kind == k).to_numpy()], pres[pres.kind == k]) for k in sorted(pres.kind.unique())}}
     if {"sel_inter", "sel_union", "gt_area"} <= set(pres.columns):
-        keep = iou > 0
+        # an answered query adds its prediction-target union; a rejected one (or one with no nodes) its GT area
+        keep = answered & (pres.sel_union.to_numpy() > 0)
         union = np.where(keep, pres.sel_union, pres.gt_area)
         out["cIoU"] = float(np.where(keep, pres.sel_inter, 0).sum() / max(1, union.sum()))
     return out
@@ -38,10 +39,10 @@ def variants(df: pd.DataFrame, tau: float, bs: dict) -> tuple[dict, pd.DataFrame
     rows = [{"tau": float(t), "present_gIoU": float(np.where(pres.max_sigma >= t, sel, 0.0).mean()),
              "no_target_accuracy": float((absn.max_sigma < t).mean()) if len(absn) else None} for t in GRID]
     out = {"tau_rej": tau, "present_queries": int(len(pres)), "no_target_queries": int(len(absn)),
-           "calibrated": {**block(pres, calibrated, bs),
+           "calibrated": {**block(pres, calibrated, (pres.max_sigma >= tau).to_numpy(), bs),
                           "present_accept_rate": float((pres.max_sigma >= tau).mean()),
                           "no_target_accuracy": float((absn.max_sigma < tau).mean()) if len(absn) else None},
-           "no_rejection_present": block(pres, sel, bs)}
+           "no_rejection_present": block(pres, sel, np.ones(len(pres), bool), bs)}
     return out, pd.DataFrame(rows)
 
 

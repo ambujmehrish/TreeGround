@@ -284,8 +284,13 @@ def bbox_mask(m: np.ndarray) -> np.ndarray:
 
 
 def free_type_region(cfg: dict, gt: np.ndarray) -> np.ndarray:
-    if cfg["cocoedit"]["editors"]["flux_fill"].get("free_type_region", "gt") != "gt":
-        raise ProtocolError("free_type_region supports only 'gt'")
+    # non-localized samples (add/style/tone/extract) are shared by every FLUX condition, so they must not see the GT:
+    # 'whole' fills the whole image (default); 'gt' (oracle region for all conditions) is kept only for comparison
+    mode = cfg["cocoedit"]["editors"]["flux_fill"].get("free_type_region", "whole")
+    if mode == "whole":
+        return np.ones_like(gt, bool)
+    if mode != "gt":
+        raise ProtocolError("free_type_region must be 'whole' or 'gt'")
     return gt if gt.any() else np.ones_like(gt, bool)
 
 

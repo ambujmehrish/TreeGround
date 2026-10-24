@@ -19,7 +19,7 @@ cocoedit:   # deviation D25: CoCoEdit masked-benchmark protocol on the full GEdi
       conditions: [free, bbox_blend, qwen_box_sam_blend, sam3text_blend, ours_blend, ours_s1_blend, gt_blend]
     flux_fill:
       conditions: [bbox_fill, qwen_box_sam_fill, sam3text_fill, ours_fill, ours_s1_fill, gt_fill]
-      free_type_region: gt   # add/style/tone/extract samples: Fill on the GT edit region (whole image if empty)
+      free_type_region: whole   # add/style/tone/extract samples: Fill the whole image (no GT use, shared by all conditions)
   judge:
     model: judge_qwen25vl_72b
     gedit: {target_area: 262144}                              # VIEScore inputs as GEdit-Bench (e_judge settings)

@@ -132,7 +132,8 @@ def combine(cfg: dict, dataset: str) -> None:
             continue
         m = read_json(run / "metrics.json")
         for r in m["table"]:
-            rows.append({"method": f"{editor} [{r['condition']}]", "source": f"ours {run.name}",
+            tag = " (oracle: GT mask)" if r["condition"].startswith(("gt_", "bbox_")) else ""
+            rows.append({"method": f"{editor} [{r['condition']}]{tag}", "source": f"ours {run.name}",
                          "condition": r["condition"], **{k: r.get(k) for k in ("overall", "psnr", "ssim", "lpips",
                                                                                  "ssim_masked", "psnr_capped",
                                                                                  "psnr_pooled", "at_cap_rate")}})

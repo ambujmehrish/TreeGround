@@ -105,7 +105,7 @@ def chain_parts(referent: str) -> tuple[str, str] | None:
 
 def referent_query(cfg: dict, referent: str) -> X2.S2T.Query:
     user = S2.user_text(EE.REFERENT_TEMPLATE.format(referent=referent))
-    return X2.S2T.Query("edit", "object", user, settings(cfg)["answer"].format(referent=referent), [])
+    return X2.S2T.Query("edit", "object", user, settings(cfg)["answer"].format(referent=referent, referent_bare=re.sub(r"^(the|a|an) ", "", referent)), [])
 
 
 @torch.no_grad()

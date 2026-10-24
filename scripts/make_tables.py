@@ -235,12 +235,25 @@ def transfer(root: Path) -> tuple[list, list]:
             ("chains", "Chains", "int"), ("common", "Common", "int"), ("flat", "Flat", "ci"), ("true", "True", "ci"),
             ("random", "Random", "ci"), ("box", "Box", "ci"), ("independent", "Indep.", "ci"),
             ("end_to_end", "Chain succ. (all)", "ci"), ("part_gIoU", "Part gIoU", "ci"),
-            ("part_gIoU_flat", "Part gIoU (flat)", "ci"), ("object_gIoU", "Object gIoU", "ci")]
+            ("part_gIoU_flat", "Part gIoU (flat)", "ci"), ("object_gIoU", "Object gIoU", "ci"),
+            ("clean", "Clean (D26)", "text")]
     rows = []
+    clean = get(load(root, "x_transfer_clean_lvis_hier"), "clean") or {}
+
+    def pick(ds: str, stage: str):
+        # D26: LVIS-hier blocks recomputed without training images replace the published ones when available
+        c = clean.get(stage) if ds == "lvis_hier" else None
+        if isinstance(c, dict):
+            return c, "yes"
+        return load(root, stage), ("no" if ds == "lvis_hier" else None)
+
     for ds, ds_label in DATASETS:
         for tag, sel in (("", "V2"), ("_s1", "S1"), ("_s2", "S2"), ("_s2_from_s1", "S2 (from S1)")):
-            m = load(root, f"x_transfer_{ds}{tag}_merge")
-            g = get(load(root, f"x_giou_{tag[1:] or 'v2'}_{ds}_merge"), "all")
+            m, mark = pick(ds, f"x_transfer_{ds}{tag}_merge")
+            g, gmark = pick(ds, f"x_giou_{tag[1:] or 'v2'}_{ds}_merge")
+            g = get(g, "all")
+            if g is not None and gmark != mark:
+                g = None  # never mix clean and leaky image sets in one row
             cov = {"part_recall": get(m, "coverage_uncapped", "part_recall"),
                    "chain_feasible": get(m, "coverage_uncapped", "chain_feasible_mask_tree")}
             for key, search in (("natural_strict", "spec"), ("natural_d5", "D5 inclusive"),
@@ -254,13 +267,14 @@ def transfer(root: Path) -> tuple[list, list]:
                              **{t: get(s, t, "chain_success_common") for t in ("flat", "true", "random", "box")},
                              "end_to_end": get(s, "true", "chain_success_end_to_end"),
                              **giou(g, "norej" if key == "natural_no_rejection" else "calib"
-                                    if key == "natural_strict" else None)})
+                                    if key == "natural_strict" else None), "clean": mark})
         for method, label in TRANSFER_BASELINES:
-            m = load(root, f"b_transfer_{method}_{ds}_merge")
+            m, mark = pick(ds, f"b_transfer_{method}_{ds}_merge")
             if m is None:
                 continue
             c = get(m, "common_eligible_subset")
             rows.append({"_group": f"{ds}:baselines", "dataset": ds_label, "selector": label, "search": "independent",
+                         "clean": mark,
                          "chains": get(m, "chains", "all", "chains"), "common": get(c, "size"),
                          "independent": get(c, "chains", "all", "chain_success_end_to_end"),
                          "end_to_end": get(m, "chains", "all", "chain_success_end_to_end"),
@@ -387,8 +401,42 @@ def ablation_geometry(root: Path) -> tuple[list, list]:
     return cols, rows
 
 
+STYLE = (("v2", OURS[0][1]), ("s1", "S1"), ("s2", "S2"), ("s2_from_s1", "S2 (from S1)"),
+         ("s2_from_s1_long", OURS[4][1]), ("sam3_text", BASELINES[0][1]), ("qwen_box_sam", BASELINES[1][1]),
+         ("sa2va", BASELINES[2][1]))
+
+
+def abstention_style_matched(root: Path) -> tuple[list, list]:
+    # D27: gRefCOCO val present vs no-target expressions; stage tau, 2-fold held-out tau, no rejection
+    cols = [("method", "Method", "text"), ("tau", "Threshold", "text"), ("tau_value", r"$\tau$", "num"),
+            ("present", "Present", "int"), ("no_target", "No-target", "int"),
+            ("abstention", "No-target abst.", "frac"), ("acceptance", "Present acc.", "frac"),
+            ("gIoU", "Present gIoU", "ci"), ("auc", "AUC (gRefCOCO)", "frac"), ("auc_paco", "AUC (PACO tmpl.)", "frac")]
+    rows = []
+    for method, label in STYLE:
+        m = load(root, f"grefcoco_style_{method}_merge")
+        if m is None:
+            continue
+        sep, ref = get(m, "separation"), get(m, "paco_template_reference")
+        blocks = [("stage tau", get(m, "stage_tau"), get(m, "at_stage_tau"))]
+        folds = get(m, "two_fold_calibrated", "folds") or {}
+        blocks += [(f"held-out ({k})", get(b, "tau_calibrated_on_other_folds"), b) for k, b in sorted(folds.items())]
+        if isinstance(get(m, "two_fold_calibrated", "pooled_held_out"), dict):
+            blocks.append(("held-out (pooled)", None, m["two_fold_calibrated"]["pooled_held_out"]))
+        if isinstance(get(m, "no_rejection"), dict):
+            blocks.append(("no rejection", None, m["no_rejection"]))
+        for i, (name, tau, b) in enumerate(blocks):
+            rows.append({"_group": method, "method": label, "tau": name, "tau_value": tau,
+                         "present": get(b, "present"), "no_target": get(b, "no_target"),
+                         "abstention": get(b, "no_target_abstention_rate"),
+                         "acceptance": get(b, "present_acceptance_rate"), "gIoU": get(b, "present_gIoU"),
+                         "auc": get(sep, "auc") if i == 0 else None, "auc_paco": get(ref, "auc") if i == 0 else None})
+    return cols, rows
+
+
 TABLES = {"retrieval_paco": retrieval, "chains_paco": chains, "transfer": transfer, "coverage": coverage,
-          "edit_localization": edit_localization, "ablation_geometry": ablation_geometry}
+          "edit_localization": edit_localization, "ablation_geometry": ablation_geometry,
+          "abstention_style_matched": abstention_style_matched}
 
 
 def main() -> None:

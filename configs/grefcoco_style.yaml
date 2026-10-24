@@ -1,0 +1,10 @@
+include: [x_transfer_s2.yaml, baselines.yaml]
+inputs: {manifest: latest, v2: latest, s1: latest, s2: latest, s2_eval: latest, s2_from_s1: latest,
+         s2_from_s1_eval: latest, s2_from_s1_long: latest, s2_from_s1_long_eval: latest}
+grefcoco_style:
+  split: val                      # gRefCOCO val images of the worklist (role grefcoco_val_nt, D3/D4 nodes cached)
+  num_shards: {ours: 16, baseline: 16}
+  smoke_images: 4
+  batch_size: 16
+  folds: 2                        # held-out tau: calibrated on the other fold's images
+  fold_seed: 0

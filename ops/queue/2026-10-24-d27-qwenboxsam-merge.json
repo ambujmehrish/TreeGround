@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-24-d27-qwenboxsam-merge",
+ "what": "D27 merge, qwen_box_sam",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/grefcoco_style_eval.py",
+  "TG_ARGS": "--config configs/grefcoco_style.yaml --method qwen_box_sam --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-24-d27-qwenboxsam"
+ ],
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

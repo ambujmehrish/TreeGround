@@ -1,0 +1,17 @@
+{
+ "id": "2026-10-24-d26-clean",
+ "what": "D26 LVIS-hier training-image overlap audit and clean recompute from the transfer merge CSVs",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/x_transfer_clean.py",
+  "TG_ARGS": "--config configs/x_transfer.yaml"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

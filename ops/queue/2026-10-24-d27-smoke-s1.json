@@ -1,0 +1,12 @@
+{
+ "id": "2026-10-24-d27-smoke-s1",
+ "what": "D27 smoke: style-matched gRefCOCO val abstention, s1, 4 images",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/grefcoco_style_eval.py",
+  "TG_ARGS": "--config configs/grefcoco_style.yaml --method s1 --smoke"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ }
+}

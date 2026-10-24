@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-d27-smoke-sam3text-merge",
+ "what": "D27 smoke merge, sam3_text",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/grefcoco_style_eval.py",
+  "TG_ARGS": "--config configs/grefcoco_style.yaml --method sam3_text --smoke --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-10-24-d27-smoke-sam3text"
+ ],
+ "collect": true
+}

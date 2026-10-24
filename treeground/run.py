@@ -634,6 +634,23 @@ PROPOSED_DEVIATIONS = [
                            "from CoCoEdit: Qwen-Image-Edit-2511 vs their 2509, open 72B judge for ImgEdit vs GPT-based "
                            "scoring if they used it, unknown judge image sizes",
     },
+    {
+        "id": "D24",
+        "spec_section": "amendment (ablation: selector geometry)",
+        "change": "controlled ablation of the selector's scoring geometry in the S1 setting (frozen Qwen3-VL-4B features, "
+                  "the D11 S1 caches, sources, recipe, 20k steps, seed, PACO-val checkpoint rule): three arms trained by "
+                  "a separate script into their own run stages (s1_geom_<arm>, never the latest s1): (a) euclidean = the "
+                  "existing Selector re-run for an apples-to-apples baseline; (b) lorentz = node and query projections "
+                  "mapped by the exponential map at the origin onto the Lorentz hyperboloid with learnable (clamped) "
+                  "curvature, score from the Lorentz distance with a learned temperature/bias (MERU, arXiv 2304.09172); "
+                  "(c) lorentz + an entailment-cone loss on parent->child pairs of each image's containment tree "
+                  "(MERU/HyCoCLIP style, weight from config). Evaluation as V2/V4 (single step incl. no rejection, "
+                  "chains flat/true/random incl. D12), plus geometry diagnostics (curvature, hyperbolic norm by tree "
+                  "depth, cone-violation rate)",
+        "reason": "test whether encoding the containment hierarchy in the embedding geometry improves node selection over "
+                  "the Euclidean dot-product selector, where the tree is only used as a search-time constraint",
+        "expected_impact": "an ablation table (geometry); no change to any existing result",
+    },
 ]
 
 

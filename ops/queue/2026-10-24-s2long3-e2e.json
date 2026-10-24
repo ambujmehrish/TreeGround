@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-24-s2long3-e2e",
+ "what": "D15 with/without rejection incl. long S2",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e2e_variants.py",
+  "TG_ARGS": "--config configs/v2.yaml"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-10-24-s2long3-eval"
+ ],
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

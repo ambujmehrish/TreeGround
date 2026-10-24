@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-s2long3-eval",
+ "what": "D21 long S2 evaluation on PACO val",
+ "script": "q_gpu4.sbatch",
+ "env": {
+  "TG_PY": "scripts/s2_eval.py",
+  "TG_ARGS": "--config configs/s2_long.yaml"
+ },
+ "sbatch": {
+  "time": "08:00:00"
+ },
+ "after": [
+  "2026-10-24-s2long3-train"
+ ],
+ "collect": true
+}

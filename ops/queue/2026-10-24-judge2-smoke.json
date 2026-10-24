@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-24-judge2-smoke",
+ "what": "D18 judge smoke (Qwen2.5-VL-72B, qwen_image_edit partedit smoke edits) (rerun after D18 approval)",
+ "script": "q_gpu4py.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_judge.py",
+  "TG_ARGS": "--config configs/e_judge.yaml --editor qwen_image_edit --dataset partedit --smoke"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "collect": true
+}

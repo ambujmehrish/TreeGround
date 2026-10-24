@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-judge2-f-gedit",
+ "what": "D18 judge, flux_fill gedit (V2-selector edit cache: free/gt/sam3text/ours) (rerun after D18 approval)",
+ "script": "q_gpu4py.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_judge.py",
+  "TG_ARGS": "--config configs/e_judge.yaml --editor flux_fill --dataset gedit"
+ },
+ "sbatch": {
+  "time": "12:00:00",
+  "array": "0-1"
+ },
+ "after": [
+  "2026-10-24-judge2-smoke"
+ ]
+}

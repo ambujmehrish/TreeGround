@@ -2,3 +2,11 @@
 The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. 
 The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
 [judge 1/9] imgedit_full:100 1/7 unique 38.4s
+[judge 2/9] imgedit_full:1001 7/7 unique 23.7s
+[judge 3/9] imgedit_full:1044 7/7 unique 22.8s
+[judge 4/9] imgedit_full:1145 7/7 unique 23.0s
+[judge 5/9] imgedit_full:204 6/7 unique 20.5s
+[judge 6/9] imgedit_full:333 1/7 unique 8.2s
+[judge 7/9] imgedit_full:456 7/7 unique 23.4s
+[judge 8/9] imgedit_full:543 7/7 unique 24.4s
+[judge 9/9] imgedit_full:635 1/7 unique 9.0s

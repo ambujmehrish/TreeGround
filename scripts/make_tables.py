@@ -84,6 +84,8 @@ def tex_cell(kind: str, v) -> str:
     s = stat(v)
     if s is None:
         return "--"
+    if kind == "num":
+        return f"{s[0]:.2f}"
     out = f"{100 * s[0]:.1f}"
     if kind == "ci" and s[1] is not None and s[2] is not None:
         out += f" \\scriptsize{{[{100 * s[1]:.1f}, {100 * s[2]:.1f}]}}"
@@ -359,8 +361,34 @@ def edit_localization(root: Path) -> tuple[list, list]:
     return cols, rows
 
 
+GEOM_ARMS = (("euclid", "Euclidean (rerun)"), ("lorentz", "Lorentz"), ("lorentz_cone", "Lorentz + cone"))
+
+
+def ablation_geometry(root: Path) -> tuple[list, list]:
+    # D24: PACO val, single step without rejection (D15 definitions) and V4 chains without rejection (D12)
+    cols = [("arm", "Selector geometry", "text"), ("gIoU", "gIoU (no rej.)", "ci"),
+            ("gIoU_part", "Part gIoU (no rej.)", "ci"), ("selector_success_covered", r"Sel. succ. $\mid$ cov.", "ci"),
+            *[(t, f"Chain {t} (no rej.)", "ci") for t in ("flat", "true", "random")],
+            ("curvature", "Curvature", "num"), ("cone_violation", "Cone viol.", "frac")]
+    s1_nr = get(load(root, "e2e_variants"), "stages", "s1", "no_rejection_present")
+    arms = [("s1", "S1 (published, Euclidean)", load(root, "s1"), s1_nr, load(root, "v4_s1"))]
+    for arm, label in GEOM_ARMS:
+        m = load(root, f"s1_geom_{arm}")
+        arms.append((arm, label, m, get(m, "no_rejection_present"), load(root, f"v4_s1_geom_{arm}")))
+    rows = []
+    for arm, label, m, nr, v4 in arms:
+        chain = get(v4, "natural_no_rejection_d12", "all")
+        diag = get(v4, "geometry_diagnostics")
+        rows.append({"_group": "published" if arm == "s1" else "ablation", "arm": label, "gIoU": get(nr, "gIoU"),
+                     "gIoU_part": get(nr, "by_kind", "part"),
+                     "selector_success_covered": get(m, "ii_selector_success", "all"),
+                     **{t: get(chain, t, "chain_success_common") for t in ("flat", "true", "random")},
+                     "curvature": get(diag, "curvature"), "cone_violation": get(diag, "cone_violation_rate")})
+    return cols, rows
+
+
 TABLES = {"retrieval_paco": retrieval, "chains_paco": chains, "transfer": transfer, "coverage": coverage,
-          "edit_localization": edit_localization}
+          "edit_localization": edit_localization, "ablation_geometry": ablation_geometry}
 
 
 def main() -> None:

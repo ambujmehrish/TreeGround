@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-24-geom-v4-lorentzcone",
+ "what": "D24 V4 chains (incl. D12) + geometry diagnostics, arm lorentz_cone",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/v4_geom.py",
+  "TG_ARGS": "--config configs/s1_geom_lorentz_cone.yaml"
+ },
+ "sbatch": {
+  "time": "03:00:00"
+ },
+ "after": [
+  "2026-10-24-geom-train-lorentzcone"
+ ],
+ "collect": true
+}

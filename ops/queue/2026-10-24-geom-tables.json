@@ -1,0 +1,22 @@
+{
+ "id": "2026-10-24-geom-tables",
+ "what": "D24 ablation_geometry table refresh after the three arms",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/make_tables.py",
+  "TG_ARGS": ""
+ },
+ "sbatch": {
+  "time": "00:15:00"
+ },
+ "after": [
+  "2026-10-24-geom-v4-euclid",
+  "2026-10-24-geom-v4-lorentz",
+  "2026-10-24-geom-v4-lorentzcone"
+ ],
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

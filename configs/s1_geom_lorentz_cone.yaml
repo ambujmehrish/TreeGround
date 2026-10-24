@@ -1,0 +1,3 @@
+include: [s1.yaml, v4.yaml]
+inputs: {selector_stage: s1_geom_lorentz_cone}
+geometry: {arm: lorentz_cone, kind: lorentz, curvature_init: 1.0, offset_init: 0.85, cone_weight: 0.2, cone_k: 0.1}

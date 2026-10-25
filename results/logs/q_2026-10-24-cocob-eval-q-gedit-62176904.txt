@@ -14,3 +14,45 @@
 [eval 250/446] 179s
 [eval 275/446] 196s
 [eval 300/446] 213s
+[eval 325/446] 230s
+[eval 350/446] 249s
+[eval 375/446] 266s
+[eval 400/446] 284s
+[eval 425/446] 302s
+         editor    dataset          condition  overall      psnr  psnr_capped     ssim  ssim_masked    lpips  psnr_pooled  at_cap_rate  n_scored       sc       pq
+qwen_image_edit gedit_full         bbox_blend 6.713795 27.372829    27.226463 0.838768     0.898729 0.073762    19.472500     0.000000       446 6.963645 7.446771
+qwen_image_edit gedit_full               free 7.312250 22.308726    22.308726 0.763522     0.812670 0.129881    17.179163     0.000000       446 7.637886 7.454523
+qwen_image_edit gedit_full           gt_blend 6.206748 31.512240    31.180266 0.877557     0.959946 0.038678    24.866244     0.000000       446 6.469298 7.289340
+qwen_image_edit gedit_full         ours_blend 2.874556 40.840625    38.029521 0.954712     0.973488 0.021215    25.820515     0.024664       446 2.905005 7.422687
+qwen_image_edit gedit_full      ours_s1_blend 4.882513 32.167407    31.775806 0.901658     0.946184 0.042231    23.041824     0.000000       446 5.067935 7.302641
+qwen_image_edit gedit_full qwen_box_sam_blend 6.271350 31.337937    30.168495 0.889272     0.949402 0.045580    21.905493     0.020179       446 6.539687 7.280921
+qwen_image_edit gedit_full     sam3text_blend 6.170588 30.471255    30.045505 0.881995     0.944495 0.048522    21.557995     0.004484       446 6.426464 7.340726
+/leonardo_work/AIFAC_S07_041/treeground/runs/cocoedit_eval_qwen_image_edit_gedit_full/20261025T025232420292Z_52c6a284
+                                        method                               source          condition  overall      psnr     ssim    lpips  ssim_masked  psnr_capped  psnr_pooled  at_cap_rate
+                                         BAGEL  CoCoEdit (arXiv 2602.14068) Table 1                NaN 6.940000 20.783000 0.745000 0.203000          NaN          NaN          NaN          NaN
+                                      OmniGen2  CoCoEdit (arXiv 2602.14068) Table 1                NaN 6.410000 21.116000 0.736000 0.197000          NaN          NaN          NaN          NaN
+                                   Step1X-Edit  CoCoEdit (arXiv 2602.14068) Table 1                NaN 7.379000 21.588000 0.750000 0.189000          NaN          NaN          NaN          NaN
+                                FLUX.1 Kontext  CoCoEdit (arXiv 2602.14068) Table 1                NaN 6.286000 24.168000 0.825000 0.150000          NaN          NaN          NaN          NaN
+                      FLUX.1 Kontext + Edit-R1  CoCoEdit (arXiv 2602.14068) Table 1                NaN 7.113000 19.013000 0.716000 0.214000          NaN          NaN          NaN          NaN
+                     FLUX.1 Kontext + CoCoEdit  CoCoEdit (arXiv 2602.14068) Table 1                NaN 6.939000 25.331000 0.874000 0.139000          NaN          NaN          NaN          NaN
+                        Qwen-Image-Edit (2509)  CoCoEdit (arXiv 2602.14068) Table 1                NaN 7.560000 19.488000 0.662000 0.185000          NaN          NaN          NaN          NaN
+                     Qwen-Image-Edit + Edit-R1  CoCoEdit (arXiv 2602.14068) Table 1                NaN 7.746000 18.441000 0.639000 0.214000          NaN          NaN          NaN          NaN
+                   Qwen-Image-Edit + MotionNFT  CoCoEdit (arXiv 2602.14068) Table 1                NaN 7.711000 18.709000 0.642000 0.201000          NaN          NaN          NaN          NaN
+                    Qwen-Image-Edit + CoCoEdit  CoCoEdit (arXiv 2602.14068) Table 1                NaN 7.754000 22.283000 0.774000 0.162000          NaN          NaN          NaN          NaN
+                                   GPT-Image-1  CoCoEdit (arXiv 2602.14068) Table 5                NaN 7.861000 12.285000 0.406000      NaN          NaN          NaN          NaN          NaN
+                                   Nano-Banana  CoCoEdit (arXiv 2602.14068) Table 5                NaN 7.062000 19.540000 0.640000      NaN          NaN          NaN          NaN          NaN
+                     FLUX.1-Fill-dev (GT mask)  CoCoEdit (arXiv 2602.14068) Table 7                NaN 3.258000 26.793000 0.786000      NaN          NaN          NaN          NaN          NaN
+                                        ICEdit  CoCoEdit (arXiv 2602.14068) Table 7                NaN 5.898000 21.698000 0.730000      NaN          NaN          NaN          NaN          NaN
+qwen_image_edit [bbox_blend] (oracle: GT mask) ours 20261025T025232420292Z_52c6a284         bbox_blend 6.713795 27.372829 0.838768 0.073762     0.898729    27.226463    19.472500     0.000000
+                        qwen_image_edit [free] ours 20261025T025232420292Z_52c6a284               free 7.312250 22.308726 0.763522 0.129881     0.812670    22.308726    17.179163     0.000000
+  qwen_image_edit [gt_blend] (oracle: GT mask) ours 20261025T025232420292Z_52c6a284           gt_blend 6.206748 31.512240 0.877557 0.038678     0.959946    31.180266    24.866244     0.000000
+                  qwen_image_edit [ours_blend] ours 20261025T025232420292Z_52c6a284         ours_blend 2.874556 40.840625 0.954712 0.021215     0.973488    38.029521    25.820515     0.024664
+               qwen_image_edit [ours_s1_blend] ours 20261025T025232420292Z_52c6a284      ours_s1_blend 4.882513 32.167407 0.901658 0.042231     0.946184    31.775806    23.041824     0.000000
+          qwen_image_edit [qwen_box_sam_blend] ours 20261025T025232420292Z_52c6a284 qwen_box_sam_blend 6.271350 31.337937 0.889272 0.045580     0.949402    30.168495    21.905493     0.020179
+              qwen_image_edit [sam3text_blend] ours 20261025T025232420292Z_52c6a284     sam3text_blend 6.170588 30.471255 0.881995 0.048522     0.944495    30.045505    21.557995     0.004484
+       flux_fill [bbox_fill] (oracle: GT mask) ours 20261025T025048509761Z_52c6a284          bbox_fill 3.961891 22.684069 0.767268 0.127428     0.822238    22.651904    17.544188     0.000000
+         flux_fill [gt_fill] (oracle: GT mask) ours 20261025T025048509761Z_52c6a284            gt_fill 3.155458 31.698798 0.859388 0.028386     0.960471    31.650365    28.421371     0.000000
+                         flux_fill [ours_fill] ours 20261025T025048509761Z_52c6a284          ours_fill 1.853639 33.974175 0.933061 0.045467     0.948184    32.062739    22.669249     0.024664
+                      flux_fill [ours_s1_fill] ours 20261025T025048509761Z_52c6a284       ours_s1_fill 3.062024 25.403088 0.832400 0.108495     0.878500    25.380638    17.847567     0.000000
+                 flux_fill [qwen_box_sam_fill] ours 20261025T025048509761Z_52c6a284  qwen_box_sam_fill 3.308066 31.104612 0.875266 0.047450     0.940290    30.033484    22.629309     0.020179
+                     flux_fill [sam3text_fill] ours 20261025T025048509761Z_52c6a284      sam3text_fill 3.449790 29.294304 0.849644 0.073889     0.917718    28.996783    19.689695     0.004484

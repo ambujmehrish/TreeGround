@@ -1,0 +1,301 @@
+{
+  "dataset": "gedit_full",
+  "deviation": "D25",
+  "rows": [
+    {
+      "condition": null,
+      "lpips": 0.203,
+      "method": "BAGEL",
+      "overall": 6.94,
+      "psnr": 20.783,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 1",
+      "ssim": 0.745
+    },
+    {
+      "condition": null,
+      "lpips": 0.197,
+      "method": "OmniGen2",
+      "overall": 6.41,
+      "psnr": 21.116,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 1",
+      "ssim": 0.736
+    },
+    {
+      "condition": null,
+      "lpips": 0.189,
+      "method": "Step1X-Edit",
+      "overall": 7.379,
+      "psnr": 21.588,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 1",
+      "ssim": 0.75
+    },
+    {
+      "condition": null,
+      "lpips": 0.15,
+      "method": "FLUX.1 Kontext",
+      "overall": 6.286,
+      "psnr": 24.168,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 1",
+      "ssim": 0.825
+    },
+    {
+      "condition": null,
+      "lpips": 0.214,
+      "method": "FLUX.1 Kontext + Edit-R1",
+      "overall": 7.113,
+      "psnr": 19.013,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 1",
+      "ssim": 0.716
+    },
+    {
+      "condition": null,
+      "lpips": 0.139,
+      "method": "FLUX.1 Kontext + CoCoEdit",
+      "overall": 6.939,
+      "psnr": 25.331,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 1",
+      "ssim": 0.874
+    },
+    {
+      "condition": null,
+      "lpips": 0.185,
+      "method": "Qwen-Image-Edit (2509)",
+      "overall": 7.56,
+      "psnr": 19.488,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 1",
+      "ssim": 0.662
+    },
+    {
+      "condition": null,
+      "lpips": 0.214,
+      "method": "Qwen-Image-Edit + Edit-R1",
+      "overall": 7.746,
+      "psnr": 18.441,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 1",
+      "ssim": 0.639
+    },
+    {
+      "condition": null,
+      "lpips": 0.201,
+      "method": "Qwen-Image-Edit + MotionNFT",
+      "overall": 7.711,
+      "psnr": 18.709,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 1",
+      "ssim": 0.642
+    },
+    {
+      "condition": null,
+      "lpips": 0.162,
+      "method": "Qwen-Image-Edit + CoCoEdit",
+      "overall": 7.754,
+      "psnr": 22.283,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 1",
+      "ssim": 0.774
+    },
+    {
+      "condition": null,
+      "lpips": null,
+      "method": "GPT-Image-1",
+      "overall": 7.861,
+      "psnr": 12.285,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 5",
+      "ssim": 0.406
+    },
+    {
+      "condition": null,
+      "lpips": null,
+      "method": "Nano-Banana",
+      "overall": 7.062,
+      "psnr": 19.54,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 5",
+      "ssim": 0.64
+    },
+    {
+      "condition": null,
+      "lpips": null,
+      "method": "FLUX.1-Fill-dev (GT mask)",
+      "overall": 3.258,
+      "psnr": 26.793,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 7",
+      "ssim": 0.786
+    },
+    {
+      "condition": null,
+      "lpips": null,
+      "method": "ICEdit",
+      "overall": 5.898,
+      "psnr": 21.698,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 7",
+      "ssim": 0.73
+    },
+    {
+      "at_cap_rate": 0.0,
+      "condition": "bbox_blend",
+      "lpips": 0.07376232822646227,
+      "method": "qwen_image_edit [bbox_blend] (oracle: GT mask)",
+      "overall": 6.713794954979573,
+      "psnr": 27.372829349586247,
+      "psnr_capped": 27.226463486795467,
+      "psnr_pooled": 19.47249957590571,
+      "source": "ours 20261025T025232420292Z_52c6a284",
+      "ssim": 0.8387680273165918,
+      "ssim_masked": 0.8987288279837097
+    },
+    {
+      "at_cap_rate": 0.0,
+      "condition": "free",
+      "lpips": 0.12988082010553723,
+      "method": "qwen_image_edit [free]",
+      "overall": 7.312250119067144,
+      "psnr": 22.308725801818575,
+      "psnr_capped": 22.308725801818575,
+      "psnr_pooled": 17.179162721388845,
+      "source": "ours 20261025T025232420292Z_52c6a284",
+      "ssim": 0.7635218208479253,
+      "ssim_masked": 0.8126700738240299
+    },
+    {
+      "at_cap_rate": 0.0,
+      "condition": "gt_blend",
+      "lpips": 0.03867768281637461,
+      "method": "qwen_image_edit [gt_blend] (oracle: GT mask)",
+      "overall": 6.206747592178883,
+      "psnr": 31.51224042695734,
+      "psnr_capped": 31.18026644018199,
+      "psnr_pooled": 24.86624398930242,
+      "source": "ours 20261025T025232420292Z_52c6a284",
+      "ssim": 0.877556802120741,
+      "ssim_masked": 0.9599461157148322
+    },
+    {
+      "at_cap_rate": 0.02466367713004484,
+      "condition": "ours_blend",
+      "lpips": 0.02121545116407231,
+      "method": "qwen_image_edit [ours_blend]",
+      "overall": 2.8745562709920742,
+      "psnr": 40.840625308554266,
+      "psnr_capped": 38.02952093179985,
+      "psnr_pooled": 25.820515215370612,
+      "source": "ours 20261025T025232420292Z_52c6a284",
+      "ssim": 0.9547123593292672,
+      "ssim_masked": 0.9734884715131996
+    },
+    {
+      "at_cap_rate": 0.0,
+      "condition": "ours_s1_blend",
+      "lpips": 0.042231397896168116,
+      "method": "qwen_image_edit [ours_s1_blend]",
+      "overall": 4.882512940520149,
+      "psnr": 32.16740693746661,
+      "psnr_capped": 31.77580561445433,
+      "psnr_pooled": 23.04182428245051,
+      "source": "ours 20261025T025232420292Z_52c6a284",
+      "ssim": 0.9016581557903567,
+      "ssim_masked": 0.9461840099539406
+    },
+    {
+      "at_cap_rate": 0.020179372197309416,
+      "condition": "qwen_box_sam_blend",
+      "lpips": 0.04558038198326925,
+      "method": "qwen_image_edit [qwen_box_sam_blend]",
+      "overall": 6.271349914124674,
+      "psnr": 31.337936765944477,
+      "psnr_capped": 30.168494747358586,
+      "psnr_pooled": 21.905492859694572,
+      "source": "ours 20261025T025232420292Z_52c6a284",
+      "ssim": 0.8892722046117931,
+      "ssim_masked": 0.9494015314601542
+    },
+    {
+      "at_cap_rate": 0.004484304932735426,
+      "condition": "sam3text_blend",
+      "lpips": 0.0485219812798045,
+      "method": "qwen_image_edit [sam3text_blend]",
+      "overall": 6.17058751056697,
+      "psnr": 30.47125519765332,
+      "psnr_capped": 30.045505380416664,
+      "psnr_pooled": 21.557995023637876,
+      "source": "ours 20261025T025232420292Z_52c6a284",
+      "ssim": 0.881994788896758,
+      "ssim_masked": 0.9444945192162482
+    },
+    {
+      "at_cap_rate": 0.0,
+      "condition": "bbox_fill",
+      "lpips": 0.1274280588690326,
+      "method": "flux_fill [bbox_fill] (oracle: GT mask)",
+      "overall": 3.9618909901009562,
+      "psnr": 22.68406881131399,
+      "psnr_capped": 22.6519040024334,
+      "psnr_pooled": 17.544187920771016,
+      "source": "ours 20261025T025048509761Z_52c6a284",
+      "ssim": 0.767268047141195,
+      "ssim_masked": 0.8222381167673088
+    },
+    {
+      "at_cap_rate": 0.0,
+      "condition": "gt_fill",
+      "lpips": 0.028386359662546778,
+      "method": "flux_fill [gt_fill] (oracle: GT mask)",
+      "overall": 3.1554576840240496,
+      "psnr": 31.698798291886334,
+      "psnr_capped": 31.650365005159593,
+      "psnr_pooled": 28.42137050786782,
+      "source": "ours 20261025T025048509761Z_52c6a284",
+      "ssim": 0.859388231823975,
+      "ssim_masked": 0.9604706502100472
+    },
+    {
+      "at_cap_rate": 0.02466367713004484,
+      "condition": "ours_fill",
+      "lpips": 0.04546673828866691,
+      "method": "flux_fill [ours_fill]",
+      "overall": 1.8536393050094826,
+      "psnr": 33.974174697302914,
+      "psnr_capped": 32.06273880453922,
+      "psnr_pooled": 22.669249245068727,
+      "source": "ours 20261025T025048509761Z_52c6a284",
+      "ssim": 0.9330614285985389,
+      "ssim_masked": 0.9481842058428819
+    },
+    {
+      "at_cap_rate": 0.0,
+      "condition": "ours_s1_fill",
+      "lpips": 0.1084952209355083,
+      "method": "flux_fill [ours_s1_fill]",
+      "overall": 3.0620238049768718,
+      "psnr": 25.40308805110743,
+      "psnr_capped": 25.380638155701984,
+      "psnr_pooled": 17.847566543151213,
+      "source": "ours 20261025T025048509761Z_52c6a284",
+      "ssim": 0.8324001403428568,
+      "ssim_masked": 0.8785000682005912
+    },
+    {
+      "at_cap_rate": 0.020179372197309416,
+      "condition": "qwen_box_sam_fill",
+      "lpips": 0.047450297239140224,
+      "method": "flux_fill [qwen_box_sam_fill]",
+      "overall": 3.3080657159745894,
+      "psnr": 31.104612413543222,
+      "psnr_capped": 30.033484303897808,
+      "psnr_pooled": 22.629308809437703,
+      "source": "ours 20261025T025048509761Z_52c6a284",
+      "ssim": 0.87526637505101,
+      "ssim_masked": 0.940289800886402
+    },
+    {
+      "at_cap_rate": 0.004484304932735426,
+      "condition": "sam3text_fill",
+      "lpips": 0.0738886684793686,
+      "method": "flux_fill [sam3text_fill]",
+      "overall": 3.4497895176594913,
+      "psnr": 29.294303752381705,
+      "psnr_capped": 28.996783119146066,
+      "psnr_pooled": 19.689694754128485,
+      "source": "ours 20261025T025048509761Z_52c6a284",
+      "ssim": 0.8496437440152573,
+      "ssim_masked": 0.9177184068976226
+    }
+  ]
+}

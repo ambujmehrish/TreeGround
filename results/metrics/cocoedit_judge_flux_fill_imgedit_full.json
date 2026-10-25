@@ -1,0 +1,134 @@
+{
+  "conditions": {
+    "bbox_fill": {
+      "n": 737,
+      "overall": {
+        "all_categories_mean": 1.7767619047619048,
+        "by_category": {
+          "action": 1.99,
+          "add": 1.94,
+          "adjust": 1.84,
+          "background": 1.35,
+          "compose": 1.97,
+          "remove": 1.32,
+          "replace": 2.04
+        },
+        "mllm_samples_mean": 1.7357115384615383,
+        "overall": 1.7785714285714287
+      },
+      "parse_failed_rate": 0.0027137042062415195
+    },
+    "gt_fill": {
+      "n": 737,
+      "overall": {
+        "all_categories_mean": 1.924204081632653,
+        "by_category": {
+          "action": 2.38,
+          "add": 1.94,
+          "adjust": 2.17,
+          "background": 2.35,
+          "compose": 2.04,
+          "remove": 1.3,
+          "replace": 1.7
+        },
+        "mllm_samples_mean": 1.9441153846153845,
+        "overall": 1.9828571428571427
+      },
+      "parse_failed_rate": 0.0027137042062415195
+    },
+    "ours_fill": {
+      "n": 737,
+      "overall": {
+        "all_categories_mean": 1.6721496598639456,
+        "by_category": {
+          "action": 3.48,
+          "add": 1.94,
+          "adjust": 1.77,
+          "background": 1.15,
+          "compose": 1.87,
+          "remove": 1.1,
+          "replace": 1.13
+        },
+        "mllm_samples_mean": 1.587846153846154,
+        "overall": 1.7771428571428574
+      },
+      "parse_failed_rate": 0.0027137042062415195
+    },
+    "ours_s1_fill": {
+      "n": 737,
+      "overall": {
+        "all_categories_mean": 1.7423673469387753,
+        "by_category": {
+          "action": 2.51,
+          "add": 1.94,
+          "adjust": 2.12,
+          "background": 1.27,
+          "compose": 1.93,
+          "remove": 1.15,
+          "replace": 1.53
+        },
+        "mllm_samples_mean": 1.6870961538461537,
+        "overall": 1.7785714285714285
+      },
+      "parse_failed_rate": 0.0027137042062415195
+    },
+    "qwen_box_sam_fill": {
+      "n": 737,
+      "overall": {
+        "all_categories_mean": 1.9151292517006802,
+        "by_category": {
+          "action": 3.09,
+          "add": 1.94,
+          "adjust": 2.51,
+          "background": 1.57,
+          "compose": 1.9,
+          "remove": 1.35,
+          "replace": 1.8
+        },
+        "mllm_samples_mean": 1.9312884615384616,
+        "overall": 2.0228571428571427
+      },
+      "parse_failed_rate": 0.0027137042062415195
+    },
+    "sam3text_fill": {
+      "n": 737,
+      "overall": {
+        "all_categories_mean": 1.9650068027210883,
+        "by_category": {
+          "action": 3.18,
+          "add": 1.94,
+          "adjust": 2.59,
+          "background": 1.89,
+          "compose": 1.83,
+          "remove": 1.25,
+          "replace": 1.87
+        },
+        "mllm_samples_mean": 2.0017884615384616,
+        "overall": 2.0785714285714283
+      },
+      "parse_failed_rate": 0.0027137042062415195
+    }
+  },
+  "dataset": "imgedit_full",
+  "deviation": "D25",
+  "editor": "flux_fill",
+  "judge": "judge_qwen25vl_72b",
+  "merge_run": "20261024T232509095271Z_8e2db1ad",
+  "mllm_categories": [
+    "add",
+    "adjust",
+    "background",
+    "replace",
+    "remove",
+    "action",
+    "compose"
+  ],
+  "model": {
+    "repo": "Qwen/Qwen2.5-VL-72B-Instruct",
+    "revision": "89c86200743eec961a297729e7990e8f2ddbc4c5"
+  },
+  "overall_rule": "unweighted mean of the per-category means over mllm_categories (unparseable outputs dropped); ImgEdit category means rounded to 2 decimals as step2_typescore.py",
+  "prompts_source": "PKU-YuanGroup/ImgEdit@c14480ac5e7b622e08cd8c46f96624a48eb9ab46:Benchmark/Basic/prompts.json",
+  "protocol": "imgedit",
+  "smoke": false
+}

@@ -1,0 +1,241 @@
+{
+  "at_stage_tau": {
+    "gIoU_present_and_no_target": {
+      "ci95": [
+        0.6173179097236293,
+        0.6321820855608845
+      ],
+      "mean": 0.6245282249562049,
+      "n": 13241
+    },
+    "images": 1398,
+    "no_target": 8275,
+    "no_target_abstention_rate": 0.9964954682779457,
+    "present": 4966,
+    "present_acceptance_rate": 0.014095851792186871,
+    "present_gIoU": {
+      "ci95": [
+        0.0031970672316254567,
+        0.006619278407350281
+      ],
+      "mean": 0.004707657399337472,
+      "n": 4966
+    },
+    "present_gIoU_multi_target": {
+      "ci95": [
+        0.0031970672316254567,
+        0.006619278407350281
+      ],
+      "mean": 0.004707657399337472,
+      "n": 4966
+    },
+    "present_gIoU_single_target": null,
+    "present_success@0.5": {
+      "ci95": [
+        0.002184674527217772,
+        0.006969647733098245
+      ],
+      "mean": 0.004228755537656061,
+      "n": 4966
+    }
+  },
+  "deviation": "D27",
+  "label": "dev",
+  "method": "s2_from_s1",
+  "model": {
+    "checkpoint": "best.pt",
+    "eval_run": "s2_from_s1_eval/20261024T012004594024Z_4ea9fd0b",
+    "run": "s2_from_s1/20261023T222510473345Z_4ea9fd0b"
+  },
+  "no_rejection": {
+    "gIoU_present_and_no_target": {
+      "ci95": [
+        0.09111358338172666,
+        0.1005504196678382
+      ],
+      "mean": 0.0957883806015388,
+      "n": 13241
+    },
+    "images": 1398,
+    "no_target": 8275,
+    "no_target_abstention_rate": 0.0,
+    "present": 4966,
+    "present_acceptance_rate": 1.0,
+    "present_gIoU": {
+      "ci95": [
+        0.24498426215830008,
+        0.266070941527122
+      ],
+      "mean": 0.255403533537047,
+      "n": 4966
+    },
+    "present_gIoU_multi_target": {
+      "ci95": [
+        0.24498426215830008,
+        0.266070941527122
+      ],
+      "mean": 0.255403533537047,
+      "n": 4966
+    },
+    "present_gIoU_single_target": null,
+    "present_success@0.5": {
+      "ci95": [
+        0.17235985985985985,
+        0.20553300127746515
+      ],
+      "mean": 0.18807893677003626,
+      "n": 4966
+    }
+  },
+  "paco_template_reference": {
+    "absent_score_check": {
+      "max_abs_diff": 0.012684747576713507,
+      "median_abs_diff": 0.00016486551612617667,
+      "shared_no_target": 8275
+    },
+    "auc": 0.9992138993717267,
+    "no_target_abstention_rate": 0.9967371601208459,
+    "present_acceptance_rate": 0.9694117647058823,
+    "run": "20261024T012004594024Z_4ea9fd0b"
+  },
+  "separation": {
+    "auc": 0.6923735540649224,
+    "auc_multi_target": 0.6923735540649224,
+    "auc_single_target": null
+  },
+  "skipped": {
+    "images_without_nodes": 103,
+    "queries_without_nodes": 988
+  },
+  "smoke": false,
+  "split": "gRefCOCO val: present expressions (GT = union of targets) vs no-target expressions",
+  "stage_tau": 0.45226130653266333,
+  "two_fold_calibrated": {
+    "folds": {
+      "fold0": {
+        "gIoU_present_and_no_target": {
+          "ci95": [
+            0.6133639823374675,
+            0.6337907058848227
+          ],
+          "mean": 0.623220776130465,
+          "n": 6672
+        },
+        "images": 699,
+        "no_target": 4158,
+        "no_target_abstention_rate": 0.9985569985569985,
+        "present": 2514,
+        "present_acceptance_rate": 0.007159904534606206,
+        "present_gIoU": {
+          "ci95": [
+            0.0009648041098813733,
+            0.004359438050831175
+          ],
+          "mean": 0.0024379547901600676,
+          "n": 2514
+        },
+        "present_gIoU_multi_target": {
+          "ci95": [
+            0.0009648041098813733,
+            0.004359438050831175
+          ],
+          "mean": 0.0024379547901600676,
+          "n": 2514
+        },
+        "present_gIoU_single_target": null,
+        "present_success@0.5": {
+          "ci95": [
+            0.0,
+            0.004401892968725952
+          ],
+          "mean": 0.001988862370723946,
+          "n": 2514
+        },
+        "tau_calibrated_on_other_folds": 0.592964824120603
+      },
+      "fold1": {
+        "gIoU_present_and_no_target": {
+          "ci95": [
+            0.616624942981865,
+            0.6362425074371522
+          ],
+          "mean": 0.6267080262036286,
+          "n": 6569
+        },
+        "images": 699,
+        "no_target": 4117,
+        "no_target_abstention_rate": 0.9997571046878795,
+        "present": 2452,
+        "present_acceptance_rate": 0.0008156606851549756,
+        "present_gIoU": {
+          "ci95": [
+            0.0,
+            0.0009567502012777853
+          ],
+          "mean": 0.0003446264810914947,
+          "n": 2452
+        },
+        "present_gIoU_multi_target": {
+          "ci95": [
+            0.0,
+            0.0009567502012777853
+          ],
+          "mean": 0.0003446264810914947,
+          "n": 2452
+        },
+        "present_gIoU_single_target": null,
+        "present_success@0.5": {
+          "ci95": [
+            0.0,
+            0.0012340981772370472
+          ],
+          "mean": 0.0004078303425774878,
+          "n": 2452
+        },
+        "tau_calibrated_on_other_folds": 0.7336683417085427
+      }
+    },
+    "k": 2,
+    "pooled_held_out": {
+      "gIoU_present_and_no_target": {
+        "ci95": [
+          0.6176989231083831,
+          0.6327345950296706
+        ],
+        "mean": 0.6249508377368854,
+        "n": 13241
+      },
+      "images": 1398,
+      "no_target": 8275,
+      "no_target_abstention_rate": 0.999154078549849,
+      "present": 4966,
+      "present_acceptance_rate": 0.004027386226339106,
+      "present_gIoU": {
+        "ci95": [
+          0.000599861871750397,
+          0.0023824439509735344
+        ],
+        "mean": 0.0014043581301044611,
+        "n": 4966
+      },
+      "present_gIoU_multi_target": {
+        "ci95": [
+          0.000599861871750397,
+          0.0023824439509735344
+        ],
+        "mean": 0.0014043581301044611,
+        "n": 4966
+      },
+      "present_gIoU_single_target": null,
+      "present_success@0.5": {
+        "ci95": [
+          0.00020064004252034107,
+          0.002591475270367038
+        ],
+        "mean": 0.0012082158679017317,
+        "n": 4966
+      }
+    },
+    "seed": 0
+  }
+}

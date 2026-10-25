@@ -1,0 +1,67 @@
+{
+  "at_stage_tau": {
+    "gIoU_present_and_no_target": {
+      "ci95": [
+        0.26324552491657227,
+        0.27678176097879503
+      ],
+      "mean": 0.26997338598064374,
+      "n": 13241
+    },
+    "images": 1398,
+    "no_target": 8275,
+    "no_target_abstention_rate": 0.17450151057401814,
+    "present": 4966,
+    "present_acceptance_rate": 0.9756343133306484,
+    "present_gIoU": {
+      "ci95": [
+        0.4203482678039217,
+        0.4377205063134357
+      ],
+      "mean": 0.42906113648201843,
+      "n": 4966
+    },
+    "present_gIoU_multi_target": {
+      "ci95": [
+        0.4203482678039217,
+        0.4377205063134357
+      ],
+      "mean": 0.42906113648201843,
+      "n": 4966
+    },
+    "present_gIoU_single_target": null,
+    "present_success@0.5": {
+      "ci95": [
+        0.36223826738539994,
+        0.3966315200670611
+      ],
+      "mean": 0.3789770438985099,
+      "n": 4966
+    }
+  },
+  "deviation": "D27",
+  "label": "dev",
+  "method": "sa2va",
+  "model": {
+    "settings": {
+      "dtype": "bfloat16",
+      "prompt": "<image>\n Please segment {phrase} in this image."
+    }
+  },
+  "no_rejection": null,
+  "paco_template_reference": {
+    "auc": null,
+    "no_target_abstention_rate": 0.17450151057401814,
+    "present_acceptance_rate": 0.9402076124567474,
+    "run": "20261024T124159303715Z_fdf7c403"
+  },
+  "separation": null,
+  "skipped": {
+    "images_without_nodes": 103,
+    "queries_without_nodes": 988
+  },
+  "smoke": false,
+  "split": "gRefCOCO val: present expressions (GT = union of targets) vs no-target expressions",
+  "stage_tau": null,
+  "two_fold_calibrated": null
+}

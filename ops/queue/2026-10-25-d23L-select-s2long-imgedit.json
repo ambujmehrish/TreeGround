@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-25-d23L-select-s2long-imgedit",
+ "what": "D23 edit-mask selection (S2 long, augmented pool, flat + tree) on imgedit (shards) [S2 long]",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_select.py",
+  "TG_ARGS": "--config configs/edit_s2_long.yaml --dataset imgedit"
+ },
+ "sbatch": {
+  "time": "02:00:00",
+  "array": "0-7"
+ }
+}

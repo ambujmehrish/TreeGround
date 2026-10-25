@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-25-d23L-edit-s2long-qwenimageedit-partedit",
+ "what": "D23 ours2/ours2tree edits with qwen_image_edit on partedit (shards; D14 cache reused) [S2 long]",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_edit_s2.py",
+  "TG_ARGS": "--config configs/edit_s2_long.yaml --editor qwen_image_edit --dataset partedit"
+ },
+ "sbatch": {
+  "time": "01:00:00",
+  "array": "0-3"
+ },
+ "after": [
+  "2026-10-25-d23L-select-s2long-partedit"
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-25-d23L-edit-s2long-fluxfill-gedit-merge",
+ "what": "D14 + D23 merge, flux_fill, gedit, S1 / S2 long [S2 long]",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_edit_s2.py",
+  "TG_ARGS": "--config configs/edit_s2_long.yaml --editor flux_fill --dataset gedit --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-25-d23L-edit-s2long-fluxfill-gedit"
+ ],
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

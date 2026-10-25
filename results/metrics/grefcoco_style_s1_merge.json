@@ -1,0 +1,239 @@
+{
+  "at_stage_tau": {
+    "gIoU_present_and_no_target": {
+      "ci95": [
+        0.6549879835971217,
+        0.6695296227322823
+      ],
+      "mean": 0.6623688895427823,
+      "n": 13241
+    },
+    "images": 1398,
+    "no_target": 8275,
+    "no_target_abstention_rate": 0.9883987915407855,
+    "present": 4966,
+    "present_acceptance_rate": 0.2503020539669754,
+    "present_gIoU": {
+      "ci95": [
+        0.10952669177211556,
+        0.13023184623185738
+      ],
+      "mean": 0.11909514024083385,
+      "n": 4966
+    },
+    "present_gIoU_multi_target": {
+      "ci95": [
+        0.10952669177211556,
+        0.13023184623185738
+      ],
+      "mean": 0.11909514024083385,
+      "n": 4966
+    },
+    "present_gIoU_single_target": null,
+    "present_success@0.5": {
+      "ci95": [
+        0.10543452914798206,
+        0.13284398203455394
+      ],
+      "mean": 0.11941200161095449,
+      "n": 4966
+    }
+  },
+  "deviation": "D27",
+  "label": "dev",
+  "method": "s1",
+  "model": {
+    "run": "s1/20261023T121924199995Z_92812b0c"
+  },
+  "no_rejection": {
+    "gIoU_present_and_no_target": {
+      "ci95": [
+        0.14240174751254997,
+        0.15409792913930595
+      ],
+      "mean": 0.14820664813816917,
+      "n": 13241
+    },
+    "images": 1398,
+    "no_target": 8275,
+    "no_target_abstention_rate": 0.0,
+    "present": 4966,
+    "present_acceptance_rate": 1.0,
+    "present_gIoU": {
+      "ci95": [
+        0.38379833410298275,
+        0.40660311449953324
+      ],
+      "mean": 0.3951679879173375,
+      "n": 4966
+    },
+    "present_gIoU_multi_target": {
+      "ci95": [
+        0.38379833410298275,
+        0.40660311449953324
+      ],
+      "mean": 0.3951679879173375,
+      "n": 4966
+    },
+    "present_gIoU_single_target": null,
+    "present_success@0.5": {
+      "ci95": [
+        0.3576947756223228,
+        0.40085316402965687
+      ],
+      "mean": 0.37857430527587593,
+      "n": 4966
+    }
+  },
+  "paco_template_reference": {
+    "absent_score_check": {
+      "max_abs_diff": 0.11768439412117004,
+      "median_abs_diff": 0.0006713978946209908,
+      "shared_no_target": 8275
+    },
+    "auc": 0.8226154235356841,
+    "no_target_abstention_rate": 0.9877945619335348,
+    "present_acceptance_rate": 0.1291349480968858,
+    "run": "20261023T121924199995Z_92812b0c"
+  },
+  "separation": {
+    "auc": 0.9086060863418071,
+    "auc_multi_target": 0.9086060863418071,
+    "auc_single_target": null
+  },
+  "skipped": {
+    "images_without_nodes": 103,
+    "queries_without_nodes": 988
+  },
+  "smoke": false,
+  "split": "gRefCOCO val: present expressions (GT = union of targets) vs no-target expressions",
+  "stage_tau": 0.8844221105527639,
+  "two_fold_calibrated": {
+    "folds": {
+      "fold0": {
+        "gIoU_present_and_no_target": {
+          "ci95": [
+            0.664307689166229,
+            0.6835431232935343
+          ],
+          "mean": 0.6735189648602541,
+          "n": 6672
+        },
+        "images": 699,
+        "no_target": 4158,
+        "no_target_abstention_rate": 0.9706589706589707,
+        "present": 2514,
+        "present_acceptance_rate": 0.4009546539379475,
+        "present_gIoU": {
+          "ci95": [
+            0.16595059335933174,
+            0.1997972067334078
+          ],
+          "mean": 0.18206783355115985,
+          "n": 2514
+        },
+        "present_gIoU_multi_target": {
+          "ci95": [
+            0.16595059335933174,
+            0.1997972067334078
+          ],
+          "mean": 0.18206783355115985,
+          "n": 2514
+        },
+        "present_gIoU_single_target": null,
+        "present_success@0.5": {
+          "ci95": [
+            0.1575743717480034,
+            0.20499723328409739
+          ],
+          "mean": 0.18178202068416865,
+          "n": 2514
+        },
+        "tau_calibrated_on_other_folds": 0.864321608040201
+      },
+      "fold1": {
+        "gIoU_present_and_no_target": {
+          "ci95": [
+            0.6665848985655137,
+            0.6855597990475
+          ],
+          "mean": 0.676130729357633,
+          "n": 6569
+        },
+        "images": 699,
+        "no_target": 4117,
+        "no_target_abstention_rate": 0.9781394219091571,
+        "present": 2452,
+        "present_acceptance_rate": 0.3719412724306688,
+        "present_gIoU": {
+          "ci95": [
+            0.15170130212027524,
+            0.18565724607017672
+          ],
+          "mean": 0.16904680307923772,
+          "n": 2452
+        },
+        "present_gIoU_multi_target": {
+          "ci95": [
+            0.15170130212027524,
+            0.18565724607017672
+          ],
+          "mean": 0.16904680307923772,
+          "n": 2452
+        },
+        "present_gIoU_single_target": null,
+        "present_success@0.5": {
+          "ci95": [
+            0.14474104135678992,
+            0.1913897076076941
+          ],
+          "mean": 0.16761827079934746,
+          "n": 2452
+        },
+        "tau_calibrated_on_other_folds": 0.8693467336683417
+      }
+    },
+    "k": 2,
+    "pooled_held_out": {
+      "gIoU_present_and_no_target": {
+        "ci95": [
+          0.6673537739225611,
+          0.68172430816509
+        ],
+        "mean": 0.6748146888224384,
+        "n": 13241
+      },
+      "images": 1398,
+      "no_target": 8275,
+      "no_target_abstention_rate": 0.974380664652568,
+      "present": 4966,
+      "present_acceptance_rate": 0.38662907772855415,
+      "present_gIoU": {
+        "ci95": [
+          0.16483847614785382,
+          0.18823703120264162
+        ],
+        "mean": 0.1756386014293006,
+        "n": 4966
+      },
+      "present_gIoU_multi_target": {
+        "ci95": [
+          0.16483847614785382,
+          0.18823703120264162
+        ],
+        "mean": 0.1756386014293006,
+        "n": 4966
+      },
+      "present_gIoU_single_target": null,
+      "present_success@0.5": {
+        "ci95": [
+          0.15962567429328567,
+          0.1917706718705292
+        ],
+        "mean": 0.1747885622231172,
+        "n": 4966
+      }
+    },
+    "seed": 0
+  }
+}

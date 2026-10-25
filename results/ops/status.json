@@ -2,7 +2,7 @@
  "cluster": {
   "counts": {
    "PENDING": 38,
-   "RUNNING": 10
+   "RUNNING": 9
   },
   "ended_24h": [
    {
@@ -12,6 +12,14 @@
     "jobid": "61816481",
     "name": "fact-nc8rd05",
     "state": "TIMEOUT"
+   },
+   {
+    "elapsed": "05:22:18",
+    "end": "2026-10-25T08:06:20",
+    "exit": "0:0",
+    "jobid": "61816485",
+    "name": "fact-nc8rd05",
+    "state": "COMPLETED"
    },
    {
     "elapsed": "1-00:03:30",
@@ -17805,6 +17813,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "61816487",
+    "name": "fact-nc8rd05",
+    "nodes": "2",
+    "reason_or_nodelist": "(Priority)",
+    "start": "2026-10-25T08:30:11",
+    "state": "PENDING",
+    "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62143360",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -18154,17 +18172,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "0:00",
-    "jobid": "61816487",
-    "name": "fact-nc8rd05",
-    "nodes": "2",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "20:13:56",
+    "elapsed": "21:16:56",
     "jobid": "61937350",
     "name": "fact-disjref",
     "nodes": "2",
@@ -18174,7 +18182,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "16:07:28",
+    "elapsed": "17:10:28",
     "jobid": "62131513",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -18184,7 +18192,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "16:05:30",
+    "elapsed": "17:08:30",
     "jobid": "62132113",
     "name": "rd_GRPO_s0_r1",
     "nodes": "1",
@@ -18194,7 +18202,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "16:05:30",
+    "elapsed": "17:08:30",
     "jobid": "62132114",
     "name": "rd_MoT_s0_r1",
     "nodes": "1",
@@ -18204,7 +18212,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "14:25:32",
+    "elapsed": "15:28:32",
     "jobid": "62143308",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -18214,7 +18222,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "14:26:43",
+    "elapsed": "15:29:43",
     "jobid": "62143301",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -18224,7 +18232,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "13:56:55",
+    "elapsed": "14:59:55",
     "jobid": "62146411",
     "name": "fact-wavedec",
     "nodes": "2",
@@ -18234,7 +18242,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "9:34:56",
+    "elapsed": "10:37:56",
     "jobid": "61978937",
     "name": "fact-c8_rd05_distill1",
     "nodes": "2",
@@ -18244,17 +18252,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "4:23:20",
-    "jobid": "61816485",
-    "name": "fact-nc8rd05",
-    "nodes": "2",
-    "reason_or_nodelist": "lrdn[3209,3301]",
-    "start": "2026-10-25T02:44:02",
-    "state": "RUNNING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "9:27:01",
+    "elapsed": "10:30:01",
     "jobid": "61816573",
     "name": "fact-ssl8rd05",
     "nodes": "2",
@@ -22273,5 +22271,5 @@
    "waiting_for": null
   }
  },
- "updated": 1792908442.391683
+ "updated": 1792912222.500617
 }

@@ -2,7 +2,7 @@
  "cluster": {
   "counts": {
    "PENDING": 50,
-   "RUNNING": 15
+   "RUNNING": 14
   },
   "ended_24h": [
    {
@@ -15430,6 +15430,14 @@
     "state": "FAILED"
    },
    {
+    "elapsed": "08:11:29",
+    "end": "2026-10-25T03:54:39",
+    "exit": "2:0",
+    "jobid": "62162846",
+    "name": "ce.q15m.AMC.intuitor.s3",
+    "state": "FAILED"
+   },
+   {
     "elapsed": "00:00:04",
     "end": "2026-10-24T20:43:14",
     "exit": "0:0",
@@ -18148,7 +18156,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "16:59:27",
+    "elapsed": "17:07:32",
     "jobid": "61937350",
     "name": "fact-disjref",
     "nodes": "2",
@@ -18158,7 +18166,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "12:52:59",
+    "elapsed": "13:01:04",
     "jobid": "62131513",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -18168,7 +18176,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "12:52:59",
+    "elapsed": "13:01:04",
     "jobid": "62131519",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -18178,7 +18186,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "12:52:59",
+    "elapsed": "13:01:04",
     "jobid": "62131524",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -18188,7 +18196,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "12:50:55",
+    "elapsed": "12:59:00",
     "jobid": "62132118",
     "name": "rd_Ours_s0_r1",
     "nodes": "1",
@@ -18198,7 +18206,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "12:51:01",
+    "elapsed": "12:59:06",
     "jobid": "62132113",
     "name": "rd_GRPO_s0_r1",
     "nodes": "1",
@@ -18208,7 +18216,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "12:51:01",
+    "elapsed": "12:59:06",
     "jobid": "62132114",
     "name": "rd_MoT_s0_r1",
     "nodes": "1",
@@ -18218,7 +18226,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "11:11:03",
+    "elapsed": "11:19:08",
     "jobid": "62143308",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -18228,7 +18236,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "11:12:14",
+    "elapsed": "11:20:19",
     "jobid": "62143301",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -18238,7 +18246,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "10:42:26",
+    "elapsed": "10:50:31",
     "jobid": "62146411",
     "name": "fact-wavedec",
     "nodes": "2",
@@ -18248,7 +18256,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "8:09:43",
+    "elapsed": "8:17:48",
     "jobid": "62162843",
     "name": "ce.q15m.AMC.intuitor.s2",
     "nodes": "1",
@@ -18258,17 +18266,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "8:09:43",
-    "jobid": "62162846",
-    "name": "ce.q15m.AMC.intuitor.s3",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn1523",
-    "start": "2026-10-24T20:43:10",
-    "state": "RUNNING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "6:20:27",
+    "elapsed": "6:28:32",
     "jobid": "61978937",
     "name": "fact-c8_rd05_distill1",
     "nodes": "2",
@@ -18278,7 +18276,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "1:08:51",
+    "elapsed": "1:16:56",
     "jobid": "61816485",
     "name": "fact-nc8rd05",
     "nodes": "2",
@@ -18288,7 +18286,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "6:12:32",
+    "elapsed": "6:20:37",
     "jobid": "61816573",
     "name": "fact-ssl8rd05",
     "nodes": "2",
@@ -19063,15 +19061,15 @@
    "waiting_for": null
   },
   "2026-10-24-cocob-eval-f-gedit": {
-   "collected": null,
+   "collected": 1792897079.2299874,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792897079.2299862,
    "invalid": null,
    "jobid": "62175942",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1792874259.7849476,
@@ -19093,15 +19091,15 @@
    "waiting_for": null
   },
   "2026-10-24-cocob-eval-q-gedit": {
-   "collected": null,
+   "collected": 1792897213.7050242,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792897213.7050216,
    "invalid": null,
    "jobid": "62176904",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1792874656.9882057,
@@ -22307,5 +22305,5 @@
    "waiting_for": null
   }
  },
- "updated": 1792896774.224118
+ "updated": 1792897259.2155795
 }

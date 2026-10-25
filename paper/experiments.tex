@@ -1,0 +1,235 @@
+% TreeGround: experimental setup and results (numbers as of 2026-10-25).
+% Requires \usepackage{booktabs,multirow,makecell} and \usepackage{xspace}.
+% All CIs are 95% image-level bootstrap; ours are reported without rejection unless stated.
+% Caveats to state in the text: tau / checkpoint chosen on the reported PACO val; S1-based rows were
+% trained with Pascal-Part (in-domain there); LVIS-hier. overlap audit (D26) and style-matched abstention (D27) pending.
+
+\section{Experiments}
+
+\paragraph{Setup.}
+SAM\,3 proposals are organised into a containment tree (stability-ordered, cap 256 nodes, IoU-dedup 0.9).
+A Qwen3-VL-4B selector emits a \texttt{<SEL>} token whose embedding scores tree nodes.
+\textbf{V2}: frozen MLLM, 10k images.
+\textbf{S1}: frozen MLLM, multi-source, 20k steps.
+\textbf{S2}: LoRA ($r{=}16$) + trainable \texttt{<SEL>}, from V2 or S1 init.
+\textbf{S2 long}: S1 init, 12k steps on PACO + Pascal-Part + gRefCOCO.
+Chains are answered top-down: \emph{flat} searches all nodes, \emph{tree} restricts the part search to the selected object's subtree.
+For editing, the selected mask drives Qwen-Image-Edit (masked blend) or FLUX.1-Fill; quality is judged by Qwen2.5-VL-72B (VIEScore protocol).
+
+\begin{table}[t]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lllr l}
+\toprule
+Task & Dataset & Split & \#Eval & Metrics \\
+\midrule
+Part/object grounding & PACO-LVIS & val & 7{,}225 & gIoU, cIoU, Succ@0.5 \\
+No-target abstention & gRefCOCO & val & 8{,}275 & N-acc \\
+Object$\to$part chains & PACO-LVIS & val & 5{,}102 (352) & Chain succ., E2E gIoU \\
+\multirow{4}{*}{Zero-shot transfer} & Pascal-Part & val & 27{,}518 & \multirow{4}{*}{E2E gIoU, part gIoU} \\
+ & ADE20K-Part & val & 3{,}718 & \\
+ & LVIS hier. & val & 1{,}683 & \\
+ & OpenImages hier. & val & 31{,}610 & \\
+\midrule
+\multirow{4}{*}{Edit localization} & PartEdit & test & 73 & \multirow{4}{*}{Mask IoU, Succ@0.5} \\
+ & GEdit-Bench-EN & local subset & 192 & \\
+ & ImgEdit & local subset & 269 & \\
+ & PACO-Edit & dev & 500 & \\
+\midrule
+Region-grounded editing & \makecell[l]{GEdit / ImgEdit\\ (CoCoEdit prot.)} & full & 446 / 425 & \makecell[l]{VIEScore, PSNR,\\ SSIM, LPIPS} \\
+\bottomrule
+\end{tabular}
+\caption{Tasks and datasets. Parentheses: common eligible chains.}
+\label{tab:setup}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccccc}
+\toprule
+Method & gIoU & cIoU & Obj. & Part & Succ@0.5 \\
+\midrule
+Sa2VA            & 0.279 & 0.378 & 0.474 & 0.198 & 0.257 \\
+SAM\,3 (text)    & 0.415 & \textbf{0.569} & 0.754 & 0.273 & 0.449 \\
+Qwen3-VL box + SAM\,3 & \textbf{0.459} & 0.530 & \textbf{0.758} & \textbf{0.335} & \textbf{0.467} \\
+\midrule
+Ours V2          & 0.278 & --    & 0.507 & 0.183 & 0.286 \\
+Ours S1          & 0.359 & 0.471 & 0.627 & 0.248 & 0.384 \\
+Ours S2          & 0.404 & 0.494 & 0.655 & 0.299 & 0.424 \\
+Ours S2 (S1 init)& 0.403 & 0.511 & 0.656 & 0.298 & 0.429 \\
+\quad + listwise rerank ($k{=}10$) & 0.418 & 0.508 & 0.699 & 0.301 & 0.442 \\
+\quad + SAM\,3 refine (3 rounds) & 0.414 & 0.521 & 0.680 & 0.303 & 0.436 \\
+Ours S2 long     & 0.425 & 0.546 & 0.677 & 0.320 & 0.458 \\
+\midrule
+\textit{Oracle: best tree node} & \textit{0.565} & & & & \\
+\bottomrule
+\end{tabular}
+\caption{Grounding on PACO-LVIS val (present queries). gIoU CIs $\pm$0.01.}
+\label{tab:paco}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{lccc}
+\toprule
+Method & $\tau_{\text{rej}}$ & gIoU (present) & N-acc \\
+\midrule
+Sa2VA & -- & 0.279 & 0.175 \\
+SAM\,3 (text) & -- & 0.415 & 0.917 \\
+Qwen3-VL box + SAM\,3 & -- & 0.459 & 0.290 \\
+\midrule
+Ours V2 & cal. & 0.273 & 0.996 \\
+Ours S2 & cal. & 0.403 & \textbf{1.000} \\
+Ours S2 (S1 init) & cal. & 0.400 & 0.997 \\
+Ours S2 long & cal. & 0.149 & 0.978 \\
+\bottomrule
+\end{tabular}
+\caption{Grounding with abstention (gRefCOCO no-target queries).}
+\label{tab:abstain}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{3}{c}{Chain succ. (common)} & \multicolumn{3}{c}{E2E part gIoU} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Method & Flat & Tree & Rand. & All & 2-lvl & 1-lvl \\
+\midrule
+Sa2VA & & & & 0.120 & 0.039 & 0.381 \\
+SAM\,3 (text) & & & & 0.270 & \textbf{0.234} & 0.387 \\
+Qwen3-VL box + SAM\,3 & & & & \textbf{0.299} & 0.160 & \textbf{0.745} \\
+\midrule
+Ours S1 & 0.560 & 0.540 & 0.202 & 0.229 / 0.194 & 0.114 / 0.119 & 0.597 / 0.437 \\
+Ours S2 & 0.622 & 0.591 & 0.212 & 0.259 / 0.213 & 0.131 / 0.137 & 0.666 / 0.456 \\
+Ours S2 (S1 init) & 0.602 & 0.571 & 0.206 & 0.267 / 0.217 & 0.140 / 0.141 & 0.673 / 0.461 \\
+Ours S2 long & \textbf{0.690} & 0.656 & 0.237 & 0.296 / 0.251 & 0.174 / 0.175 & 0.689 / 0.493 \\
+\bottomrule
+\end{tabular}
+\caption{Object$\to$part chains on PACO-LVIS val. Ours: flat / tree.}
+\label{tab:chains}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lccccc}
+\toprule
+ & \multicolumn{4}{c}{E2E chain gIoU} & Part gIoU \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-6}
+Method & Pascal-P. & ADE20K & LVIS-h. & OI-h. & Pascal-P. \\
+\midrule
+Sa2VA & 0.250 & 0.244 & 0.490 & 0.470 & 0.291 \\
+SAM\,3 (text) & \textbf{0.400} & \textbf{0.368} & 0.455 & 0.616 & 0.392 \\
+Qwen3-VL box + SAM\,3 & 0.390 & 0.361 & \textbf{0.616} & \textbf{0.770} & \textbf{0.418} \\
+\midrule
+Ours V2 & 0.042 & 0.028 & 0.040 & 0.012 & 0.063 \\
+Ours S1$^\dagger$ & 0.258 & 0.093 & 0.106 & 0.153 & 0.281 \\
+Ours S2 & 0.141 & 0.088 & 0.126 & 0.090 & 0.187 \\
+Ours S2 (S1 init)$^\dagger$ & 0.223 & 0.098 & 0.137 & 0.155 & 0.239 \\
+\bottomrule
+\end{tabular}
+\caption{Zero-shot transfer (no rejection). $^\dagger$Pascal-Part seen in S1 training.}
+\label{tab:transfer}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccc}
+\toprule
+Mask source & PartEdit & GEdit & ImgEdit & PACO-Edit \\
+\midrule
+SAM\,3 (text) & \textbf{0.795} & \textbf{0.693} & \textbf{0.786} & \textbf{0.543} \\
+\midrule
+Ours V2 & 0.016 & 0.199 & 0.133 & 0.275 \\
+Ours S1 & 0.247 & 0.440 & 0.610 & 0.383 \\
+Ours S2, flat & 0.374 & 0.449 & 0.591 & 0.478 \\
+Ours S2, tree & 0.325 & 0.449 & 0.591 & 0.459 \\
+Ours S2 (S1 init), flat & 0.471 & 0.500 & 0.633 & 0.477 \\
+Ours S2 (S1 init), tree & 0.471 & 0.499 & 0.633 & 0.464 \\
+\midrule
+\textit{Oracle: best tree node} & \textit{0.610} & \textit{0.791} & \textit{0.723} & \textit{0.614} \\
+\textit{Oracle: nodes + SAM\,3 inst.} & \textit{0.835} & \textit{0.859} & \textit{0.897} & \textit{0.692} \\
+\bottomrule
+\end{tabular}
+\caption{Edit-region localization (mask IoU).}
+\label{tab:editloc}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccc}
+\toprule
+Editor & Mask & PartEdit & GEdit & ImgEdit & PACO-Edit \\
+\midrule
+\multirow{4}{*}{Qwen-Image-Edit} & none (free) & \textbf{7.20} & \textbf{7.28} & \textbf{7.66} & \textbf{7.05} \\
+ & GT mask$^*$ & 6.89 & 6.35 & 7.14 & 5.56 \\
+ & SAM\,3 (text) & 7.01 & 6.36 & 6.79 & 5.62 \\
+ & Ours V2 & 1.07 & 2.51 & 1.54 & 4.59 \\
+\midrule
+\multirow{3}{*}{FLUX.1-Fill} & GT mask$^*$ & 2.92 & 2.40 & 3.16 & 4.06 \\
+ & SAM\,3 (text) & 2.98 & 2.60 & 2.63 & 4.50 \\
+ & Ours V2 & 0.61 & 1.43 & 0.70 & 3.94 \\
+\bottomrule
+\end{tabular}
+\caption{VIEScore overall (0--10, Qwen2.5-VL-72B judge). $^*$Oracle.}
+\label{tab:judge}
+\end{table}
+
+\begin{table*}[t]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccccccc}
+\toprule
+ & \multicolumn{4}{c}{GEdit-Bench-EN} & \multicolumn{4}{c}{ImgEdit} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+Method & Overall$\uparrow$ & PSNR$\uparrow$ & SSIM$\uparrow$ & LPIPS$\downarrow$ & Overall$\uparrow$ & PSNR$\uparrow$ & SSIM$\uparrow$ & LPIPS$\downarrow$ \\
+\midrule
+\multicolumn{9}{l}{\textit{Published (CoCoEdit)}} \\
+BAGEL & 6.94 & 20.78 & 0.745 & 0.203 & 3.12 & 20.06 & 0.611 & 0.318 \\
+Step1X-Edit & 7.38 & 21.59 & 0.750 & 0.189 & 3.57 & 16.47 & 0.468 & 0.369 \\
+FLUX.1 Kontext + CoCoEdit & 6.94 & 25.33 & 0.874 & 0.139 & 3.52 & 20.75 & 0.635 & 0.297 \\
+Qwen-Image-Edit & 7.56 & 19.49 & 0.662 & 0.185 & 3.70 & 17.64 & 0.526 & 0.359 \\
+Qwen-Image-Edit + CoCoEdit & \textbf{7.75} & 22.28 & 0.774 & 0.162 & \textbf{3.79} & 19.13 & 0.555 & 0.331 \\
+GPT-Image-1 & 7.86 & 12.29 & 0.406 & -- & 3.80 & 12.21 & 0.308 & -- \\
+FLUX.1-Fill (GT mask)$^*$ & 3.26 & 26.79 & 0.786 & -- & 2.04 & 26.46 & 0.701 & -- \\
+\midrule
+\multicolumn{9}{l}{\textit{Our runs}} \\
+Qwen-Image-Edit (free) & 7.31 & 22.31 & 0.764 & 0.130 & \multicolumn{4}{c}{pending} \\
+\quad + SAM\,3 mask blend & 6.17 & 30.47 & 0.882 & 0.049 & \multicolumn{4}{c}{pending} \\
+\quad + Qwen box/SAM\,3 mask blend & 6.27 & 31.34 & 0.889 & 0.046 & \multicolumn{4}{c}{pending} \\
+\quad + Ours V2 mask blend & 2.87 & 40.84 & 0.955 & 0.021 & \multicolumn{4}{c}{pending} \\
+\quad + GT mask blend$^*$ & 6.21 & 31.51 & 0.878 & 0.039 & \multicolumn{4}{c}{pending} \\
+FLUX.1-Fill + SAM\,3 mask & 3.45 & 29.29 & 0.850 & 0.074 & 2.08 & 36.82 & 0.806 & 0.027 \\
+FLUX.1-Fill + Qwen box/SAM\,3 mask & 3.31 & 31.10 & 0.875 & 0.047 & 2.02 & 37.86 & 0.808 & 0.029 \\
+FLUX.1-Fill + Ours V2 mask & 1.85 & 33.97 & 0.933 & 0.045 & 1.78 & 51.17 & 0.971 & 0.011 \\
+FLUX.1-Fill + GT mask$^*$ & 3.16 & 31.70 & 0.859 & 0.028 & 1.98 & 32.25 & 0.720 & 0.017 \\
+\bottomrule
+\end{tabular}
+\caption{Region-grounded editing, CoCoEdit protocol (masked PSNR, cap 100\,dB). $^*$Oracle mask.}
+\label{tab:cocoedit}
+\end{table*}
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{lcccc}
+\toprule
+Setting & Recall & Small & Med. & Large \\
+\midrule
+PACO parts, full tree & 0.409 & 0.280 & 0.752 & 0.887 \\
+PACO parts, cap 256 & 0.347 & 0.242 & 0.626 & 0.741 \\
+PACO objects, full tree & 0.581 & 0.419 & 0.825 & 0.735 \\
+PARTONOMY parts, full tree & 0.854 & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\caption{Proposal-tree coverage (recall at IoU 0.5).}
+\label{tab:coverage}
+\end{table}
+
+% Pending (queued 2026-10-25): Euclidean vs Lorentz vs Lorentz+cone selector geometry (D24);
+% clean LVIS-hier. recompute (D26); style-matched gRefCOCO abstention (D27);
+% Qwen-Image-Edit on ImgEdit (CoCoEdit protocol); editing with S2-long masks.

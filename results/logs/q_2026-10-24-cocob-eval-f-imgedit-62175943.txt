@@ -5,3 +5,46 @@
 [eval 25/425] 62s
 [eval 50/425] 112s
 [eval 75/425] 172s
+[eval 100/425] 231s
+[eval 125/425] 291s
+[eval 150/425] 376s
+[eval 175/425] 436s
+[eval 200/425] 495s
+[eval 225/425] 552s
+[eval 250/425] 609s
+[eval 275/425] 666s
+[eval 300/425] 723s
+[eval 325/425] 780s
+[eval 350/425] 837s
+[eval 375/425] 895s
+[eval 400/425] 953s
+[eval 425/425] 1010s
+   editor      dataset         condition  overall      psnr  psnr_capped     ssim  ssim_masked    lpips  psnr_pooled  at_cap_rate  n_scored
+flux_fill imgedit_full         bbox_fill 1.778571 18.307889    18.307889 0.595325     0.670825 0.153062    15.985425     0.000000       425
+flux_fill imgedit_full           gt_fill 1.982857 32.248605    32.248605 0.720461     0.963952 0.017020    30.887477     0.000000       425
+flux_fill imgedit_full         ours_fill 1.777143 51.165809    39.945151 0.970613     0.976269 0.011386    28.387166     0.190588       425
+flux_fill imgedit_full      ours_s1_fill 1.778571 34.015052    31.699044 0.846439     0.875869 0.050935    20.963566     0.037647       425
+flux_fill imgedit_full qwen_box_sam_fill 2.022857 37.864086    34.655146 0.808067     0.942869 0.029126    24.364476     0.058824       425
+flux_fill imgedit_full     sam3text_fill 2.078571 36.820454    34.830172 0.805827     0.942774 0.026622    25.053512     0.035294       425
+/leonardo_work/AIFAC_S07_041/treeground/runs/cocoedit_eval_flux_fill_imgedit_full/20261025T022625207645Z_8c8bb503
+                                 method                               source         condition  overall      psnr     ssim    lpips  ssim_masked  psnr_capped  psnr_pooled  at_cap_rate
+                                  BAGEL  CoCoEdit (arXiv 2602.14068) Table 2               NaN 3.120000 20.062000 0.611000 0.318000          NaN          NaN          NaN          NaN
+                               OmniGen2  CoCoEdit (arXiv 2602.14068) Table 2               NaN 3.240000 17.482000 0.578000 0.364000          NaN          NaN          NaN          NaN
+                            Step1X-Edit  CoCoEdit (arXiv 2602.14068) Table 2               NaN 3.570000 16.471000 0.468000 0.369000          NaN          NaN          NaN          NaN
+                         FLUX.1 Kontext  CoCoEdit (arXiv 2602.14068) Table 2               NaN 3.430000 19.591000 0.592000 0.303000          NaN          NaN          NaN          NaN
+               FLUX.1 Kontext + Edit-R1  CoCoEdit (arXiv 2602.14068) Table 2               NaN 3.510000 15.722000 0.506000 0.356000          NaN          NaN          NaN          NaN
+              FLUX.1 Kontext + CoCoEdit  CoCoEdit (arXiv 2602.14068) Table 2               NaN 3.520000 20.747000 0.635000 0.297000          NaN          NaN          NaN          NaN
+                 Qwen-Image-Edit (2509)  CoCoEdit (arXiv 2602.14068) Table 2               NaN 3.700000 17.635000 0.526000 0.359000          NaN          NaN          NaN          NaN
+              Qwen-Image-Edit + Edit-R1  CoCoEdit (arXiv 2602.14068) Table 2               NaN 3.720000 16.130000 0.482000 0.394000          NaN          NaN          NaN          NaN
+            Qwen-Image-Edit + MotionNFT  CoCoEdit (arXiv 2602.14068) Table 2               NaN 3.710000 17.072000 0.514000 0.369000          NaN          NaN          NaN          NaN
+             Qwen-Image-Edit + CoCoEdit  CoCoEdit (arXiv 2602.14068) Table 2               NaN 3.790000 19.125000 0.555000 0.331000          NaN          NaN          NaN          NaN
+                            GPT-Image-1  CoCoEdit (arXiv 2602.14068) Table 5               NaN 3.800000 12.209000 0.308000      NaN          NaN          NaN          NaN          NaN
+                            Nano-Banana  CoCoEdit (arXiv 2602.14068) Table 5               NaN 3.760000 16.926000 0.449000      NaN          NaN          NaN          NaN          NaN
+              FLUX.1-Fill-dev (GT mask)  CoCoEdit (arXiv 2602.14068) Table 7               NaN 2.040000 26.463000 0.701000      NaN          NaN          NaN          NaN          NaN
+                                 ICEdit  CoCoEdit (arXiv 2602.14068) Table 7               NaN 2.880000 21.561000 0.614000      NaN          NaN          NaN          NaN          NaN
+flux_fill [bbox_fill] (oracle: GT mask) ours 20261025T022625207645Z_8c8bb503         bbox_fill 1.778571 18.307889 0.595325 0.153062     0.670825    18.307889    15.985425     0.000000
+  flux_fill [gt_fill] (oracle: GT mask) ours 20261025T022625207645Z_8c8bb503           gt_fill 1.982857 32.248605 0.720461 0.017020     0.963952    32.248605    30.887477     0.000000
+                  flux_fill [ours_fill] ours 20261025T022625207645Z_8c8bb503         ours_fill 1.777143 51.165809 0.970613 0.011386     0.976269    39.945151    28.387166     0.190588
+               flux_fill [ours_s1_fill] ours 20261025T022625207645Z_8c8bb503      ours_s1_fill 1.778571 34.015052 0.846439 0.050935     0.875869    31.699044    20.963566     0.037647
+          flux_fill [qwen_box_sam_fill] ours 20261025T022625207645Z_8c8bb503 qwen_box_sam_fill 2.022857 37.864086 0.808067 0.029126     0.942869    34.655146    24.364476     0.058824
+              flux_fill [sam3text_fill] ours 20261025T022625207645Z_8c8bb503     sam3text_fill 2.078571 36.820454 0.805827 0.026622     0.942774    34.830172    25.053512     0.035294

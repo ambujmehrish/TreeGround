@@ -1,0 +1,210 @@
+{
+  "dataset": "imgedit_full",
+  "deviation": "D25",
+  "rows": [
+    {
+      "condition": null,
+      "lpips": 0.318,
+      "method": "BAGEL",
+      "overall": 3.12,
+      "psnr": 20.062,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 2",
+      "ssim": 0.611
+    },
+    {
+      "condition": null,
+      "lpips": 0.364,
+      "method": "OmniGen2",
+      "overall": 3.24,
+      "psnr": 17.482,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 2",
+      "ssim": 0.578
+    },
+    {
+      "condition": null,
+      "lpips": 0.369,
+      "method": "Step1X-Edit",
+      "overall": 3.57,
+      "psnr": 16.471,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 2",
+      "ssim": 0.468
+    },
+    {
+      "condition": null,
+      "lpips": 0.303,
+      "method": "FLUX.1 Kontext",
+      "overall": 3.43,
+      "psnr": 19.591,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 2",
+      "ssim": 0.592
+    },
+    {
+      "condition": null,
+      "lpips": 0.356,
+      "method": "FLUX.1 Kontext + Edit-R1",
+      "overall": 3.51,
+      "psnr": 15.722,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 2",
+      "ssim": 0.506
+    },
+    {
+      "condition": null,
+      "lpips": 0.297,
+      "method": "FLUX.1 Kontext + CoCoEdit",
+      "overall": 3.52,
+      "psnr": 20.747,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 2",
+      "ssim": 0.635
+    },
+    {
+      "condition": null,
+      "lpips": 0.359,
+      "method": "Qwen-Image-Edit (2509)",
+      "overall": 3.7,
+      "psnr": 17.635,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 2",
+      "ssim": 0.526
+    },
+    {
+      "condition": null,
+      "lpips": 0.394,
+      "method": "Qwen-Image-Edit + Edit-R1",
+      "overall": 3.72,
+      "psnr": 16.13,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 2",
+      "ssim": 0.482
+    },
+    {
+      "condition": null,
+      "lpips": 0.369,
+      "method": "Qwen-Image-Edit + MotionNFT",
+      "overall": 3.71,
+      "psnr": 17.072,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 2",
+      "ssim": 0.514
+    },
+    {
+      "condition": null,
+      "lpips": 0.331,
+      "method": "Qwen-Image-Edit + CoCoEdit",
+      "overall": 3.79,
+      "psnr": 19.125,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 2",
+      "ssim": 0.555
+    },
+    {
+      "condition": null,
+      "lpips": null,
+      "method": "GPT-Image-1",
+      "overall": 3.8,
+      "psnr": 12.209,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 5",
+      "ssim": 0.308
+    },
+    {
+      "condition": null,
+      "lpips": null,
+      "method": "Nano-Banana",
+      "overall": 3.76,
+      "psnr": 16.926,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 5",
+      "ssim": 0.449
+    },
+    {
+      "condition": null,
+      "lpips": null,
+      "method": "FLUX.1-Fill-dev (GT mask)",
+      "overall": 2.04,
+      "psnr": 26.463,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 7",
+      "ssim": 0.701
+    },
+    {
+      "condition": null,
+      "lpips": null,
+      "method": "ICEdit",
+      "overall": 2.88,
+      "psnr": 21.561,
+      "source": "CoCoEdit (arXiv 2602.14068) Table 7",
+      "ssim": 0.614
+    },
+    {
+      "at_cap_rate": 0.0,
+      "condition": "bbox_fill",
+      "lpips": 0.15306238180135978,
+      "method": "flux_fill [bbox_fill] (oracle: GT mask)",
+      "overall": 1.7785714285714287,
+      "psnr": 18.30788943907794,
+      "psnr_capped": 18.30788943907794,
+      "psnr_pooled": 15.985424581814588,
+      "source": "ours 20261025T022625207645Z_8c8bb503",
+      "ssim": 0.5953248582825419,
+      "ssim_masked": 0.6708248012556621
+    },
+    {
+      "at_cap_rate": 0.0,
+      "condition": "gt_fill",
+      "lpips": 0.017020450560923883,
+      "method": "flux_fill [gt_fill] (oracle: GT mask)",
+      "overall": 1.9828571428571427,
+      "psnr": 32.24860483730541,
+      "psnr_capped": 32.24860483730541,
+      "psnr_pooled": 30.88747742298896,
+      "source": "ours 20261025T022625207645Z_8c8bb503",
+      "ssim": 0.7204613833972382,
+      "ssim_masked": 0.9639519853485677
+    },
+    {
+      "at_cap_rate": 0.19058823529411764,
+      "condition": "ours_fill",
+      "lpips": 0.01138594751864796,
+      "method": "flux_fill [ours_fill]",
+      "overall": 1.7771428571428574,
+      "psnr": 51.165808899823354,
+      "psnr_capped": 39.94515054590562,
+      "psnr_pooled": 28.387166160772473,
+      "source": "ours 20261025T022625207645Z_8c8bb503",
+      "ssim": 0.970613132415877,
+      "ssim_masked": 0.9762693222464895
+    },
+    {
+      "at_cap_rate": 0.03764705882352941,
+      "condition": "ours_s1_fill",
+      "lpips": 0.05093465355861156,
+      "method": "flux_fill [ours_s1_fill]",
+      "overall": 1.7785714285714285,
+      "psnr": 34.015052192912385,
+      "psnr_capped": 31.69904447555542,
+      "psnr_pooled": 20.96356595648644,
+      "source": "ours 20261025T022625207645Z_8c8bb503",
+      "ssim": 0.8464391357422628,
+      "ssim_masked": 0.8758691520722317
+    },
+    {
+      "at_cap_rate": 0.058823529411764705,
+      "condition": "qwen_box_sam_fill",
+      "lpips": 0.029125758511900437,
+      "method": "flux_fill [qwen_box_sam_fill]",
+      "overall": 2.0228571428571427,
+      "psnr": 37.86408567877377,
+      "psnr_capped": 34.65514626334695,
+      "psnr_pooled": 24.364476360579598,
+      "source": "ours 20261025T022625207645Z_8c8bb503",
+      "ssim": 0.8080673290052901,
+      "ssim_masked": 0.9428686037619469
+    },
+    {
+      "at_cap_rate": 0.03529411764705882,
+      "condition": "sam3text_fill",
+      "lpips": 0.026621773348661542,
+      "method": "flux_fill [sam3text_fill]",
+      "overall": 2.0785714285714283,
+      "psnr": 36.82045403200037,
+      "psnr_capped": 34.83017235475428,
+      "psnr_pooled": 25.05351235185524,
+      "source": "ours 20261025T022625207645Z_8c8bb503",
+      "ssim": 0.8058272043190269,
+      "ssim_masked": 0.9427736341426289
+    }
+  ]
+}

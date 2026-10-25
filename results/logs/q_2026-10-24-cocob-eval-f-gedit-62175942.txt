@@ -3,3 +3,48 @@
 /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torchvision/models/_utils.py:222: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=AlexNet_Weights.IMAGENET1K_V1`. You can also use `weights=AlexNet_Weights.DEFAULT` to get the most up-to-date weights.
   warnings.warn(msg)
 [eval 25/446] 38s
+[eval 50/446] 65s
+[eval 75/446] 96s
+[eval 100/446] 117s
+[eval 125/446] 145s
+[eval 150/446] 168s
+[eval 175/446] 192s
+[eval 200/446] 229s
+[eval 225/446] 252s
+[eval 250/446] 275s
+[eval 275/446] 307s
+[eval 300/446] 332s
+[eval 325/446] 357s
+[eval 350/446] 383s
+[eval 375/446] 404s
+[eval 400/446] 428s
+[eval 425/446] 451s
+   editor    dataset         condition  overall      psnr  psnr_capped     ssim  ssim_masked    lpips  psnr_pooled  at_cap_rate  n_scored       sc       pq
+flux_fill gedit_full         bbox_fill 3.961891 22.684069    22.651904 0.767268     0.822238 0.127428    17.544188     0.000000       446 3.873686 7.322395
+flux_fill gedit_full           gt_fill 3.155458 31.698798    31.650365 0.859388     0.960471 0.028386    28.421371     0.000000       446 3.124388 7.317306
+flux_fill gedit_full         ours_fill 1.853639 33.974175    32.062739 0.933061     0.948184 0.045467    22.669249     0.024664       446 1.718968 7.457186
+flux_fill gedit_full      ours_s1_fill 3.062024 25.403088    25.380638 0.832400     0.878500 0.108495    17.847567     0.000000       446 3.002621 7.257480
+flux_fill gedit_full qwen_box_sam_fill 3.308066 31.104612    30.033484 0.875266     0.940290 0.047450    22.629309     0.020179       446 3.243212 7.372000
+flux_fill gedit_full     sam3text_fill 3.449790 29.294304    28.996783 0.849644     0.917718 0.073889    19.689695     0.004484       446 3.422553 7.339407
+/leonardo_work/AIFAC_S07_041/treeground/runs/cocoedit_eval_flux_fill_gedit_full/20261025T025048509761Z_52c6a284
+                                 method                               source         condition  overall      psnr     ssim    lpips  ssim_masked  psnr_capped  psnr_pooled  at_cap_rate
+                                  BAGEL  CoCoEdit (arXiv 2602.14068) Table 1               NaN 6.940000 20.783000 0.745000 0.203000          NaN          NaN          NaN          NaN
+                               OmniGen2  CoCoEdit (arXiv 2602.14068) Table 1               NaN 6.410000 21.116000 0.736000 0.197000          NaN          NaN          NaN          NaN
+                            Step1X-Edit  CoCoEdit (arXiv 2602.14068) Table 1               NaN 7.379000 21.588000 0.750000 0.189000          NaN          NaN          NaN          NaN
+                         FLUX.1 Kontext  CoCoEdit (arXiv 2602.14068) Table 1               NaN 6.286000 24.168000 0.825000 0.150000          NaN          NaN          NaN          NaN
+               FLUX.1 Kontext + Edit-R1  CoCoEdit (arXiv 2602.14068) Table 1               NaN 7.113000 19.013000 0.716000 0.214000          NaN          NaN          NaN          NaN
+              FLUX.1 Kontext + CoCoEdit  CoCoEdit (arXiv 2602.14068) Table 1               NaN 6.939000 25.331000 0.874000 0.139000          NaN          NaN          NaN          NaN
+                 Qwen-Image-Edit (2509)  CoCoEdit (arXiv 2602.14068) Table 1               NaN 7.560000 19.488000 0.662000 0.185000          NaN          NaN          NaN          NaN
+              Qwen-Image-Edit + Edit-R1  CoCoEdit (arXiv 2602.14068) Table 1               NaN 7.746000 18.441000 0.639000 0.214000          NaN          NaN          NaN          NaN
+            Qwen-Image-Edit + MotionNFT  CoCoEdit (arXiv 2602.14068) Table 1               NaN 7.711000 18.709000 0.642000 0.201000          NaN          NaN          NaN          NaN
+             Qwen-Image-Edit + CoCoEdit  CoCoEdit (arXiv 2602.14068) Table 1               NaN 7.754000 22.283000 0.774000 0.162000          NaN          NaN          NaN          NaN
+                            GPT-Image-1  CoCoEdit (arXiv 2602.14068) Table 5               NaN 7.861000 12.285000 0.406000      NaN          NaN          NaN          NaN          NaN
+                            Nano-Banana  CoCoEdit (arXiv 2602.14068) Table 5               NaN 7.062000 19.540000 0.640000      NaN          NaN          NaN          NaN          NaN
+              FLUX.1-Fill-dev (GT mask)  CoCoEdit (arXiv 2602.14068) Table 7               NaN 3.258000 26.793000 0.786000      NaN          NaN          NaN          NaN          NaN
+                                 ICEdit  CoCoEdit (arXiv 2602.14068) Table 7               NaN 5.898000 21.698000 0.730000      NaN          NaN          NaN          NaN          NaN
+flux_fill [bbox_fill] (oracle: GT mask) ours 20261025T025048509761Z_52c6a284         bbox_fill 3.961891 22.684069 0.767268 0.127428     0.822238    22.651904    17.544188     0.000000
+  flux_fill [gt_fill] (oracle: GT mask) ours 20261025T025048509761Z_52c6a284           gt_fill 3.155458 31.698798 0.859388 0.028386     0.960471    31.650365    28.421371     0.000000
+                  flux_fill [ours_fill] ours 20261025T025048509761Z_52c6a284         ours_fill 1.853639 33.974175 0.933061 0.045467     0.948184    32.062739    22.669249     0.024664
+               flux_fill [ours_s1_fill] ours 20261025T025048509761Z_52c6a284      ours_s1_fill 3.062024 25.403088 0.832400 0.108495     0.878500    25.380638    17.847567     0.000000
+          flux_fill [qwen_box_sam_fill] ours 20261025T025048509761Z_52c6a284 qwen_box_sam_fill 3.308066 31.104612 0.875266 0.047450     0.940290    30.033484    22.629309     0.020179
+              flux_fill [sam3text_fill] ours 20261025T025048509761Z_52c6a284     sam3text_fill 3.449790 29.294304 0.849644 0.073889     0.917718    28.996783    19.689695     0.004484

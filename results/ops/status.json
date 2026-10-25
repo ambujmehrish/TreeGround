@@ -1,8 +1,8 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 54,
-   "RUNNING": 24
+   "PENDING": 50,
+   "RUNNING": 21
   },
   "ended_24h": [
    {
@@ -17494,6 +17494,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "01:28:05",
+    "end": "2026-10-25T03:37:19",
+    "exit": "0:0",
+    "jobid": "62174286_3",
+    "name": "q_2026-10-24-cocob-judge-f-gedit",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:56:19",
     "end": "2026-10-25T03:05:33",
     "exit": "0:0",
@@ -17526,6 +17534,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "00:01:50",
+    "end": "2026-10-25T03:40:12",
+    "exit": "0:0",
+    "jobid": "62174291",
+    "name": "q_2026-10-24-cocob-judge-merge-f-gedit",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:01:51",
     "end": "2026-10-25T03:08:09",
     "exit": "0:0",
@@ -17534,11 +17550,51 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "01:32:10",
+    "end": "2026-10-25T03:41:24",
+    "exit": "0:0",
+    "jobid": "62174296_0",
+    "name": "q_2026-10-24-cocob-judge-q-gedit",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "01:31:42",
+    "end": "2026-10-25T03:40:56",
+    "exit": "0:0",
+    "jobid": "62174296_1",
+    "name": "q_2026-10-24-cocob-judge-q-gedit",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "01:31:14",
+    "end": "2026-10-25T03:40:28",
+    "exit": "0:0",
+    "jobid": "62174296_2",
+    "name": "q_2026-10-24-cocob-judge-q-gedit",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "01:30:46",
+    "end": "2026-10-25T03:40:00",
+    "exit": "0:0",
+    "jobid": "62174296_3",
+    "name": "q_2026-10-24-cocob-judge-q-gedit",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:17:44",
     "end": "2026-10-25T03:26:28",
     "exit": "0:0",
     "jobid": "62175943",
     "name": "q_2026-10-24-cocob-eval-f-imgedit",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:02:10",
+    "end": "2026-10-25T03:44:14",
+    "exit": "0:0",
+    "jobid": "62175946",
+    "name": "q_2026-10-24-cocob-judge-merge-q-gedit",
     "state": "COMPLETED"
    }
   ],
@@ -17582,46 +17638,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "30:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62175946",
-    "name": "q_2026-10-24-cocob-judge-merge-q-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62174291",
-    "name": "q_2026-10-24-cocob-judge-merge-f-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62176904",
-    "name": "q_2026-10-24-cocob-eval-q-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62175942",
-    "name": "q_2026-10-24-cocob-eval-f-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "4:00:00"
    },
    {
     "elapsed": "0:00",
@@ -18084,7 +18100,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "16:43:19",
+    "elapsed": "16:51:24",
     "jobid": "61937350",
     "name": "fact-disjref",
     "nodes": "2",
@@ -18094,7 +18110,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "12:36:51",
+    "elapsed": "12:44:56",
     "jobid": "62131513",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -18104,7 +18120,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "12:36:51",
+    "elapsed": "12:44:56",
     "jobid": "62131519",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -18114,7 +18130,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "12:36:51",
+    "elapsed": "12:44:56",
     "jobid": "62131524",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -18124,7 +18140,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "12:34:47",
+    "elapsed": "12:42:52",
     "jobid": "62132118",
     "name": "rd_Ours_s0_r1",
     "nodes": "1",
@@ -18134,7 +18150,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "12:34:53",
+    "elapsed": "12:42:58",
     "jobid": "62132113",
     "name": "rd_GRPO_s0_r1",
     "nodes": "1",
@@ -18144,7 +18160,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "12:34:53",
+    "elapsed": "12:42:58",
     "jobid": "62132114",
     "name": "rd_MoT_s0_r1",
     "nodes": "1",
@@ -18154,7 +18170,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "10:54:55",
+    "elapsed": "11:03:00",
     "jobid": "62143308",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -18164,7 +18180,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "10:56:06",
+    "elapsed": "11:04:11",
     "jobid": "62143301",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -18174,7 +18190,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "10:26:18",
+    "elapsed": "10:34:23",
     "jobid": "62146411",
     "name": "fact-wavedec",
     "nodes": "2",
@@ -18184,7 +18200,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "7:53:35",
+    "elapsed": "8:01:40",
     "jobid": "62162840",
     "name": "ce.q15m.AMC.entropy.s2",
     "nodes": "1",
@@ -18194,7 +18210,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "7:53:35",
+    "elapsed": "8:01:40",
     "jobid": "62162843",
     "name": "ce.q15m.AMC.intuitor.s2",
     "nodes": "1",
@@ -18204,7 +18220,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "7:53:35",
+    "elapsed": "8:01:40",
     "jobid": "62162845",
     "name": "ce.q15m.AMC.entropy.s3",
     "nodes": "1",
@@ -18214,7 +18230,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "7:53:35",
+    "elapsed": "8:01:40",
     "jobid": "62162846",
     "name": "ce.q15m.AMC.intuitor.s3",
     "nodes": "1",
@@ -18224,7 +18240,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "7:53:47",
+    "elapsed": "8:01:52",
     "jobid": "62162838",
     "name": "ce.q15m.AMC.entropy.s1",
     "nodes": "1",
@@ -18234,7 +18250,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "7:53:47",
+    "elapsed": "8:01:52",
     "jobid": "62162839",
     "name": "ce.q15m.AMC.intuitor.s1",
     "nodes": "1",
@@ -18244,57 +18260,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "1:27:31",
-    "jobid": "62174286_3",
-    "name": "q_2026-10-24-cocob-judge-f-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2423",
-    "start": "2026-10-25T02:09:14",
-    "state": "RUNNING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "1:27:31",
-    "jobid": "62174296_0",
-    "name": "q_2026-10-24-cocob-judge-q-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2488",
-    "start": "2026-10-25T02:09:14",
-    "state": "RUNNING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "1:27:31",
-    "jobid": "62174296_1",
-    "name": "q_2026-10-24-cocob-judge-q-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2518",
-    "start": "2026-10-25T02:09:14",
-    "state": "RUNNING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "1:27:31",
-    "jobid": "62174296_2",
-    "name": "q_2026-10-24-cocob-judge-q-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2502",
-    "start": "2026-10-25T02:09:14",
-    "state": "RUNNING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "1:27:31",
-    "jobid": "62174296_3",
-    "name": "q_2026-10-24-cocob-judge-q-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2526",
-    "start": "2026-10-25T02:09:14",
-    "state": "RUNNING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "6:04:19",
+    "elapsed": "6:12:24",
     "jobid": "61978937",
     "name": "fact-c8_rd05_distill1",
     "nodes": "2",
@@ -18304,7 +18270,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "52:43",
+    "elapsed": "1:00:48",
     "jobid": "61816485",
     "name": "fact-nc8rd05",
     "nodes": "2",
@@ -18314,7 +18280,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "5:56:24",
+    "elapsed": "6:04:29",
     "jobid": "61816573",
     "name": "fact-ssl8rd05",
     "nodes": "2",
@@ -18322,6 +18288,26 @@
     "start": "2026-10-24T22:40:21",
     "state": "RUNNING",
     "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "0:07",
+    "jobid": "62176904",
+    "name": "q_2026-10-24-cocob-eval-q-gedit",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0281",
+    "start": "2026-10-25T03:44:43",
+    "state": "RUNNING",
+    "time_limit": "4:00:00"
+   },
+   {
+    "elapsed": "4:17",
+    "jobid": "62175942",
+    "name": "q_2026-10-24-cocob-eval-f-gedit",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0212",
+    "start": "2026-10-25T03:40:33",
+    "state": "RUNNING",
+    "time_limit": "4:00:00"
    }
   ]
  },
@@ -19097,7 +19083,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1792874259.7849476,
@@ -19149,16 +19135,15 @@
    "waiting_for": null
   },
   "2026-10-24-cocob-judge-f-gedit": {
-   "collected": null,
+   "collected": 1792896111.989631,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792896111.98963,
    "invalid": null,
    "jobid": "62174286",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "COMPLETED",
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1792873298.5704079,
@@ -19180,15 +19165,15 @@
    "waiting_for": null
   },
   "2026-10-24-cocob-judge-merge-f-gedit": {
-   "collected": null,
+   "collected": 1792896111.9975595,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792896111.9975586,
    "invalid": null,
    "jobid": "62174291",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1792873299.2591653,
@@ -19240,15 +19225,15 @@
    "waiting_for": null
   },
   "2026-10-24-cocob-judge-q-gedit": {
-   "collected": null,
+   "collected": 1792896290.403893,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792896290.4038901,
    "invalid": null,
    "jobid": "62174296",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1792873299.8568988,
@@ -22334,5 +22319,5 @@
    "waiting_for": null
   }
  },
- "updated": 1792895806.0946894
+ "updated": 1792896291.0111933
 }

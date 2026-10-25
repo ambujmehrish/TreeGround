@@ -1,0 +1,241 @@
+{
+  "at_stage_tau": {
+    "gIoU_present_and_no_target": {
+      "ci95": [
+        0.6690861997949655,
+        0.6835903705359008
+      ],
+      "mean": 0.6758343948282045,
+      "n": 13241
+    },
+    "images": 1398,
+    "no_target": 8275,
+    "no_target_abstention_rate": 0.9775226586102719,
+    "present": 4966,
+    "present_acceptance_rate": 0.3495771244462344,
+    "present_gIoU": {
+      "ci95": [
+        0.16078101360397876,
+        0.18505597210154895
+      ],
+      "mean": 0.17312187312127586,
+      "n": 4966
+    },
+    "present_gIoU_multi_target": {
+      "ci95": [
+        0.16078101360397876,
+        0.18505597210154895
+      ],
+      "mean": 0.17312187312127586,
+      "n": 4966
+    },
+    "present_gIoU_single_target": null,
+    "present_success@0.5": {
+      "ci95": [
+        0.15177133163633977,
+        0.1848640711779024
+      ],
+      "mean": 0.16814337494965767,
+      "n": 4966
+    }
+  },
+  "deviation": "D27",
+  "label": "dev",
+  "method": "s2_from_s1_long",
+  "model": {
+    "checkpoint": "best.pt",
+    "eval_run": "s2_from_s1_long_eval/20261024T212727265245Z_4f66b5ae",
+    "run": "s2_from_s1_long/20261024T170847957273Z_ebf1e466"
+  },
+  "no_rejection": {
+    "gIoU_present_and_no_target": {
+      "ci95": [
+        0.15540546426383833,
+        0.16640647775692705
+      ],
+      "mean": 0.16079045329412506,
+      "n": 13241
+    },
+    "images": 1398,
+    "no_target": 8275,
+    "no_target_abstention_rate": 0.0,
+    "present": 4966,
+    "present_acceptance_rate": 1.0,
+    "present_gIoU": {
+      "ci95": [
+        0.4189193196616601,
+        0.4395112379993046
+      ],
+      "mean": 0.4287205783462565,
+      "n": 4966
+    },
+    "present_gIoU_multi_target": {
+      "ci95": [
+        0.4189193196616601,
+        0.4395112379993046
+      ],
+      "mean": 0.4287205783462565,
+      "n": 4966
+    },
+    "present_gIoU_single_target": null,
+    "present_success@0.5": {
+      "ci95": [
+        0.3856760577637197,
+        0.427855432833932
+      ],
+      "mean": 0.40596053161498186,
+      "n": 4966
+    }
+  },
+  "paco_template_reference": {
+    "absent_score_check": {
+      "max_abs_diff": 0.014877498149871826,
+      "median_abs_diff": 0.0003727078437805176,
+      "shared_no_target": 8275
+    },
+    "auc": 0.8287999749108813,
+    "no_target_abstention_rate": 0.9777643504531722,
+    "present_acceptance_rate": 0.21591695501730104,
+    "run": "20261024T212727265245Z_4f66b5ae"
+  },
+  "separation": {
+    "auc": 0.9298356437065094,
+    "auc_multi_target": 0.9298356437065094,
+    "auc_single_target": null
+  },
+  "skipped": {
+    "images_without_nodes": 103,
+    "queries_without_nodes": 988
+  },
+  "smoke": false,
+  "split": "gRefCOCO val: present expressions (GT = union of targets) vs no-target expressions",
+  "stage_tau": 0.8944723618090452,
+  "two_fold_calibrated": {
+    "folds": {
+      "fold0": {
+        "gIoU_present_and_no_target": {
+          "ci95": [
+            0.677019676118714,
+            0.6977610647797209
+          ],
+          "mean": 0.6866907947066034,
+          "n": 6672
+        },
+        "images": 699,
+        "no_target": 4158,
+        "no_target_abstention_rate": 0.9636844636844637,
+        "present": 2514,
+        "present_acceptance_rate": 0.47295147175815433,
+        "present_gIoU": {
+          "ci95": [
+            0.21063689666593943,
+            0.24712002560638463
+          ],
+          "mean": 0.2285604543685196,
+          "n": 2514
+        },
+        "present_gIoU_multi_target": {
+          "ci95": [
+            0.21063689666593943,
+            0.24712002560638463
+          ],
+          "mean": 0.2285604543685196,
+          "n": 2514
+        },
+        "present_gIoU_single_target": null,
+        "present_success@0.5": {
+          "ci95": [
+            0.19762757805734812,
+            0.2501992038700329
+          ],
+          "mean": 0.22315035799522673,
+          "n": 2514
+        },
+        "tau_calibrated_on_other_folds": 0.8793969849246231
+      },
+      "fold1": {
+        "gIoU_present_and_no_target": {
+          "ci95": [
+            0.680805631333915,
+            0.6997028969896544
+          ],
+          "mean": 0.6901039760957464,
+          "n": 6569
+        },
+        "images": 699,
+        "no_target": 4117,
+        "no_target_abstention_rate": 0.9638085984940491,
+        "present": 2452,
+        "present_acceptance_rate": 0.47716150081566067,
+        "present_gIoU": {
+          "ci95": [
+            0.21324428095615794,
+            0.24870263443468227
+          ],
+          "mean": 0.23054364558440374,
+          "n": 2452
+        },
+        "present_gIoU_multi_target": {
+          "ci95": [
+            0.21324428095615794,
+            0.24870263443468227
+          ],
+          "mean": 0.23054364558440374,
+          "n": 2452
+        },
+        "present_gIoU_single_target": null,
+        "present_success@0.5": {
+          "ci95": [
+            0.1903730969642569,
+            0.24236660060998902
+          ],
+          "mean": 0.21533442088091354,
+          "n": 2452
+        },
+        "tau_calibrated_on_other_folds": 0.8793969849246231
+      }
+    },
+    "k": 2,
+    "pooled_held_out": {
+      "gIoU_present_and_no_target": {
+        "ci95": [
+          0.6814768933977225,
+          0.695432914915603
+        ],
+        "mean": 0.6883841100562961,
+        "n": 13241
+      },
+      "images": 1398,
+      "no_target": 8275,
+      "no_target_abstention_rate": 0.9637462235649547,
+      "present": 4966,
+      "present_acceptance_rate": 0.47503020539669755,
+      "present_gIoU": {
+        "ci95": [
+          0.2168530961017219,
+          0.2427287430329329
+        ],
+        "mean": 0.22953967000713174,
+        "n": 4966
+      },
+      "present_gIoU_multi_target": {
+        "ci95": [
+          0.2168530961017219,
+          0.2427287430329329
+        ],
+        "mean": 0.22953967000713174,
+        "n": 4966
+      },
+      "present_gIoU_single_target": null,
+      "present_success@0.5": {
+        "ci95": [
+          0.20075502567850942,
+          0.23722802297166426
+        ],
+        "mean": 0.2192911800241643,
+        "n": 4966
+      }
+    },
+    "seed": 0
+  }
+}

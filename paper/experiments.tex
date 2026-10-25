@@ -78,7 +78,8 @@ Ours S2 long & 0.149 & 0.978 \\
 \end{table}
 
 \begin{table*}[t]
-\centering\small
+\centering
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lccccccccc}
 \toprule
  & \multicolumn{3}{c}{Chain success (common)} & \multicolumn{6}{c}{E2E part gIoU} \\
@@ -96,7 +97,7 @@ Ours S2 & 0.622 & 0.591 & 0.212 & 0.259 & 0.213 & 0.131 & 0.137 & 0.666 & 0.456 
 Ours S2 (S1 init) & 0.602 & 0.571 & 0.206 & 0.267 & 0.217 & 0.140 & 0.141 & 0.673 & 0.461 \\
 Ours S2 long & \textbf{0.690} & 0.656 & 0.237 & 0.296 & 0.251 & 0.174 & 0.175 & 0.689 & 0.493 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Object$\to$part chains on PACO-LVIS val.}
 \label{tab:chains}
 \end{table*}
@@ -170,7 +171,8 @@ Editor & Mask & PartEdit & GEdit & ImgEdit & PACO \\
 \end{table}
 
 \begin{table*}[t]
-\centering\small
+\centering
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lcccccccc}
 \toprule
  & \multicolumn{4}{c}{GEdit-Bench-EN} & \multicolumn{4}{c}{ImgEdit} \\
@@ -197,7 +199,7 @@ FLUX.1-Fill + Qwen box/SAM\,3 mask & 3.31 & 31.10 & 0.875 & 0.047 & 2.02 & 37.86
 FLUX.1-Fill + Ours V2 mask & 1.85 & 33.97 & 0.933 & 0.045 & 1.78 & 51.17 & 0.971 & 0.011 \\
 FLUX.1-Fill + GT mask$^*$ & 3.16 & 31.70 & 0.859 & 0.028 & 1.98 & 32.25 & 0.720 & 0.017 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Region-grounded editing, CoCoEdit protocol. $^*$Oracle mask.}
 \label{tab:cocoedit}
 \end{table*}

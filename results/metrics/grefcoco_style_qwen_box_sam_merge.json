@@ -1,0 +1,70 @@
+{
+  "at_stage_tau": {
+    "gIoU_present_and_no_target": {
+      "ci95": [
+        0.3375112621026219,
+        0.35339548193694953
+      ],
+      "mean": 0.34532584026255553,
+      "n": 13241
+    },
+    "images": 1398,
+    "no_target": 8275,
+    "no_target_abstention_rate": 0.2914803625377643,
+    "present": 4966,
+    "present_acceptance_rate": 0.999798630688683,
+    "present_gIoU": {
+      "ci95": [
+        0.4287512892869687,
+        0.44217014525847204
+      ],
+      "mean": 0.4350502317592627,
+      "n": 4966
+    },
+    "present_gIoU_multi_target": {
+      "ci95": [
+        0.4287512892869687,
+        0.44217014525847204
+      ],
+      "mean": 0.4350502317592627,
+      "n": 4966
+    },
+    "present_gIoU_single_target": null,
+    "present_success@0.5": {
+      "ci95": [
+        0.33935272212019213,
+        0.3739742984732113
+      ],
+      "mean": 0.35642368103101085,
+      "n": 4966
+    }
+  },
+  "deviation": "D27",
+  "label": "dev",
+  "method": "qwen_box_sam",
+  "model": {
+    "settings": {
+      "batch_size": 8,
+      "mask_threshold": 0.0,
+      "max_new_tokens": 128,
+      "prompt": "Locate {phrase} in this image and output its bbox coordinates in JSON format.",
+      "sam_batch": 64
+    }
+  },
+  "no_rejection": null,
+  "paco_template_reference": {
+    "auc": null,
+    "no_target_abstention_rate": 0.2901510574018127,
+    "present_acceptance_rate": 0.9933564013840831,
+    "run": "20261023T202555492465Z_4ea9fd0b"
+  },
+  "separation": null,
+  "skipped": {
+    "images_without_nodes": 103,
+    "queries_without_nodes": 988
+  },
+  "smoke": false,
+  "split": "gRefCOCO val: present expressions (GT = union of targets) vs no-target expressions",
+  "stage_tau": null,
+  "two_fold_calibrated": null
+}

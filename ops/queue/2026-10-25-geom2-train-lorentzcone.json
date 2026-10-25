@@ -1,0 +1,14 @@
+{
+ "id": "2026-10-25-geom2-train-lorentzcone",
+ "what": "D24 S1 selector-geometry ablation, arm lorentz_cone (20k steps) (requeue after D24/D26/D27 approval)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s1_geom_train.py",
+  "TG_ARGS": "--config configs/s1_geom_lorentz_cone.yaml"
+ },
+ "sbatch": {
+  "time": "04:00:00"
+ },
+ "collect": true,
+ "after": []
+}

@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-25-d27b-s2froms1long-merge",
+ "what": "D27 merge, s2_from_s1_long (requeue after D24/D26/D27 approval)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/grefcoco_style_eval.py",
+  "TG_ARGS": "--config configs/grefcoco_style.yaml --method s2_from_s1_long --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-25-d27b-s2froms1long"
+ ],
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

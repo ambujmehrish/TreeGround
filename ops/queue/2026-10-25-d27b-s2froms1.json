@@ -1,0 +1,18 @@
+{
+ "id": "2026-10-25-d27b-s2froms1",
+ "what": "D27 style-matched gRefCOCO val abstention, s2_from_s1 (shards) (requeue after D24/D26/D27 approval)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/grefcoco_style_eval.py",
+  "TG_ARGS": "--config configs/grefcoco_style.yaml --method s2_from_s1"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15%8"
+ },
+ "after": [
+  "2026-10-25-d27b-smoke-s1-merge",
+  "2026-10-25-d27b-smoke-s2froms1-merge",
+  "2026-10-25-d27b-smoke-sam3text-merge"
+ ]
+}

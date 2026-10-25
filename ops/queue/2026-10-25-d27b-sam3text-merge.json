@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-25-d27b-sam3text-merge",
+ "what": "D27 merge, sam3_text (requeue after D24/D26/D27 approval)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/grefcoco_style_eval.py",
+  "TG_ARGS": "--config configs/grefcoco_style.yaml --method sam3_text --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-25-d27b-sam3text"
+ ],
+ "post": {
+  "module": "treeground.analysis.tables",
+  "args": []
+ },
+ "collect": true
+}

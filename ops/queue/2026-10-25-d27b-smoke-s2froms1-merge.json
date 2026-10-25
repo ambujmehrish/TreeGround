@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-25-d27b-smoke-s2froms1-merge",
+ "what": "D27 smoke merge, s2_from_s1 (requeue after D24/D26/D27 approval)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/grefcoco_style_eval.py",
+  "TG_ARGS": "--config configs/grefcoco_style.yaml --method s2_from_s1 --smoke --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-10-25-d27b-smoke-s2froms1"
+ ],
+ "collect": true
+}

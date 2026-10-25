@@ -2,7 +2,7 @@
  "cluster": {
   "counts": {
    "PENDING": 53,
-   "RUNNING": 19
+   "RUNNING": 17
   },
   "ended_24h": [
    {
@@ -2910,6 +2910,22 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "00:29:46",
+    "end": "2026-10-25T20:18:39",
+    "exit": "0:0",
+    "jobid": "62267139",
+    "name": "ev_reader_Ours_it024_r1_A",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:30:46",
+    "end": "2026-10-25T20:19:39",
+    "exit": "0:0",
+    "jobid": "62267140",
+    "name": "ev_reader_Ours_it024_r1_B",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:04:03",
     "end": "2026-10-25T17:36:16",
     "exit": "3:0",
@@ -5631,6 +5647,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "62267197_[0-3]",
+    "name": "q_2026-10-25-cococ-judge-q-imgedit",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62267709",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -5698,16 +5724,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62267197_[0-3]",
-    "name": "q_2026-10-25-cococ-judge-q-imgedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
    },
    {
     "elapsed": "0:00",
@@ -5800,7 +5816,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "27:23",
+    "elapsed": "33:58",
     "jobid": "62267142",
     "name": "ev_reader_Ours_it049_r1_B",
     "nodes": "1",
@@ -5810,7 +5826,7 @@
     "time_limit": "4:00:00"
    },
    {
-    "elapsed": "28:31",
+    "elapsed": "35:06",
     "jobid": "62267141",
     "name": "ev_reader_Ours_it049_r1_A",
     "nodes": "1",
@@ -5820,27 +5836,7 @@
     "time_limit": "4:00:00"
    },
    {
-    "elapsed": "29:38",
-    "jobid": "62267139",
-    "name": "ev_reader_Ours_it024_r1_A",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3274",
-    "start": "2026-10-25T19:48:53",
-    "state": "RUNNING",
-    "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "29:38",
-    "jobid": "62267140",
-    "name": "ev_reader_Ours_it024_r1_B",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3286",
-    "start": "2026-10-25T19:48:53",
-    "state": "RUNNING",
-    "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "1:31:47",
+    "elapsed": "1:38:22",
     "jobid": "62268201",
     "name": "q_2026-10-25-geom2-train-lorentzcone",
     "nodes": "1",
@@ -5850,7 +5846,7 @@
     "time_limit": "4:00:00"
    },
    {
-    "elapsed": "1:32:20",
+    "elapsed": "1:38:55",
     "jobid": "62268199",
     "name": "q_2026-10-25-geom2-train-lorentz",
     "nodes": "1",
@@ -5860,7 +5856,7 @@
     "time_limit": "4:00:00"
    },
    {
-    "elapsed": "1:32:54",
+    "elapsed": "1:39:29",
     "jobid": "62268197",
     "name": "q_2026-10-25-geom2-train-euclid",
     "nodes": "1",
@@ -5870,7 +5866,7 @@
     "time_limit": "4:00:00"
    },
    {
-    "elapsed": "1:29:31",
+    "elapsed": "1:36:06",
     "jobid": "62268360",
     "name": "fact-factorization",
     "nodes": "1",
@@ -5880,7 +5876,7 @@
     "time_limit": "8:00:00"
    },
    {
-    "elapsed": "1:31:13",
+    "elapsed": "1:37:48",
     "jobid": "62268349",
     "name": "fact-factorization",
     "nodes": "1",
@@ -5890,7 +5886,7 @@
     "time_limit": "8:00:00"
    },
    {
-    "elapsed": "22:46:05",
+    "elapsed": "22:52:40",
     "jobid": "61978937",
     "name": "fact-c8_rd05_distill1",
     "nodes": "2",
@@ -5900,7 +5896,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "30:46",
+    "elapsed": "37:21",
     "jobid": "62275582_5",
     "name": "q_2026-10-25-d23L-edit-s2long-fluxfill-imgedit",
     "nodes": "1",
@@ -5910,7 +5906,7 @@
     "time_limit": "3:00:00"
    },
    {
-    "elapsed": "30:46",
+    "elapsed": "37:21",
     "jobid": "62275582_6",
     "name": "q_2026-10-25-d23L-edit-s2long-fluxfill-imgedit",
     "nodes": "1",
@@ -5920,7 +5916,7 @@
     "time_limit": "3:00:00"
    },
    {
-    "elapsed": "30:46",
+    "elapsed": "37:21",
     "jobid": "62275582_7",
     "name": "q_2026-10-25-d23L-edit-s2long-fluxfill-imgedit",
     "nodes": "1",
@@ -5930,7 +5926,7 @@
     "time_limit": "3:00:00"
    },
    {
-    "elapsed": "31:19",
+    "elapsed": "37:54",
     "jobid": "62275582_2",
     "name": "q_2026-10-25-d23L-edit-s2long-fluxfill-imgedit",
     "nodes": "1",
@@ -5940,7 +5936,7 @@
     "time_limit": "3:00:00"
    },
    {
-    "elapsed": "31:19",
+    "elapsed": "37:54",
     "jobid": "62275582_3",
     "name": "q_2026-10-25-d23L-edit-s2long-fluxfill-imgedit",
     "nodes": "1",
@@ -5950,7 +5946,7 @@
     "time_limit": "3:00:00"
    },
    {
-    "elapsed": "31:19",
+    "elapsed": "37:54",
     "jobid": "62275582_4",
     "name": "q_2026-10-25-d23L-edit-s2long-fluxfill-imgedit",
     "nodes": "1",
@@ -5960,7 +5956,7 @@
     "time_limit": "3:00:00"
    },
    {
-    "elapsed": "31:53",
+    "elapsed": "38:28",
     "jobid": "62275582_0",
     "name": "q_2026-10-25-d23L-edit-s2long-fluxfill-imgedit",
     "nodes": "1",
@@ -5970,7 +5966,7 @@
     "time_limit": "3:00:00"
    },
    {
-    "elapsed": "31:53",
+    "elapsed": "38:28",
     "jobid": "62275582_1",
     "name": "q_2026-10-25-d23L-edit-s2long-fluxfill-imgedit",
     "nodes": "1",
@@ -5980,7 +5976,7 @@
     "time_limit": "3:00:00"
    },
    {
-    "elapsed": "2:40:41",
+    "elapsed": "2:47:16",
     "jobid": "62266770_0",
     "name": "q_2026-10-25-cococ-edit-q-imgedit",
     "nodes": "1",
@@ -10204,31 +10200,30 @@
    "waiting_for": null
   },
   "2026-10-25-d23L-edit-s2long-fluxfill-paco_edit": {
-   "collected": null,
+   "collected": 1792956214.8359635,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792956214.8359623,
    "invalid": null,
    "jobid": "62275583",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "COMPLETED",
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1792953006.0181835,
    "waiting_for": null
   },
   "2026-10-25-d23L-edit-s2long-fluxfill-paco_edit-merge": {
-   "collected": null,
+   "collected": 1792956215.3043773,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792956214.8447645,
    "invalid": null,
    "jobid": "62276217",
    "post_error": null,
-   "post_output_tail": null,
+   "post_output_tail": "retrieval_paco: 61 rows -> results/tables/retrieval_paco.{csv,tex}\nchains_paco: 99 rows -> results/tables/chains_paco.{csv,tex}\ntransfer: 76 rows -> results/tables/transfer.{csv,tex}\ncoverage: 28 rows -> results/tables/coverage.{csv,tex}\nedit_localization: 96 rows -> results/tables/edit_localization.{csv,tex}\nablation_geometry: 4 rows -> results/tables/ablation_geometry.{csv,tex}\nabstention_style_matched: 27 rows -> results/tables/abstention_style_matched.{csv,tex}\n",
    "states": [
-    "PENDING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1792953715.2083445,
@@ -10956,5 +10951,5 @@
    "waiting_for": null
   }
  },
- "updated": 1792955911.6952934
+ "updated": 1792956306.4991348
 }

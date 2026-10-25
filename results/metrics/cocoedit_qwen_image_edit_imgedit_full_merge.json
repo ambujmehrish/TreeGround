@@ -1,0 +1,181 @@
+{
+  "cocoedit": {
+    "editors": {
+      "flux_fill": {
+        "conditions": [
+          "bbox_fill",
+          "qwen_box_sam_fill",
+          "sam3text_fill",
+          "ours_fill",
+          "ours_s1_fill",
+          "gt_fill"
+        ],
+        "free_type_region": "whole"
+      },
+      "qwen_image_edit": {
+        "conditions": [
+          "free",
+          "bbox_blend",
+          "qwen_box_sam_blend",
+          "sam3text_blend",
+          "ours_blend",
+          "ours_s1_blend",
+          "gt_blend"
+        ]
+      }
+    },
+    "eval": {
+      "bootstrap": {
+        "n": 1000,
+        "seed": 0
+      },
+      "lpips_net": "alex"
+    },
+    "judge": {
+      "gedit": {
+        "target_area": 262144
+      },
+      "imgedit": {
+        "max_new_tokens": 512,
+        "max_pixels": 1354752,
+        "min_pixels": 1016064
+      },
+      "imgedit_prompts_source": "PKU-YuanGroup/ImgEdit@c14480ac5e7b622e08cd8c46f96624a48eb9ab46:Benchmark/Basic/prompts.json",
+      "model": "judge_qwen25vl_72b"
+    },
+    "judge_shards": {
+      "gedit_full": 4,
+      "imgedit_full": 4
+    },
+    "mask": {
+      "dilate_px": 8,
+      "feather_px": 4.0
+    },
+    "num_shards": {
+      "gedit_full": 8,
+      "imgedit_full": 8
+    },
+    "seed": 0,
+    "smoke_per_category": 1,
+    "sources": {
+      "ours": {
+        "kind": "selector",
+        "stage": "v2"
+      },
+      "ours_s1": {
+        "kind": "selector",
+        "stage": "s1"
+      },
+      "qwen_box_sam": {
+        "kind": "qwen_box_sam"
+      },
+      "sam3text": {
+        "kind": "sam3_text"
+      }
+    }
+  },
+  "dataset": "imgedit_full",
+  "deviation": "D25",
+  "editor": "qwen_image_edit",
+  "images_dirs": {
+    "bbox_blend": "$TG_CACHE/full/cocoedit/edit/qwen_image_edit/imgedit_full/bbox_blend/60d98e8a7afa6621/images",
+    "free": "$TG_CACHE/full/cocoedit/edit/qwen_image_edit/imgedit_full/free/2e2defde8d0b271f/images",
+    "gt_blend": "$TG_CACHE/full/cocoedit/edit/qwen_image_edit/imgedit_full/gt_blend/00517d347110da43/images",
+    "ours_blend": "$TG_CACHE/full/cocoedit/edit/qwen_image_edit/imgedit_full/ours_blend/8861a2a2fcb3fa85/images",
+    "ours_s1_blend": "$TG_CACHE/full/cocoedit/edit/qwen_image_edit/imgedit_full/ours_s1_blend/04cc12f0b1258b31/images",
+    "qwen_box_sam_blend": "$TG_CACHE/full/cocoedit/edit/qwen_image_edit/imgedit_full/qwen_box_sam_blend/c69a317fa4c68dcf/images",
+    "sam3text_blend": "$TG_CACHE/full/cocoedit/edit/qwen_image_edit/imgedit_full/sam3text_blend/8d3d731789780d10/images"
+  },
+  "localization": {
+    "ours": {
+      "empty_rate": 0.0,
+      "mask_iou": 0.11278608384782353,
+      "n": 425,
+      "success@0.5": 0.1011764705882353
+    },
+    "ours_s1": {
+      "empty_rate": 0.0,
+      "mask_iou": 0.46611995874840717,
+      "n": 425,
+      "success@0.5": 0.48705882352941177
+    },
+    "qwen_box_sam": {
+      "empty_rate": 0.02823529411764706,
+      "mask_iou": 0.6610159419616717,
+      "n": 425,
+      "success@0.5": 0.6729411764705883
+    },
+    "sam3text": {
+      "empty_rate": 0.0,
+      "mask_iou": 0.6628540823129226,
+      "n": 425,
+      "success@0.5": 0.6870588235294117
+    }
+  },
+  "mllm": 520,
+  "model": {
+    "repo": "Qwen/Qwen-Image-Edit-2511",
+    "revision": "6f3ccc0b56e431dc6a0c2b2039706d7d26f22cb9"
+  },
+  "modes": {
+    "bbox_blend": {
+      "blend": 425,
+      "empty_mask": 0,
+      "raw": 312
+    },
+    "free": {
+      "blend": 0,
+      "empty_mask": 0,
+      "raw": 737
+    },
+    "gt_blend": {
+      "blend": 425,
+      "empty_mask": 0,
+      "raw": 312
+    },
+    "ours_blend": {
+      "blend": 425,
+      "empty_mask": 0,
+      "raw": 312
+    },
+    "ours_s1_blend": {
+      "blend": 425,
+      "empty_mask": 0,
+      "raw": 312
+    },
+    "qwen_box_sam_blend": {
+      "blend": 413,
+      "empty_mask": 12,
+      "raw": 312
+    },
+    "sam3text_blend": {
+      "blend": 425,
+      "empty_mask": 0,
+      "raw": 312
+    }
+  },
+  "raw_dir": "$TG_CACHE/full/cocoedit/raw/qwen_image_edit/imgedit_full/9574f731717cdcfb",
+  "samples": 737,
+  "scored": 425,
+  "select_dirs": {
+    "ours": "$TG_CACHE/full/cocoedit/select/ours/imgedit_full/413784a3686eb43a",
+    "ours_s1": "$TG_CACHE/full/cocoedit/select/ours_s1/imgedit_full/ed119e4b667441a2",
+    "qwen_box_sam": "$TG_CACHE/full/cocoedit/select/qwen_box_sam/imgedit_full/758ed0f7a3ac7b39",
+    "sam3text": "$TG_CACHE/full/cocoedit/select/sam3text/imgedit_full/dc72faef1f51f788"
+  },
+  "settings": {
+    "conditions": [
+      "free",
+      "ours_blend",
+      "gt_blend",
+      "sam3text_blend"
+    ],
+    "dtype": "bfloat16",
+    "guidance_scale": 1.0,
+    "negative_prompt": " ",
+    "num_inference_steps": 40,
+    "offload": "model",
+    "true_cfg_scale": 4.0
+  },
+  "smoke": false
+}

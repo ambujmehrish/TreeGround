@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-25-cococ-edit-q-imgedit",
+ "what": "D25 qwen_image_edit on all imgedit_full samples, all conditions (requeue after NODE_FAIL; finished shards are skipped)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit.py",
+  "TG_ARGS": "--config configs/edit_cocoedit.yaml --editor qwen_image_edit --dataset imgedit_full"
+ },
+ "sbatch": {
+  "time": "08:00:00",
+  "array": "0-7"
+ },
+ "after": [
+  "2026-10-24-cocob-select-imgedit"
+ ]
+}

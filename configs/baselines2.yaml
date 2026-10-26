@@ -1,0 +1,10 @@
+include: baselines.yaml
+models:   # D31; fetch on the login node: python scripts/fetch_models.py --config configs/baselines2.yaml --only <key>
+  qwen8: {repo: Qwen/Qwen3-VL-8B-Instruct, revision: 0c351dd01ed87e9c1b53cbc748cba10e6187ff3b}
+  qwen32: {repo: Qwen/Qwen3-VL-32B-Instruct, revision: 0cfaf48183f594c314753d30a4c4974bc75f3ccb}
+  sa2va_sam3: {repo: ByteDance/Sa2VA-Qwen3-VL-4B-SAM3, revision: 3f2bec126b22761a4607eec674781c138f9f9cca}
+  sa2va_internvl3_14b: {repo: ByteDance/Sa2VA-InternVL3-14B, revision: 6e833c2aa03315b61986cd5559dc98bc199cf5d7}
+  grounding_dino: {repo: IDEA-Research/grounding-dino-base, revision: 12bdfa3120f3e7ec7b434d90674b3396eccf88eb}
+  sam2: {repo: facebook/sam2.1-hiera-large, revision: 665f8e2ad61cf5f53d65644ff27c8ee525124610}
+baselines:
+  grounded_sam2: {box_threshold: 0.3, text_threshold: 0.25}   # Grounded-SAM 2 demo defaults

@@ -743,6 +743,18 @@ PROPOSED_DEVIATIONS = [
         "expected_impact": "new S3 rows (PACO grounding, chains, abstention, edit localization); SAM 3 text becomes "
                            "a component of the method, which the paper must state; existing rows unchanged",
     },
+    {
+        "id": "D31",
+        "spec_section": "6 (baselines), amendment",
+        "change": "stronger same-family and standard training-free baselines on the D13 protocol (scripts/"
+                  "b_baselines2.py, configs/baselines2.yaml; same queries, scoring and merge as D13): Qwen3-VL-8B / "
+                  "-32B-Instruct box + SAM 3 (D13 prompt), Sa2VA-Qwen3-VL-4B-SAM3, Sa2VA-InternVL3-14B (model-card "
+                  "interface, D13 prompt, union of [SEG] masks), Grounded-SAM 2 (Grounding DINO base top-1 box at "
+                  "box 0.3 / text 0.25, else abstain, + SAM 2.1 hiera-large box prompt); all at pinned revisions",
+        "reason": "the 4B baselines are easy to dismiss; the strongest same-family models and the standard "
+                  "detector + SAM pipeline are needed for a state-of-the-art claim",
+        "expected_impact": "new baseline rows; existing rows unchanged",
+    },
 ]
 
 

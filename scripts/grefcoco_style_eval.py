@@ -267,6 +267,8 @@ def run_shard(cfg: dict, method: str, shard: int, num_shards: int, smoke: bool) 
     else:
         import b_baselines as B
         predict = B.PREDICTORS[method](cfg)
+        if method == "sam3_text":
+            predict = fit_text(predict, B.concept)
     rows, t0 = [], time.time()
     for n, key in enumerate(keys, 1):
         g = df[df.image == key]
@@ -286,6 +288,20 @@ def run_shard(cfg: dict, method: str, shard: int, num_shards: int, smoke: bool) 
     pd.DataFrame(rows, columns=COLUMNS).to_parquet(tmp, index=False)
     tmp.replace(target)
     write_json(run / "metrics.json", {"images": len(keys), "queries": len(rows), "seconds": time.time() - t0})
+
+
+def fit_text(predict, concept):
+    # SAM 3's CLIP text encoder takes 32 positions; longer style-matched phrases keep their leading words
+    tok = predict.proc.tokenizer
+    limit = min(tok.model_max_length, 32)
+
+    def clip(p: str) -> str:
+        words = p.split()
+        while len(words) > 1 and len(tok(concept(" ".join(words))).input_ids) > limit:
+            words.pop()
+        return " ".join(words)
+
+    return lambda image, phrases: predict(image, [clip(p) for p in phrases])
 
 
 def auc(pos: np.ndarray, neg: np.ndarray) -> float | None:

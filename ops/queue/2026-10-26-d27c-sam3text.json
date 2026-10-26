@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-26-d27c-sam3text",
+ "what": "D27 style-matched gRefCOCO val abstention, sam3_text (shards) (requeue after D24/D26/D27 approval) (requeue: phrases clipped to SAM 3 text length)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/grefcoco_style_eval.py",
+  "TG_ARGS": "--config configs/grefcoco_style.yaml --method sam3_text"
+ },
+ "sbatch": {
+  "time": "02:00:00",
+  "array": "0-15%8"
+ }
+}

@@ -700,6 +700,30 @@ PROPOSED_DEVIATIONS = [
                            "is a dev split (S2-long trains on gRefCOCO train present expressions, the other models "
                            "never see a present gRefCOCO expression)",
     },
+    {
+        "id": "D28",
+        "spec_section": "5 (editing evaluation), amendment",
+        "change": "blinded pairwise human study of region-grounded edits (scripts/e_study_export.py, configs/"
+                  "study.yaml): a fixed-seed uniform sample of 40 samples each from PartEdit, GEdit and ImgEdit "
+                  "(no selection by quality); Qwen-Image-Edit with the S2-long D23 flat mask vs the same editor "
+                  "without a mask and vs the SAM 3 text mask; raters see the source, the instruction and the two "
+                  "edits in random left/right order with anonymous image ids and answer left / right / tie to "
+                  "'Which edit follows the instruction better while leaving the rest of the image unchanged?'. "
+                  "Reported: win / tie / loss rates per pair and dataset with image-level bootstrap CIs, and "
+                  "inter-rater agreement",
+        "reason": "automatic metrics disagree (the VLM judge rewards unmasked edits, masked PSNR rewards tiny "
+                  "masks), so a human preference is needed for the editing claim",
+        "expected_impact": "a new human-preference table; no change to any existing number",
+    },
+    {
+        "id": "D29",
+        "spec_section": "5 (editing evaluation), amendment",
+        "change": "score the D23 edit conditions (S2 / S2-long selector masks, flat and tree) with the D18 "
+                  "Qwen2.5-VL-72B VIEScore judge and the D25 CoCoEdit protocol, reading the D23 merge's two image "
+                  "directories; all other judge and protocol settings unchanged",
+        "reason": "the judge and CoCoEdit tables currently only contain the V2 selector's masks",
+        "expected_impact": "new rows in the judge and CoCoEdit tables; existing rows unchanged",
+    },
 ]
 
 

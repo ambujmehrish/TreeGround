@@ -1,0 +1,11 @@
+include: edit_s2_long.yaml
+study:                     # D28 (scripts/e_study_export.py): blinded pairwise human study of edits
+  name: s2long_qwen_v1
+  editor: qwen_image_edit
+  seed: 0
+  datasets: {partedit: 40, gedit: 40, imgedit: 40}
+  pairs: [[ours2_blend, free], [ours2_blend, sam3text_blend]]   # ours2 = S2-long flat selection (D23)
+  long_side: 512
+  quality: 85
+  question: "Which edit follows the instruction better while leaving the rest of the image unchanged?"
+  options: [left, right, tie]

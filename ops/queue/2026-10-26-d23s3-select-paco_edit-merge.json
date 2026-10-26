@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-d23s3-select-paco_edit-merge",
+ "what": "D23 selection merge + localisation (S3, paco_edit)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_select.py",
+  "TG_ARGS": "--config configs/edit_s3.yaml --dataset paco_edit --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-10-26-d23s3-select-paco_edit"
+ ],
+ "collect": true
+}

@@ -1,0 +1,18 @@
+{
+ "id": "2026-10-26-gres-s3-merge",
+ "what": "D33 GRES merge S3",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_eval.py",
+  "TG_ARGS": "--config configs/gres_s3.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "after": [
+  "2026-10-26-gres-s3-val",
+  "2026-10-26-gres-s3-testA",
+  "2026-10-26-gres-s3-testB"
+ ],
+ "collect": true
+}

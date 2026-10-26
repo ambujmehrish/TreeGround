@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-gres-s3-testA",
+ "what": "D33 GRES testA ours S3 (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_eval.py",
+  "TG_ARGS": "--config configs/gres_s3.yaml --method ours --split testA"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ },
+ "after": [
+  "2026-10-26-s3-train"
+ ]
+}

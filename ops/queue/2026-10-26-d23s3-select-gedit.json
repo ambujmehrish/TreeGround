@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-d23s3-select-gedit",
+ "what": "D23 edit-mask selection with the S3 selector, gedit (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_select.py",
+  "TG_ARGS": "--config configs/edit_s3.yaml --dataset gedit"
+ },
+ "sbatch": {
+  "time": "02:00:00",
+  "array": "0-7"
+ },
+ "after": [
+  "2026-10-26-s3-eval-nodes"
+ ]
+}

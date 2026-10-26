@@ -17,7 +17,7 @@ cur=$(git rev-parse --abbrev-ref HEAD)
 [ "$cur" = "$BRANCH" ] || { echo "checkout is on $cur, expected $BRANCH" >&2; exit 1; }
 echo "runner: repo $TG_REPO branch $BRANCH state $STATE every ${INTERVAL}s (log $LOG)"
 while true; do
-  if git fetch -q origin "$BRANCH" && git rebase -q FETCH_HEAD; then
+  if git fetch -q origin "$BRANCH" && git rebase -q --autostash FETCH_HEAD; then
     python -m treeground.ops.queue tick --repo "$TG_REPO" --state "$STATE" >> "$LOG" 2>&1
     tail -n 3 "$LOG"
   else

@@ -340,7 +340,8 @@ def _tick(repo: Path, state_path: Path, run, environ: dict, now) -> dict:
         e["collected"] = now()
         collected += 1
         save_json(state_path, state)
-        if req.get("collect"):
+        # a post step rewrites tracked files (results/tables); commit them too, or the runner's next rebase fails
+        if req.get("collect") or "post" in req:
             err = collect(run, f"ops {rid}: {req['what']} ({','.join(e['states'])})", environ, repo)
             if err:
                 e["collect_error"] = err

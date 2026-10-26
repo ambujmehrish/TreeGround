@@ -111,17 +111,17 @@ Ours S2 long & \textbf{0.690} & 0.656 & 0.237 & 0.296 & 0.251 & 0.174 & 0.175 & 
 \cmidrule(lr){2-5}\cmidrule(lr){6-6}
 Method & Pascal & ADE & LVIS-h & OI-h & Pascal \\
 \midrule
-Sa2VA & 0.250 & 0.244 & 0.490 & 0.470 & 0.291 \\
-SAM\,3 (text) & \textbf{0.400} & \textbf{0.368} & 0.455 & 0.616 & 0.392 \\
+Sa2VA & 0.250 & 0.244 & 0.491 & 0.470 & 0.291 \\
+SAM\,3 (text) & \textbf{0.400} & \textbf{0.368} & 0.456 & 0.616 & 0.392 \\
 Qwen3-VL box + SAM\,3 & 0.390 & 0.361 & \textbf{0.616} & \textbf{0.770} & \textbf{0.418} \\
 \midrule
-Ours V2 & 0.042 & 0.028 & 0.040 & 0.012 & 0.063 \\
+Ours V2 & 0.042 & 0.028 & 0.041 & 0.012 & 0.063 \\
 Ours S1$^\dagger$ & 0.258 & 0.093 & 0.106 & 0.153 & 0.281 \\
 Ours S2 & 0.141 & 0.088 & 0.126 & 0.090 & 0.187 \\
 Ours S2 (S1 init)$^\dagger$ & 0.223 & 0.098 & 0.137 & 0.155 & 0.239 \\
 \bottomrule
 \end{tabular}}
-\caption{Zero-shot transfer. $^\dagger$Pascal-Part seen in training.}
+\caption{Zero-shot transfer. LVIS-h: training-image-free subset. $^\dagger$Pascal-Part seen in training.}
 \label{tab:transfer}
 \end{table}
 
@@ -140,6 +140,8 @@ Ours S2, flat & 0.374 & 0.449 & 0.591 & 0.478 \\
 Ours S2, tree & 0.325 & 0.449 & 0.591 & 0.459 \\
 Ours S2 (S1 init), flat & 0.471 & 0.500 & 0.633 & 0.477 \\
 Ours S2 (S1 init), tree & 0.471 & 0.499 & 0.633 & 0.464 \\
+Ours S2 long, flat & 0.711 & 0.625 & 0.760 & 0.512 \\
+Ours S2 long, tree & 0.684 & 0.625 & 0.760 & 0.488 \\
 \midrule
 \textit{Oracle: best node} & \textit{0.610} & \textit{0.791} & \textit{0.723} & \textit{0.614} \\
 \textit{Oracle: nodes + SAM\,3} & \textit{0.835} & \textit{0.859} & \textit{0.897} & \textit{0.692} \\
@@ -219,4 +221,43 @@ PARTONOMY parts, full tree & 0.854 & -- & -- & -- \\
 \end{tabular}}
 \caption{Proposal-tree coverage (recall at IoU 0.5).}
 \label{tab:coverage}
+\end{table}
+
+\begin{table}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccccc}
+\toprule
+Method & N-acc & Accept & gIoU & AUC$_{\text{style}}$ & AUC$_{\text{PACO}}$ \\
+\midrule
+Sa2VA & 0.175 & 0.976 & 0.429 & -- & -- \\
+Qwen3-VL box + SAM\,3 & 0.291 & 1.000 & 0.435 & -- & -- \\
+\midrule
+Ours S1 & 0.974 & 0.387 & 0.176 & 0.909 & 0.823 \\
+Ours S2 & 1.000 & 0.000 & 0.000 & 0.341 & 1.000 \\
+Ours S2 (S1 init) & 0.999 & 0.004 & 0.001 & 0.692 & 0.999 \\
+Ours S2 long & 0.964 & 0.475 & 0.230 & \textbf{0.930} & 0.829 \\
+\quad no rejection & 0.000 & 1.000 & 0.429 & & \\
+\bottomrule
+\end{tabular}}
+\caption{Style-matched abstention on gRefCOCO val (held-out $\tau_{\text{rej}}$).}
+\label{tab:abstain_style}
+\end{table}
+
+\begin{table}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+ & & & & \multicolumn{3}{c}{Chain succ.} \\
+\cmidrule(lr){5-7}
+Geometry & gIoU & Part & Sel. succ. & Flat & Tree & Rand. \\
+\midrule
+Euclidean & 0.359 & 0.248 & 0.643 & 0.560 & 0.540 & 0.202 \\
+Lorentz & 0.360 & 0.248 & 0.654 & \multicolumn{3}{c}{pending} \\
+Lorentz + cone & 0.355 & 0.243 & 0.646 & 0.545 & 0.503 & 0.182 \\
+\bottomrule
+\end{tabular}}
+\caption{Selector scoring geometry (S1 setting, PACO-LVIS val).}
+\label{tab:geometry}
 \end{table}

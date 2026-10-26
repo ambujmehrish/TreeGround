@@ -1,8 +1,8 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 48,
-   "RUNNING": 3
+   "PENDING": 47,
+   "RUNNING": 2
   },
   "ended_24h": [
    {
@@ -358,14 +358,6 @@
     "state": "COMPLETED"
    },
    {
-    "elapsed": "04:25:17",
-    "end": "2026-10-24T23:22:11",
-    "exit": "0:0",
-    "jobid": "62146109",
-    "name": "q_2026-10-24-s2long3-train",
-    "state": "COMPLETED"
-   },
-   {
     "elapsed": "16:36:10",
     "end": "2026-10-25T09:46:37",
     "exit": "0:0",
@@ -491,38 +483,6 @@
     "exit": "2:0",
     "jobid": "62162846",
     "name": "ce.q15m.AMC.intuitor.s3",
-    "state": "FAILED"
-   },
-   {
-    "elapsed": "02:30:20",
-    "end": "2026-10-24T23:13:30",
-    "exit": "2:0",
-    "jobid": "62162852",
-    "name": "ce.q15m.MATH-L4.entropy.s2",
-    "state": "FAILED"
-   },
-   {
-    "elapsed": "02:42:30",
-    "end": "2026-10-24T23:25:40",
-    "exit": "2:0",
-    "jobid": "62162854",
-    "name": "ce.q15m.MATH-L4.intuitor.s2",
-    "state": "FAILED"
-   },
-   {
-    "elapsed": "02:30:19",
-    "end": "2026-10-24T23:13:29",
-    "exit": "2:0",
-    "jobid": "62162855",
-    "name": "ce.q15m.MATH-L4.entropy.s3",
-    "state": "FAILED"
-   },
-   {
-    "elapsed": "02:42:15",
-    "end": "2026-10-24T23:25:25",
-    "exit": "2:0",
-    "jobid": "62162857",
-    "name": "ce.q15m.MATH-L4.intuitor.s3",
     "state": "FAILED"
    },
    {
@@ -1726,6 +1686,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "03:22:34",
+    "end": "2026-10-25T22:08:45",
+    "exit": "0:0",
+    "jobid": "62268199",
+    "name": "q_2026-10-25-geom2-train-lorentz",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "02:49:11",
     "end": "2026-10-25T21:35:55",
     "exit": "0:0",
@@ -1739,6 +1707,14 @@
     "exit": "0:0",
     "jobid": "62268203",
     "name": "q_2026-10-25-geom2-v4-euclid",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:30:09",
+    "end": "2026-10-25T22:06:23",
+    "exit": "0:0",
+    "jobid": "62268205",
+    "name": "q_2026-10-25-geom2-v4-lorentzcone",
     "state": "COMPLETED"
    },
    {
@@ -4237,16 +4213,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62268204",
-    "name": "q_2026-10-25-geom2-v4-lorentz",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62267885",
     "name": "q_2026-10-25-cococ-eval-q-imgedit",
     "nodes": "1",
@@ -4406,7 +4372,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "16:47",
+    "elapsed": "45:56",
     "jobid": "62131514",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -4416,22 +4382,12 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "3:19:28",
-    "jobid": "62268199",
-    "name": "q_2026-10-25-geom2-train-lorentz",
+    "elapsed": "25:58",
+    "jobid": "62268204",
+    "name": "q_2026-10-25-geom2-v4-lorentz",
     "nodes": "1",
-    "reason_or_nodelist": "lrdn3321",
-    "start": "2026-10-25T18:46:11",
-    "state": "RUNNING",
-    "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "29:25",
-    "jobid": "62268205",
-    "name": "q_2026-10-25-geom2-v4-lorentzcone",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0048",
-    "start": "2026-10-25T21:36:14",
+    "reason_or_nodelist": "lrdn3412",
+    "start": "2026-10-25T22:08:50",
     "state": "RUNNING",
     "time_limit": "3:00:00"
    },
@@ -9325,15 +9281,15 @@
    "waiting_for": null
   },
   "2026-10-25-geom2-train-lorentz": {
-   "collected": null,
+   "collected": 1792962641.1214733,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792962641.1214724,
    "invalid": null,
    "jobid": "62268199",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1792946552.0047798,
@@ -9378,27 +9334,27 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1792946552.8470907,
    "waiting_for": null
   },
   "2026-10-25-geom2-v4-lorentzcone": {
-   "collected": null,
+   "collected": 1792962833.963562,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1792962833.9635596,
    "invalid": null,
    "jobid": "62268205",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1792946553.1793106,
    "waiting_for": null
   }
  },
- "updated": 1792962339.372823
+ "updated": 1792964089.190883
 }

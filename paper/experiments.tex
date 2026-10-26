@@ -38,8 +38,8 @@ Region-grounded editing & GEdit-Bench-EN / ImgEdit (CoCoEdit protocol) & full & 
 Method & gIoU & cIoU & Obj. & Part & S@0.5 \\
 \midrule
 Sa2VA            & 0.279 & 0.378 & 0.474 & 0.198 & 0.257 \\
-SAM\,3 (text)    & 0.415 & \textbf{0.569} & 0.754 & 0.273 & 0.449 \\
-Qwen3-VL box + SAM\,3 & \textbf{0.459} & 0.530 & \textbf{0.758} & \textbf{0.335} & \textbf{0.467} \\
+SAM\,3 (text)    & 0.415 & 0.569 & 0.754 & 0.273 & 0.449 \\
+Qwen3-VL box + SAM\,3 & 0.459 & 0.530 & \textbf{0.758} & 0.335 & 0.467 \\
 \midrule
 Ours V2          & 0.278 & --    & 0.507 & 0.183 & 0.286 \\
 Ours S1          & 0.359 & 0.471 & 0.627 & 0.248 & 0.384 \\
@@ -48,6 +48,7 @@ Ours S2 (S1 init)& 0.403 & 0.511 & 0.656 & 0.298 & 0.429 \\
 \quad + rerank ($k{=}10$) & 0.418 & 0.508 & 0.699 & 0.301 & 0.442 \\
 \quad + SAM\,3 refine & 0.414 & 0.521 & 0.680 & 0.303 & 0.436 \\
 Ours S2 long     & 0.425 & 0.546 & 0.677 & 0.320 & 0.458 \\
+\quad + SAM\,3 candidates (no retraining) & \textbf{0.471} & \textbf{0.605} & 0.707 & \textbf{0.373} & \textbf{0.510} \\
 \midrule
 \textit{Oracle: best node} & \textit{0.565} & & & & \\
 \bottomrule

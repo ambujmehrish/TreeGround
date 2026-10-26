@@ -1,0 +1,18 @@
+{
+ "id": "2026-10-26-s3-train",
+ "what": "D30 S3: S2-long recipe on augmented pools, 12k steps (4 GPUs)",
+ "script": "q_gpu4.sbatch",
+ "env": {
+  "TG_PY": "scripts/s3_train.py",
+  "TG_ARGS": "--config configs/s3.yaml"
+ },
+ "sbatch": {
+  "time": "16:00:00"
+ },
+ "after": [
+  "2026-10-26-s3-pool-paco",
+  "2026-10-26-s3-pool-pascal",
+  "2026-10-26-s3-pool-grefcoco"
+ ],
+ "collect": true
+}

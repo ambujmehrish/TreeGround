@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-s3-eval-aug-merge",
+ "what": "D30 S3 augmented-pool evaluation merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s3_eval.py",
+  "TG_ARGS": "--config configs/s3.yaml --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-26-s3-eval-aug"
+ ],
+ "collect": true
+}

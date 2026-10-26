@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-26-s3-long-aug",
+ "what": "D30 test-time ablation: S2 long over augmented pools, PACO val (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s3_eval.py",
+  "TG_ARGS": "--config configs/s3_eval_long.yaml"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ }
+}

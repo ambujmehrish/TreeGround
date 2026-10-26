@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-s3-eval-nodes",
+ "what": "D30 S3 standard S2 evaluation (nodes only) on PACO val",
+ "script": "q_gpu4.sbatch",
+ "env": {
+  "TG_PY": "scripts/s2_eval.py",
+  "TG_ARGS": "--config configs/s3.yaml"
+ },
+ "sbatch": {
+  "time": "08:00:00"
+ },
+ "after": [
+  "2026-10-26-s3-train"
+ ],
+ "collect": true
+}

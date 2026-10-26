@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-26-s3-pool-pascal",
+ "what": "D30 augmented pool cache, pascal_part_train (32 shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s3_pool.py",
+  "TG_ARGS": "--config configs/s3.yaml --source pascal_part_train"
+ },
+ "sbatch": {
+  "time": "03:00:00",
+  "array": "0-31"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-s3-eval-aug",
+ "what": "D30 S3 evaluation over augmented pools, PACO val (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s3_eval.py",
+  "TG_ARGS": "--config configs/s3.yaml"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ },
+ "after": [
+  "2026-10-26-s3-train"
+ ]
+}

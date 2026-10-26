@@ -724,6 +724,25 @@ PROPOSED_DEVIATIONS = [
         "reason": "the judge and CoCoEdit tables currently only contain the V2 selector's masks",
         "expected_impact": "new rows in the judge and CoCoEdit tables; existing rows unchanged",
     },
+    {
+        "id": "D30",
+        "spec_section": "3 (proposal tree and selector training), amendment",
+        "change": "augmented candidate pool: per image the D21 node set followed by the top-3 SAM 3 text instances "
+                  "(b_baselines.Sam3Text scoring) of every SAM 3 phrase of the image's queries ('the X'; 'the P of "
+                  "the X' and 'the X' for parts and chains; gRefCOCO expressions verbatim, clipped to 32 tokens), "
+                  "max 160 instances, IoU >= 0.95 duplicates dropped; tree, step targets and PACO part labels "
+                  "rebuilt over the pool (scripts/s3_pool.py). S3 = the S2-long recipe (S1 init, 12k steps, shares "
+                  "0.6/0.2/0.2) trained on these pools (scripts/s3_train.py, runs/s2_from_s1_aug); PACO's no-target "
+                  "items come from grefcoco_train_aug only. Evaluation (scripts/s3_eval.py): each PACO val / "
+                  "gRefCOCO val no-target query over its own pool (nodes + its own phrases' instances), no rejection "
+                  "and 2-fold held-out tau; also S2 long evaluated on the same pools (test-time-only ablation), and "
+                  "the D23 edit selection with the S3 checkpoint",
+        "reason": "the selector picks the best candidate far below the pool ceiling (PACO best node 0.565 vs 0.425; "
+                  "edit pools 0.84-0.90 vs 0.51-0.76) and is evaluated on an augmented pool it was never trained "
+                  "on; with SAM 3's own outputs in the pool the selector competes directly with the baselines",
+        "expected_impact": "new S3 rows (PACO grounding, chains, abstention, edit localization); SAM 3 text becomes "
+                           "a component of the method, which the paper must state; existing rows unchanged",
+    },
 ]
 
 

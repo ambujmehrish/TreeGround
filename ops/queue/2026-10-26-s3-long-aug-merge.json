@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-s3-long-aug-merge",
+ "what": "D30 test-time ablation merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s3_eval.py",
+  "TG_ARGS": "--config configs/s3_eval_long.yaml --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-26-s3-long-aug"
+ ],
+ "collect": true
+}

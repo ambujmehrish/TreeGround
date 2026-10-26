@@ -1,0 +1,12 @@
+include: [baselines.yaml, s2_long.yaml]
+inputs: {manifest: latest, v1: latest, v3: latest, v2: latest, s1: latest, selector_stage: s1}
+s2:
+  stage_suffix: _aug               # runs/s2_from_s1_aug (D30); recipe otherwise = S2 long (D21)
+  aug_sources: {paco_train_aug: 0.6, pascal_part_train_aug: 0.2, grefcoco_train_aug: 0.2}
+s3_pool:                           # D30 (scripts/s3_pool.py)
+  instances_per_phrase: 3          # = edit_select.sam3_instances
+  max_instances: 160
+  dup_iou: 0.95
+  num_shards: {paco_train: 64, pascal_part_train: 32, grefcoco_train: 128}
+  smoke_images: 4
+s3_eval: {num_shards: 16}         # D30 (scripts/s3_eval.py)

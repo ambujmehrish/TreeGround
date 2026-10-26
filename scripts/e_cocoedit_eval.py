@@ -100,7 +100,9 @@ def evaluate(cfg: dict, editor: str, dataset: str, smoke: bool) -> None:
             for k in CB.MLLM_CATEGORIES[dataset]:
                 if k not in metrics[c]["by_category"]:
                     cats.append({"condition": c, "category": k, "judge": jb["overall"]["by_category"].get(k)})
-    run = start_run(f"cocoedit_eval_{editor}_{dataset}", cfg, smoke, {"merge_run": str(merge_run)})
+    # D29: a config with cocoedit.run_tag (extra conditions only) gets its own eval runs, so the D25 ones stay
+    run = start_run(f"cocoedit_eval{cfg['cocoedit'].get('run_tag', '')}_{editor}_{dataset}", cfg, smoke,
+                    {"merge_run": str(merge_run)})
     df.to_csv(run / "samples.csv", index=False)
     pd.DataFrame(table).to_csv(run / "table.csv", index=False)
     pd.DataFrame(cats).to_csv(run / "categories.csv", index=False)
@@ -125,9 +127,9 @@ def evaluate(cfg: dict, editor: str, dataset: str, smoke: bool) -> None:
 def combine(cfg: dict, dataset: str) -> None:
     rows = [{"method": m, "source": f"CoCoEdit (arXiv 2602.14068) {t}", "condition": None, "overall": o, "psnr": p,
              "ssim": s, "lpips": lp} for m, t, o, p, s, lp in CM.PUBLISHED[dataset]]
-    for editor in EDITORS:
+    for editor, tag in ((e, t) for t in cfg["cocoedit"].get("combine_tags", [""]) for e in EDITORS):
         try:
-            run = resolve_run(cfg, f"cocoedit_eval_{editor}_{dataset}", "latest", False)
+            run = resolve_run(cfg, f"cocoedit_eval{tag}_{editor}_{dataset}", "latest", False)
         except ProtocolError:
             continue
         m = read_json(run / "metrics.json")

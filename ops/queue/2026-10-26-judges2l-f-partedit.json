@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-26-judges2l-f-partedit",
+ "what": "D29 72B judge of D23 S2-long edits, flux_fill partedit",
+ "script": "q_gpu4py.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_judge_s2.py",
+  "TG_ARGS": "--config configs/e_judge_s2long.yaml --editor flux_fill --dataset partedit"
+ },
+ "sbatch": {
+  "time": "12:00:00",
+  "array": "0-0"
+ }
+}

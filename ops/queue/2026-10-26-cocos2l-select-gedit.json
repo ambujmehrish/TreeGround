@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-26-cocos2l-select-gedit",
+ "what": "D25 masks of every localized gedit_full sample (ours V2/S1, sam3text, qwen_box_sam) [D29 S2-long mask source]",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit.py",
+  "TG_ARGS": "--config configs/edit_cocoedit_s2long.yaml --editor qwen_image_edit --dataset gedit_full --select-only"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-7"
+ }
+}

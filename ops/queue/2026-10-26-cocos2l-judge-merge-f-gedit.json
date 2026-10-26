@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-cocos2l-judge-merge-f-gedit",
+ "what": "D25 judge merge flux_fill gedit_full [D29 S2-long mask source]",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit_judge.py",
+  "TG_ARGS": "--config configs/edit_cocoedit_s2long.yaml --editor flux_fill --dataset gedit_full --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-26-cocos2l-judge-f-gedit"
+ ],
+ "collect": true
+}

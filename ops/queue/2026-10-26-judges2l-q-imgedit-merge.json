@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-judges2l-q-imgedit-merge",
+ "what": "D29 judge merge qwen_image_edit imgedit",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_judge_s2.py",
+  "TG_ARGS": "--config configs/e_judge_s2long.yaml --editor qwen_image_edit --dataset imgedit --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-26-judges2l-q-imgedit"
+ ],
+ "collect": true
+}

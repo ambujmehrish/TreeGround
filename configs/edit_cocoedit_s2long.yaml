@@ -1,0 +1,12 @@
+include: edit_cocoedit.yaml
+cocoedit:   # D29: CoCoEdit-protocol rows for the S2-long selector (D23 flat pick); other conditions are in D25
+  run_tag: _s2long
+  combine_tags: ["", _s2long]
+  sources:
+    ours_s2long: {kind: script, script: cocoedit_s2_source, attr: S2Select, config: configs/edit_s2_long.yaml, pick: ours2}
+  editors:
+    qwen_image_edit:
+      conditions: [ours_s2long_blend]
+    flux_fill:
+      conditions: [ours_s2long_fill]
+      free_type_region: whole

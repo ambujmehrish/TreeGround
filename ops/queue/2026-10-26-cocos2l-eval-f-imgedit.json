@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-cocos2l-eval-f-imgedit",
+ "what": "D25 CoCoEdit-protocol evaluation flux_fill imgedit_full + combined table [D29 S2-long mask source]",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit_eval.py",
+  "TG_ARGS": "--config configs/edit_cocoedit_s2long.yaml --editor flux_fill --dataset imgedit_full"
+ },
+ "sbatch": {
+  "time": "04:00:00"
+ },
+ "after": [
+  "2026-10-26-cocos2l-judge-merge-f-imgedit"
+ ],
+ "collect": true
+}

@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-26-pt-sa2va",
+ "what": "D32 PARTONOMY-Core (gt) sa2va sa2va (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/partonomy_eval.py",
+  "TG_ARGS": "--config configs/partonomy_baselines.yaml --method sa2va"
+ },
+ "sbatch": {
+  "time": "03:00:00",
+  "array": "0-15"
+ }
+}

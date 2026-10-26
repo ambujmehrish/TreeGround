@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-26-pt-qwenboxsam",
+ "what": "D32 PARTONOMY-Core (gt) qwen_box_sam qwenboxsam (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/partonomy_eval.py",
+  "TG_ARGS": "--config configs/partonomy_baselines.yaml --method qwen_box_sam"
+ },
+ "sbatch": {
+  "time": "03:00:00",
+  "array": "0-15"
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-26-pt-sam3text",
+ "what": "D32 PARTONOMY-Core (gt) sam3_text sam3text (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/partonomy_eval.py",
+  "TG_ARGS": "--config configs/partonomy_baselines.yaml --method sam3_text"
+ },
+ "sbatch": {
+  "time": "03:00:00",
+  "array": "0-15"
+ }
+}

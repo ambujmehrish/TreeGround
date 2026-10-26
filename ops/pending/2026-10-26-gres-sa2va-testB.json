@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-26-gres-sa2va-testB",
+ "what": "D33 GRES testB sa2va sa2va (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_eval.py",
+  "TG_ARGS": "--config configs/gres_baselines.yaml --method sa2va --split testB"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ }
+}

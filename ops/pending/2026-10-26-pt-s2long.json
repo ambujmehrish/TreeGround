@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-26-pt-s2long",
+ "what": "D32 PARTONOMY-Core (gt) ours s2long (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/partonomy_eval.py",
+  "TG_ARGS": "--config configs/partonomy_s2long.yaml --method ours"
+ },
+ "sbatch": {
+  "time": "03:00:00",
+  "array": "0-15"
+ }
+}

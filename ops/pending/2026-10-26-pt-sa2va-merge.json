@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-pt-sa2va-merge",
+ "what": "D32 PARTONOMY-Core merge sa2va",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/partonomy_eval.py",
+  "TG_ARGS": "--config configs/partonomy_baselines.yaml --method sa2va --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-26-pt-sa2va"
+ ],
+ "collect": true
+}

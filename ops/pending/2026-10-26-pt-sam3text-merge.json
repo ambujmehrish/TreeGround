@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-pt-sam3text-merge",
+ "what": "D32 PARTONOMY-Core merge sam3text",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/partonomy_eval.py",
+  "TG_ARGS": "--config configs/partonomy_baselines.yaml --method sam3_text --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-26-pt-sam3text"
+ ],
+ "collect": true
+}

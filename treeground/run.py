@@ -755,6 +755,32 @@ PROPOSED_DEVIATIONS = [
                   "detector + SAM pipeline are needed for a state-of-the-art claim",
         "expected_impact": "new baseline rows; existing rows unchanged",
     },
+    {
+        "id": "D32",
+        "spec_section": "5 (evaluation), amendment: published benchmark",
+        "change": "PARTONOMY-Core (arXiv 2505.20759) segmentation in its '(gt)' setting, as the official evaluation "
+                  "(AnselBlume/partonomy validate_partonomy.py, evaluators/masks.py: paired IoU per correct-answer "
+                  "part, GT = union of the part's masks, empty union = 1, micro = mean over parts, macro = mean of "
+                  "per-question means) for Identification, Intersection and Difference questions "
+                  "(scripts/partonomy_eval.py); query 'the {part} of the {object}'; ours single step, no rejection, "
+                  "nodes-only and D30 pools; baselines D13/D31 on the same phrase. 142 Intersection parts without a "
+                  "mask of that name are skipped and reported",
+        "reason": "a published protocol we match exactly, so published numbers (X-Decoder, SEEM, Grounded SAM 2 "
+                  "(gt); LISA, GLaMM, PixelLM, PLUM) can be cited",
+        "expected_impact": "a new PARTONOMY-Core table; existing rows unchanged",
+    },
+    {
+        "id": "D33",
+        "spec_section": "5 (evaluation), amendment: published benchmark",
+        "change": "standard GRES evaluation on gRefCOCO val / testA / testB (official grefs(unc).json, all "
+                  "expressions; gIoU with no-target = 1 iff empty, cIoU, N-acc, T-acc) for ours (union of "
+                  "candidates with sigma >= t, or top-1 if >= t; nodes-only and D30 pools; t on a fixed grid by "
+                  "2-fold image cross-validation on val, the all-val t frozen for testA/testB) and the D13/D31 "
+                  "baselines (scripts/gres_eval.py)",
+        "reason": "the standard generalized referring segmentation benchmark; published numbers (ReLA, LISA, GSVA, "
+                  "SAM4MLLM, RAS, ...) can be cited",
+        "expected_impact": "a new gRefCOCO table; existing rows unchanged",
+    },
 ]
 
 

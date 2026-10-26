@@ -1,0 +1,18 @@
+{
+ "id": "2026-10-26-gres-sa2va-merge",
+ "what": "D33 GRES merge sa2va",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_eval.py",
+  "TG_ARGS": "--config configs/gres_baselines.yaml --method sa2va --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "after": [
+  "2026-10-26-gres-sa2va-val",
+  "2026-10-26-gres-sa2va-testA",
+  "2026-10-26-gres-sa2va-testB"
+ ],
+ "collect": true
+}

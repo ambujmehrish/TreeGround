@@ -1,0 +1,18 @@
+{
+ "id": "2026-10-26-gres-sam3text-merge",
+ "what": "D33 GRES merge sam3text",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_eval.py",
+  "TG_ARGS": "--config configs/gres_baselines.yaml --method sam3_text --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "after": [
+  "2026-10-26-gres-sam3text-val",
+  "2026-10-26-gres-sam3text-testA",
+  "2026-10-26-gres-sam3text-testB"
+ ],
+ "collect": true
+}

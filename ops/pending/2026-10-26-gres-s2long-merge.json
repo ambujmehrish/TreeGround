@@ -1,0 +1,18 @@
+{
+ "id": "2026-10-26-gres-s2long-merge",
+ "what": "D33 GRES merge s2long",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_eval.py",
+  "TG_ARGS": "--config configs/gres_s2long.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "after": [
+  "2026-10-26-gres-s2long-val",
+  "2026-10-26-gres-s2long-testA",
+  "2026-10-26-gres-s2long-testB"
+ ],
+ "collect": true
+}

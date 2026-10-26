@@ -1,0 +1,15 @@
+{
+ "id": "2026-10-26-b2-qwen8boxsam-smoke-merge",
+ "what": "D31 qwen8_box_sam smoke merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_baselines2.py",
+  "TG_ARGS": "--config configs/baselines2.yaml --method qwen8_box_sam --smoke --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-10-26-b2-qwen8boxsam-smoke"
+ ]
+}

@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-pt-qwen32boxsam",
+ "what": "D32 PARTONOMY-Core (gt) qwen32_box_sam (shards)",
+ "script": "q_gpu4py.sbatch",
+ "env": {
+  "TG_PY": "scripts/partonomy_eval.py",
+  "TG_ARGS": "--config configs/partonomy_baselines.yaml --method qwen32_box_sam"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ },
+ "after": [
+  "2026-10-26-b2-qwen32boxsam-smoke-merge"
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "id": "2026-10-26-gres-sa2vainternvl314b-merge",
+ "what": "D33 GRES merge sa2va_internvl3_14b",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_eval.py",
+  "TG_ARGS": "--config configs/gres_baselines.yaml --method sa2va_internvl3_14b --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "after": [
+  "2026-10-26-gres-sa2vainternvl314b-val",
+  "2026-10-26-gres-sa2vainternvl314b-testA",
+  "2026-10-26-gres-sa2vainternvl314b-testB"
+ ],
+ "collect": true
+}

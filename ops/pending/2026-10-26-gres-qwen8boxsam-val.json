@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-gres-qwen8boxsam-val",
+ "what": "D33 GRES val qwen8_box_sam (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_eval.py",
+  "TG_ARGS": "--config configs/gres_baselines.yaml --method qwen8_box_sam --split val"
+ },
+ "sbatch": {
+  "time": "05:00:00",
+  "array": "0-15"
+ },
+ "after": [
+  "2026-10-26-b2-qwen8boxsam-smoke-merge"
+ ]
+}

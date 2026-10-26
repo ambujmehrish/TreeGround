@@ -1,0 +1,18 @@
+{
+ "id": "2026-10-26-gres-groundedsam2-merge",
+ "what": "D33 GRES merge grounded_sam2",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_eval.py",
+  "TG_ARGS": "--config configs/gres_baselines.yaml --method grounded_sam2 --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "after": [
+  "2026-10-26-gres-groundedsam2-val",
+  "2026-10-26-gres-groundedsam2-testA",
+  "2026-10-26-gres-groundedsam2-testB"
+ ],
+ "collect": true
+}

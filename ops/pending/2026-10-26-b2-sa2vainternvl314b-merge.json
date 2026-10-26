@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-b2-sa2vainternvl314b-merge",
+ "what": "D31 sa2va_internvl3_14b merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_baselines2.py",
+  "TG_ARGS": "--config configs/baselines2.yaml --method sa2va_internvl3_14b --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-26-b2-sa2vainternvl314b"
+ ],
+ "collect": true
+}

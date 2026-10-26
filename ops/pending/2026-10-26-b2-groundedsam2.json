@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-b2-groundedsam2",
+ "what": "D31 grounded_sam2 on the D13 PACO protocol (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_baselines2.py",
+  "TG_ARGS": "--config configs/baselines2.yaml --method grounded_sam2"
+ },
+ "sbatch": {
+  "time": "06:00:00",
+  "array": "0-31"
+ },
+ "after": [
+  "2026-10-26-b2-groundedsam2-smoke-merge"
+ ]
+}

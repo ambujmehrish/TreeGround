@@ -1,0 +1,12 @@
+{
+ "id": "2026-10-26-b2-qwen32boxsam-smoke",
+ "what": "D31 qwen32_box_sam smoke (4 images)",
+ "script": "q_gpu4py.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_baselines2.py",
+  "TG_ARGS": "--config configs/baselines2.yaml --method qwen32_box_sam --smoke"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ }
+}

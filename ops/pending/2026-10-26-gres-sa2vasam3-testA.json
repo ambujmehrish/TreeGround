@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-gres-sa2vasam3-testA",
+ "what": "D33 GRES testA sa2va_sam3 (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_eval.py",
+  "TG_ARGS": "--config configs/gres_baselines.yaml --method sa2va_sam3 --split testA"
+ },
+ "sbatch": {
+  "time": "05:00:00",
+  "array": "0-15"
+ },
+ "after": [
+  "2026-10-26-b2-sa2vasam3-smoke-merge"
+ ]
+}

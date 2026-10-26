@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-b2-qwen8boxsam",
+ "what": "D31 qwen8_box_sam on the D13 PACO protocol (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_baselines2.py",
+  "TG_ARGS": "--config configs/baselines2.yaml --method qwen8_box_sam"
+ },
+ "sbatch": {
+  "time": "06:00:00",
+  "array": "0-31"
+ },
+ "after": [
+  "2026-10-26-b2-qwen8boxsam-smoke-merge"
+ ]
+}

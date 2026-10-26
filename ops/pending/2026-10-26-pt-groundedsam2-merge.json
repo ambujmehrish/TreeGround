@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-pt-groundedsam2-merge",
+ "what": "D32 PARTONOMY-Core merge grounded_sam2",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/partonomy_eval.py",
+  "TG_ARGS": "--config configs/partonomy_baselines.yaml --method grounded_sam2 --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-26-pt-groundedsam2"
+ ],
+ "collect": true
+}

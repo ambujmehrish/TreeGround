@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-gres-groundedsam2-testB",
+ "what": "D33 GRES testB grounded_sam2 (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_eval.py",
+  "TG_ARGS": "--config configs/gres_baselines.yaml --method grounded_sam2 --split testB"
+ },
+ "sbatch": {
+  "time": "05:00:00",
+  "array": "0-15"
+ },
+ "after": [
+  "2026-10-26-b2-groundedsam2-smoke-merge"
+ ]
+}

@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-26-b2-sa2vasam3",
+ "what": "D31 sa2va_sam3 on the D13 PACO protocol (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_baselines2.py",
+  "TG_ARGS": "--config configs/baselines2.yaml --method sa2va_sam3"
+ },
+ "sbatch": {
+  "time": "06:00:00",
+  "array": "0-31"
+ },
+ "after": [
+  "2026-10-26-b2-sa2vasam3-smoke-merge"
+ ]
+}

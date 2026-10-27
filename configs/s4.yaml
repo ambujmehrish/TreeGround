@@ -1,0 +1,4 @@
+include: s3.yaml
+s2: {stage_suffix: _augsoft}       # runs/s2_from_s1_augsoft (D34): S3 + soft-tree chain term
+s4: {soft_lambda: 1.0, soft_weight: 1.0}
+soft_tree: {num_shards: 16}

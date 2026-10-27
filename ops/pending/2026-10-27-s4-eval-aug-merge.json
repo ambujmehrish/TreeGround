@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-27-s4-eval-aug-merge",
+ "what": "D34 S4 augmented-pool evaluation merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s3_eval.py",
+  "TG_ARGS": "--config configs/s4.yaml --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-27-s4-eval-aug"
+ ],
+ "collect": true
+}

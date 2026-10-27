@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-27-s4-train",
+ "what": "D34 S4: S3 recipe + soft-tree chain term, 12k steps (4 GPUs)",
+ "script": "q_gpu4.sbatch",
+ "env": {
+  "TG_PY": "scripts/s4_train.py",
+  "TG_ARGS": "--config configs/s4.yaml"
+ },
+ "sbatch": {
+  "time": "16:00:00"
+ },
+ "collect": true
+}

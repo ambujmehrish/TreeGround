@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-27-s4-eval-nodes",
+ "what": "D34 S4 standard evaluation on PACO val",
+ "script": "q_gpu4.sbatch",
+ "env": {
+  "TG_PY": "scripts/s2_eval.py",
+  "TG_ARGS": "--config configs/s4.yaml"
+ },
+ "sbatch": {
+  "time": "08:00:00"
+ },
+ "after": [
+  "2026-10-27-s4-train"
+ ],
+ "collect": true
+}

@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-27-softtree-s3",
+ "what": "D34 test-time soft tree on PACO val chains, s3 (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/soft_tree_eval.py",
+  "TG_ARGS": "--config configs/softtree_s3.yaml"
+ },
+ "sbatch": {
+  "time": "03:00:00",
+  "array": "0-15"
+ },
+ "after": [
+  "2026-10-26-s3-train"
+ ]
+}

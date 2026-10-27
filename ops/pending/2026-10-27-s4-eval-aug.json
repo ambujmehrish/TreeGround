@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-27-s4-eval-aug",
+ "what": "D34 S4 augmented-pool evaluation (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s3_eval.py",
+  "TG_ARGS": "--config configs/s4.yaml"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ },
+ "after": [
+  "2026-10-27-s4-train"
+ ]
+}

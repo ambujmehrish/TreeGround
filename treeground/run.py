@@ -781,6 +781,19 @@ PROPOSED_DEVIATIONS = [
                   "SAM4MLLM, RAS, ...) can be cited",
         "expected_impact": "a new gRefCOCO table; existing rows unchanged",
     },
+    {
+        "id": "D34",
+        "spec_section": "4 (chain search), amendment",
+        "change": "soft tree scoring for object->part chains: part score log sigma_part(p) + lambda * max over p and "
+                  "its ancestors of log sigma_obj(a), argmax over all candidates (lambda = 0 is flat search). Test "
+                  "time (scripts/soft_tree_eval.py): PACO val chains, nodes-only and D30 pools, lambda on a fixed grid "
+                  "by 2-fold image CV, beside flat and hard (subtree) search. Trained (scripts/s4_train.py, S4 = S3 "
+                  "recipe + this score as an extra D10 selection term on chain items, lambda 1, weight 1, negatives "
+                  "over all candidates; runs/s2_from_s1_augsoft)",
+        "reason": "hard subtree search never beats flat search because a wrong object pick excludes the right part; "
+                  "the tree should contribute evidence instead of a hard constraint",
+        "expected_impact": "new chain rows (soft tree) and an S4 model; existing rows unchanged",
+    },
 ]
 
 

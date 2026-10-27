@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-27-softtree-s2long-merge",
+ "what": "D34 soft tree merge s2long",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/soft_tree_eval.py",
+  "TG_ARGS": "--config configs/softtree_s2long.yaml --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-27-softtree-s2long"
+ ],
+ "collect": true
+}

@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-27-gres-sam3clip-testB",
+ "what": "D33 GRES testB SAM 3 text, phrases clipped to 32 tokens (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_sam3clip.py",
+  "TG_ARGS": "--config configs/gres_baselines.yaml --method sam3_text --split testB"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ }
+}

@@ -262,3 +262,65 @@ Lorentz + cone & 0.355 & 0.243 & 0.646 & 0.545 & 0.503 & 0.182 \\
 \caption{Selector scoring geometry (S1 setting, PACO-LVIS val).}
 \label{tab:geometry}
 \end{table}
+
+% Published rows: verify against the cited tables before submission (ReLA 2306.00968 T5; GSVA 2312.10103 T1;
+% SAM4MLLM 2409.10542 T3; Text4Seg 2410.09855 T2; PSALM-G5 2505.13788 T4; RAS 2506.05342 T5).
+\begin{table}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccccc}
+\toprule
+ & \multicolumn{3}{c}{val} & testA & testB \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-5}\cmidrule(lr){6-6}
+Method & gIoU & cIoU & N-acc & gIoU & gIoU \\
+\midrule
+\multicolumn{6}{l}{\textit{Published}} \\
+ReLA & 63.6 & 62.4 & 56.4 & -- & -- \\
+LISA-13B (ft) & 65.2 & 64.0 & 57.5 & -- & -- \\
+GSVA-13B (ft) & 70.0 & 66.4 & 66.0 & -- & -- \\
+SAM4MLLM-8B & 71.9 & 67.8 & 66.1 & -- & -- \\
+PSALM-G5 (ft) & 67.3 & 68.0 & 87.2 & -- & -- \\
+RAS-13B (ft) & 74.6 & \textbf{70.5} & 69.1 & -- & -- \\
+\midrule
+\multicolumn{6}{l}{\textit{Our runs, same protocol}} \\
+Grounded-SAM 2 & 21.3 & 24.9 & 7.8 & 48.0 & 42.3 \\
+Sa2VA-4B & 27.1 & 29.2 & 17.7 & 51.5 & 46.0 \\
+Qwen3-VL-8B box + SAM\,3 & 28.4 & 28.0 & 19.3 & 50.2 & 47.4 \\
+Qwen3-VL-4B box + SAM\,3 & 34.5 & 30.8 & 29.2 & 50.7 & 48.0 \\
+Ours S2 long, nodes & 74.2 & 49.1 & 86.7 & 59.1 & 51.5 \\
+Ours S2 long, nodes + SAM\,3 & \textbf{76.3} & 52.3 & \textbf{88.8} & \textbf{60.2} & \textbf{52.2} \\
+\bottomrule
+\end{tabular}}
+\caption{gRefCOCO (GRES protocol). Ours: union of candidates above a threshold chosen by 2-fold CV on val, frozen for testA/B.}
+\label{tab:gres}
+\end{table}
+
+\begin{table*}[t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{2}{c}{Identification} & \multicolumn{2}{c}{Intersection$^\ddagger$} & \multicolumn{2}{c}{Difference} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Method & micro & macro & micro & macro & micro & macro \\
+\midrule
+\multicolumn{7}{l}{\textit{Published (PARTONOMY, arXiv 2505.20759 Tab.~2)}} \\
+X-Decoder (gt) & 11.5 & 13.4 & 13.5 & 14.0 & 11.1 & 12.4 \\
+SEEM (gt) & 13.5 & 15.5 & 17.1 & 18.2 & 12.5 & 13.8 \\
+Grounded SAM 2 (gt) & 13.6 & 16.8 & 20.6 & 23.6 & 14.3 & 17.1 \\
+GLaMM (ft) & 36.6 & 38.8 & 40.3 & 42.1 & 33.6 & 34.8 \\
+PLUM-13B (ft) & 36.2 & 41.6 & 42.1 & 45.9 & 33.0 & 39.4 \\
+\midrule
+\multicolumn{7}{l}{\textit{Our runs, (gt) setting}} \\
+Grounded-SAM 2 & 25.9 & 29.0 & 30.9 & 33.6 & 24.0 & 26.7 \\
+SAM\,3 (text) & 30.5 & 31.7 & 35.0 & 38.1 & 28.5 & 29.7 \\
+Sa2VA-4B & 41.0 & 43.0 & 45.4 & 48.2 & 39.0 & 40.5 \\
+Qwen3-VL-8B box + SAM\,3 & 46.5 & 48.2 & 49.7 & 51.8 & 44.6 & 45.9 \\
+Qwen3-VL-4B box + SAM\,3 & \textbf{47.1} & \textbf{48.8} & \textbf{50.2} & \textbf{52.8} & \textbf{45.0} & \textbf{46.3} \\
+Ours S2 long, nodes & 26.0 & 26.5 & 29.2 & 32.2 & 24.1 & 24.4 \\
+Ours S2 long, nodes + SAM\,3 & 27.5 & 28.0 & 30.5 & 33.6 & 25.6 & 26.0 \\
+\bottomrule
+\end{tabular}}
+\caption{PARTONOMY-Core part segmentation (gIoU). $^\ddagger$142 answer parts without a mask of that name skipped.}
+\label{tab:partonomy}
+\end{table*}

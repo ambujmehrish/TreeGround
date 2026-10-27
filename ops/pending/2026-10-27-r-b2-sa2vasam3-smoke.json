@@ -1,0 +1,12 @@
+{
+ "id": "2026-10-27-r-b2-sa2vasam3-smoke",
+ "what": "D31 sa2va_sam3 smoke (4 images)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_baselines2.py",
+  "TG_ARGS": "--config configs/baselines2.yaml --method sa2va_sam3 --smoke"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ }
+}

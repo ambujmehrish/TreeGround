@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines2.py", line 182, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines2.py", line 178, in main
+    B.run_shard(cfg, args.method, args.shard, n, args.smoke)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines.py", line 355, in run_shard
+    predict = PREDICTORS[method](cfg)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines2.py", line 67, in __init__
+    super().__init__(c)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines.py", line 246, in __init__
+    self.model = checked_load(AutoModel, m["repo"], m["revision"], cfg.get("hf_home"),
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines.py", line 305, in checked_load
+    model, info = cls.from_pretrained(repo, revision=revision, cache_dir=cache_dir, output_loading_info=True, **kw)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 354, in from_pretrained
+    model_class = get_class_from_dynamic_module(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/dynamic_module_utils.py", line 583, in get_class_from_dynamic_module
+    return get_class_in_module(class_name, final_module, force_reload=force_download)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/dynamic_module_utils.py", line 297, in get_class_in_module
+    module_files: list[Path] = [module_file] + sorted(map(Path, get_relative_import_files(module_file)))
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/dynamic_module_utils.py", line 164, in get_relative_import_files
+    new_imports.extend(get_relative_imports(f))
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/dynamic_module_utils.py", line 133, in get_relative_imports
+    with open(module_file, encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/leonardo_work/AIFAC_S07_041/treeground/hf/modules/transformers_modules/ByteDance/Sa2VA_hyphen_Qwen3_hyphen_VL_hyphen_4B_hyphen_SAM3/3f2bec126b22761a4607eec674781c138f9f9cca/sam3pkg_build_sam3_tracker.py'

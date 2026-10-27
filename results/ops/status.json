@@ -1,7 +1,8 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 214
+   "PENDING": 210,
+   "RUNNING": 3
   },
   "ended_24h": [
    {
@@ -43,46 +44,6 @@
     "jobid": "62131514",
     "name": "fact-stage-a",
     "state": "TIMEOUT"
-   },
-   {
-    "elapsed": "00:59:36",
-    "end": "2026-10-26T04:38:58",
-    "exit": "0:0",
-    "jobid": "62267197_0",
-    "name": "q_2026-10-25-cococ-judge-q-imgedit",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:59:08",
-    "end": "2026-10-26T04:38:30",
-    "exit": "0:0",
-    "jobid": "62267197_1",
-    "name": "q_2026-10-25-cococ-judge-q-imgedit",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:59:36",
-    "end": "2026-10-26T04:38:58",
-    "exit": "0:0",
-    "jobid": "62267197_2",
-    "name": "q_2026-10-25-cococ-judge-q-imgedit",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:59:08",
-    "end": "2026-10-26T04:38:30",
-    "exit": "0:0",
-    "jobid": "62267197_3",
-    "name": "q_2026-10-25-cococ-judge-q-imgedit",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:01:43",
-    "end": "2026-10-26T04:41:23",
-    "exit": "0:0",
-    "jobid": "62267606",
-    "name": "q_2026-10-25-cococ-judge-merge-q-imgedit",
-    "state": "COMPLETED"
    },
    {
     "elapsed": "16:36:52",
@@ -6635,6 +6596,14 @@
     "jobid": "62338816",
     "name": "paperA_bmddup",
     "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:04:12",
+    "end": "2026-10-27T04:45:53",
+    "exit": "0:0",
+    "jobid": "62339630",
+    "name": "q_2026-10-26-b2-groundedsam2-smoke",
+    "state": "COMPLETED"
    }
   ],
   "squeue": [
@@ -6750,26 +6719,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62333079",
-    "name": "paperA_cc17r",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62333077",
-    "name": "paperA_cc17r",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62337607_[0]",
     "name": "q_2026-10-26-judges2l-q-partedit",
     "nodes": "1",
@@ -6850,16 +6799,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62338652_[13]",
-    "name": "fact-tts-tok",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62339637",
     "name": "q_2026-10-26-b2-sa2vasam3-smoke",
     "nodes": "1",
@@ -6892,16 +6831,6 @@
     "elapsed": "0:00",
     "jobid": "62339632",
     "name": "q_2026-10-26-b2-qwen32boxsam-smoke",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62339630",
-    "name": "q_2026-10-26-b2-groundedsam2-smoke",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
     "start": "N/A",
@@ -7153,7 +7082,7 @@
     "jobid": "62339879",
     "name": "q_2026-10-26-b2-groundedsam2-smoke-merge",
     "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
+    "reason_or_nodelist": "(Priority)",
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "30:00"
@@ -8580,6 +8509,46 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "62338416_[0-3]",
+    "name": "q_2026-10-26-cocos2l-judge-q-imgedit",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62338415_[0-3]",
+    "name": "q_2026-10-26-cocos2l-judge-q-gedit",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62338394_[0-3]",
+    "name": "q_2026-10-26-cocos2l-judge-f-imgedit",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62338393_[0-3]",
+    "name": "q_2026-10-26-cocos2l-judge-f-gedit",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62328472",
     "name": "q_2026-10-26-s3-eval-nodes",
     "nodes": "1",
@@ -8647,46 +8616,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62338416_[0-3]",
-    "name": "q_2026-10-26-cocos2l-judge-q-imgedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62338415_[0-3]",
-    "name": "q_2026-10-26-cocos2l-judge-q-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62338394_[0-3]",
-    "name": "q_2026-10-26-cocos2l-judge-f-imgedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62338393_[0-3]",
-    "name": "q_2026-10-26-cocos2l-judge-f-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
    },
    {
     "elapsed": "0:00",
@@ -8767,6 +8696,36 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "5:34",
+    "jobid": "62333079",
+    "name": "paperA_cc17r",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3368",
+    "start": "2026-10-27T04:40:34",
+    "state": "RUNNING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "6:40",
+    "jobid": "62333077",
+    "name": "paperA_cc17r",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn2454",
+    "start": "2026-10-27T04:39:28",
+    "state": "RUNNING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "5:01",
+    "jobid": "62338652_13",
+    "name": "fact-tts-tok",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3340",
+    "start": "2026-10-27T04:41:07",
+    "state": "RUNNING",
+    "time_limit": "12:00:00"
    },
    {
     "elapsed": "0:00",
@@ -13900,15 +13859,15 @@
    "waiting_for": null
   },
   "2026-10-26-b2-groundedsam2-smoke": {
-   "collected": null,
+   "collected": 1793072767.902365,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1793072767.9023643,
    "invalid": null,
    "jobid": "62339630",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1793018238.8616521,
@@ -15928,5 +15887,5 @@
    "waiting_for": null
   }
  },
- "updated": 1793070717.1417046
+ "updated": 1793072768.4634435
 }

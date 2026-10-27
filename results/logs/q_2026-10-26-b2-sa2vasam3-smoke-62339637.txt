@@ -1,0 +1,36 @@
+Encountered exception while importing einops: No module named 'einops'
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines2.py", line 182, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines2.py", line 178, in main
+    B.run_shard(cfg, args.method, args.shard, n, args.smoke)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines.py", line 355, in run_shard
+    predict = PREDICTORS[method](cfg)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines2.py", line 67, in __init__
+    super().__init__(c)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines.py", line 246, in __init__
+    self.model = checked_load(AutoModel, m["repo"], m["revision"], cfg.get("hf_home"),
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/b_baselines.py", line 305, in checked_load
+    model, info = cls.from_pretrained(repo, revision=revision, cache_dir=cache_dir, output_loading_info=True, **kw)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 354, in from_pretrained
+    model_class = get_class_from_dynamic_module(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/dynamic_module_utils.py", line 572, in get_class_from_dynamic_module
+    final_module = get_cached_module_file(
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/dynamic_module_utils.py", line 450, in get_cached_module_file
+    get_cached_module_file(
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/dynamic_module_utils.py", line 450, in get_cached_module_file
+    get_cached_module_file(
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/dynamic_module_utils.py", line 450, in get_cached_module_file
+    get_cached_module_file(
+  [Previous line repeated 2 more times]
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/dynamic_module_utils.py", line 410, in get_cached_module_file
+    modules_needed = check_imports(resolved_module_file)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/dynamic_module_utils.py", line 258, in check_imports
+    raise ImportError(
+ImportError: This modeling file requires the following packages that were not found in your environment: einops. Run `pip install einops`

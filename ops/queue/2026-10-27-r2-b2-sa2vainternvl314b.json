@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-27-r2-b2-sa2vainternvl314b",
+ "what": "D31 sa2va_internvl3_14b on the D13 PACO protocol (shards) (rerun: peft installed in tg-venv)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_baselines2.py",
+  "TG_ARGS": "--config configs/baselines2.yaml --method sa2va_internvl3_14b"
+ },
+ "sbatch": {
+  "time": "06:00:00",
+  "array": "0-31"
+ },
+ "after": [
+  "2026-10-27-r2-b2-sa2vainternvl314b-smoke-merge"
+ ]
+}

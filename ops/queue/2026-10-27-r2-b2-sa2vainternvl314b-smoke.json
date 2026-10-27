@@ -1,0 +1,12 @@
+{
+ "id": "2026-10-27-r2-b2-sa2vainternvl314b-smoke",
+ "what": "D31 sa2va_internvl3_14b smoke (4 images) (rerun: peft installed in tg-venv)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/b_baselines2.py",
+  "TG_ARGS": "--config configs/baselines2.yaml --method sa2va_internvl3_14b --smoke"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ }
+}

@@ -1,26 +1,19 @@
 {
   "cocoedit": {
+    "combine_tags": [
+      "",
+      "_s2long"
+    ],
     "editors": {
       "flux_fill": {
         "conditions": [
-          "bbox_fill",
-          "qwen_box_sam_fill",
-          "sam3text_fill",
-          "ours_fill",
-          "ours_s1_fill",
-          "gt_fill"
+          "ours_s2long_fill"
         ],
         "free_type_region": "whole"
       },
       "qwen_image_edit": {
         "conditions": [
-          "free",
-          "bbox_blend",
-          "qwen_box_sam_blend",
-          "sam3text_blend",
-          "ours_blend",
-          "ours_s1_blend",
-          "gt_blend"
+          "ours_s2long_blend"
         ]
       }
     },
@@ -55,6 +48,7 @@
       "gedit_full": 8,
       "imgedit_full": 8
     },
+    "run_tag": "_s2long",
     "seed": 0,
     "smoke_per_category": 1,
     "sources": {
@@ -65,6 +59,13 @@
       "ours_s1": {
         "kind": "selector",
         "stage": "s1"
+      },
+      "ours_s2long": {
+        "attr": "S2Select",
+        "config": "configs/edit_s2_long.yaml",
+        "kind": "script",
+        "pick": "ours2",
+        "script": "cocoedit_s2_source"
       },
       "qwen_box_sam": {
         "kind": "qwen_box_sam"
@@ -78,37 +79,14 @@
   "deviation": "D25",
   "editor": "flux_fill",
   "images_dirs": {
-    "bbox_fill": "$TG_CACHE/full/cocoedit/edit/flux_fill/gedit_full/bbox_fill/8ffd05acbf846743/images",
-    "gt_fill": "$TG_CACHE/full/cocoedit/edit/flux_fill/gedit_full/gt_fill/975fce0152000245/images",
-    "ours_fill": "$TG_CACHE/full/cocoedit/edit/flux_fill/gedit_full/ours_fill/c6779648013bb8e0/images",
-    "ours_s1_fill": "$TG_CACHE/full/cocoedit/edit/flux_fill/gedit_full/ours_s1_fill/a226c103bd901d1a/images",
-    "qwen_box_sam_fill": "$TG_CACHE/full/cocoedit/edit/flux_fill/gedit_full/qwen_box_sam_fill/091831542712f2ec/images",
-    "sam3text_fill": "$TG_CACHE/full/cocoedit/edit/flux_fill/gedit_full/sam3text_fill/fd7030675c2ac001/images"
+    "ours_s2long_fill": "$TG_CACHE/full/cocoedit/edit/flux_fill/gedit_full/ours_s2long_fill/180c3ecd120f2acc/images"
   },
   "localization": {
-    "ours": {
+    "ours_s2long": {
       "empty_rate": 0.0,
-      "mask_iou": 0.1384044685188026,
+      "mask_iou": 0.4246887365457434,
       "n": 446,
-      "success@0.5": 0.13228699551569506
-    },
-    "ours_s1": {
-      "empty_rate": 0.0,
-      "mask_iou": 0.33431194510765483,
-      "n": 446,
-      "success@0.5": 0.3452914798206278
-    },
-    "qwen_box_sam": {
-      "empty_rate": 0.013452914798206279,
-      "mask_iou": 0.5764877857187468,
-      "n": 446,
-      "success@0.5": 0.6031390134529148
-    },
-    "sam3text": {
-      "empty_rate": 0.0,
-      "mask_iou": 0.5293900727024449,
-      "n": 446,
-      "success@0.5": 0.5538116591928252
+      "success@0.5": 0.45739910313901344
     }
   },
   "mllm": 506,
@@ -121,33 +99,7 @@
     "revision": "358293da0354175698b67ec8299acf928313a78a"
   },
   "modes": {
-    "bbox_fill": {
-      "empty_mask": 0,
-      "fill": 446,
-      "raw": 160
-    },
-    "gt_fill": {
-      "empty_mask": 0,
-      "fill": 446,
-      "raw": 160
-    },
-    "ours_fill": {
-      "empty_mask": 0,
-      "fill": 446,
-      "raw": 160
-    },
-    "ours_s1_fill": {
-      "empty_mask": 0,
-      "fill": 446,
-      "raw": 160
-    },
-    "qwen_box_sam_fill": {
-      "empty_mask": 6,
-      "fill": 440,
-      "raw": 160
-    },
-    "sam3text_fill": {
-      "empty_mask": 0,
+    "ours_s2long_fill": {
       "fill": 446,
       "raw": 160
     }
@@ -156,10 +108,7 @@
   "samples": 606,
   "scored": 446,
   "select_dirs": {
-    "ours": "$TG_CACHE/full/cocoedit/select/ours/gedit_full/472742cc195ab2aa",
-    "ours_s1": "$TG_CACHE/full/cocoedit/select/ours_s1/gedit_full/ba52fd1ac0d6dbe0",
-    "qwen_box_sam": "$TG_CACHE/full/cocoedit/select/qwen_box_sam/gedit_full/c93c8089a7f49475",
-    "sam3text": "$TG_CACHE/full/cocoedit/select/sam3text/gedit_full/c84529dc9e893081"
+    "ours_s2long": "$TG_CACHE/full/cocoedit/select/ours_s2long/gedit_full/e8085d0205404c98"
   },
   "settings": {
     "conditions": [

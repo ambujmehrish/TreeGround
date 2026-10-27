@@ -1,0 +1,25 @@
+/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/diffusers/utils/deprecation_utils.py:23: FutureWarning: `torch_dtype` is deprecated and will be removed in version 1.0.0. Please use `dtype` instead.
+  deprecate("torch_dtype", "1.0.0", _TORCH_DTYPE_DEPRECATION_MESSAGE)
+Couldn't connect to the Hub: Cannot reach https://huggingface.co/api/models/black-forest-labs/FLUX.1-Fill-dev/revision/358293da0354175698b67ec8299acf928313a78a: offline mode is enabled. To disable it, please unset the `HF_HUB_OFFLINE` environment variable..
+Will try to load from local cache.
+Loading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]
+Loading weights:   0%|          | 0/219 [00:00<?, ?it/s][A
+Loading weights:   0%|          | 1/219 [00:00<00:00, 15141.89it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.k.weight][A
+Loading weights:   0%|          | 1/219 [00:00<00:00, 6482.70it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.k.weight] [A
+Loading weights:   1%|          | 2/219 [00:00<00:04, 51.96it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.o.weight]  [A
+Loading weights:   1%|          | 2/219 [00:00<00:05, 40.58it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.o.weight][A
+Loading weights:   1%|▏         | 3/219 [00:00<00:04, 49.71it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.q.weight][A
+Loading weights:   1%|▏         | 3/219 [00:00<00:09, 23.33it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.q.weight][A
+Loading weights:   2%|▏         | 4/219 [00:00<00:07, 30.32it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.q.weight][A
+Loading weights:   2%|▏         | 4/219 [00:00<00:07, 30.32it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.relative_attention_bias.weight][A
+Loading weights:   2%|▏         | 4/219 [00:00<00:07, 30.32it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.relative_attention_bias.weight][A
+Loading weights:   2%|▏         | 5/219 [00:00<00:07, 30.32it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.v.weight]                      [A
+Loading weights:   2%|▏         | 5/219 [00:00<00:07, 30.32it/s, Materializing param=encoder.block.0.layer.0.SelfAttention.v.weight][A
+Loading weights:   3%|▎         | 6/219 [00:00<00:07, 30.32it/s, Materializing param=encoder.block.0.layer.0.layer_norm.weight]     [A
+Loading weights:   3%|▎         | 6/219 [00:00<00:07, 30.32it/s, Materializing param=encoder.block.0.layer.0.layer_norm.weight][A
+Loading weights:   3%|▎         | 7/219 [00:00<00:06, 30.32it/s, Materializing param=encoder.block.0.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:   3%|▎         | 7/219 [00:00<00:06, 30.32it/s, Materializing param=encoder.block.0.layer.1.DenseReluDense.wi_0.weight][A
+Loading weights:   4%|▎         | 8/219 [00:00<00:06, 30.32it/s, Materializing param=encoder.block.0.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:   4%|▎         | 8/219 [00:00<00:06, 30.32it/s, Materializing param=encoder.block.0.layer.1.DenseReluDense.wi_1.weight][A
+Loading weights:   4%|▍         | 9/219 [00:00<00:06, 30.32it/s, Materializing param=encoder.block.0.layer.1.DenseReluDense.wo.weight]  [A
+Loading weights:   4%|▍         | 9/219 [00:00<00:06, 30.32it/s, Materializing param=encoder.block.0.layer.1.DenseReluDense.wo.weight][A

@@ -1,18 +1,9 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 223,
-   "RUNNING": 3
+   "PENDING": 214
   },
   "ended_24h": [
-   {
-    "elapsed": "00:04:06",
-    "end": "2026-10-26T02:43:53",
-    "exit": "0:0",
-    "jobid": "61816575",
-    "name": "fact-ssl8rd05",
-    "state": "COMPLETED"
-   },
    {
     "elapsed": "00:03:23",
     "end": "2026-10-26T20:49:02",
@@ -27,6 +18,22 @@
     "exit": "0:0",
     "jobid": "61937360",
     "name": "fact-disjref",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:02:01",
+    "end": "2026-10-27T02:01:33",
+    "exit": "0:0",
+    "jobid": "61937368",
+    "name": "fact-disjref",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "21:35:56",
+    "end": "2026-10-27T02:18:19",
+    "exit": "0:0",
+    "jobid": "61978942",
+    "name": "fact-c8_rd05_distill1",
     "state": "COMPLETED"
    },
    {
@@ -3196,6 +3203,14 @@
     "jobid": "62328473",
     "name": "q_2026-10-26-s3-long-aug-merge",
     "state": "COMPLETED"
+   },
+   {
+    "elapsed": "04:03:08",
+    "end": "2026-10-27T02:12:13",
+    "exit": "0:0",
+    "jobid": "62328686",
+    "name": "hypermem_H0",
+    "state": "TIMEOUT"
    },
    {
     "elapsed": "00:52:44",
@@ -7045,6 +7060,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "61978943",
+    "name": "fact-c8_rd05_distill1",
+    "nodes": "2",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62339910",
     "name": "q_2026-10-26-d23s3-select-partedit-merge",
     "nodes": "1",
@@ -8475,16 +8500,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62342681",
-    "name": "hm_bc_s0",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "8:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62338668",
     "name": "fact-eval-tts",
     "nodes": "1",
@@ -8575,53 +8590,43 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62352971",
-    "name": "hm_eval_Ours_s0_it029",
+    "jobid": "62338416_[0-3]",
+    "name": "q_2026-10-26-cocos2l-judge-q-imgedit",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
     "state": "PENDING",
-    "time_limit": "12:00:00"
+    "time_limit": "10:00:00"
    },
    {
     "elapsed": "0:00",
-    "jobid": "62350470",
-    "name": "hm_eval_GRPO_s0_it029",
+    "jobid": "62338415_[0-3]",
+    "name": "q_2026-10-26-cocos2l-judge-q-gedit",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
     "state": "PENDING",
-    "time_limit": "12:00:00"
+    "time_limit": "10:00:00"
    },
    {
     "elapsed": "0:00",
-    "jobid": "62350469",
-    "name": "hm_eval_C-edit_s0_it029",
+    "jobid": "62338394_[0-3]",
+    "name": "q_2026-10-26-cocos2l-judge-f-imgedit",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
     "state": "PENDING",
-    "time_limit": "12:00:00"
+    "time_limit": "10:00:00"
    },
    {
     "elapsed": "0:00",
-    "jobid": "62350465",
-    "name": "hm_eval_llm",
+    "jobid": "62338393_[0-3]",
+    "name": "q_2026-10-26-cocos2l-judge-f-gedit",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
     "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62350464",
-    "name": "hm_eval_bc_s0",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
+    "time_limit": "10:00:00"
    },
    {
     "elapsed": "0:00",
@@ -8682,46 +8687,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62338416_[0-3]",
-    "name": "q_2026-10-26-cocos2l-judge-q-imgedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62338415_[0-3]",
-    "name": "q_2026-10-26-cocos2l-judge-q-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62338394_[0-3]",
-    "name": "q_2026-10-26-cocos2l-judge-f-imgedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62338393_[0-3]",
-    "name": "q_2026-10-26-cocos2l-judge-f-gedit",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
    },
    {
     "elapsed": "0:00",
@@ -8801,76 +8766,6 @@
     "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
     "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "61978943",
-    "name": "fact-c8_rd05_distill1",
-    "nodes": "2",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62350468",
-    "name": "hm_train_Ours_s0",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62350467",
-    "name": "hm_train_GRPO_s0",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62350466",
-    "name": "hm_train_C-edit_s0",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "1:45",
-    "jobid": "61937368",
-    "name": "fact-disjref",
-    "nodes": "2",
-    "reason_or_nodelist": "lrdn[2060,2068]",
-    "start": "2026-10-27T01:59:32",
-    "state": "RUNNING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "3:52:12",
-    "jobid": "62328686",
-    "name": "hypermem_H0",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3381",
-    "start": "2026-10-26T22:09:05",
-    "state": "RUNNING",
-    "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "21:18:54",
-    "jobid": "61978942",
-    "name": "fact-c8_rd05_distill1",
-    "nodes": "2",
-    "reason_or_nodelist": "lrdn[3154,3157]",
-    "start": "2026-10-26T04:42:23",
-    "state": "RUNNING",
     "time_limit": "1-00:00:00"
    },
    {
@@ -16033,5 +15928,5 @@
    "waiting_for": null
   }
  },
- "updated": 1793062877.395273
+ "updated": 1793066832.3803499
 }

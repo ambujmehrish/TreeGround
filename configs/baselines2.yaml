@@ -7,4 +7,4 @@ models:   # D31; fetch on the login node: python scripts/fetch_models.py --confi
   grounding_dino: {repo: IDEA-Research/grounding-dino-base, revision: 12bdfa3120f3e7ec7b434d90674b3396eccf88eb}
   sam2: {repo: facebook/sam2.1-hiera-large, revision: 665f8e2ad61cf5f53d65644ff27c8ee525124610}
 baselines:
-  grounded_sam2: {box_threshold: 0.3, text_threshold: 0.25}   # Grounded-SAM 2 demo defaults
+  grounded_sam2: {box_threshold: 0.3, text_threshold: 0.25}   # our setting (the Grounded-SAM 2 local demo uses 0.35 / 0.25); cite as ours

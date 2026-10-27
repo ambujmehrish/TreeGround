@@ -17,12 +17,12 @@ cur=$(git rev-parse --abbrev-ref HEAD)
 [ "$cur" = "$BRANCH" ] || { echo "checkout is on $cur, expected $BRANCH" >&2; exit 1; }
 echo "runner: repo $TG_REPO branch $BRANCH state $STATE every ${INTERVAL}s (log $LOG)"
 while true; do
-  if git fetch -q origin "$BRANCH" && git rebase -q --autostash FETCH_HEAD; then
+  if git fetch -q origin "$BRANCH" && git rebase -q --autostash FETCH_HEAD && [ -z "$(git diff --name-only --diff-filter=U)" ]; then
     python -m treeground.ops.queue tick --repo "$TG_REPO" --state "$STATE" >> "$LOG" 2>&1
     tail -n 3 "$LOG"
   else
     git rebase --abort 2>/dev/null
-    echo "$(date '+%F %T') git update failed; tick skipped" | tee -a "$LOG"
+    echo "$(date '+%F %T') ALERT git update failed or left conflicts (see git status / git stash list); tick skipped" | tee -a "$LOG"
   fi
   sleep "$INTERVAL"
 done

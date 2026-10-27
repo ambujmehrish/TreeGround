@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-27-pt2-groundedsam2",
+ "what": "D32 PARTONOMY-Core rerun (per-question GT, official resize rule) grounded_sam2 groundedsam2",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/partonomy_eval.py",
+  "TG_ARGS": "--config configs/partonomy_baselines.yaml --method grounded_sam2"
+ },
+ "sbatch": {
+  "time": "03:00:00",
+  "array": "0-15"
+ }
+}

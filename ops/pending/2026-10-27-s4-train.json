@@ -9,5 +9,10 @@
  "sbatch": {
   "time": "16:00:00"
  },
- "collect": true
+ "collect": true,
+ "after": [
+  "2026-10-26-s3-pool-paco",
+  "2026-10-26-s3-pool-pascal",
+  "2026-10-26-s3-pool-grefcoco"
+ ]
 }

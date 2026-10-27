@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-27-pt2-qwen8boxsam",
+ "what": "D32 PARTONOMY-Core rerun (per-question GT, official resize rule) qwen8_box_sam qwen8boxsam",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/partonomy_eval.py",
+  "TG_ARGS": "--config configs/partonomy_baselines.yaml --method qwen8_box_sam"
+ },
+ "sbatch": {
+  "time": "03:00:00",
+  "array": "0-15"
+ }
+}

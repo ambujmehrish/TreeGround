@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-27-pt2-s2long",
+ "what": "D32 PARTONOMY-Core rerun (per-question GT, official resize rule) ours s2long",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/partonomy_eval.py",
+  "TG_ARGS": "--config configs/partonomy_s2long.yaml --method ours"
+ },
+ "sbatch": {
+  "time": "03:00:00",
+  "array": "0-15"
+ }
+}

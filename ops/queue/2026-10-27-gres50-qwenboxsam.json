@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-27-gres50-qwenboxsam",
+ "what": "D33 GRES re-scoring with the <50 px empty rule, qwenboxsam",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_rescore.py",
+  "TG_ARGS": "--config configs/gres_baselines.yaml --method qwen_box_sam"
+ },
+ "sbatch": {
+  "time": "03:00:00"
+ },
+ "collect": true
+}

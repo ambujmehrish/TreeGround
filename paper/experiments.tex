@@ -1,3 +1,14 @@
+% DISCLOSURES for the text (from the code audit of 2026-10-27):
+% - SAM 3 text instances are part of the method's candidate pool (D30); state it.
+% - S3 trains on an image-level union pool (all queries' SAM 3 instances, cap 160, dedup 0.95) but is evaluated on
+%   per-query pools; S4 trains on per-query pools. S3 also has a lower no-target share (~11% vs ~25% in S2 long).
+% - Hard-tree convention: when the object pick has no descendants, s3_eval falls back to the object node; V4 counts a
+%   miss. Report which (soft_tree_eval gives both).
+% - gRefCOCO: threshold t by 2-fold CV on val, frozen for testA/B; the <50 px empty rule of ReLA/GSVA is reported via
+%   scripts/gres_rescore.py.
+% - PARTONOMY-Core: 142 Intersection parts (129 questions) have no mask of that name and are skipped; per-question GT;
+%   our Grounded-SAM 2 run (box 0.3 / text 0.25, query 'the {part} of the {object}') differs from the published row.
+% - tau_rej and checkpoints selected on the reported PACO val; possible overlap of SAM 3's training data with eval images.
 % Preamble: \usepackage{booktabs,multirow,makecell,graphicx}
 \section{Experiments}
 

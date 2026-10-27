@@ -41,26 +41,45 @@ FILES = ("scripts/partonomy_eval.py", "scripts/s3_pool.py", "scripts/s3_eval.py"
 
 def questions(root: Path) -> list[dict]:
     # a correct-answer part without a mask of that name (142 Intersection parts, e.g. 'landing gear' vs the stored
-    # 'fixed landing gear') is skipped and counted; Identification and Difference have none
+    # 'fixed landing gear'; the official loader would raise KeyError) is skipped and counted, and a question left
+    # without parts is dropped and counted (our convention); Identification and Difference have none. GT is taken
+    # from each question's own segmentations (9 (image, part) pairs differ between questions of one image)
     qs = [r for r in json.loads((root / "test-qa_pairs.json").read_text()) if r["question_type"] in QTYPES]
     for r in qs:
         gt = r["answer_parts"][r["answer_types"].index("correct")]
         r["parts"] = [p for p in gt if p in (r["segmentations"] or {})]
         r["skipped_parts"] = len(gt) - len(r["parts"])
-    return [r for r in qs if r["parts"]]
+    return qs
 
 
 def phrase(part: str, obj: str) -> str:
     return f"the {part} of the {obj}"
 
 
+RESIZED = {"masks": 0}
+
+
 def gt_mask(segs: list[dict], hw: tuple[int, int]) -> np.ndarray:
+    # official loader: a mask of another size is resized to the image (cv2 INTER_LINEAR when enlarging, INTER_AREA
+    # when shrinking) and the part's instances are united with .any(), i.e. any positive interpolated value counts;
+    # emulated with PIL BILINEAR / BOX on the 0/1 mask, then > 0
+    from pycocotools import mask as mu
     out = np.zeros(hw, bool)
     for s in segs:
         s = s.get("segmentation", s)
-        m = M.decode({"size": list(s["size"]), "counts": s["counts"]}).astype(bool)
-        if m.shape != hw:  # the official loader resizes mismatching masks to the image size
-            m = np.asarray(Image.fromarray(m.astype(np.uint8) * 255).resize((hw[1], hw[0]), Image.NEAREST)) > 127
+        if "counts" in s:
+            m = M.decode({"size": list(s["size"]), "counts": s["counts"]}).astype(bool)
+        elif "polygon" in s:
+            h0, w0 = s["size"]
+            m = mu.decode(mu.merge(mu.frPyObjects(s["polygon"], h0, w0))).astype(bool)
+        else:
+            raise ProtocolError(f"unknown segmentation format: {sorted(s)}")
+        if m.shape != hw:
+            RESIZED["masks"] += 1
+            grow = m.shape[0] < hw[0] or m.shape[1] < hw[1]
+            f = Image.fromarray(m.astype(np.float32), mode="F").resize((hw[1], hw[0]),
+                                                                       Image.BILINEAR if grow else Image.BOX)
+            m = np.asarray(f) > 0
         out |= m
     return out
 
@@ -122,9 +141,10 @@ class Ours:
             s = self.sel.scores(self.sel.queries(pr.half()), e)[0].float().cpu().numpy()
             idx = np.array(list(range(n)) + owner[phrase(p, label)] + owner[f"the {label}"], np.int64)
             a_nodes = int(np.argmax(s[:n])) if n else -1
-            a_aug = int(idx[int(np.argmax(s[idx]))])
+            a_aug = int(idx[int(np.argmax(s[idx]))]) if len(idx) else -1
             out.append({"nodes": M.decode(pool[a_nodes]).astype(bool) if a_nodes >= 0 else None,
-                        "aug": M.decode(pool[a_aug]).astype(bool), "aug_kind": "node" if a_aug < n else "inst"})
+                        "aug": M.decode(pool[a_aug]).astype(bool) if a_aug >= 0 else None,
+                        "aug_kind": "node" if 0 <= a_aug < n else ("inst" if a_aug >= 0 else "none")})
         return out
 
 
@@ -187,9 +207,6 @@ def run_shard(cfg: dict, method: str, shard: int) -> None:
         return
     run = start_run(f"partonomy_{stage_name(cfg, method)}_shard", cfg, False, {"shard": shard, "cache": str(d)})
     predict = Ours(cfg) if method == "ours" else Baseline(cfg, method)
-    segs = {}
-    for r in questions(root):
-        segs.setdefault(r["image_path"], {}).update(r["segmentations"])
     rows, t0 = [], time.time()
     for i, img in enumerate(images, 1):
         g = df[df.image == img]
@@ -198,10 +215,12 @@ def run_shard(cfg: dict, method: str, shard: int) -> None:
         parts = g.part.tolist()
         preds = predict(image, g.label.iloc[0], parts)
         for p, pr in zip(parts, preds):
-            gt = gt_mask(segs[img][p], hw)
-            row = {"image": img, "part": p, "gt_area": int(gt.sum())}
+            row = {"image": img, "part": p, "h": hw[0], "w": hw[1]}
             for k, v in pr.items():
-                row[f"iou_{k}" if k != "aug_kind" else k] = v if k == "aug_kind" else iou(v, gt)
+                if k == "aug_kind":
+                    row[k] = v
+                else:
+                    row[f"pred_{k}"] = json.dumps(M.encode(v)[0] if v is not None and v.any() else None)
             rows.append(row)
         print(f"[{i}/{len(images)}] {img} parts {len(parts)} {time.time() - t0:.0f}s", flush=True)
     tmp = target.with_suffix(".tmp")
@@ -210,21 +229,37 @@ def run_shard(cfg: dict, method: str, shard: int) -> None:
     write_json(run / "metrics.json", {"images": len(images), "parts": len(rows), "seconds": time.time() - t0})
 
 
+def question_ious(qs: list[dict], df: pd.DataFrame, col: str) -> dict:
+    # per question and part: IoU of the (image, part) prediction with the question's own GT
+    rows = {(r.image, r.part): r for r in df.itertuples()}
+    out = {}
+    for i, r in enumerate(qs):
+        vals = []
+        for p in r["parts"]:
+            row = rows[(r["image_path"], p)]
+            rle = json.loads(getattr(row, col))
+            pred = M.decode(rle).astype(bool) if rle is not None else None
+            vals.append(iou(pred, gt_mask(r["segmentations"][p], (row.h, row.w))))
+        out[i] = vals
+    return out
+
+
 def summarize(qs: list[dict], df: pd.DataFrame, col: str, bs: dict) -> dict:
-    by = {(r.image, r.part): getattr(r, col) for r in df.itertuples()}
+    qi = question_ious(qs, df, col)
     out = {}
     for qt, name in QTYPES.items():
         pairs, per_q, groups = [], [], []
-        for r in qs:
-            if r["question_type"] != qt:
+        for i, r in enumerate(qs):
+            if r["question_type"] != qt or not r["parts"]:
                 continue
-            v = [by[(r["image_path"], p)] for p in r["parts"]]
+            v = qi[i]
             pairs += v
             groups += [r["image_path"]] * len(v)
             per_q.append(float(np.mean(v)))
-        qimg = [r["image_path"] for r in qs if r["question_type"] == qt]
+        qimg = [r["image_path"] for r in qs if r["question_type"] == qt and r["parts"]]
         skipped = sum(r["skipped_parts"] for r in qs if r["question_type"] == qt)
-        out[name] = {"skipped_parts_without_mask": skipped, "micro_gIoU": mean_ci(np.array(pairs), np.array(groups), bs["n"], bs["seed"]),
+        dropped = sum(1 for r in qs if r["question_type"] == qt and not r["parts"])
+        out[name] = {"skipped_parts_without_mask": skipped, "dropped_questions_without_parts": dropped, "micro_gIoU": mean_ci(np.array(pairs), np.array(groups), bs["n"], bs["seed"]),
                      "macro_gIoU": mean_ci(np.array(per_q), np.array(qimg), bs["n"], bs["seed"]),
                      "questions": len(per_q), "parts": len(pairs)}
     return out
@@ -244,14 +279,15 @@ def merge(cfg: dict, method: str) -> None:
     if len(df) != len(items(qs)) or df.duplicated(["image", "part"]).any():
         raise ProtocolError(f"{len(df)} part predictions for {len(items(qs))} (image, part) pairs")
     bs = cfg["v2"]["bootstrap"]
-    cols = [c for c in df.columns if c.startswith("iou_")]
+    cols = [c for c in df.columns if c.startswith("pred_")]
     run = start_run(f"partonomy_{stage_name(cfg, method)}", cfg, False, {"cache": str(d)})
     metrics = {"deviation": "D32", "label": "PARTONOMY-Core (gt) setting", "method": method,
-               "stage": stage_name(cfg, method), "results": {c[4:]: summarize(qs, df, c, bs) for c in cols},
+               "stage": stage_name(cfg, method), "results": {c[5:]: summarize(qs, df, c, bs) for c in cols},
                "published_reference": "arXiv 2505.20759 Table 2 (gt rows: X-Decoder, SEEM, Grounded SAM 2)"}
+    metrics["gt_masks_resized"] = RESIZED["masks"]
     if "aug_kind" in df:
         metrics["aug_pick_from_instances"] = float((df.aug_kind == "inst").mean())
-    df.to_csv(run / "parts.csv", index=False)
+    df.drop(columns=cols).to_csv(run / "parts.csv", index=False)
     write_json(run / "metrics.json", metrics)
     print(json.dumps({k: {q: round(v[q]["micro_gIoU"]["mean"], 3) for q in v} for k, v in metrics["results"].items()}))
     print(run)

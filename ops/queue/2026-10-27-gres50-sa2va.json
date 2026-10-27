@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-27-gres50-sa2va",
+ "what": "D33 GRES re-scoring with the <50 px empty rule, sa2va",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_rescore.py",
+  "TG_ARGS": "--config configs/gres_baselines.yaml --method sa2va"
+ },
+ "sbatch": {
+  "time": "03:00:00"
+ },
+ "collect": true
+}

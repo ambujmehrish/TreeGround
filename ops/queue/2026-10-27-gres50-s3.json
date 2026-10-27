@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-27-gres50-s3",
+ "what": "D33 GRES re-scoring with the <50 px empty rule, s3",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gres_rescore.py",
+  "TG_ARGS": "--config configs/gres_s3.yaml --method ours"
+ },
+ "sbatch": {
+  "time": "03:00:00"
+ },
+ "after": [
+  "2026-10-26-gres-s3-merge"
+ ],
+ "collect": true
+}

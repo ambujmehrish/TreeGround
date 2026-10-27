@@ -1,4 +1,8 @@
 include: s3.yaml
-s2: {stage_suffix: _augsoft}       # runs/s2_from_s1_augsoft (D34): S3 + soft-tree chain term
-s4: {soft_lambda: 1.0, soft_weight: 1.0}
+s2:
+  stage_suffix: _augsoft           # runs/s2_from_s1_augsoft (D34)
+  soft_lambda: 1.0                 # soft-tree chain term (scripts/s4_train.py), in the checkpoint config hash
+  soft_weight: 1.0
+  # S2-long composition: PACO present 0.6*6330/8330, its 2,000 no-target items 0.6*2000/8330 (from gRefCOCO train)
+  aug_sources: {paco_train_aug: 0.456, grefcoco_train_aug_absent: 0.144, pascal_part_train_aug: 0.2, grefcoco_train_aug: 0.2}
 soft_tree: {num_shards: 16}

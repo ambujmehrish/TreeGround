@@ -38,7 +38,6 @@ from treeground.run import (ProtocolError, assert_real_path, canonical_hash, loa
 # also reported); the object of a soft pick is its best-scoring ancestor.
 
 LAMBDAS = (0.0, 0.1, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 32.0)
-EPS = 1e-6
 
 
 def num_shards(cfg: dict) -> int:
@@ -59,18 +58,21 @@ def chain_rows(model, processor, extra, sel, layer, device, text, cfg, g, image,
     qs = [S2T.Query(q.qid, "chain", S2.user_text(q.text), S2.answer_text("chain", q.qid, q.text), [])
           for q in g.itertuples()]
     if not pool:
-        return []
+        return [{"qid": q.qid, "image": q.image_key, "mode": mode, "n": 0, "sig_obj": b"", "sig_part": b"",
+                 "parent": b"", "iou_obj": b"", "iou_part": b""} for q in g.itertuples() for mode in ("nodes", "aug")]
     z, probes = S2T.recompute(model, X2.ImageSource(processor, extra["sel_id"], image, pool), None, qs, layer,
                               device, cfg["s2_eval"]["batch_size"])
     e = sel.nodes(z.half().to(device))
     rows = []
     for q, pr in zip(g.itertuples(), probes):
-        sig = torch.sigmoid(sel.scores(sel.queries(pr.half()), e)).float().cpu().numpy()
+        sig = sel.scores(sel.queries(pr.half()), e).float().cpu().numpy()   # logits; log-sigmoid at merge
         gt = [gts[a] for a in json.loads(q.gt)]
         for mode, idx in (("nodes", np.arange(n)), ("aug", np.array(list(range(n)) + [i for p in S3P.phrases(q.text)
                                                                                        for i in owner.get(p, [])],
                                                                     np.int64))):
             if not len(idx):
+                rows.append({"qid": q.qid, "image": q.image_key, "mode": mode, "n": 0, "sig_obj": b"", "sig_part": b"",
+                             "parent": b"", "iou_obj": b"", "iou_part": b""})
                 continue
             sub = [pool[i] for i in idx]
             ious = M.iou(sub, gt)
@@ -89,7 +91,8 @@ def identity(cfg: dict, ck_run: Path, step: int) -> dict:
     for rel in ("scripts/soft_tree_eval.py", "scripts/s3_eval.py", "scripts/s3_pool.py", "scripts/s2_train.py"):
         h.update((ROOT / rel).read_bytes())
     return {"kind": "soft_tree", "run": ck_run.name, "checkpoint": cfg["s2_eval"]["checkpoint"], "step": step,
-            "pool": cfg["s3_pool"]["instances_per_phrase"], "num_shards": num_shards(cfg), "code": h.hexdigest()}
+            "pool": cfg["s3_pool"]["instances_per_phrase"], "sam3_text": cfg["baselines"]["sam3_text"],
+            "num_shards": num_shards(cfg), "code": h.hexdigest()}
 
 
 def cache_dir(cfg: dict, ident: dict) -> Path:
@@ -127,6 +130,8 @@ def run_shard(cfg: dict, shard: int) -> None:
         g = val[val.sha1 == sha1].sort_values("offset")
         image = load_rgb(assert_real_path(files[sha1]))
         nd = props.nodes(sha1, tau)
+        if (nd["h"], nd["w"]) != image.shape[:2]:
+            raise ProtocolError(f"{sha1}: proposal masks differ from the image size")
         gts = paco.gt_rles(pimgs[int(g.image_key.iloc[0].split(":")[1])])
         rows += chain_rows(model, processor, extra, sel, meta["layer"], device, text, cfg, g, image, nd["rles"], gts)
         if i % 25 == 0:
@@ -160,6 +165,10 @@ def _depth(parent: np.ndarray, n: int) -> np.ndarray:
 
 
 def picks(r) -> dict:
+    if r.n == 0:
+        z = {"flat_part": 0.0, "hard_part": 0.0, "hard_obj": 0.0, "hard_v4_part": 0.0}
+        z.update({f"soft{lam}_{k}": 0.0 for lam in LAMBDAS for k in ("part", "obj")})
+        return z
     so, sp = np.frombuffer(r.sig_obj, np.float32), np.frombuffer(r.sig_part, np.float32)
     io, ip = np.frombuffer(r.iou_obj, np.float32), np.frombuffer(r.iou_part, np.float32)
     parent = np.frombuffer(r.parent, np.int32).astype(np.int64)
@@ -167,9 +176,11 @@ def picks(r) -> dict:
     a1 = int(np.argmax(so))
     desc = tree.strict_descendants(a1)
     a2 = int(desc[np.argmax(sp[desc])]) if len(desc) else a1
-    lo, lp = np.log(np.clip(so, EPS, 1)), np.log(np.clip(sp, EPS, 1))
+    lo, lp = -np.logaddexp(0.0, -so.astype(np.float64)), -np.logaddexp(0.0, -sp.astype(np.float64))  # log sigmoid
     amax, aarg = ancestors_max(parent, lo)
-    out = {"flat_part": float(ip[int(np.argmax(sp))]), "hard_part": float(ip[a2]), "hard_obj": float(io[a1])}
+    # hard tree as s3_eval (no descendants -> the object pick itself) and as V4 'natural' (no descendants -> miss)
+    out = {"flat_part": float(ip[int(np.argmax(sp))]), "hard_part": float(ip[a2]), "hard_obj": float(io[a1]),
+           "hard_v4_part": float(ip[a2]) if len(desc) else 0.0}
     for lam in LAMBDAS:
         p = int(np.argmax(lp + lam * amax))
         out[f"soft{lam}_part"], out[f"soft{lam}_obj"] = float(ip[p]), float(io[aarg[p]])
@@ -183,21 +194,25 @@ def summarize(df: pd.DataFrame, bs: dict) -> dict:
         images = np.array(sorted(p.image.unique()))
         fold = dict(zip(images, np.random.default_rng(0).permutation(len(images)) % 2))
         f = p.image.map(fold).to_numpy()
-        cv, lams = np.zeros(len(p)), []
+        cv, cv_obj, lams = np.zeros(len(p)), np.zeros(len(p)), []
         for k in (0, 1):
             lam = max(LAMBDAS, key=lambda x: p[f"soft{x}_part"][f != k].mean())
             lams.append(lam)
             cv[f == k] = p[f"soft{lam}_part"][f == k]
+            cv_obj[f == k] = p[f"soft{lam}_obj"][f == k]
         lam_all = max(LAMBDAS, key=lambda x: p[f"soft{x}_part"].mean())
 
         def ci(v):
             return mean_ci(np.asarray(v, float), p.image.to_numpy(), bs["n"], bs["seed"])
 
         res[mode] = {"chains": int(len(p)), "part_gIoU_flat": ci(p.flat_part), "part_gIoU_hard_tree": ci(p.hard_part),
+                     "part_gIoU_hard_tree_v4": ci(p.hard_v4_part),
                      "part_gIoU_soft_cv": ci(cv), "lambda_folds": lams, "lambda_all": lam_all,
                      "part_success_flat": ci(p.flat_part >= 0.5), "part_success_hard_tree": ci(p.hard_part >= 0.5),
                      "part_success_soft_cv": ci(cv >= 0.5),
-                     "chain_success_soft_all": ci((p[f"soft{lam_all}_part"] >= 0.5) & (p[f"soft{lam_all}_obj"] >= 0.5)),
+                     "chain_success_soft_cv": ci((cv >= 0.5) & (cv_obj >= 0.5)),
+                     "chain_success_flat_note": "flat search has no object pick; see chain_success_hard_tree",
+                     "chain_success_soft_all_in_sample": ci((p[f"soft{lam_all}_part"] >= 0.5) & (p[f"soft{lam_all}_obj"] >= 0.5)),
                      "chain_success_hard_tree": ci((p.hard_part >= 0.5) & (p.hard_obj >= 0.5)),
                      "curve": {str(x): float(p[f"soft{x}_part"].mean()) for x in LAMBDAS}}
     return res
@@ -233,6 +248,8 @@ def main() -> None:
     if args.merge:
         merge(cfg)
     else:
+        if not 0 <= args.shard < num_shards(cfg):
+            raise ProtocolError(f"--shard must be in 0..{num_shards(cfg) - 1}")
         with torch.no_grad():
             run_shard(cfg, args.shard)
 

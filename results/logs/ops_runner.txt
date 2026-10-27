@@ -1,15 +1,3 @@
-  File "/leonardo_work/AIFAC_S07_041/treeground/py312/lib/python3.12/subprocess.py", line 550, in run
-    stdout, stderr = process.communicate(input, timeout=timeout)
-                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/leonardo_work/AIFAC_S07_041/treeground/py312/lib/python3.12/subprocess.py", line 1209, in communicate
-    stdout, stderr = self._communicate(input, endtime, timeout)
-                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/leonardo_work/AIFAC_S07_041/treeground/py312/lib/python3.12/subprocess.py", line 2115, in _communicate
-    ready = selector.select(timeout)
-            ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/leonardo_work/AIFAC_S07_041/treeground/py312/lib/python3.12/selectors.py", line 415, in select
-    fd_event_list = self._selector.poll(timeout)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 KeyboardInterrupt
 
 During handling of the above exception, another exception occurred:
@@ -398,3 +386,15 @@ heartbeat push failed (retry next hour): TimeoutExpired: Command '['bash', 'scri
 2026-10-27 23:22:49 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
 2026-10-27 23:28:00 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
 2026-10-27 23:33:03 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
+2026-10-27 23:42:23 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
+2026-10-27 23:47:33 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
+2026-10-27 23:52:37 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
+2026-10-27 23:57:47 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
+2026-10-28 00:02:52 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
+2026-10-28 00:08:04 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
+2026-10-28 00:13:13 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
+2026-10-28 00:18:22 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
+2026-10-28 00:23:33 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
+2026-10-28 00:28:43 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
+2026-10-28 00:33:50 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}
+2026-10-28 00:38:58 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 240}

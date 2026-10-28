@@ -1,6 +1,6 @@
 {
- "id": "2026-10-28-s5-gres-merge",
- "what": "D36 GRES merge S5",
+ "id": "2026-10-28-s5r-gres-merge",
+ "what": "D36 GRES merge S5 (rerun: PartImageNet layout fix)",
  "script": "q_gpu.sbatch",
  "env": {
   "TG_PY": "scripts/s5_eval.py",
@@ -10,9 +10,9 @@
   "time": "02:00:00"
  },
  "after": [
-  "2026-10-28-s5-gres-val",
-  "2026-10-28-s5-gres-testA",
-  "2026-10-28-s5-gres-testB"
+  "2026-10-28-s5r-gres-val",
+  "2026-10-28-s5r-gres-testA",
+  "2026-10-28-s5r-gres-testB"
  ],
  "collect": true
 }

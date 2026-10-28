@@ -76,7 +76,9 @@ def partimagenet_items(cfg: dict, shard: int, n: int, counts: Counter):
             counts["skipped_equal_to_eval_image"] += 1
             continue
         o, parts = r["object"], r["parts"]
-        obj = partimagenet.union(list(parts.values())) if len(parts) > 1 else next(iter(parts.values()))
+        obj = r["object_mask"] or (partimagenet.union(list(parts.values())) if len(parts) > 1
+                                   else next(iter(parts.values())))
+        counts["object_from_whole" if r["object_mask"] else "object_from_parts"] += 1
         qs = [(f"{r['key']}|object|{o}", "object", OBJECT_TEMPLATE.format(object=o), [obj])]
         for p, rle in sorted(parts.items()):
             fmt = {"object": o, "part": p}

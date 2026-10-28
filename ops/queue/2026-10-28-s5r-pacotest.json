@@ -1,6 +1,6 @@
 {
- "id": "2026-10-28-s5-pacotest",
- "what": "D36 PACO-LVIS test S5 (shards)",
+ "id": "2026-10-28-s5r-pacotest",
+ "what": "D36 PACO-LVIS test S5 (shards) (rerun: PartImageNet layout fix)",
  "script": "q_gpu.sbatch",
  "env": {
   "TG_PY": "scripts/s5_eval.py",
@@ -11,6 +11,6 @@
   "array": "0-31"
  },
  "after": [
-  "2026-10-28-s5-train"
+  "2026-10-28-s5r-train"
  ]
 }

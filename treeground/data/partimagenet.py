@@ -9,8 +9,8 @@ from treeground.run import ProtocolError
 
 # PartImageNet_Seg (He et al., ECCV 2022; turkeyju/PartImageNet), one of PARTONOMY's three training sources
 # (Partonomy-PartImageNet). COCO-style part annotations: category name '<Supercategory> <Part>' with the
-# supercategory as the object class. The object mask of an image is the union of its part masks (PartImageNet
-# annotates one object class per image and has no object masks).
+# supercategory as the object class. Object masks from annotations/<split>_whole (the union of the parts if an image
+# has none there).
 
 RENAME = {"tier": "tire", "aeroplane": "airplane"}   # dataset spellings
 
@@ -25,11 +25,31 @@ def _name(s: str) -> str:
     return RENAME.get(s, s)
 
 
-def annotation_file(root: str | Path, split: str) -> Path:
-    hits = [p for p in Path(root).rglob(f"{split}.json") if "annotations" in p.parts]
+def dataset_dir(root: str | Path) -> Path:
+    hits = [p.parent for p in Path(root).rglob("annotations") if p.is_dir() and "__MACOSX" not in p.parts]
     if len(hits) != 1:
-        raise ProtocolError(f"expected one annotations/{split}.json under {root}, found {hits}")
+        raise ProtocolError(f"expected one PartImageNet annotations/ directory under {root}, found {hits}")
     return hits[0]
+
+
+def annotation_file(root: str | Path, split: str, whole: bool = False) -> Path:
+    # PartImageNet_Seg: annotations/<split>/<split>.json (parts), annotations/<split>_whole/<split>.json (objects)
+    f = dataset_dir(root) / "annotations" / (f"{split}_whole" if whole else split) / f"{split}.json"
+    if not f.exists():
+        raise ProtocolError(f"missing {f}")
+    return f
+
+
+def whole_masks(root: str | Path, split: str) -> dict[str, dict]:
+    # file name -> union of the image's whole-object masks
+    d = json.loads(annotation_file(root, split, whole=True).read_text())
+    names = {im["id"]: (im["file_name"], im["height"], im["width"]) for im in d["images"]}
+    per = defaultdict(list)
+    for a in d["annotations"]:
+        if a.get("segmentation"):
+            fn, h, w = names[a["image_id"]]
+            per[fn].append(M.from_annotation(a["segmentation"], h, w))
+    return {Path(fn).name: (union(r) if len(r) > 1 else r[0]) for fn, r in per.items()}
 
 
 def load(root: str | Path, split: str = "train") -> list[dict]:
@@ -41,9 +61,9 @@ def load(root: str | Path, split: str = "train") -> list[dict]:
         part = _name(c["name"][len(c["supercategory"]):] if c["name"].lower().startswith(c["supercategory"].lower())
                      else c["name"])
         cats[c["id"]] = (sup, part)
-    files = {p.name: p for p in (ann_path.parents[1] / "images" / split).rglob("*") if p.is_file()} \
-        if (ann_path.parents[1] / "images" / split).exists() else \
-        {p.name: p for p in Path(root).rglob("*.JPEG")}
+    files = {p.name: p for p in (dataset_dir(root) / "images" / split).rglob("*")
+             if p.is_file() and not p.name.startswith("._")}
+    objects = whole_masks(root, split)
     by_image = defaultdict(list)
     for a in d["annotations"]:
         if a.get("segmentation"):
@@ -64,5 +84,6 @@ def load(root: str | Path, split: str = "train") -> list[dict]:
         if len(objs) != 1:
             continue
         out.append({"key": f"partimagenet:{im['id']}", "path": str(path), "h": h, "w": w, "object": objs.pop(),
+                    "object_mask": objects.get(Path(im["file_name"]).name),
                     "parts": {p: union(r) if len(r) > 1 else r[0] for p, r in parts.items()}})
     return out

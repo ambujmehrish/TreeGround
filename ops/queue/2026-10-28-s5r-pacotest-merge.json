@@ -1,6 +1,6 @@
 {
- "id": "2026-10-28-s5-pacotest-merge",
- "what": "D36 PACO-LVIS test S5 merge",
+ "id": "2026-10-28-s5r-pacotest-merge",
+ "what": "D36 PACO-LVIS test S5 merge (rerun: PartImageNet layout fix)",
  "script": "q_gpu.sbatch",
  "env": {
   "TG_PY": "scripts/s5_eval.py",
@@ -10,7 +10,7 @@
   "time": "01:00:00"
  },
  "after": [
-  "2026-10-28-s5-pacotest"
+  "2026-10-28-s5r-pacotest"
  ],
  "collect": true
 }

@@ -1,6 +1,6 @@
 {
- "id": "2026-10-28-s5-pool-partimagenet",
- "what": "D36 pool partimagenet_train (64 shards)",
+ "id": "2026-10-28-s5r-pool-partimagenet",
+ "what": "D36 pool partimagenet_train (64 shards) (rerun: PartImageNet layout fix)",
  "script": "q_gpu.sbatch",
  "env": {
   "TG_PY": "scripts/s5_pool.py",
@@ -11,6 +11,6 @@
   "array": "0-63"
  },
  "after": [
-  "2026-10-28-s5-pool-smoke"
+  "2026-10-28-s5r-pool-smoke"
  ]
 }

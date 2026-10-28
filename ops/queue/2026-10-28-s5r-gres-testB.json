@@ -1,6 +1,6 @@
 {
- "id": "2026-10-28-s5-gres-testB",
- "what": "D36 GRES testB S5 (shards)",
+ "id": "2026-10-28-s5r-gres-testB",
+ "what": "D36 GRES testB S5 (shards) (rerun: PartImageNet layout fix)",
  "script": "q_gpu.sbatch",
  "env": {
   "TG_PY": "scripts/s5_eval.py",
@@ -11,6 +11,6 @@
   "array": "0-15"
  },
  "after": [
-  "2026-10-28-s5-train"
+  "2026-10-28-s5r-train"
  ]
 }

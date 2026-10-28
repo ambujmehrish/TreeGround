@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-28-s5r-train",
+ "what": "D36 S5 training, 12k steps (4 GPUs) (rerun: PartImageNet layout fix)",
+ "script": "q_gpu4.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_train.py",
+  "TG_ARGS": "--config configs/s5.yaml"
+ },
+ "sbatch": {
+  "time": "16:00:00"
+ },
+ "after": [
+  "2026-10-28-s5r-pool-paco",
+  "2026-10-28-s5r-pool-pascal",
+  "2026-10-28-s5r-pool-grefcoco",
+  "2026-10-28-s5r-pool-partimagenet",
+  "2026-10-28-s5r-train-smoke"
+ ],
+ "collect": true
+}

@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-28-qual2-s2long",
+ "what": "Qualitative edit panels with baseline masks (ours S2-long, SAM 3 text, Qwen3-VL box + SAM 3, Sa2VA-4B, Grounded-SAM 2, GT; same Qwen-Image-Edit output)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qual_export.py",
+  "TG_ARGS": "--config configs/qual.yaml --per_group 4 --name qual_s2long_v2"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "collect": true
+}

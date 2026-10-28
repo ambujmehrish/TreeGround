@@ -1,21 +1,3 @@
-2026-10-26 20:00:06 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 227, 'RUNNING': 2}
-2026-10-26 20:05:28 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 227, 'RUNNING': 2}
-2026-10-26 20:10:42 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 227, 'RUNNING': 2}
-2026-10-26 20:15:57 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 227, 'RUNNING': 2}
-2026-10-26 20:21:21 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 227, 'RUNNING': 2}
-2026-10-26 20:26:44 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 227, 'RUNNING': 2}
-heartbeat push failed (retry next hour): TimeoutExpired: Command '['bash', 'scripts/collect_results.sh', 'ops heartbeat (status only)']' timed out after 300 seconds
-2026-10-26 20:36:57 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 227, 'RUNNING': 2}
-2026-10-26 20:42:17 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 227, 'RUNNING': 2}
-2026-10-26 20:47:40 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 226, 'RUNNING': 3}
-2026-10-26 20:53:22 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 226, 'RUNNING': 2}
-2026-10-26 20:58:43 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 226, 'RUNNING': 2}
-2026-10-26 21:04:10 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 226, 'RUNNING': 2}
-2026-10-26 21:09:28 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 226, 'RUNNING': 2}
-2026-10-26 21:14:44 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 226, 'RUNNING': 2}
-2026-10-26 21:20:02 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 226, 'RUNNING': 2}
-2026-10-26 21:25:17 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 226, 'RUNNING': 2}
-2026-10-26 21:30:36 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 226, 'RUNNING': 2}
 2026-10-26 21:35:53 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 225, 'RUNNING': 3}
 2026-10-26 21:45:11 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 221, 'RUNNING': 6}
 2026-10-26 21:50:23 submitted 6 finished 0 collected 0 invalid 0 cluster {'PENDING': 214, 'RUNNING': 5}
@@ -398,3 +380,21 @@ heartbeat push failed (retry next hour): TimeoutExpired: Command '['bash', 'scri
 2026-10-28 10:52:09 submitted 0 finished 0 collected 0 invalid 0 cluster {'PENDING': 221, 'RUNNING': 7}
 2026-10-28 10:57:44 submitted 5 finished 0 collected 0 invalid 0 cluster {'PENDING': 227, 'RUNNING': 7}
 2026-10-28 11:03:05 submitted 5 finished 0 collected 0 invalid 0 cluster {'PENDING': 234, 'RUNNING': 7}
+2026-10-28 11:24:06 submitted 5 finished 3 collected 3 invalid 0 cluster {'COMPLETING': 1, 'PENDING': 196, 'RUNNING': 193}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/ops/queue.py", line 393, in <module>
+    main()
+object address  : 0x7f03a3641c60
+object refcount : 3
+object type     : 0x562cb1e45120
+object type name: KeyboardInterrupt
+object repr     : KeyboardInterrupt()
+lost sys.stderr
+2026-10-28 13:13:57 ALERT git update failed or left conflicts (see git status / git stash list); tick skipped
+2026-10-28 13:18:58 ALERT git update failed or left conflicts (see git status / git stash list); tick skipped
+2026-10-28 13:23:59 ALERT git update failed or left conflicts (see git status / git stash list); tick skipped
+2026-10-28 13:29:01 ALERT git update failed or left conflicts (see git status / git stash list); tick skipped
+2026-10-28 13:34:03 ALERT git update failed or left conflicts (see git status / git stash list); tick skipped
+2026-10-28 13:37:44 ALERT git update failed or left conflicts (see git status / git stash list); tick skipped

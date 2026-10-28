@@ -1,137 +1,29 @@
 {
   "conditions": {
-    "bbox_blend": {
+    "ours_s2long_blend": {
       "n": 737,
       "overall": {
-        "all_categories_mean": 3.7423702664796634,
+        "all_categories_mean": 3.379666203059805,
         "by_category": {
-          "action": 3.61,
+          "action": 3.52,
           "add": 3.89,
-          "adjust": 3.65,
-          "background": 3.59,
-          "compose": 2.85,
-          "remove": 4.03,
-          "replace": 3.52
+          "adjust": 3.35,
+          "background": 2.08,
+          "compose": 2.3,
+          "remove": 3.53,
+          "replace": 3.17
         },
-        "mllm_samples_mean": 3.6799799599198395,
-        "overall": 3.5914285714285716
+        "mllm_samples_mean": 3.164316831683168,
+        "overall": 3.12
       },
-      "parse_failed_rate": 0.032564450474898234
-    },
-    "free": {
-      "n": 737,
-      "overall": {
-        "all_categories_mean": 3.8083988764044943,
-        "by_category": {
-          "action": 3.83,
-          "add": 3.89,
-          "adjust": 3.68,
-          "background": 3.59,
-          "compose": 3.12,
-          "remove": 4.19,
-          "replace": 3.73
-        },
-        "mllm_samples_mean": 3.7742570281124492,
-        "overall": 3.7185714285714293
-      },
-      "parse_failed_rate": 0.033921302578018994
-    },
-    "gt_blend": {
-      "n": 737,
-      "overall": {
-        "all_categories_mean": 3.6627972027972024,
-        "by_category": {
-          "action": 3.32,
-          "add": 3.89,
-          "adjust": 3.65,
-          "background": 3.55,
-          "compose": 2.98,
-          "remove": 3.65,
-          "replace": 3.36
-        },
-        "mllm_samples_mean": 3.566666666666667,
-        "overall": 3.4857142857142853
-      },
-      "parse_failed_rate": 0.029850746268656716
-    },
-    "ours_blend": {
-      "n": 737,
-      "overall": {
-        "all_categories_mean": 2.656888888888889,
-        "by_category": {
-          "action": 3.39,
-          "add": 3.89,
-          "adjust": 2.19,
-          "background": 1.34,
-          "compose": 2.06,
-          "remove": 1.49,
-          "replace": 1.46
-        },
-        "mllm_samples_mean": 2.1362845849802374,
-        "overall": 2.2600000000000002
-      },
-      "parse_failed_rate": 0.023066485753052916
-    },
-    "ours_s1_blend": {
-      "n": 737,
-      "overall": {
-        "all_categories_mean": 3.1384261838440115,
-        "by_category": {
-          "action": 3.33,
-          "add": 3.89,
-          "adjust": 3.07,
-          "background": 1.63,
-          "compose": 2.17,
-          "remove": 2.95,
-          "replace": 2.68
-        },
-        "mllm_samples_mean": 2.8202182539682537,
-        "overall": 2.817142857142857
-      },
-      "parse_failed_rate": 0.025780189959294438
-    },
-    "qwen_box_sam_blend": {
-      "n": 737,
-      "overall": {
-        "all_categories_mean": 3.544979020979021,
-        "by_category": {
-          "action": 3.46,
-          "add": 3.89,
-          "adjust": 3.62,
-          "background": 2.74,
-          "compose": 2.68,
-          "remove": 3.67,
-          "replace": 3.31
-        },
-        "mllm_samples_mean": 3.398522954091816,
-        "overall": 3.3385714285714285
-      },
-      "parse_failed_rate": 0.029850746268656716
-    },
-    "sam3text_blend": {
-      "n": 737,
-      "overall": {
-        "all_categories_mean": 3.588337988826815,
-        "by_category": {
-          "action": 3.58,
-          "add": 3.89,
-          "adjust": 3.69,
-          "background": 3.01,
-          "compose": 2.72,
-          "remove": 3.69,
-          "replace": 3.22
-        },
-        "mllm_samples_mean": 3.460657370517928,
-        "overall": 3.3999999999999995
-      },
-      "parse_failed_rate": 0.028493894165535955
+      "parse_failed_rate": 0.024423337856173677
     }
   },
   "dataset": "imgedit_full",
   "deviation": "D25",
   "editor": "qwen_image_edit",
   "judge": "judge_qwen25vl_72b",
-  "merge_run": "20261025T192646319015Z_bbb6afce",
+  "merge_run": "20261027T064731619299Z_a237dda5",
   "mllm_categories": [
     "add",
     "adjust",

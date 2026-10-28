@@ -1,7 +1,7 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 239,
+   "PENDING": 237,
    "RUNNING": 2
   },
   "ended_24h": [
@@ -155,22 +155,6 @@
     "exit": "0:0",
     "jobid": "62328110",
     "name": "q_2026-10-26-s3-train",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:21:06",
-    "end": "2026-10-27T05:09:21",
-    "exit": "0:0",
-    "jobid": "62333080",
-    "name": "paperA_cc17r",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:14:28",
-    "end": "2026-10-27T05:17:58",
-    "exit": "0:0",
-    "jobid": "62333081",
-    "name": "paperA_cc17r",
     "state": "COMPLETED"
    },
    {
@@ -731,14 +715,6 @@
     "exit": "0:0",
     "jobid": "62338652_13",
     "name": "fact-tts-tok",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:07:04",
-    "end": "2026-10-27T05:24:54",
-    "exit": "0:0",
-    "jobid": "62339632",
-    "name": "q_2026-10-26-b2-qwen32boxsam-smoke",
     "state": "COMPLETED"
    },
    {
@@ -1770,6 +1746,14 @@
     "end": "2026-10-28T05:06:00",
     "exit": "0:0",
     "jobid": "62339918_13",
+    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:29:47",
+    "end": "2026-10-28T05:20:36",
+    "exit": "0:0",
+    "jobid": "62339918_14",
     "name": "q_2026-10-26-gres-qwen32boxsam-testA",
     "state": "COMPLETED"
    },
@@ -3837,44 +3821,24 @@
     "name": "fact-tts-train",
     "nodes": "2",
     "reason_or_nodelist": "(Priority)",
-    "start": "2026-10-28T10:33:56",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62338653",
-    "name": "fact-tts-train",
-    "nodes": "2",
-    "reason_or_nodelist": "(Priority)",
     "start": "2026-10-28T09:37:20",
     "state": "PENDING",
     "time_limit": "1-00:00:00"
    },
    {
     "elapsed": "0:00",
-    "jobid": "62339920_[0-15]",
-    "name": "q_2026-10-26-gres-qwen32boxsam-testB",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "2026-10-28T10:19:09",
-    "state": "PENDING",
-    "time_limit": "5:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62339918_15",
-    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "2026-10-28T10:19:09",
-    "state": "PENDING",
-    "time_limit": "5:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62339923_[0-15]",
     "name": "q_2026-10-26-gres-qwen32boxsam-val",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "5:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62339920_[0-15]",
+    "name": "q_2026-10-26-gres-qwen32boxsam-testB",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
     "start": "N/A",
@@ -4223,56 +4187,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62412631",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62412630",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62412625",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62412622",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62412620",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62412643",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -4334,6 +4248,56 @@
    {
     "elapsed": "0:00",
     "jobid": "62412632",
+    "name": "fact-eval-base",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62412631",
+    "name": "fact-eval-base",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62412630",
+    "name": "fact-eval-base",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62412625",
+    "name": "fact-eval-base",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62412622",
+    "name": "fact-eval-base",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62412620",
     "name": "fact-eval-base",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
@@ -6212,24 +6176,24 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "15:11",
-    "jobid": "62339918_14",
+    "elapsed": "1:08",
+    "jobid": "62339918_15",
     "name": "q_2026-10-26-gres-qwen32boxsam-testA",
     "nodes": "1",
-    "reason_or_nodelist": "lrdn3338",
-    "start": "2026-10-28T04:50:49",
+    "reason_or_nodelist": "lrdn3330",
+    "start": "2026-10-28T06:08:11",
     "state": "RUNNING",
     "time_limit": "5:00:00"
    },
    {
-    "elapsed": "32:24",
-    "jobid": "62339918_13",
-    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3330",
-    "start": "2026-10-28T04:33:36",
+    "elapsed": "1:00:12",
+    "jobid": "62338653",
+    "name": "fact-tts-train",
+    "nodes": "2",
+    "reason_or_nodelist": "lrdn[3260,3356]",
+    "start": "2026-10-28T05:09:07",
     "state": "RUNNING",
-    "time_limit": "5:00:00"
+    "time_limit": "1-00:00:00"
    },
    {
     "elapsed": "0:00",
@@ -12261,7 +12225,6 @@
    "post_output_tail": null,
    "states": [
     "COMPLETED",
-    "PENDING",
     "RUNNING"
    ],
    "submit_error": null,
@@ -14421,5 +14384,5 @@
    "waiting_for": null
   }
  },
- "updated": 1793160360.288024
+ "updated": 1793164159.488176
 }

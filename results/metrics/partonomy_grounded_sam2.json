@@ -1,25 +1,27 @@
 {
   "deviation": "D32",
+  "gt_masks_resized": 0,
   "label": "PARTONOMY-Core (gt) setting",
   "method": "grounded_sam2",
   "published_reference": "arXiv 2505.20759 Table 2 (gt rows: X-Decoder, SEEM, Grounded SAM 2)",
   "results": {
     "pred": {
       "difference": {
+        "dropped_questions_without_parts": 0,
         "macro_gIoU": {
           "ci95": [
-            0.25266060126992146,
-            0.2828482594835173
+            0.25292682194870053,
+            0.2830691673592577
           ],
-          "mean": 0.2672629771289895,
+          "mean": 0.26748869510885565,
           "n": 1030
         },
         "micro_gIoU": {
           "ci95": [
-            0.22832690311434525,
-            0.2526489179431177
+            0.22852144685712625,
+            0.2527239186941469
           ],
-          "mean": 0.24018454051352886,
+          "mean": 0.2402915612565798,
           "n": 2813
         },
         "parts": 2813,
@@ -27,20 +29,21 @@
         "skipped_parts_without_mask": 0
       },
       "identification": {
+        "dropped_questions_without_parts": 0,
         "macro_gIoU": {
           "ci95": [
-            0.2756785662185281,
-            0.30311594847683265
+            0.2757715007594675,
+            0.3033056925030066
           ],
-          "mean": 0.2895210708769164,
+          "mean": 0.2896459542266606,
           "n": 1068
         },
         "micro_gIoU": {
           "ci95": [
-            0.24742010543262183,
-            0.2699713071203563
+            0.24748450367810668,
+            0.2700257245320742
           ],
-          "mean": 0.25865524925518557,
+          "mean": 0.2587402381740234,
           "n": 3542
         },
         "parts": 3542,
@@ -48,25 +51,26 @@
         "skipped_parts_without_mask": 0
       },
       "intersection": {
+        "dropped_questions_without_parts": 129,
         "macro_gIoU": {
           "ci95": [
-            0.3167833098041367,
-            0.3568938795383429
+            0.3169038962488724,
+            0.35711700981639594
           ],
-          "mean": 0.3363139712247641,
+          "mean": 0.33653543446922435,
           "n": 895
         },
         "micro_gIoU": {
           "ci95": [
-            0.2914392273269713,
-            0.3282216785095849
+            0.2915773804898679,
+            0.3283757538088558
           ],
-          "mean": 0.3094689570726222,
+          "mean": 0.30961599683804647,
           "n": 1348
         },
         "parts": 1348,
         "questions": 895,
-        "skipped_parts_without_mask": 12
+        "skipped_parts_without_mask": 142
       }
     }
   },

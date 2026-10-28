@@ -9,8 +9,9 @@ from treeground.run import ProtocolError
 
 # PartImageNet_Seg (He et al., ECCV 2022; turkeyju/PartImageNet), one of PARTONOMY's three training sources
 # (Partonomy-PartImageNet). COCO-style part annotations: category name '<Supercategory> <Part>' with the
-# supercategory as the object class. Object masks from annotations/<split>_whole (the union of the parts if an image
-# has none there).
+# supercategory as the object class. Object masks from annotations/<split>_whole; an image without one gets part
+# queries only (no object or chain query). Images with no part annotation or with several object classes are skipped
+# and counted; a listed image file that is missing is an error.
 
 RENAME = {"tier": "tire", "aeroplane": "airplane"}   # dataset spellings
 
@@ -68,12 +69,15 @@ def load(root: str | Path, split: str = "train") -> list[dict]:
     for a in d["annotations"]:
         if a.get("segmentation"):
             by_image[a["image_id"]].append(a)
-    out = []
+    out, skipped = [], defaultdict(int)
     for im in d["images"]:
         anns = by_image.get(im["id"])
-        path = files.get(Path(im["file_name"]).name)
-        if not anns or path is None:
+        if not anns:
+            skipped["no_part_annotation"] += 1
             continue
+        path = files.get(Path(im["file_name"]).name)
+        if path is None:
+            raise ProtocolError(f"PartImageNet {split}: image file {im['file_name']} is missing under {root}")
         h, w = im["height"], im["width"]
         parts: dict[str, list] = defaultdict(list)
         objs = set()
@@ -82,8 +86,10 @@ def load(root: str | Path, split: str = "train") -> list[dict]:
             objs.add(sup)
             parts[part].append(M.from_annotation(a["segmentation"], h, w))
         if len(objs) != 1:
+            skipped["several_object_classes"] += 1
             continue
         out.append({"key": f"partimagenet:{im['id']}", "path": str(path), "h": h, "w": w, "object": objs.pop(),
                     "object_mask": objects.get(Path(im["file_name"]).name),
                     "parts": {p: union(r) if len(r) > 1 else r[0] for p, r in parts.items()}})
+    load.skipped = dict(skipped)   # read by the caller for its counts
     return out

@@ -72,19 +72,21 @@ def out_dir(cfg: dict, ident: dict) -> Path:
 def partimagenet_items(cfg: dict, shard: int, n: int, counts: Counter):
     _, manifest, _, _ = manifest_inputs(cfg, False)
     held = set(manifest[manifest.split_class.isin(["eval", "dev", "heldout"])].sha1)
-    for r in partimagenet.load(cfg["data"]["partimagenet"], "train")[shard::n]:
+    records = partimagenet.load(cfg["data"]["partimagenet"], "train")
+    if shard == 0:
+        counts.update({f"loader_{k}": v for k, v in partimagenet.load.skipped.items()})
+    for r in records[shard::n]:
         if pixel_sha1(r["path"])[0] in held:
             counts["skipped_equal_to_eval_image"] += 1
             continue
-        o, parts = r["object"], r["parts"]
-        obj = r["object_mask"] or (partimagenet.union(list(parts.values())) if len(parts) > 1
-                                   else next(iter(parts.values())))
-        counts["object_from_whole" if r["object_mask"] else "object_from_parts"] += 1
-        qs = [(f"{r['key']}|object|{o}", "object", OBJECT_TEMPLATE.format(object=o), [obj])]
+        o, parts, obj = r["object"], r["parts"], r["object_mask"]
+        counts["with_object_mask" if obj else "without_object_mask"] += 1
+        qs = [(f"{r['key']}|object|{o}", "object", OBJECT_TEMPLATE.format(object=o), [obj])] if obj else []
         for p, rle in sorted(parts.items()):
             fmt = {"object": o, "part": p}
             qs.append((f"{r['key']}|part|{o}:{p}", "part", PART_TEMPLATE.format(**fmt), [rle]))
-            qs.append((f"{r['key']}|chain|{o}:{p}", "chain", CHAIN_TEMPLATE.format(**fmt), [obj, rle]))
+            if obj:
+                qs.append((f"{r['key']}|chain|{o}:{p}", "chain", CHAIN_TEMPLATE.format(**fmt), [obj, rle]))
         yield r["key"], r["path"], qs, None
 
 

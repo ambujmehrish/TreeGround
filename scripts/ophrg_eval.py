@@ -269,11 +269,10 @@ def run_shard(cfg: dict, method: str, bench: str, shard: int) -> None:
     run = start_run(f"ophrg_{bench}_{stage_name(cfg, method)}_shard", cfg, False, {"shard": shard, "cache": str(d)})
     images = LOADERS[bench](cfg)[shard::n]
     predict = Ours(cfg) if method == "ours" else Baseline(cfg, method)
-    rows, t0, missing = [], time.time(), 0
+    rows, t0 = [], time.time()
     for i, (key, path, qs) in enumerate(images, 1):
         if not Path(path).exists():
-            missing += 1
-            continue
+            raise ProtocolError(f"{bench}: image {path} is missing (every listed image is evaluated)")
         image = np.asarray(Image.open(path).convert("RGB"))
         qs = resolve(key, qs, *image.shape[:2])
         for q in qs:
@@ -286,7 +285,7 @@ def run_shard(cfg: dict, method: str, bench: str, shard: int) -> None:
     tmp = target.with_suffix(".tmp")
     pd.DataFrame(rows).to_parquet(tmp, index=False)
     tmp.replace(target)
-    write_json(run / "metrics.json", {"images": len(images), "missing_images": missing, "queries": len(rows),
+    write_json(run / "metrics.json", {"images": len(images), "queries": len(rows),
                                       "seconds": time.time() - t0})
 
 
@@ -304,6 +303,10 @@ def merge(cfg: dict, method: str, bench: str) -> None:
     run = start_run(f"ophrg_{bench}_{stage_name(cfg, method)}", cfg, False, {"cache": str(d)})
     df.to_csv(run / "eval_queries.csv", index=False)
     res = {}
+    if bench == "pascalpart":
+        # PascalPart-116 images that are also in the VOC2010 'train' list our Pascal-Part training source reads
+        from treeground.data import pascal_part
+        res["train_overlap_images"] = len(set(pascal_ids()) & set(pascal_part.split_ids(cfg["data"]["pascal_voc"], "train")))
     for kind, g in df.groupby("kind"):
         iou = np.where(g.union > 0, g.inter / g.union.clip(lower=1), 0.0)
         res["parts" if kind == "part" else "objects"] = {
@@ -312,7 +315,8 @@ def merge(cfg: dict, method: str, bench: str) -> None:
     write_json(run / "metrics.json", {"label": "test", "deviation": "D38", "protocol": "OP-HRG (arXiv 2607.15374)",
                                       "benchmark": bench, "method": method, "stage": stage_name(cfg, method),
                                       "images": int(df.image.nunique()), "results": res})
-    print(json.dumps({k: (round(v["gIoU"]["mean"] * 100, 2), round(v["cIoU"] * 100, 2)) for k, v in res.items()}))
+    print(json.dumps({k: (round(v["gIoU"]["mean"] * 100, 2), round(v["cIoU"] * 100, 2)) if isinstance(v, dict) else v
+                      for k, v in res.items()}))
     print(run)
 
 

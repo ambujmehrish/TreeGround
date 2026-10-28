@@ -30,8 +30,16 @@ def main() -> None:
         raise ProtocolError("s5_eval needs an S5 config (s2.stage_suffix _s5...)")
     require_approved(cfg, ["D36"] + (["D37"] if cfg["s2"].get("spec_sources") else []))
     S5C.install()
+    import s5_train  # noqa: F401  (S5 deviations: approvals require D34 / D36 / D37 as for training)
     mod = importlib.import_module(name)
     mod.FILES = tuple(mod.FILES) + ("scripts/s5_common.py", "scripts/s5_eval.py")
+    base_identity = mod.identity
+
+    def identity(cfg, *a, **k):
+        # the box candidate's settings belong to the pool, so they enter the cache identity
+        return {**base_identity(cfg, *a, **k), "qwen_box_sam": cfg["baselines"]["qwen_box_sam"],
+                "qwen": cfg["models"]["qwen"]}
+    mod.identity = identity
     mod.main()
 
 

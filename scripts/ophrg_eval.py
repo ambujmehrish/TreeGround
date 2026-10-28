@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from treeground import masks as M  # noqa: E402
+from treeground.data.ophrg_sets import partimagenet_ood_test, pascal_ids  # noqa: E402
 from treeground.data.paco import OBJECT_TEMPLATE, PART_TEMPLATE  # noqa: E402
 from treeground.metrics import mean_ci  # noqa: E402
 from treeground.run import (ProtocolError, canonical_hash, load_config, require_approved, start_run,  # noqa: E402
@@ -36,8 +37,8 @@ from treeground.run import (ProtocolError, canonical_hash, load_config, require_
 
 BENCHMARKS = ("instructpart", "pascalpart", "partimagenet")
 FILES = ("scripts/ophrg_eval.py", "scripts/s3_eval.py", "scripts/s3_pool.py", "scripts/s2_train.py",
-         "scripts/s2_nodes.py", "scripts/b_baselines.py", "scripts/b_baselines2.py", "treeground/data/ophrg_pascalpart_val.txt")
-PASCAL_IDS = ROOT / "treeground" / "data" / "ophrg_pascalpart_val.txt"
+         "scripts/s2_nodes.py", "scripts/b_baselines.py", "scripts/b_baselines2.py", "treeground/data/ophrg_sets.py",
+         "treeground/data/ophrg_pascalpart_val.txt")
 READABLE = {
     "lwing": "left wing", "rwing": "right wing", "lleg": "left leg", "rleg": "right leg", "lfoot": "left foot",
     "rfoot": "right foot", "leye": "left eye", "reye": "right eye", "lear": "left ear", "rear": "right ear",
@@ -64,17 +65,6 @@ READABLE = {
     "croofside": "coach roof side", "engine": "engine", "stern": "stern"}
 
 
-def pascal_ids() -> list[str]:
-    return sorted(line.strip() for line in PASCAL_IDS.read_text().splitlines() if line.strip())
-
-
-def partimagenet_ood_test(root: str | Path) -> tuple[dict, Path]:
-    hits = [p for p in Path(root).rglob("test.json") if "__MACOSX" not in p.parts]
-    if len(hits) != 1:
-        raise ProtocolError(f"expected one PartImageNet_OOD test.json under {root}, found {hits}")
-    return json.loads(hits[0].read_text()), hits[0].parent / "test"
-
-
 # ---- benchmark records: (image key, image path, list of (qid, kind, object, part, gt bool mask)) ----
 
 def instructpart_images(cfg: dict) -> list[tuple]:
@@ -84,7 +74,7 @@ def instructpart_images(cfg: dict) -> list[tuple]:
         base = os.path.splitext(name)[0]
         obj, part = base.split("-")[-2], base.split("-")[-1]
         out.append((f"instructpart:{base}", str(d / "images" / name),
-                    [("instructpart|" + base, "part", obj, part, ("png", str(d / "masks" / f"{base}.png")))]))
+                    [(f"instructpart:{base}|part|{obj}:{part}", "part", obj, part, ("png", str(d / "masks" / f"{base}.png")))]))
     return out
 
 
@@ -132,7 +122,7 @@ def partimagenet_images(cfg: dict) -> list[tuple]:
         segs = [a["segmentation"] for a in anns if a["segmentation"]]
         if not segs or not part:
             continue
-        per_image[iid].append((f"partimagenet|{n}", "part", obj, part, ("poly", segs)))
+        per_image[iid].append((f"partimagenet_ood:{iid}|part|{obj}:{part}", "part", obj, part, ("poly", segs)))
     out = []
     for iid, qs in sorted(per_image.items()):
         fn = files[iid]
@@ -307,6 +297,13 @@ def merge(cfg: dict, method: str, bench: str) -> None:
         # PascalPart-116 images that are also in the VOC2010 'train' list our Pascal-Part training source reads
         from treeground.data import pascal_part
         res["train_overlap_images"] = len(set(pascal_ids()) & set(pascal_part.split_ids(cfg["data"]["pascal_voc"], "train")))
+    if bench in ("instructpart", "partimagenet"):
+        from treeground.data.images import pixel_sha1
+        from treeground.identity import manifest_inputs
+        _, manifest, _, _ = manifest_inputs(cfg, False)
+        train = set(manifest[manifest.split_class == "train"].sha1)
+        paths = {k: p for k, p, _ in LOADERS[bench](cfg)}
+        res["images_equal_to_manifest_train_images"] = sum(pixel_sha1(paths[k])[0] in train for k in df.image.unique())
     for kind, g in df.groupby("kind"):
         iou = np.where(g.union > 0, g.inter / g.union.clip(lower=1), 0.0)
         res["parts" if kind == "part" else "objects"] = {
@@ -333,6 +330,8 @@ def main() -> None:
     if args.merge:
         merge(cfg, args.method, args.benchmark)
     else:
+        if not 0 <= args.shard < cfg["ophrg_eval"]["num_shards"]:
+            raise ProtocolError(f"--shard must be in 0..{cfg['ophrg_eval']['num_shards'] - 1}")
         with torch.no_grad():
             run_shard(cfg, args.method, args.benchmark, args.shard)
 

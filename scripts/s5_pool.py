@@ -38,7 +38,7 @@ from treeground.run import (ProtocolError, assert_real_path, canonical_hash, ens
 
 SOURCES = S3P.SOURCES + ("partimagenet_train",)
 FILES = ("scripts/s5_pool.py", "scripts/s5_common.py", "scripts/s3_pool.py", "scripts/b_baselines.py",
-         "scripts/s2_nodes.py", "treeground/data/partimagenet.py", "scripts/ophrg_eval.py",
+         "scripts/s2_nodes.py", "treeground/data/partimagenet.py", "treeground/data/ophrg_sets.py",
          "treeground/data/ophrg_pascalpart_val.txt")
 
 
@@ -93,9 +93,9 @@ def partimagenet_items(cfg: dict, shard: int, n: int, counts: Counter):
 def held_out(cfg: dict) -> tuple[set, set]:
     # D38: images of the OP-HRG test sets never enter S5 training (PartImageNet_OOD test images by file name, the
     # PascalPart-116 image ids of OP-HRG's pascalpart_val.txt)
-    import ophrg_eval as OE
-    data, _ = OE.partimagenet_ood_test(cfg["data"]["partimagenet_ood"])
-    return {Path(im["file_name"]).name for im in data["images"]}, set(OE.pascal_ids())
+    from treeground.data import ophrg_sets as OS
+    data, _ = OS.partimagenet_ood_test(cfg["data"]["partimagenet_ood"])
+    return {Path(im["file_name"]).name for im in data["images"]}, set(OS.pascal_ids())
 
 
 def items(cfg: dict, source: str, shard: int, n: int, counts: Counter):
@@ -169,6 +169,7 @@ def run_shard(cfg: dict, source: str, shard: int, smoke: bool) -> None:
         totals.update(counts)
         totals["instances"] += len(imeta)
         totals["box_instances"] += sum(1 for x in imeta if x["score"] == S5C.BOX_SCORE)
+        totals["box_proposed"] += text.last_boxes
         if rec is not None:
             gts = {qid: g for qid, _, _, g in queries}
             for q in rec["queries"]:

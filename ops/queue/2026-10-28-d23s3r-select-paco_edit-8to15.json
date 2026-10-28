@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-28-d23s3r-select-paco_edit-8to15",
+ "what": "D23 edit-mask selection with the S3 selector, paco_edit (shards) (missing shards 8-15)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_select.py",
+  "TG_ARGS": "--config configs/edit_s3.yaml --dataset paco_edit"
+ },
+ "sbatch": {
+  "time": "02:00:00",
+  "array": "8-15"
+ }
+}

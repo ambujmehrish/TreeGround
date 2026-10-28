@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-28-d23s3r-select-partedit-merge",
+ "what": "D23 selection merge + localisation (S3, partedit) (rerun: shards 0-3 present; 4-7 were out of range)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_select.py",
+  "TG_ARGS": "--config configs/edit_s3.yaml --dataset partedit --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "collect": true
+}

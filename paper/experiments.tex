@@ -9,6 +9,9 @@
 % - PARTONOMY-Core: 142 Intersection parts (129 questions) have no mask of that name and are skipped; per-question GT;
 %   our Grounded-SAM 2 run (box 0.3 / text 0.25, query 'the {part} of the {object}') differs from the published row.
 % - tau_rej and checkpoints selected on the reported PACO val; possible overlap of SAM 3's training data with eval images.
+% RULE: never claim a win on a validation split. Val tables are development results (no bold). Wins are bolded
+%   only on test splits, against published test numbers under the same protocol and equal-size backbones.
+% TODO: fill published gRefCOCO testA/testB rows (from the papers) before any test claim in tab:gres.
 % Preamble: \usepackage{booktabs,multirow,makecell,graphicx}
 \section{Experiments}
 
@@ -50,7 +53,7 @@ Method & gIoU & cIoU & Obj. & Part & S@0.5 \\
 \midrule
 Sa2VA            & 0.279 & 0.378 & 0.474 & 0.198 & 0.257 \\
 SAM\,3 (text)    & 0.415 & 0.569 & 0.754 & 0.273 & 0.449 \\
-Qwen3-VL box + SAM\,3 & 0.459 & 0.530 & \textbf{0.758} & 0.335 & 0.467 \\
+Qwen3-VL box + SAM\,3 & 0.459 & 0.530 & 0.758 & 0.335 & 0.467 \\
 \midrule
 Ours V2          & 0.278 & --    & 0.507 & 0.183 & 0.286 \\
 Ours S1          & 0.359 & 0.471 & 0.627 & 0.248 & 0.384 \\
@@ -59,7 +62,7 @@ Ours S2 (S1 init)& 0.403 & 0.511 & 0.656 & 0.298 & 0.429 \\
 \quad + rerank ($k{=}10$) & 0.418 & 0.508 & 0.699 & 0.301 & 0.442 \\
 \quad + SAM\,3 refine & 0.414 & 0.521 & 0.680 & 0.303 & 0.436 \\
 Ours S2 long     & 0.425 & 0.546 & 0.677 & 0.320 & 0.458 \\
-\quad + SAM\,3 candidates (no retraining) & \textbf{0.471} & \textbf{0.605} & 0.707 & \textbf{0.373} & \textbf{0.510} \\
+\quad + SAM\,3 candidates (no retraining) & 0.471 & 0.605 & 0.707 & 0.373 & 0.510 \\
 \midrule
 \textit{Oracle: best node} & \textit{0.565} & & & & \\
 \bottomrule
@@ -80,7 +83,7 @@ SAM\,3 (text) & 0.415 & 0.917 \\
 Qwen3-VL box + SAM\,3 & 0.459 & 0.290 \\
 \midrule
 Ours V2 & 0.273 & 0.996 \\
-Ours S2 & 0.403 & \textbf{1.000} \\
+Ours S2 & 0.403 & 1.000 \\
 Ours S2 (S1 init) & 0.400 & 0.997 \\
 Ours S2 long & 0.149 & 0.978 \\
 \bottomrule
@@ -101,13 +104,13 @@ Ours S2 long & 0.149 & 0.978 \\
 Method & Flat & Tree & Random & Flat & Tree & Flat & Tree & Flat & Tree \\
 \midrule
 Sa2VA & -- & -- & -- & \multicolumn{2}{c}{0.120} & \multicolumn{2}{c}{0.039} & \multicolumn{2}{c}{0.381} \\
-SAM\,3 (text) & -- & -- & -- & \multicolumn{2}{c}{0.270} & \multicolumn{2}{c}{\textbf{0.234}} & \multicolumn{2}{c}{0.387} \\
-Qwen3-VL box + SAM\,3 & -- & -- & -- & \multicolumn{2}{c}{\textbf{0.299}} & \multicolumn{2}{c}{0.160} & \multicolumn{2}{c}{\textbf{0.745}} \\
+SAM\,3 (text) & -- & -- & -- & \multicolumn{2}{c}{0.270} & \multicolumn{2}{c}{0.234} & \multicolumn{2}{c}{0.387} \\
+Qwen3-VL box + SAM\,3 & -- & -- & -- & \multicolumn{2}{c}{0.299} & \multicolumn{2}{c}{0.160} & \multicolumn{2}{c}{0.745} \\
 \midrule
 Ours S1 & 0.560 & 0.540 & 0.202 & 0.229 & 0.194 & 0.114 & 0.119 & 0.597 & 0.437 \\
 Ours S2 & 0.622 & 0.591 & 0.212 & 0.259 & 0.213 & 0.131 & 0.137 & 0.666 & 0.456 \\
 Ours S2 (S1 init) & 0.602 & 0.571 & 0.206 & 0.267 & 0.217 & 0.140 & 0.141 & 0.673 & 0.461 \\
-Ours S2 long & \textbf{0.690} & 0.656 & 0.237 & 0.296 & 0.251 & 0.174 & 0.175 & 0.689 & 0.493 \\
+Ours S2 long & 0.690 & 0.656 & 0.237 & 0.296 & 0.251 & 0.174 & 0.175 & 0.689 & 0.493 \\
 \bottomrule
 \end{tabular}}
 \caption{Object$\to$part chains on PACO-LVIS val.}
@@ -124,8 +127,8 @@ Ours S2 long & \textbf{0.690} & 0.656 & 0.237 & 0.296 & 0.251 & 0.174 & 0.175 & 
 Method & Pascal & ADE & LVIS-h & OI-h & Pascal \\
 \midrule
 Sa2VA & 0.250 & 0.244 & 0.491 & 0.470 & 0.291 \\
-SAM\,3 (text) & \textbf{0.400} & \textbf{0.368} & 0.456 & 0.616 & 0.392 \\
-Qwen3-VL box + SAM\,3 & 0.390 & 0.361 & \textbf{0.616} & \textbf{0.770} & \textbf{0.418} \\
+SAM\,3 (text) & 0.400 & 0.368 & 0.456 & 0.616 & 0.392 \\
+Qwen3-VL box + SAM\,3 & 0.390 & 0.361 & 0.616 & 0.770 & 0.418 \\
 \midrule
 Ours V2 & 0.042 & 0.028 & 0.041 & 0.012 & 0.063 \\
 Ours S1$^\dagger$ & 0.258 & 0.093 & 0.106 & 0.153 & 0.281 \\
@@ -248,7 +251,7 @@ Qwen3-VL box + SAM\,3 & 0.291 & 1.000 & 0.435 & -- & -- \\
 Ours S1 & 0.974 & 0.387 & 0.176 & 0.909 & 0.823 \\
 Ours S2 & 1.000 & 0.000 & 0.000 & 0.341 & 1.000 \\
 Ours S2 (S1 init) & 0.999 & 0.004 & 0.001 & 0.692 & 0.999 \\
-Ours S2 long & 0.964 & 0.475 & 0.230 & \textbf{0.930} & 0.829 \\
+Ours S2 long & 0.964 & 0.475 & 0.230 & 0.930 & 0.829 \\
 \quad no rejection & 0.000 & 1.000 & 0.429 & & \\
 \bottomrule
 \end{tabular}}
@@ -291,7 +294,7 @@ LISA-13B (ft) & 65.2 & 64.0 & 57.5 & -- & -- \\
 GSVA-13B (ft) & 70.0 & 66.4 & 66.0 & -- & -- \\
 SAM4MLLM-8B & 71.9 & 67.8 & 66.1 & -- & -- \\
 PSALM-G5 (ft) & 67.3 & 68.0 & 87.2 & -- & -- \\
-RAS-13B (ft) & 74.6 & \textbf{70.5} & 69.1 & -- & -- \\
+RAS-13B (ft) & 74.6 & 70.5 & 69.1 & -- & -- \\
 \midrule
 \multicolumn{6}{l}{\textit{Our runs, same protocol}} \\
 Grounded-SAM 2 & 21.3 & 24.9 & 7.8 & 48.0 & 42.3 \\
@@ -299,7 +302,7 @@ Sa2VA-4B & 27.1 & 29.2 & 17.7 & 51.5 & 46.0 \\
 Qwen3-VL-8B box + SAM\,3 & 28.4 & 28.0 & 19.3 & 50.2 & 47.4 \\
 Qwen3-VL-4B box + SAM\,3 & 34.5 & 30.8 & 29.2 & 50.7 & 48.0 \\
 Ours S2 long, nodes & 74.2 & 49.1 & 86.7 & 59.1 & 51.5 \\
-Ours S2 long, nodes + SAM\,3 & \textbf{76.3} & 52.3 & \textbf{88.8} & \textbf{60.2} & \textbf{52.2} \\
+Ours S2 long, nodes + SAM\,3 & 76.3 & 52.3 & 88.8 & 60.2 & 52.2 \\
 \bottomrule
 \end{tabular}}
 \caption{gRefCOCO (GRES protocol). Ours: union of candidates above a threshold chosen by 2-fold CV on val, frozen for testA/B.}

@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-28-s5parts-pacotest-merge",
+ "what": "D37 PACO-LVIS test S5-parts merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "paco_test_eval --config configs/pacotest_s5parts.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-28-s5parts-pacotest"
+ ],
+ "collect": true
+}

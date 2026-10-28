@@ -29,6 +29,7 @@ from treeground.run import ProtocolError  # noqa: E402
 # (2) the benchmarks' training splits: PACO-LVIS train, Pascal-Part train, all of gRefCOCO train (present and
 #     no-target) and PartImageNet_Seg train (with PACO and Pascal-Part, PARTONOMY's training sources).
 # Shares, tau and the weight live in cfg['s2'] (s5_sources, listwise_tau, listwise_weight).
+# D37 specialists: cfg['s2'] spec_sources (one benchmark's training data) and fresh_selector.
 
 SUF, ABSENT = "_s5", "_s5_absent"
 
@@ -47,7 +48,7 @@ def base_source(source: str) -> str:
 
 
 def source_weights(c: dict) -> dict[str, float]:
-    w = c.get("s5_sources", {})
+    w = c.get("spec_sources") or c.get("s5_sources", {})   # D37 specialists use their own key (configs merge dicts)
     if not w or min(w.values()) <= 0:
         raise ProtocolError(f"invalid S5 sources {w}")
     for k in w:
@@ -156,7 +157,22 @@ def make_batch_terms(inner, tau: float, weight: float):
     return batch_terms
 
 
-S2T.deviations = lambda cfg: ["D10", "D21", "D30", "D34", "D36"]
+S2T.deviations = lambda cfg: ["D10", "D21", "D30", "D34", "D36"] + (["D37"] if cfg["s2"].get("spec_sources") else [])
+_warm_start = S2T.warm_start
+
+
+def warm_start(cfg: dict, smoke: bool, layer: int, d_model: int):
+    # D37 specialists: a freshly initialised selector (seeded) instead of the S1 one, which saw every benchmark's
+    # training split; only the temperature is read from S1
+    sel, run = _warm_start(cfg, smoke, layer, d_model)
+    if not cfg["s2"].get("fresh_selector"):
+        return sel, run
+    from treeground.selector import Selector
+    torch.manual_seed(int(cfg["s2"]["seed"]))
+    return Selector(d_model, d_model, sel.tau), f"fresh(temperature from {run})"
+
+
+S2T.warm_start = warm_start
 S2T.source_weights, S2T.node_cache, S2T.node_meta = source_weights, node_cache, node_meta
 if "terms_listwise" not in S2T.STAT_KEYS:
     S2T.STAT_KEYS.append("terms_listwise")

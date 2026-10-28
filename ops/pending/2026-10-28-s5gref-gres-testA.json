@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-28-s5gref-gres-testA",
+ "what": "D37 GRES testA S5-gref (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "gres_eval --config configs/gres_s5gref.yaml --method ours --split testA"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ },
+ "after": [
+  "2026-10-28-s5gref-train"
+ ]
+}

@@ -26,9 +26,9 @@ def main() -> None:
     ap.add_argument("--config", required=True)
     known, _ = ap.parse_known_args()
     cfg = load_config(known.config)
-    if not cfg["s2"].get("stage_suffix", "").endswith("_s5"):
-        raise ProtocolError("s5_eval needs an S5 config (s2.stage_suffix _s5)")
-    require_approved(cfg, ["D36"])
+    if not cfg["s2"].get("stage_suffix", "").startswith("_s5"):
+        raise ProtocolError("s5_eval needs an S5 config (s2.stage_suffix _s5...)")
+    require_approved(cfg, ["D36"] + (["D37"] if cfg["s2"].get("spec_sources") else []))
     S5C.install()
     mod = importlib.import_module(name)
     mod.FILES = tuple(mod.FILES) + ("scripts/s5_common.py", "scripts/s5_eval.py")

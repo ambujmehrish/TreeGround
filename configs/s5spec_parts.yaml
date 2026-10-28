@@ -1,0 +1,6 @@
+include: s5.yaml
+s2:                                # D37 specialist: S5 recipe on one benchmark's training data, fresh selector
+  stage_suffix: _s5parts
+  fresh_selector: true
+  spec_sources: {paco_train_s5: 0.4, pascal_part_train_s5: 0.3, partimagenet_train_s5: 0.3}
+s2_eval: {checkpoint: step012000.pt}   # final step (no PACO-val selection for a specialist)

@@ -1,0 +1,18 @@
+{
+ "id": "2026-10-28-s5parts-gres-merge",
+ "what": "D37 GRES merge S5-parts",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "gres_eval --config configs/gres_s5parts.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "after": [
+  "2026-10-28-s5parts-gres-val",
+  "2026-10-28-s5parts-gres-testA",
+  "2026-10-28-s5parts-gres-testB"
+ ],
+ "collect": true
+}

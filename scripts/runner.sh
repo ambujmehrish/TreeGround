@@ -15,11 +15,14 @@ LOG=$TG_LOGS/ops_runner.log
 mkdir -p "$TG_LOGS" "$(dirname "$STATE")"
 cur=$(git rev-parse --abbrev-ref HEAD)
 [ "$cur" = "$BRANCH" ] || { echo "checkout is on $cur, expected $BRANCH" >&2; exit 1; }
+echo "$(date '+%F %T') runner started" >> "$LOG"
 echo "runner: repo $TG_REPO branch $BRANCH state $STATE every ${INTERVAL}s (log $LOG)"
 while true; do
   if git fetch -q origin "$BRANCH" && git rebase -q --autostash FETCH_HEAD && [ -z "$(git diff --name-only --diff-filter=U)" ]; then
     python -m treeground.ops.queue tick --repo "$TG_REPO" --state "$STATE" >> "$LOG" 2>&1
     tail -n 3 "$LOG"
+    # TreeGround jobs (names q_20*, tg_*) ahead of the user's other pending jobs; harmless if 'scontrol top' is off
+    squeue -u "$USER" -h -t PD -o "%F %j" | awk '$2 ~ /^(q_20|tg_)/{print $1}' | sort -u | xargs -r -n1 scontrol top >/dev/null 2>&1
   else
     git rebase --abort 2>/dev/null
     echo "$(date '+%F %T') ALERT git update failed or left conflicts (see git status / git stash list); tick skipped" | tee -a "$LOG"

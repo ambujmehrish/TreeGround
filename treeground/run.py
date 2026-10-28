@@ -825,6 +825,22 @@ PROPOSED_DEVIATIONS = [
                   "baseline wins on test, and the compared methods train on the benchmarks' own training splits",
         "expected_impact": "an S5 model and its test rows; existing rows unchanged",
     },
+    {
+        "id": "D37",
+        "spec_section": "3 (selector training) and 6 (evaluation), amendment",
+        "change": "three specialists with the D36 S5 method (pool with the Qwen3-VL-4B box + SAM 3 mask, listwise IoU and "
+                  "soft-tree terms, 12k steps), each trained on one benchmark's training data only: S5-paco (PACO-LVIS "
+                  "train), S5-gref (all of gRefCOCO train, present and no-target), S5-parts (PARTONOMY's training "
+                  "sources: PACO 0.4, Pascal-Part 0.3, PartImageNet 0.3). Selector freshly initialised (seed 0; the S1 "
+                  "selector saw every benchmark's training split), LoRA from the base model, final checkpoint (step "
+                  "12000, no val selection); gRefCOCO t from val as D33. Every specialist is evaluated on PACO-LVIS test, "
+                  "gRefCOCO testA/testB and PARTONOMY-Core: the diagonal is in-domain (fine-tuned comparison with "
+                  "published fine-tuned methods), the off-diagonal cells are cross-benchmark transfer; the joint S5 is "
+                  "reported beside them",
+        "reason": "the published methods on each benchmark train on that benchmark's training split; the joint model "
+                  "shares one 4B LoRA across all tasks; transfer needs models that never saw the target's training data",
+        "expected_impact": "a 3 x 3 specialist / transfer table plus the joint row; existing rows unchanged",
+    },
 ]
 
 

@@ -74,6 +74,28 @@ Ours S2 long     & 0.425 & 0.546 & 0.677 & 0.320 & 0.458 \\
 \begin{table}[t]
 \centering
 \resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+Method (PACO-LVIS \textbf{test}, present queries) & Backbone & gIoU & Part gIoU \\
+\midrule
+SAM\,3 (text) & -- & 0.402 & 0.258 \\
+Sa2VA & Qwen3-VL-4B & 0.276 & 0.197 \\
+Grounded-SAM 2 & -- & 0.381 & 0.272 \\
+Qwen3-VL box + SAM\,3 & Qwen3-VL-4B & 0.457 & 0.330 \\
+\midrule
+Ours S2 long (nodes + SAM\,3 pool) & Qwen3-VL-4B & 0.463 & 0.364 \\
+Ours S3 & Qwen3-VL-4B & \textbf{0.480} & \textbf{0.386} \\
+\midrule
+\textit{Reference (larger backbone)}: Qwen3-VL box + SAM\,3 & Qwen3-VL-8B & 0.456 & 0.332 \\
+\bottomrule
+\end{tabular}}
+\caption{Grounding on PACO-LVIS test (every test image, val queries protocol; nothing tuned on test, each method run once, top-1 without rejection).}
+\label{tab:paco_test}
+\end{table}
+
+\begin{table}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcc}
 \toprule
 Method & gIoU (present) & N-acc \\

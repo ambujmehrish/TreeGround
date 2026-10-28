@@ -1,0 +1,14 @@
+{
+ "id": "2026-10-28-pacotest-qwen4boxsam",
+ "what": "D35 PACO-LVIS test qwen_box_sam qwen4boxsam (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/paco_test_eval.py",
+  "TG_ARGS": "--config configs/pacotest_baselines.yaml --method qwen_box_sam"
+ },
+ "sbatch": {
+  "time": "08:00:00",
+  "array": "0-31"
+ },
+ "after": []
+}

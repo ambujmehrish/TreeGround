@@ -1,0 +1,14 @@
+{
+ "id": "2026-10-28-pacotest-sa2va4b",
+ "what": "D35 PACO-LVIS test sa2va sa2va4b (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/paco_test_eval.py",
+  "TG_ARGS": "--config configs/pacotest_baselines.yaml --method sa2va"
+ },
+ "sbatch": {
+  "time": "08:00:00",
+  "array": "0-31"
+ },
+ "after": []
+}

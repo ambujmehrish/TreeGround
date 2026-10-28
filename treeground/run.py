@@ -796,6 +796,19 @@ PROPOSED_DEVIATIONS = [
         "reason": "hard subtree search never beats flat search because a wrong object pick excludes the right part; "
                   "the tree should contribute evidence instead of a hard constraint",
         "expected_impact": "new chain rows (soft tree) and an S4 model; existing rows unchanged",
+    },    {
+        "id": "D35",
+        "spec_section": "6 (evaluation), amendment",
+        "change": "PACO-LVIS test evaluation (scripts/paco_test_eval.py): every image of paco_lvis_v1_test.json kept "
+                  "by the manifest (eval precedence; sha1-disjoint from every training worklist, checked), the val I1 "
+                  "queries (object, part, chain); ours = top-1 over the query's D30 pool with no rejection threshold "
+                  "(the s3_eval val rule, nodes computed on the fly), for S2 long, S3 and S4; baselines = the D13 / "
+                  "D31 predictors with their fixed settings (SAM 3 text, Qwen3-VL-4B/8B box + SAM 3, Sa2VA-4B, "
+                  "Grounded-SAM 2). Nothing is tuned on test; each method is run once and reported as it comes. "
+                  "Headline claims use test splits only (PACO-LVIS test, gRefCOCO testA/testB, PARTONOMY-Core); val "
+                  "numbers are development results",
+        "reason": "validation numbers are not evidence of a win; PACO-LVIS has an official held-out test split",
+        "expected_impact": "a new PACO-LVIS test table; val tables become development results",
     },
 ]
 

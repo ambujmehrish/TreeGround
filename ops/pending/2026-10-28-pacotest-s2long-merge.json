@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-28-pacotest-s2long-merge",
+ "what": "D35 PACO-LVIS test merge s2long",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/paco_test_eval.py",
+  "TG_ARGS": "--config configs/pacotest_s2long.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-28-pacotest-s2long"
+ ],
+ "collect": true
+}

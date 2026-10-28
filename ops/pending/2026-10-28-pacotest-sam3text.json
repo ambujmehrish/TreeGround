@@ -1,0 +1,14 @@
+{
+ "id": "2026-10-28-pacotest-sam3text",
+ "what": "D35 PACO-LVIS test sam3_text sam3text (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/paco_test_eval.py",
+  "TG_ARGS": "--config configs/pacotest_baselines.yaml --method sam3_text"
+ },
+ "sbatch": {
+  "time": "08:00:00",
+  "array": "0-31"
+ },
+ "after": []
+}

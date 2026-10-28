@@ -1,0 +1,14 @@
+{
+ "id": "2026-10-28-pacotest-s2long",
+ "what": "D35 PACO-LVIS test ours s2long (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/paco_test_eval.py",
+  "TG_ARGS": "--config configs/pacotest_s2long.yaml --method ours"
+ },
+ "sbatch": {
+  "time": "08:00:00",
+  "array": "0-31"
+ },
+ "after": []
+}

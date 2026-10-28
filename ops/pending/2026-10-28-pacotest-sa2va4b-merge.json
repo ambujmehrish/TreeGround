@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-28-pacotest-sa2va4b-merge",
+ "what": "D35 PACO-LVIS test merge sa2va4b",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/paco_test_eval.py",
+  "TG_ARGS": "--config configs/pacotest_baselines.yaml --method sa2va --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-28-pacotest-sa2va4b"
+ ],
+ "collect": true
+}

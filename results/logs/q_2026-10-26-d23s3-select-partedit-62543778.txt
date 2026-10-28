@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_select.py", line 325, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/e_select.py", line 320, in main
+    raise ProtocolError(f"shard {args.shard} outside 0..{num_shards - 1}")
+treeground.run.ProtocolError: shard 4 outside 0..3

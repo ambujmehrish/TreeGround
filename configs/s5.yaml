@@ -1,0 +1,15 @@
+include: s4.yaml
+data:
+  partimagenet: ${TG_DATA}/partimagenet       # PartImageNet_Seg.zip unpacked here (annotations/train.json, images/train/)
+datasets:   # fetch on the login node: python scripts/fetch_models.py --config configs/s5.yaml --datasets --only partimagenet
+  partimagenet: {repo: turkeyju/PartImageNet, revision: cfa2edf3cf5ffbede2bd1fc934edca0aba99f042,
+                 dir: "${TG_DATA}/partimagenet", allow_patterns: [PartImageNet_Seg.zip, README.md]}
+s2:
+  stage_suffix: _s5                # runs/s2_from_s1_s5 (D36); S4 recipe otherwise
+  s5_sources: {paco_train_s5: 0.35, pascal_part_train_s5: 0.15, partimagenet_train_s5: 0.15,
+               grefcoco_train_s5: 0.25, grefcoco_train_s5_absent: 0.10}
+  listwise_tau: 0.1
+  listwise_weight: 1.0
+s5_pool:                           # D36 (scripts/s5_pool.py); pool settings from s3_pool
+  num_shards: {paco_train: 64, pascal_part_train: 32, grefcoco_train: 128, partimagenet_train: 64}
+  smoke_images: 4

@@ -809,6 +809,21 @@ PROPOSED_DEVIATIONS = [
                   "numbers are development results",
         "reason": "validation numbers are not evidence of a win; PACO-LVIS has an official held-out test split",
         "expected_impact": "a new PACO-LVIS test table; val tables become development results",
+    },    {
+        "id": "D36",
+        "spec_section": "3 (proposal tree and selector training) and 6 (evaluation), amendment",
+        "change": "S5 (scripts/s5_pool.py, s5_train.py, s5_common.py, s5_eval.py; runs/s2_from_s1_s5): (1) candidate "
+                  "pool = D30 pool + the D13 Qwen3-VL-4B box + SAM 3 mask of every query phrase, at training and "
+                  "test time; (2) S4 recipe plus a listwise IoU term per query step over the query's own pool "
+                  "(target softmax(IoU / 0.1) over entries with IoU >= 0.5, weight 1); (3) training on the "
+                  "benchmarks' training splits: PACO-LVIS train, Pascal-Part train, all of gRefCOCO train and "
+                  "PartImageNet_Seg train (turkeyju/PartImageNet cfa2edf, PARTONOMY's third training source; images "
+                  "equal to any eval / dev image skipped), shares 0.35 / 0.15 / 0.25 + 0.10 no-target / 0.15. "
+                  "Checkpoint selection as S2 (PACO val subset); reported on test splits only (PACO-LVIS test, "
+                  "gRefCOCO testA/testB with t from val, PARTONOMY-Core) against 4B baselines",
+        "reason": "the selector, not the pool, loses: the pool holds a better mask than the pick, the 4B box + SAM 3 "
+                  "baseline wins on test, and the compared methods train on the benchmarks' own training splits",
+        "expected_impact": "an S5 model and its test rows; existing rows unchanged",
     },
 ]
 

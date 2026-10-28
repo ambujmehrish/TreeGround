@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-28-s5-pool-paco",
+ "what": "D36 pool paco_train (64 shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_pool.py",
+  "TG_ARGS": "--config configs/s5.yaml --source paco_train"
+ },
+ "sbatch": {
+  "time": "06:00:00",
+  "array": "0-63"
+ },
+ "after": [
+  "2026-10-28-s5-pool-smoke"
+ ]
+}

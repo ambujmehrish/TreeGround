@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-28-s5-pool-smoke-pascal",
+ "what": "D36 pool smoke, pascal_part_train",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_pool.py",
+  "TG_ARGS": "--config configs/s5.yaml --source pascal_part_train --smoke"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "collect": true
+}

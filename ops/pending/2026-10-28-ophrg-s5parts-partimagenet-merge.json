@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-28-ophrg-s5parts-partimagenet-merge",
+ "what": "D38 OP-HRG protocol partimagenet s5parts merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "ophrg_eval --config configs/ophrg_s5parts.yaml --method ours --benchmark partimagenet --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-28-ophrg-s5parts-partimagenet"
+ ],
+ "collect": true
+}

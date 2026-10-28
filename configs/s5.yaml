@@ -1,9 +1,13 @@
 include: s4.yaml
 data:
-  partimagenet: ${TG_DATA}/partimagenet       # PartImageNet_Seg.zip unpacked here (annotations/train.json, images/train/)
+  partimagenet: ${TG_DATA}/partimagenet       # PartImageNet_Seg.zip unpacked here (annotations/train/, images/train/)
+  partimagenet_ood: ${TG_DATA}/partimagenet_ood   # PartImageNet_OOD.zip + its test.zip (D38 test set; excluded from training)
+  instructpart: ${TG_DATA}/instructpart       # InstructPart test/{images,masks} (official Google Drive)
 datasets:   # fetch on the login node: python scripts/fetch_models.py --config configs/s5.yaml --datasets --only partimagenet
   partimagenet: {repo: turkeyju/PartImageNet, revision: cfa2edf3cf5ffbede2bd1fc934edca0aba99f042,
                  dir: "${TG_DATA}/partimagenet", allow_patterns: [PartImageNet_Seg.zip, README.md]}
+  partimagenet_ood: {repo: turkeyju/PartImageNet, revision: cfa2edf3cf5ffbede2bd1fc934edca0aba99f042,
+                     dir: "${TG_DATA}/partimagenet_ood", allow_patterns: [PartImageNet_OOD.zip]}
 s2:
   stage_suffix: _s5                # runs/s2_from_s1_s5 (D36); S4 recipe otherwise
   s5_sources: {paco_train_s5: 0.35, pascal_part_train_s5: 0.15, partimagenet_train_s5: 0.15,
@@ -13,3 +17,4 @@ s2:
 s5_pool:                           # D36 (scripts/s5_pool.py); pool settings from s3_pool
   num_shards: {paco_train: 64, pascal_part_train: 32, grefcoco_train: 128, partimagenet_train: 64}
   smoke_images: 4
+ophrg_eval: {num_shards: 16}      # D38 (scripts/ophrg_eval.py)

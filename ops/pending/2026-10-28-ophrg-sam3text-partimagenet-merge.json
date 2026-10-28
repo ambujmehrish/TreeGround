@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-28-ophrg-sam3text-partimagenet-merge",
+ "what": "D38 OP-HRG protocol partimagenet sam3text merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ophrg_eval.py",
+  "TG_ARGS": "--config configs/ophrg_baselines.yaml --method sam3_text --benchmark partimagenet --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-28-ophrg-sam3text-partimagenet"
+ ],
+ "collect": true
+}

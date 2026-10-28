@@ -38,7 +38,8 @@ from treeground.run import (ProtocolError, assert_real_path, canonical_hash, ens
 
 SOURCES = S3P.SOURCES + ("partimagenet_train",)
 FILES = ("scripts/s5_pool.py", "scripts/s5_common.py", "scripts/s3_pool.py", "scripts/b_baselines.py",
-         "scripts/s2_nodes.py", "treeground/data/partimagenet.py")
+         "scripts/s2_nodes.py", "treeground/data/partimagenet.py", "scripts/ophrg_eval.py",
+         "treeground/data/ophrg_pascalpart_val.txt")
 
 
 def settings(cfg: dict) -> dict:
@@ -87,14 +88,37 @@ def partimagenet_items(cfg: dict, shard: int, n: int, counts: Counter):
         yield r["key"], r["path"], qs, None
 
 
+def held_out(cfg: dict) -> tuple[set, set]:
+    # D38: images of the OP-HRG test sets never enter S5 training (PartImageNet_OOD test images by file name, the
+    # PascalPart-116 image ids of OP-HRG's pascalpart_val.txt)
+    import ophrg_eval as OE
+    data, _ = OE.partimagenet_ood_test(cfg["data"]["partimagenet_ood"])
+    return {Path(im["file_name"]).name for im in data["images"]}, set(OE.pascal_ids())
+
+
 def items(cfg: dict, source: str, shard: int, n: int, counts: Counter):
+    pin, pascal = held_out(cfg)
     if source == "partimagenet_train":
-        return partimagenet_items(cfg, shard, n, counts)
+        def keep_pin(rows):
+            for r in rows:
+                if Path(r[1]).name in pin:
+                    counts["skipped_ophrg_partimagenet_test"] += 1
+                    continue
+                yield r
+        return keep_pin(partimagenet_items(cfg, shard, n, counts))
     rows = S1C.items(cfg, source, shard, n)
     if source == "paco_train":
         wl = manifest_inputs(cfg, False)[3]
         keep = set(wl[wl.role == "paco_train"].image_key)
         rows = (r for r in rows if r[0] in keep)
+    if source == "pascal_part_train":
+        def keep_pascal(rows):
+            for r in rows:
+                if r[0].split(":", 1)[1] in pascal:
+                    counts["skipped_ophrg_pascalpart_val"] += 1
+                    continue
+                yield r
+        rows = keep_pascal(rows)
     return rows
 
 

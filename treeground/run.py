@@ -841,6 +841,22 @@ PROPOSED_DEVIATIONS = [
                   "shares one 4B LoRA across all tasks; transfer needs models that never saw the target's training data",
         "expected_impact": "a 3 x 3 specialist / transfer table plus the joint row; existing rows unchanged",
     },
+    {
+        "id": "D38",
+        "spec_section": "6 (evaluation), amendment",
+        "change": "the part-grounding protocol of OP-HRG (Mehrab et al., ECCV 2026, arXiv 2607.15374) with its released "
+                  "loaders ported line for line (scripts/ophrg_eval.py): InstructPart test (600), PascalPart-116 (their "
+                  "924 image ids; object and part queries), PartImageNet_OOD test (merged by image and category); gIoU "
+                  "and cIoU, parts and objects apart, so their Table 1 is cited unchanged. Ours top-1 over its pool with "
+                  "our templates on the same object / part names; baselines SAM 3 text, Qwen3-VL-4B box + SAM 3 and "
+                  "Sa2VA-4B rerun on the same protocol as a replication check. The PartImageNet_OOD test images and the "
+                  "924 Pascal ids are removed from S5 / D37 training (counted). InstructPart is zero-shot for us "
+                  "(OP-HRG trains on InstructPart train); PartImageNet and PascalPart are in-domain datasets for S5 "
+                  "(their train splits) and zero-shot for OP-HRG; both stated in the table",
+        "reason": "OP-HRG is the closest published method (same Qwen3-VL-4B backbone, box-to-SAM masks) and its "
+                  "protocol and code are public, so its numbers can be cited without reproduction",
+        "expected_impact": "a new part-grounding table; S5 and D37 training lose the held-out images",
+    },
 ]
 
 

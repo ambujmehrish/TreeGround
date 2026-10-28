@@ -10,12 +10,12 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import s5_common as S5C  # noqa: E402
 from treeground.run import ProtocolError, load_config, require_approved  # noqa: E402
 
-# Deviation D36 evaluation: runs an existing evaluator (paco_test_eval, gres_eval, partonomy_eval) unchanged except
+# Deviation D36 evaluation: runs an existing evaluator (paco_test_eval, gres_eval, partonomy_eval, ophrg_eval) unchanged except
 # that its candidate pool is the D36 pool (s5_common.install) and its cache identity also hashes s5_common.py.
 # The S5 checkpoint gives a new stage name (stage_suffix _s5), so its caches never mix with S2 long / S3 / S4.
 # Usage: python scripts/s5_eval.py <evaluator> --config <cfg> [evaluator arguments]
 
-EVALUATORS = ("paco_test_eval", "gres_eval", "partonomy_eval")
+EVALUATORS = ("paco_test_eval", "gres_eval", "partonomy_eval", "ophrg_eval")
 
 
 def main() -> None:

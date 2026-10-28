@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-28-ophrg-s3-instructpart-merge",
+ "what": "D38 OP-HRG protocol instructpart s3 merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ophrg_eval.py",
+  "TG_ARGS": "--config configs/ophrg_s3.yaml --method ours --benchmark instructpart --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-28-ophrg-s3-instructpart"
+ ],
+ "collect": true
+}

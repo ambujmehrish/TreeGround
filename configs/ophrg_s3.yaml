@@ -1,0 +1,5 @@
+include: s3.yaml
+data:
+  partimagenet_ood: ${TG_DATA}/partimagenet_ood
+  instructpart: ${TG_DATA}/instructpart
+ophrg_eval: {num_shards: 16}      # D38; ours = S3 (D30)

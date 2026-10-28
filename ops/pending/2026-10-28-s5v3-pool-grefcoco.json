@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-28-s5v3-pool-grefcoco",
+ "what": "D36 pool grefcoco_train (128 shards) (v3: OP-HRG test images held out)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_pool.py",
+  "TG_ARGS": "--config configs/s5.yaml --source grefcoco_train"
+ },
+ "sbatch": {
+  "time": "06:00:00",
+  "array": "0-127"
+ },
+ "after": [
+  "2026-10-28-s5v3-pool-smoke"
+ ]
+}

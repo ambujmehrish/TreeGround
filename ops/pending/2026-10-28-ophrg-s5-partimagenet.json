@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-28-ophrg-s5-partimagenet",
+ "what": "D38 OP-HRG protocol partimagenet s5 (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "ophrg_eval --config configs/ophrg_s5.yaml --method ours --benchmark partimagenet"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ },
+ "after": [
+  "2026-10-28-s5v3-train"
+ ]
+}

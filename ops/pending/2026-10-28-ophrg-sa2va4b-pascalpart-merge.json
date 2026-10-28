@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-28-ophrg-sa2va4b-pascalpart-merge",
+ "what": "D38 OP-HRG protocol pascalpart sa2va4b merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ophrg_eval.py",
+  "TG_ARGS": "--config configs/ophrg_baselines.yaml --method sa2va --benchmark pascalpart --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-28-ophrg-sa2va4b-pascalpart"
+ ],
+ "collect": true
+}

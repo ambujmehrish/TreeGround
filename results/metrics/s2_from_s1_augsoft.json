@@ -1,0 +1,199 @@
+{
+  "accumulation": 1,
+  "best_checkpoint": "best.pt",
+  "best_step": 9000,
+  "best_val_selector_success": 0.7940298507462686,
+  "deviations": [
+    "D10",
+    "D21",
+    "D30",
+    "D34"
+  ],
+  "eval_curve": [
+    {
+      "by_kind": {
+        "object": 0.3553054662379421,
+        "part": 0.15877437325905291
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.25,
+      "step": 0
+    },
+    {
+      "by_kind": {
+        "object": 0.747588424437299,
+        "part": 0.6142061281337048
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.6761194029850747,
+      "step": 1000
+    },
+    {
+      "by_kind": {
+        "object": 0.7958199356913184,
+        "part": 0.6197771587743732
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7014925373134329,
+      "step": 2000
+    },
+    {
+      "by_kind": {
+        "object": 0.7861736334405145,
+        "part": 0.6685236768802229
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7231343283582089,
+      "step": 3000
+    },
+    {
+      "by_kind": {
+        "object": 0.7990353697749196,
+        "part": 0.6685236768802229
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7291044776119403,
+      "step": 4000
+    },
+    {
+      "by_kind": {
+        "object": 0.8344051446945338,
+        "part": 0.7033426183844012
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.764179104477612,
+      "step": 5000
+    },
+    {
+      "by_kind": {
+        "object": 0.8360128617363344,
+        "part": 0.7075208913649025
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7671641791044777,
+      "step": 6000
+    },
+    {
+      "by_kind": {
+        "object": 0.837620578778135,
+        "part": 0.692200557103064
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7597014925373134,
+      "step": 7000
+    },
+    {
+      "by_kind": {
+        "object": 0.8440514469453376,
+        "part": 0.7270194986072424
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7813432835820896,
+      "step": 8000
+    },
+    {
+      "by_kind": {
+        "object": 0.8553054662379421,
+        "part": 0.7409470752089137
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7940298507462686,
+      "step": 9000
+    },
+    {
+      "by_kind": {
+        "object": 0.8504823151125402,
+        "part": 0.7423398328690808
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7925373134328358,
+      "step": 10000
+    },
+    {
+      "by_kind": {
+        "object": 0.8520900321543409,
+        "part": 0.7298050139275766
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7865671641791044,
+      "step": 11000
+    },
+    {
+      "by_kind": {
+        "object": 0.8520900321543409,
+        "part": 0.7270194986072424
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7850746268656716,
+      "step": 12000
+    }
+  ],
+  "eval_images": 500,
+  "label": "dev",
+  "layer": 12,
+  "selection": "PACO val fixed subset, single-step selector success",
+  "smoke": false,
+  "sources": {
+    "grefcoco_train_aug": 0.2,
+    "grefcoco_train_aug_absent": 0.144,
+    "paco_train_aug": 0.456,
+    "pascal_part_train_aug": 0.2
+  },
+  "training_exclusions": {
+    "grefcoco_train_aug:absent": 17377,
+    "grefcoco_train_aug:dropped_outside_own_pool": 83474,
+    "grefcoco_train_aug:instances": 221324,
+    "grefcoco_train_aug:proposal_failures": 1519,
+    "grefcoco_train_aug:queries": 170792,
+    "grefcoco_train_aug:training_items": 32526,
+    "grefcoco_train_aug_absent:training_items": 17377,
+    "paco_train_aug:dropped_outside_own_pool": 3672,
+    "paco_train_aug:instances": 73877,
+    "paco_train_aug:proposal_failures": 8606,
+    "paco_train_aug:queries": 35777,
+    "paco_train_aug:training_items": 6558,
+    "paco_train_aug:unreachable_chains": 8957,
+    "pascal_part_train_aug:dropped_outside_own_pool": 2913,
+    "pascal_part_train_aug:instances": 82122,
+    "pascal_part_train_aug:proposal_failures": 8062,
+    "pascal_part_train_aug:queries": 42338,
+    "pascal_part_train_aug:training_items": 3807,
+    "pascal_part_train_aug:unreachable_chains": 8227
+  },
+  "training_items": 60268,
+  "v1_gate": {
+    "below_v1_gate": true,
+    "deviation": "D2",
+    "v1_feasible_path_coverage": 0.4982359858878871,
+    "v1_gate_passed": false,
+    "v1_part_recall": 0.40896114578797116,
+    "v1_run": "20261022T074517344153Z_43208246"
+  },
+  "world_size": 4
+}

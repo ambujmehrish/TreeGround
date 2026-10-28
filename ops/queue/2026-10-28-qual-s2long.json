@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-28-qual-s2long",
+ "what": "Qualitative edit panels (S2-long masks vs SAM 3 text vs no mask, Qwen-Image-Edit; random / ours-better / ours-worse)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qual_export.py",
+  "TG_ARGS": "--config configs/edit_s2_long.yaml --per_group 4 --name qual_s2long"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "collect": true
+}

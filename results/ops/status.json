@@ -2,7 +2,7 @@
  "cluster": {
   "counts": {
    "PENDING": 239,
-   "RUNNING": 8
+   "RUNNING": 2
   },
   "ended_24h": [
    {
@@ -155,22 +155,6 @@
     "exit": "0:0",
     "jobid": "62328110",
     "name": "q_2026-10-26-s3-train",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:14:24",
-    "end": "2026-10-27T04:53:52",
-    "exit": "0:0",
-    "jobid": "62333077",
-    "name": "paperA_cc17r",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:14:40",
-    "end": "2026-10-27T04:55:14",
-    "exit": "0:0",
-    "jobid": "62333079",
-    "name": "paperA_cc17r",
     "state": "COMPLETED"
    },
    {
@@ -750,44 +734,12 @@
     "state": "COMPLETED"
    },
    {
-    "elapsed": "00:04:12",
-    "end": "2026-10-27T04:45:53",
-    "exit": "0:0",
-    "jobid": "62339630",
-    "name": "q_2026-10-26-b2-groundedsam2-smoke",
-    "state": "COMPLETED"
-   },
-   {
     "elapsed": "00:07:04",
     "end": "2026-10-27T05:24:54",
     "exit": "0:0",
     "jobid": "62339632",
     "name": "q_2026-10-26-b2-qwen32boxsam-smoke",
     "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:04:54",
-    "end": "2026-10-27T04:53:41",
-    "exit": "0:0",
-    "jobid": "62339634",
-    "name": "q_2026-10-26-b2-qwen8boxsam-smoke",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:03:06",
-    "end": "2026-10-27T04:52:26",
-    "exit": "1:0",
-    "jobid": "62339636",
-    "name": "q_2026-10-26-b2-sa2vainternvl314b-smoke",
-    "state": "FAILED"
-   },
-   {
-    "elapsed": "00:00:18",
-    "end": "2026-10-27T04:50:13",
-    "exit": "1:0",
-    "jobid": "62339637",
-    "name": "q_2026-10-26-b2-sa2vasam3-smoke",
-    "state": "FAILED"
    },
    {
     "elapsed": "00:00:33",
@@ -1746,6 +1698,78 @@
     "end": "2026-10-28T02:56:48",
     "exit": "0:0",
     "jobid": "62339918_4",
+    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:31:32",
+    "end": "2026-10-28T04:14:40",
+    "exit": "0:0",
+    "jobid": "62339918_5",
+    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:33:12",
+    "end": "2026-10-28T04:23:02",
+    "exit": "0:0",
+    "jobid": "62339918_6",
+    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:32:52",
+    "end": "2026-10-28T04:24:26",
+    "exit": "0:0",
+    "jobid": "62339918_7",
+    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:31:58",
+    "end": "2026-10-28T04:25:18",
+    "exit": "0:0",
+    "jobid": "62339918_8",
+    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:31:06",
+    "end": "2026-10-28T04:24:26",
+    "exit": "0:0",
+    "jobid": "62339918_9",
+    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:32:07",
+    "end": "2026-10-28T04:26:19",
+    "exit": "0:0",
+    "jobid": "62339918_10",
+    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:34:12",
+    "end": "2026-10-28T04:29:01",
+    "exit": "0:0",
+    "jobid": "62339918_11",
+    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:32:49",
+    "end": "2026-10-28T04:27:38",
+    "exit": "0:0",
+    "jobid": "62339918_12",
+    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:32:24",
+    "end": "2026-10-28T05:06:00",
+    "exit": "0:0",
+    "jobid": "62339918_13",
     "name": "q_2026-10-26-gres-qwen32boxsam-testA",
     "state": "COMPLETED"
    },
@@ -3813,7 +3837,7 @@
     "name": "fact-tts-train",
     "nodes": "2",
     "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
+    "start": "2026-10-28T10:33:56",
     "state": "PENDING",
     "time_limit": "1-00:00:00"
    },
@@ -3823,17 +3847,27 @@
     "name": "fact-tts-train",
     "nodes": "2",
     "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
+    "start": "2026-10-28T09:37:20",
     "state": "PENDING",
     "time_limit": "1-00:00:00"
    },
    {
     "elapsed": "0:00",
-    "jobid": "62339918_[13-15]",
+    "jobid": "62339920_[0-15]",
+    "name": "q_2026-10-26-gres-qwen32boxsam-testB",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "2026-10-28T10:19:09",
+    "state": "PENDING",
+    "time_limit": "5:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62339918_15",
     "name": "q_2026-10-26-gres-qwen32boxsam-testA",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
+    "start": "2026-10-28T10:19:09",
     "state": "PENDING",
     "time_limit": "5:00:00"
    },
@@ -3841,16 +3875,6 @@
     "elapsed": "0:00",
     "jobid": "62339923_[0-15]",
     "name": "q_2026-10-26-gres-qwen32boxsam-val",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "5:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62339920_[0-15]",
-    "name": "q_2026-10-26-gres-qwen32boxsam-testB",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
     "start": "N/A",
@@ -4199,16 +4223,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62412632",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62412631",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -4310,6 +4324,16 @@
    {
     "elapsed": "0:00",
     "jobid": "62412634",
+    "name": "fact-eval-base",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62412632",
     "name": "fact-eval-base",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
@@ -6188,82 +6212,22 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "6:23",
-    "jobid": "62339918_11",
+    "elapsed": "15:11",
+    "jobid": "62339918_14",
     "name": "q_2026-10-26-gres-qwen32boxsam-testA",
     "nodes": "1",
-    "reason_or_nodelist": "lrdn3277",
-    "start": "2026-10-28T03:54:49",
+    "reason_or_nodelist": "lrdn3338",
+    "start": "2026-10-28T04:50:49",
     "state": "RUNNING",
     "time_limit": "5:00:00"
    },
    {
-    "elapsed": "6:23",
-    "jobid": "62339918_12",
+    "elapsed": "32:24",
+    "jobid": "62339918_13",
     "name": "q_2026-10-26-gres-qwen32boxsam-testA",
     "nodes": "1",
-    "reason_or_nodelist": "lrdn3287",
-    "start": "2026-10-28T03:54:49",
-    "state": "RUNNING",
-    "time_limit": "5:00:00"
-   },
-   {
-    "elapsed": "7:00",
-    "jobid": "62339918_10",
-    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3382",
-    "start": "2026-10-28T03:54:12",
-    "state": "RUNNING",
-    "time_limit": "5:00:00"
-   },
-   {
-    "elapsed": "7:52",
-    "jobid": "62339918_8",
-    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3254",
-    "start": "2026-10-28T03:53:20",
-    "state": "RUNNING",
-    "time_limit": "5:00:00"
-   },
-   {
-    "elapsed": "7:52",
-    "jobid": "62339918_9",
-    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3262",
-    "start": "2026-10-28T03:53:20",
-    "state": "RUNNING",
-    "time_limit": "5:00:00"
-   },
-   {
-    "elapsed": "9:38",
-    "jobid": "62339918_7",
-    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3318",
-    "start": "2026-10-28T03:51:34",
-    "state": "RUNNING",
-    "time_limit": "5:00:00"
-   },
-   {
-    "elapsed": "11:22",
-    "jobid": "62339918_6",
-    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3324",
-    "start": "2026-10-28T03:49:50",
-    "state": "RUNNING",
-    "time_limit": "5:00:00"
-   },
-   {
-    "elapsed": "18:04",
-    "jobid": "62339918_5",
-    "name": "q_2026-10-26-gres-qwen32boxsam-testA",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3288",
-    "start": "2026-10-28T03:43:08",
+    "reason_or_nodelist": "lrdn3330",
+    "start": "2026-10-28T04:33:36",
     "state": "RUNNING",
     "time_limit": "5:00:00"
    },
@@ -14457,5 +14421,5 @@
    "waiting_for": null
   }
  },
- "updated": 1793156472.4503725
+ "updated": 1793160360.288024
 }

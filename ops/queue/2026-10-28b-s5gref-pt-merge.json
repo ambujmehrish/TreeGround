@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-28b-s5gref-pt-merge",
+ "what": "D37 PARTONOMY-Core S5-gref merge (b: degenerate PartImageNet polygons handled)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "partonomy_eval --config configs/partonomy_s5gref.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-28b-s5gref-pt"
+ ],
+ "collect": true
+}

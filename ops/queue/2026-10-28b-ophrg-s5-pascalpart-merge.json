@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-28b-ophrg-s5-pascalpart-merge",
+ "what": "D38 OP-HRG protocol pascalpart s5 merge (b: degenerate PartImageNet polygons handled)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "ophrg_eval --config configs/ophrg_s5.yaml --method ours --benchmark pascalpart --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-28b-ophrg-s5-pascalpart"
+ ],
+ "collect": true
+}

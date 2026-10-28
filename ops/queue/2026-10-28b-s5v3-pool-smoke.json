@@ -1,0 +1,14 @@
+{
+ "id": "2026-10-28b-s5v3-pool-smoke",
+ "what": "D36 pool smoke, partimagenet_train (b: degenerate PartImageNet polygons handled)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_pool.py",
+  "TG_ARGS": "--config configs/s5.yaml --source partimagenet_train --smoke"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "collect": true,
+ "after": []
+}

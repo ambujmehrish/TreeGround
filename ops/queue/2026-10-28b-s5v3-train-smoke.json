@@ -1,0 +1,19 @@
+{
+ "id": "2026-10-28b-s5v3-train-smoke",
+ "what": "D36 S5 training smoke (smoke pools) (b: degenerate PartImageNet polygons handled)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_train.py",
+  "TG_ARGS": "--config configs/s5.yaml --smoke"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-28b-s5v3-pool-smoke",
+  "2026-10-28b-s5v3-pool-smoke-paco",
+  "2026-10-28b-s5v3-pool-smoke-pascal",
+  "2026-10-28b-s5v3-pool-smoke-grefcoco"
+ ],
+ "collect": true
+}

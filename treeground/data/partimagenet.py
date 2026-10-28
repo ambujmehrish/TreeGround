@@ -10,8 +10,8 @@ from treeground.run import ProtocolError
 # PartImageNet_Seg (He et al., ECCV 2022; turkeyju/PartImageNet), one of PARTONOMY's three training sources
 # (Partonomy-PartImageNet). COCO-style part annotations: category name '<Supercategory> <Part>' with the
 # supercategory as the object class. Object masks from annotations/<split>_whole; an image without one gets part
-# queries only (no object or chain query). Images with no part annotation or with several object classes are skipped
-# and counted; a listed image file that is missing is an error.
+# queries only (no object or chain query). Polygons with fewer than 3 points are dropped; images with no (valid) part
+# annotation or with several object classes are skipped and counted; a listed image file that is missing is an error.
 
 RENAME = {"tier": "tire", "aeroplane": "airplane"}   # dataset spellings
 
@@ -19,6 +19,15 @@ RENAME = {"tier": "tire", "aeroplane": "airplane"}   # dataset spellings
 def union(rles: list) -> dict:
     r = mu.merge([M._coco(x) for x in rles])
     return {"size": [int(r["size"][0]), int(r["size"][1])], "counts": r["counts"].decode("ascii")}
+
+
+def clean(seg):
+    # polygons with fewer than 3 points have no area (pycocotools also misreads a 4-number polygon as a box);
+    # they are dropped, and an annotation left without a polygon is skipped (counted by the caller)
+    if isinstance(seg, dict):
+        return seg
+    polys = [p for p in seg if len(p) >= 6]
+    return polys or None
 
 
 def _name(s: str) -> str:
@@ -47,9 +56,10 @@ def whole_masks(root: str | Path, split: str) -> dict[str, dict]:
     names = {im["id"]: (im["file_name"], im["height"], im["width"]) for im in d["images"]}
     per = defaultdict(list)
     for a in d["annotations"]:
-        if a.get("segmentation"):
+        seg = clean(a["segmentation"]) if a.get("segmentation") else None
+        if seg is not None:
             fn, h, w = names[a["image_id"]]
-            per[fn].append(M.from_annotation(a["segmentation"], h, w))
+            per[fn].append(M.from_annotation(seg, h, w))
     return {Path(fn).name: (union(r) if len(r) > 1 else r[0]) for fn, r in per.items()}
 
 
@@ -84,9 +94,16 @@ def load(root: str | Path, split: str = "train") -> list[dict]:
         for a in anns:
             sup, part = cats[a["category_id"]]
             objs.add(sup)
-            parts[part].append(M.from_annotation(a["segmentation"], h, w))
+            seg = clean(a["segmentation"])
+            if seg is None:
+                skipped["degenerate_polygon_annotation"] += 1
+                continue
+            parts[part].append(M.from_annotation(seg, h, w))
         if len(objs) != 1:
             skipped["several_object_classes"] += 1
+            continue
+        if not parts:
+            skipped["no_valid_part_annotation"] += 1
             continue
         out.append({"key": f"partimagenet:{im['id']}", "path": str(path), "h": h, "w": w, "object": objs.pop(),
                     "object_mask": objects.get(Path(im["file_name"]).name),

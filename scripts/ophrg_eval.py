@@ -142,6 +142,9 @@ def poly_mask(segs: list, h: int, w: int) -> np.ndarray:
     return out
 
 
+SKIPPED = {"partimagenet_invalid_polygon": 0}
+
+
 def resolve(key: str, qs: list, h: int, w: int) -> list[tuple]:
     if len(qs) == 1 and qs[0][0] == "mat":
         return pascal_queries(key, qs[0][1])
@@ -151,7 +154,13 @@ def resolve(key: str, qs: list, h: int, w: int) -> list[tuple]:
             gt = np.asarray(Image.open(g[1])) > 0
             gt = gt if gt.ndim == 2 else gt.any(-1)
         else:
-            gt = poly_mask(g[1], h, w)
+            try:
+                gt = poly_mask(g[1], h, w)
+            except (TypeError, ValueError):
+                # upstream PartImageNetDataset._create_masks returns None when PIL rejects a polygon (e.g. a single
+                # point) and the query is skipped; same here, counted
+                SKIPPED["partimagenet_invalid_polygon"] += 1
+                continue
         out.append((qid, kind, obj, part, gt))
     return out
 
@@ -275,7 +284,7 @@ def run_shard(cfg: dict, method: str, bench: str, shard: int) -> None:
     tmp = target.with_suffix(".tmp")
     pd.DataFrame(rows).to_parquet(tmp, index=False)
     tmp.replace(target)
-    write_json(run / "metrics.json", {"images": len(images), "queries": len(rows),
+    write_json(run / "metrics.json", {"images": len(images), "queries": len(rows), "skipped": dict(SKIPPED),
                                       "seconds": time.time() - t0})
 
 

@@ -5,3 +5,19 @@
 [100/286] queries 264 63s
 [125/286] queries 340 75s
 [150/286] queries 421 89s
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ophrg_eval.py", line 340, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ophrg_eval.py", line 336, in main
+    run_shard(cfg, args.method, args.benchmark, args.shard)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ophrg_eval.py", line 267, in run_shard
+    qs = resolve(key, qs, *image.shape[:2])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ophrg_eval.py", line 154, in resolve
+    gt = poly_mask(g[1], h, w)
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ophrg_eval.py", line 140, in poly_mask
+    draw.polygon([(poly[i], poly[i + 1]) for i in range(0, len(poly), 2)], fill=1)
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/PIL/ImageDraw.py", line 353, in polygon
+    self.draw.draw_polygon(xy, fill_ink, 1)
+TypeError: coordinate list must contain at least 2 coordinates

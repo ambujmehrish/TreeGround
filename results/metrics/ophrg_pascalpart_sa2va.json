@@ -1,0 +1,36 @@
+{
+  "benchmark": "pascalpart",
+  "deviation": "D38",
+  "images": 851,
+  "label": "test",
+  "method": "sa2va",
+  "protocol": "OP-HRG (arXiv 2607.15374)",
+  "results": {
+    "objects": {
+      "cIoU": 0.8161292801239637,
+      "gIoU": {
+        "ci95": [
+          0.7702400206415466,
+          0.8001051942442854
+        ],
+        "mean": 0.785375913719775,
+        "n": 1077
+      },
+      "queries": 1077
+    },
+    "parts": {
+      "cIoU": 0.2967310484294023,
+      "gIoU": {
+        "ci95": [
+          0.1909305235978508,
+          0.20652808203435066
+        ],
+        "mean": 0.1990166451660313,
+        "n": 9552
+      },
+      "queries": 9552
+    },
+    "train_overlap_images": 0
+  },
+  "stage": "sa2va"
+}

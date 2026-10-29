@@ -122,6 +122,8 @@ def main() -> None:
     ap.add_argument("--stability", type=float, help="open the proposal cache built with this stability threshold "
                                                      "(0.9 = spec cache; default: the current config, D3)")
     ap.add_argument("--max-images", type=int)
+    ap.add_argument("--capped", action="store_true",
+                    help="audit the capped node set (D4: top-k by stability), i.e. the tree S2-long trains and tests on")
     ap.add_argument("--tree-from", choices=["masks", "boxes"], default="masks",
                     help="build the containment tree from node masks (spec) or from their bounding boxes")
     args = ap.parse_args()
@@ -129,8 +131,8 @@ def main() -> None:
     if args.stability is not None:
         cfg["proposals"]["stability_thresh"] = args.stability
     mrun, manifest, mhash, wl = manifest_inputs(cfg, False)
-    props = open_proposals(cfg, False, manifest, mhash)
-    tag = f"stability{cfg['proposals']['stability_thresh']}_tree-{args.tree_from}"
+    props = open_proposals(cfg, False, manifest, mhash, capped=args.capped)
+    tag = f"stability{cfg['proposals']['stability_thresh']}_tree-{args.tree_from}" + ("_capped" if args.capped else "")
     run = start_run("v1_chain_split", cfg, False, {"manifest_run": str(mrun), "proposals": str(props.path),
                                                     "proposal_setting": tag})
     out = {"split": "PACO-LVIS val I1 chains", "label": "dev", "diagnostic": True, "proposal_setting": tag,

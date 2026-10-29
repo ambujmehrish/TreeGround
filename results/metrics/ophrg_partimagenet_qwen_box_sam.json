@@ -1,0 +1,24 @@
+{
+  "benchmark": "partimagenet",
+  "deviation": "D38",
+  "images": 4589,
+  "label": "test",
+  "method": "qwen_box_sam",
+  "protocol": "OP-HRG (arXiv 2607.15374)",
+  "results": {
+    "images_equal_to_manifest_train_images": 0,
+    "parts": {
+      "cIoU": 0.4902776993496219,
+      "gIoU": {
+        "ci95": [
+          0.44544727022001623,
+          0.45641026541039803
+        ],
+        "mean": 0.45101262604626696,
+        "n": 14251
+      },
+      "queries": 14251
+    }
+  },
+  "stage": "qwen_box_sam"
+}

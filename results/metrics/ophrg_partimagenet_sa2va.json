@@ -1,0 +1,24 @@
+{
+  "benchmark": "partimagenet",
+  "deviation": "D38",
+  "images": 4589,
+  "label": "test",
+  "method": "sa2va",
+  "protocol": "OP-HRG (arXiv 2607.15374)",
+  "results": {
+    "images_equal_to_manifest_train_images": 0,
+    "parts": {
+      "cIoU": 0.4748505651947077,
+      "gIoU": {
+        "ci95": [
+          0.3962879238629106,
+          0.40551333653499927
+        ],
+        "mean": 0.40085751306903283,
+        "n": 14251
+      },
+      "queries": 14251
+    }
+  },
+  "stage": "sa2va"
+}

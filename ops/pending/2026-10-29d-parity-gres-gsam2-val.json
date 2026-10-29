@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-29d-parity-gres-gsam2-val",
+ "what": "D40 GRES val gsam2_all (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "gres_eval --config configs/parity.yaml --method gsam2_all --split val"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ }
+}

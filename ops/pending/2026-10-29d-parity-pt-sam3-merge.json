@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-29d-parity-pt-sam3-merge",
+ "what": "D40 PARTONOMY-Core sam3_union merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "partonomy_eval --config configs/parity.yaml --method sam3_union --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-29d-parity-pt-sam3"
+ ],
+ "collect": true
+}

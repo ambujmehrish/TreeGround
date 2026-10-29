@@ -1,0 +1,18 @@
+{
+ "id": "2026-10-29d-parity-gres-qwen-merge",
+ "what": "D40 GRES qwen_box_all merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "gres_eval --config configs/parity.yaml --method qwen_box_all --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-29d-parity-gres-qwen-val",
+  "2026-10-29d-parity-gres-qwen-testA",
+  "2026-10-29d-parity-gres-qwen-testB"
+ ],
+ "collect": true
+}

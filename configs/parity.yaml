@@ -1,0 +1,8 @@
+include: [ophrg_baselines.yaml]   # D40 Group C (scripts/parity_eval.py, scripts/b_parity.py); data + D13 / D31 settings
+gres_eval: {num_shards: 16, splits: [val, testA, testB]}   # as configs/gres_baselines.yaml
+partonomy_eval: {num_shards: 16}                           # as configs/partonomy_baselines.yaml
+parity:
+  sam3_union: {floor: 0.05, official_threshold: 0.5}       # floor = lowest gRefCOCO t grid value
+  qwen_box_all: {max_new_tokens: 1024}
+  gsam2_all: {floor: 0.25, text_threshold: 0.25, official_box_threshold: 0.35}
+  sa2va_p: {}

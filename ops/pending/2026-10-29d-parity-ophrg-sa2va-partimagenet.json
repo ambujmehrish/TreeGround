@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-29d-parity-ophrg-sa2va-partimagenet",
+ "what": "D40 OP-HRG protocol partimagenet sa2va_p (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "ophrg_eval --config configs/parity.yaml --method sa2va_p --benchmark partimagenet"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-29d-parity-ophrg-sa2va-pascalpart-merge",
+ "what": "D40 OP-HRG protocol pascalpart sa2va_p merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "ophrg_eval --config configs/parity.yaml --method sa2va_p --benchmark pascalpart --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-29d-parity-ophrg-sa2va-pascalpart"
+ ],
+ "collect": true
+}

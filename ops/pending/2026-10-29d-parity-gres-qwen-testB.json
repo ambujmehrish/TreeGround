@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-29d-parity-gres-qwen-testB",
+ "what": "D40 GRES testB qwen_box_all (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "gres_eval --config configs/parity.yaml --method qwen_box_all --split testB"
+ },
+ "sbatch": {
+  "time": "06:00:00",
+  "array": "0-15"
+ }
+}

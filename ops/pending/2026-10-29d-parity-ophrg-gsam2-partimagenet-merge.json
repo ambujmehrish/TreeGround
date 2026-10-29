@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-29d-parity-ophrg-gsam2-partimagenet-merge",
+ "what": "D40 OP-HRG protocol partimagenet gsam2_all merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "ophrg_eval --config configs/parity.yaml --method gsam2_all --benchmark partimagenet --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-29d-parity-ophrg-gsam2-partimagenet"
+ ],
+ "collect": true
+}

@@ -868,6 +868,34 @@ PROPOSED_DEVIATIONS = [
                   "chosen from test results",
         "expected_impact": "an ablation row; S5 itself unchanged",
     },
+    {
+        "id": "D40",
+        "spec_section": "6 (baselines and evaluation), amendment: baseline parity",
+        "change": "every compared table has three row groups. (A) controlled: same backbone (Qwen3-VL-4B), same "
+                  "training data and step budget as ours, same output rule and tuning budget; only how the mask is "
+                  "produced differs; first row: Qwen3-VL-4B box + SAM 3 fine-tuned on the S5 training mix (LoRA r16 / "
+                  "alpha 32 on the same modules, same optimiser, 12k steps, batch 32, same sources, shares, images, "
+                  "queries and GT; target = the Qwen3-VL JSON list of every target's bbox_2d on the 0-1000 grid, '[]' "
+                  "for no-target; checkpoint by the S2 rule on the PACO val subset) (scripts/qwenbox_train.py, "
+                  "queued after S5). (B) published methods under the benchmark's own protocol, labelled with "
+                  "backbone size and training data (in-domain / zero-shot for each side). (C) off-the-shelf "
+                  "baselines at their official inference setting returning every instance (scripts/b_parity.py, "
+                  "scripts/parity_eval.py; hashed evaluator files unchanged, own stages): SAM 3 text = union of "
+                  "instances with score > 0.5, query verbatim (gRefCOCO clipped to 32 tokens as D27); Qwen3-VL-4B "
+                  "box + SAM 3 = every bbox_2d of the answer (D13 prompt, max 1024 new tokens); Grounded-SAM 2 = "
+                  "every box at text 0.25 / box 0.35; Sa2VA-4B unchanged. gRefCOCO: besides the official output, "
+                  "every baseline with a score gets the same 'set' and 'top1' rules as ours with t by 2-fold image "
+                  "CV on val, the all-val t frozen for testA / testB. OP-HRG benchmarks: baselines get OP-HRG's own "
+                  "query strings (benchmark_datasets.py). PARTONOMY: the D32 phrase for every method. Ours on the "
+                  "part benchmarks stays top-1 (a set rule for ours needs a validation split and is a separate "
+                  "deviation). Nothing is tuned on test",
+        "reason": "audit of 29 Oct: on gRefCOCO ours used a val-tuned multi-target / no-target rule while baselines "
+                  "returned one mask at a fixed threshold (ours top-1 51.0 / 47.4 vs Sa2VA-4B 51.5 / 46.0); the Qwen "
+                  "baseline kept only the first box; SAM 3 kept only its top instance (PartImageNet 24.3 vs OP-HRG's "
+                  "53.89 with the union); OP-HRG baselines got our query wording; no baseline saw our training data",
+        "expected_impact": "new Group C rows and a Group A row on gRefCOCO, PARTONOMY and the OP-HRG benchmarks; "
+                           "D13 / D31 rows stay as recorded, but headline comparisons use the D40 rows",
+    },
 ]
 
 

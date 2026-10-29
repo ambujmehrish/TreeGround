@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-29d-parity-pt-sam3",
+ "what": "D40 PARTONOMY-Core sam3_union (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "partonomy_eval --config configs/parity.yaml --method sam3_union"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ }
+}

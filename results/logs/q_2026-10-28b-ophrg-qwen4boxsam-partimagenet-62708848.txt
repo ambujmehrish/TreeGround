@@ -4,3 +4,14 @@ You are using a model of type sam3_video to instantiate a model of type sam3_tra
 The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
 /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/image_processing_utils_fast.py:692: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
   image = torch.from_numpy(image).contiguous()
+[25/287] queries 69 72s
+[50/287] queries 167 126s
+[75/287] queries 221 170s
+[100/287] queries 278 225s
+[125/287] queries 346 283s
+[150/287] queries 430 351s
+[175/287] queries 521 406s
+[200/287] queries 611 457s
+[225/287] queries 690 514s
+[250/287] queries 763 568s
+[275/287] queries 837 620s

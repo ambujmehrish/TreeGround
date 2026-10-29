@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s5_train.py", line 194, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s5_train.py", line 190, in main
+    S2T.main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s2_train.py", line 517, in main
+    props = open_proposals(cfg, args.smoke, manifest, mhash, capped=True)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/identity.py", line 95, in open_proposals
+    return ProposalStore(cache_dir(cfg, "proposals", ident), ident, manifest, node_cap(cfg, smoke) if capped else None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/cache.py", line 85, in __init__
+    check_identity(path, identity)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/cache.py", line 50, in check_identity
+    raise ProtocolError(f"cache {path} has no identity.json")
+treeground.run.ProtocolError: cache /leonardo_scratch/large/userexternal/amehrish/treeground/cache/smoke/proposals/80f10c772951600a has no identity.json

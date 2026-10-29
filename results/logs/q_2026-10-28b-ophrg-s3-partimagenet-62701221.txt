@@ -5,3 +5,16 @@ You are using a model of type sam3_video to instantiate a model of type sam3_tra
 /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/image_processing_utils_fast.py:692: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
   image = torch.from_numpy(image).contiguous()
 [25/287] queries 70 239s
+[50/287] queries 162 471s
+[75/287] queries 217 800s
+[100/287] queries 271 1042s
+[125/287] queries 348 1282s
+[150/287] queries 430 1503s
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ophrg_eval.py", line 349, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ophrg_eval.py", line 345, in main
+    run_shard(cfg, args.method, args.benchmark, args.shard)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ophrg_eval.py", line 274, in run_shard
+    raise ProtocolError(f"{bench}: image {path} is missing (every listed image is evaluated)")
+treeground.run.ProtocolError: partimagenet: image /leonardo_scratch/large/userexternal/amehrish/treeground/data/partimagenet_ood/test/n01494475/n01494475_742.JPEG is missing (every listed image is evaluated)

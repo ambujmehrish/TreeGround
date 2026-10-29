@@ -1,0 +1,737 @@
+{
+  "baselines": [
+    "qwen_box_sam",
+    "sa2va",
+    "grounded_sam2"
+  ],
+  "editor": "qwen_image_edit",
+  "groups": [
+    "random",
+    "ours_better",
+    "ours_worse"
+  ],
+  "note": "every column blends the same Qwen-Image-Edit output with its mask (e_edit composite); ours_better / ours_worse are selected by IoU margin of ours vs SAM 3 text, random is a fixed-seed uniform sample",
+  "panels": [
+    {
+      "dataset": "partedit",
+      "file": "partedit_random_partedit_real_1.jpg",
+      "group": "random",
+      "instruction": "Change the dog head to cat head",
+      "iou": {
+        "grounded_sam2": 0.899,
+        "ours": 0.824,
+        "qwen_box_sam": 0.902,
+        "sa2va": 0.752,
+        "sam3text": 0.937
+      },
+      "referent": "the head of the dog",
+      "sample_id": "partedit:real:1"
+    },
+    {
+      "dataset": "partedit",
+      "file": "partedit_random_partedit_synth_6.jpg",
+      "group": "random",
+      "instruction": "Change the girl head to robot head",
+      "iou": {
+        "grounded_sam2": 0.081,
+        "ours": 0.623,
+        "qwen_box_sam": 0.002,
+        "sa2va": 0.209,
+        "sam3text": 0.866
+      },
+      "referent": "the head of the girl",
+      "sample_id": "partedit:synth:6"
+    },
+    {
+      "dataset": "partedit",
+      "file": "partedit_random_partedit_synth_28.jpg",
+      "group": "random",
+      "instruction": "Change the cow head to dragon head",
+      "iou": {
+        "grounded_sam2": 0.727,
+        "ours": 0.738,
+        "qwen_box_sam": 0.73,
+        "sa2va": 0.237,
+        "sam3text": 0.733
+      },
+      "referent": "the head of the cow",
+      "sample_id": "partedit:synth:28"
+    },
+    {
+      "dataset": "partedit",
+      "file": "partedit_random_partedit_synth_14.jpg",
+      "group": "random",
+      "instruction": "Change the alien torso to robot torso",
+      "iou": {
+        "grounded_sam2": 0.263,
+        "ours": 0.808,
+        "qwen_box_sam": 0.533,
+        "sa2va": 0.404,
+        "sam3text": 0.808
+      },
+      "referent": "the torso of the alien",
+      "sample_id": "partedit:synth:14"
+    },
+    {
+      "dataset": "partedit",
+      "file": "partedit_ours_better_partedit_synth_13.jpg",
+      "group": "ours_better",
+      "instruction": "Change the alien torso to uniform torso",
+      "iou": {
+        "grounded_sam2": 0.813,
+        "ours": 0.806,
+        "qwen_box_sam": 0.676,
+        "sa2va": 0.676,
+        "sam3text": 0.175
+      },
+      "referent": "the torso of the alien",
+      "sample_id": "partedit:synth:13"
+    },
+    {
+      "dataset": "partedit",
+      "file": "partedit_ours_better_partedit_synth_11.jpg",
+      "group": "ours_better",
+      "instruction": "Change the robot torso to spiderman torso",
+      "iou": {
+        "grounded_sam2": 0.293,
+        "ours": 0.953,
+        "qwen_box_sam": 0.572,
+        "sa2va": 0.713,
+        "sam3text": 0.598
+      },
+      "referent": "the torso of the robot",
+      "sample_id": "partedit:synth:11"
+    },
+    {
+      "dataset": "partedit",
+      "file": "partedit_ours_better_partedit_synth_58.jpg",
+      "group": "ours_better",
+      "instruction": "Change the folding seat to rusted seat",
+      "iou": {
+        "grounded_sam2": 0.228,
+        "ours": 0.853,
+        "qwen_box_sam": 0.934,
+        "sa2va": 0.423,
+        "sam3text": 0.722
+      },
+      "referent": "the seat of the folding",
+      "sample_id": "partedit:synth:58"
+    },
+    {
+      "dataset": "partedit",
+      "file": "partedit_ours_better_partedit_synth_40.jpg",
+      "group": "ours_better",
+      "instruction": "Change the bear head to tiger head",
+      "iou": {
+        "grounded_sam2": 0.568,
+        "ours": 0.542,
+        "qwen_box_sam": 0.11,
+        "sa2va": 0.24,
+        "sam3text": 0.458
+      },
+      "referent": "the head of the bear",
+      "sample_id": "partedit:synth:40"
+    },
+    {
+      "dataset": "partedit",
+      "file": "partedit_ours_worse_partedit_synth_8.jpg",
+      "group": "ours_worse",
+      "instruction": "Change the robot head to alien head",
+      "iou": {
+        "grounded_sam2": 0.932,
+        "ours": 0.0,
+        "qwen_box_sam": 0.936,
+        "sa2va": 0.962,
+        "sam3text": 0.944
+      },
+      "referent": "the head of the robot",
+      "sample_id": "partedit:synth:8"
+    },
+    {
+      "dataset": "partedit",
+      "file": "partedit_ours_worse_partedit_synth_54.jpg",
+      "group": "ours_worse",
+      "instruction": "Change the Porsche car hood to Rusty car hood",
+      "iou": {
+        "grounded_sam2": 0.116,
+        "ours": 0.0,
+        "qwen_box_sam": 0.816,
+        "sa2va": 0.804,
+        "sam3text": 0.936
+      },
+      "referent": "the car hood of the Porsche",
+      "sample_id": "partedit:synth:54"
+    },
+    {
+      "dataset": "partedit",
+      "file": "partedit_ours_worse_partedit_synth_51.jpg",
+      "group": "ours_worse",
+      "instruction": "Change the classic-car car hood to vinyl-art car hood",
+      "iou": {
+        "grounded_sam2": 0.148,
+        "ours": 0.0,
+        "qwen_box_sam": 0.546,
+        "sa2va": 0.252,
+        "sam3text": 0.864
+      },
+      "referent": "the car hood of the classic-car",
+      "sample_id": "partedit:synth:51"
+    },
+    {
+      "dataset": "partedit",
+      "file": "partedit_ours_worse_partedit_real_4.jpg",
+      "group": "ours_worse",
+      "instruction": "Change the toyota carhood to rusted carhood",
+      "iou": {
+        "grounded_sam2": 0.152,
+        "ours": 0.153,
+        "qwen_box_sam": 0.153,
+        "sa2va": 0.156,
+        "sam3text": 0.965
+      },
+      "referent": "the carhood of the toyota",
+      "sample_id": "partedit:real:4"
+    },
+    {
+      "dataset": "gedit",
+      "file": "gedit_random_gedit_fullset_color_alter_en_c66920936a6.jpg",
+      "group": "random",
+      "instruction": "change the color of man to pink",
+      "iou": {
+        "grounded_sam2": 0.999,
+        "ours": 0.968,
+        "qwen_box_sam": 0.981,
+        "sa2va": 0.957,
+        "sam3text": 0.0
+      },
+      "referent": "the man",
+      "sample_id": "gedit:fullset/color_alter/en/c66920936a630590e1328a56b2d6f08c.png"
+    },
+    {
+      "dataset": "gedit",
+      "file": "gedit_random_gedit_fullset_material_alter_en_f521449f.jpg",
+      "group": "random",
+      "instruction": "Change the hat\u2019s material to foam plastic.",
+      "iou": {
+        "grounded_sam2": 0.926,
+        "ours": 0.91,
+        "qwen_box_sam": 0.914,
+        "sa2va": 0.547,
+        "sam3text": 0.92
+      },
+      "referent": "the hat",
+      "sample_id": "gedit:fullset/material_alter/en/f521449fb89e5ded1f4ff725785d01b8.png"
+    },
+    {
+      "dataset": "gedit",
+      "file": "gedit_random_gedit_fullset_material_alter_en_0f6baa8d.jpg",
+      "group": "random",
+      "instruction": "Change the bear\u2019s material to glass.",
+      "iou": {
+        "grounded_sam2": 0.797,
+        "ours": 0.799,
+        "qwen_box_sam": 0.796,
+        "sa2va": 0.857,
+        "sam3text": 0.799
+      },
+      "referent": "the bear",
+      "sample_id": "gedit:fullset/material_alter/en/0f6baa8d76c35f11200abb099692ed18.png"
+    },
+    {
+      "dataset": "gedit",
+      "file": "gedit_random_gedit_fullset_subject-remove_en_6d3f5e90.jpg",
+      "group": "random",
+      "instruction": "remove the peanuts",
+      "iou": {
+        "grounded_sam2": 0.999,
+        "ours": 0.538,
+        "qwen_box_sam": 0.981,
+        "sa2va": 0.976,
+        "sam3text": 0.978
+      },
+      "referent": "the peanuts",
+      "sample_id": "gedit:fullset/subject-remove/en/6d3f5e90a64806a7b3170d71a6dd0fbe.png"
+    },
+    {
+      "dataset": "gedit",
+      "file": "gedit_ours_better_gedit_fullset_color_alter_en_c66920936a6.jpg",
+      "group": "ours_better",
+      "instruction": "change the color of man to pink",
+      "iou": {
+        "grounded_sam2": 0.999,
+        "ours": 0.968,
+        "qwen_box_sam": 0.981,
+        "sa2va": 0.957,
+        "sam3text": 0.0
+      },
+      "referent": "the man",
+      "sample_id": "gedit:fullset/color_alter/en/c66920936a630590e1328a56b2d6f08c.png"
+    },
+    {
+      "dataset": "gedit",
+      "file": "gedit_ours_better_gedit_fullset_material_alter_en_522ca431.jpg",
+      "group": "ours_better",
+      "instruction": "Make the seagull from resin.",
+      "iou": {
+        "grounded_sam2": 0.997,
+        "ours": 0.931,
+        "qwen_box_sam": 0.979,
+        "sa2va": 0.068,
+        "sam3text": 0.0
+      },
+      "referent": "the seagull",
+      "sample_id": "gedit:fullset/material_alter/en/522ca43195a09cb195944e4154fb3286.png"
+    },
+    {
+      "dataset": "gedit",
+      "file": "gedit_ours_better_gedit_fullset_color_alter_en_d87fe55d649.jpg",
+      "group": "ours_better",
+      "instruction": "Retouch this photo, making the hair platinum blonde, improving the hairstyle at the ends, and making the fireworks more brilliant and colorful.",
+      "iou": {
+        "grounded_sam2": 0.997,
+        "ours": 0.924,
+        "qwen_box_sam": 0.0,
+        "sa2va": 0.656,
+        "sam3text": 0.0
+      },
+      "referent": "the hair and fireworks",
+      "sample_id": "gedit:fullset/color_alter/en/d87fe55d649a02fa15881364ab671351.png"
+    },
+    {
+      "dataset": "gedit",
+      "file": "gedit_ours_better_gedit_fullset_subject-replace_en_50bf17e.jpg",
+      "group": "ours_better",
+      "instruction": "Replace the food in the pot with spicy hot pot.",
+      "iou": {
+        "grounded_sam2": 0.0,
+        "ours": 0.916,
+        "qwen_box_sam": 0.928,
+        "sa2va": 0.253,
+        "sam3text": 0.0
+      },
+      "referent": "the food",
+      "sample_id": "gedit:fullset/subject-replace/en/50bf17e2335463ccb3511f5164ed1af0.png"
+    },
+    {
+      "dataset": "gedit",
+      "file": "gedit_ours_worse_gedit_fullset_color_alter_en_a4ca5815743.jpg",
+      "group": "ours_worse",
+      "instruction": "Alter the color of bus to lime",
+      "iou": {
+        "grounded_sam2": 0.999,
+        "ours": 0.0,
+        "qwen_box_sam": 0.989,
+        "sa2va": 0.971,
+        "sam3text": 0.993
+      },
+      "referent": "the bus",
+      "sample_id": "gedit:fullset/color_alter/en/a4ca581574347248e1762c4987c931aa.png"
+    },
+    {
+      "dataset": "gedit",
+      "file": "gedit_ours_worse_gedit_fullset_subject-remove_en_e0e6c00c.jpg",
+      "group": "ours_worse",
+      "instruction": "remove the person wearing all white standing on their ski's",
+      "iou": {
+        "grounded_sam2": 0.991,
+        "ours": 0.004,
+        "qwen_box_sam": 0.98,
+        "sa2va": 0.954,
+        "sam3text": 0.977
+      },
+      "referent": "the person wearing all white standing on their ski's",
+      "sample_id": "gedit:fullset/subject-remove/en/e0e6c00cd4573be9dd571854cf362d24.png"
+    },
+    {
+      "dataset": "gedit",
+      "file": "gedit_ours_worse_gedit_fullset_subject-replace_en_e70f54a.jpg",
+      "group": "ours_worse",
+      "instruction": "Replace the person in the image with Spider-Man.",
+      "iou": {
+        "grounded_sam2": 0.999,
+        "ours": 0.0,
+        "qwen_box_sam": 0.0,
+        "sa2va": 0.089,
+        "sam3text": 0.959
+      },
+      "referent": "the person",
+      "sample_id": "gedit:fullset/subject-replace/en/e70f54aa5e32ff6a11a512a4b6ebc734.png"
+    },
+    {
+      "dataset": "gedit",
+      "file": "gedit_ours_worse_gedit_fullset_subject-remove_en_856b6b37.jpg",
+      "group": "ours_worse",
+      "instruction": "remove the skateboard",
+      "iou": {
+        "grounded_sam2": 0.978,
+        "ours": 0.0,
+        "qwen_box_sam": 0.94,
+        "sa2va": 0.925,
+        "sam3text": 0.947
+      },
+      "referent": "the skateboard",
+      "sample_id": "gedit:fullset/subject-remove/en/856b6b373fe9f39644456d5810cb9042.png"
+    },
+    {
+      "dataset": "imgedit",
+      "file": "imgedit_random_imgedit_1135.jpg",
+      "group": "random",
+      "instruction": "Change the frosting color to a light blue.",
+      "iou": {
+        "grounded_sam2": 0.999,
+        "ours": 0.05,
+        "qwen_box_sam": 0.711,
+        "sa2va": 0.107,
+        "sam3text": 0.059
+      },
+      "referent": "the frosting",
+      "sample_id": "imgedit:1135"
+    },
+    {
+      "dataset": "imgedit",
+      "file": "imgedit_random_imgedit_634.jpg",
+      "group": "random",
+      "instruction": "Replace the dragon made of pipe cleaners in the image with a bright yellow rubber duck.",
+      "iou": {
+        "grounded_sam2": 0.998,
+        "ours": 0.986,
+        "qwen_box_sam": 0.988,
+        "sa2va": 0.966,
+        "sam3text": 0.986
+      },
+      "referent": "the dragon made of pipe cleaners",
+      "sample_id": "imgedit:634"
+    },
+    {
+      "dataset": "imgedit",
+      "file": "imgedit_random_imgedit_562.jpg",
+      "group": "random",
+      "instruction": "Replace the husky in the image with a snow-covered pine tree.",
+      "iou": {
+        "grounded_sam2": 0.999,
+        "ours": 0.986,
+        "qwen_box_sam": 0.986,
+        "sa2va": 0.984,
+        "sam3text": 0.986
+      },
+      "referent": "the husky",
+      "sample_id": "imgedit:562"
+    },
+    {
+      "dataset": "imgedit",
+      "file": "imgedit_random_imgedit_548.jpg",
+      "group": "random",
+      "instruction": "Replace the human in the image with a microphone stand.",
+      "iou": {
+        "grounded_sam2": 0.997,
+        "ours": 0.988,
+        "qwen_box_sam": 0.985,
+        "sa2va": 0.971,
+        "sam3text": 0.988
+      },
+      "referent": "the human",
+      "sample_id": "imgedit:548"
+    },
+    {
+      "dataset": "imgedit",
+      "file": "imgedit_ours_better_imgedit_1108.jpg",
+      "group": "ours_better",
+      "instruction": "Change the building's exterior color to a soft beige.",
+      "iou": {
+        "grounded_sam2": 0.999,
+        "ours": 0.993,
+        "qwen_box_sam": 0.0,
+        "sa2va": 0.992,
+        "sam3text": 0.0
+      },
+      "referent": "the building's exterior",
+      "sample_id": "imgedit:1108"
+    },
+    {
+      "dataset": "imgedit",
+      "file": "imgedit_ours_better_imgedit_553.jpg",
+      "group": "ours_better",
+      "instruction": "Replace the man in the image with a snowman sitting in the same pose, surrounded by the snowy garden environment.",
+      "iou": {
+        "grounded_sam2": 1.0,
+        "ours": 0.914,
+        "qwen_box_sam": 0.0,
+        "sa2va": 0.0,
+        "sam3text": 0.0
+      },
+      "referent": "the snowman",
+      "sample_id": "imgedit:553"
+    },
+    {
+      "dataset": "imgedit",
+      "file": "imgedit_ours_better_imgedit_538.jpg",
+      "group": "ours_better",
+      "instruction": "Remove the suit jacket and tie combination in the image.",
+      "iou": {
+        "grounded_sam2": 0.052,
+        "ours": 0.889,
+        "qwen_box_sam": 0.0,
+        "sa2va": 0.052,
+        "sam3text": 0.0
+      },
+      "referent": "the suit jacket and tie",
+      "sample_id": "imgedit:538"
+    },
+    {
+      "dataset": "imgedit",
+      "file": "imgedit_ours_better_imgedit_1059.jpg",
+      "group": "ours_better",
+      "instruction": "Change the person's shirt color to blue.",
+      "iou": {
+        "grounded_sam2": 0.655,
+        "ours": 0.996,
+        "qwen_box_sam": 0.155,
+        "sa2va": 0.728,
+        "sam3text": 0.195
+      },
+      "referent": "the shirt",
+      "sample_id": "imgedit:1059"
+    },
+    {
+      "dataset": "imgedit",
+      "file": "imgedit_ours_worse_imgedit_519.jpg",
+      "group": "ours_worse",
+      "instruction": "Remove the architectural structure (the gate or tower) in the middle of the image, ensuring the background environment remains intact with the trees, lampposts, and flower planters.",
+      "iou": {
+        "grounded_sam2": 0.999,
+        "ours": 0.0,
+        "qwen_box_sam": 0.943,
+        "sa2va": 0.945,
+        "sam3text": 0.987
+      },
+      "referent": "the architectural structure (gate or tower)",
+      "sample_id": "imgedit:519"
+    },
+    {
+      "dataset": "imgedit",
+      "file": "imgedit_ours_worse_imgedit_608.jpg",
+      "group": "ours_worse",
+      "instruction": "Replace the central gothic-style archway architecture in the image with a large windmill.",
+      "iou": {
+        "grounded_sam2": 0.999,
+        "ours": 0.0,
+        "qwen_box_sam": 0.943,
+        "sa2va": 0.952,
+        "sam3text": 0.966
+      },
+      "referent": "the central gothic-style archway architecture",
+      "sample_id": "imgedit:608"
+    },
+    {
+      "dataset": "imgedit",
+      "file": "imgedit_ours_worse_imgedit_1069.jpg",
+      "group": "ours_worse",
+      "instruction": "Change the animal's fur color to a soft shade of brown.",
+      "iou": {
+        "grounded_sam2": 0.999,
+        "ours": 0.005,
+        "qwen_box_sam": 0.0,
+        "sa2va": 0.981,
+        "sam3text": 0.969
+      },
+      "referent": "the animal's fur",
+      "sample_id": "imgedit:1069"
+    },
+    {
+      "dataset": "imgedit",
+      "file": "imgedit_ours_worse_imgedit_524.jpg",
+      "group": "ours_worse",
+      "instruction": "Remove the large white house in the center of the image.",
+      "iou": {
+        "grounded_sam2": 0.997,
+        "ours": 0.0,
+        "qwen_box_sam": 0.958,
+        "sa2va": 0.946,
+        "sam3text": 0.961
+      },
+      "referent": "the large white house",
+      "sample_id": "imgedit:524"
+    },
+    {
+      "dataset": "paco_edit",
+      "file": "paco_edit_random_paco_edit_116601_1598601.jpg",
+      "group": "random",
+      "instruction": "make the body of the scarf white",
+      "iou": {
+        "grounded_sam2": 0.949,
+        "ours": 0.663,
+        "qwen_box_sam": 0.939,
+        "sa2va": 0.874,
+        "sam3text": 0.944
+      },
+      "referent": "the body of the scarf",
+      "sample_id": "paco_edit:116601:1598601"
+    },
+    {
+      "dataset": "paco_edit",
+      "file": "paco_edit_random_paco_edit_223317_1508917.jpg",
+      "group": "random",
+      "instruction": "make the neck of the dog blue",
+      "iou": {
+        "grounded_sam2": 0.065,
+        "ours": 0.148,
+        "qwen_box_sam": 0.137,
+        "sa2va": 0.172,
+        "sam3text": 0.488
+      },
+      "referent": "the neck of the dog",
+      "sample_id": "paco_edit:223317:1508917"
+    },
+    {
+      "dataset": "paco_edit",
+      "file": "paco_edit_random_paco_edit_441253_1588959.jpg",
+      "group": "random",
+      "instruction": "make the base panel of the laptop computer look like silver",
+      "iou": {
+        "grounded_sam2": 0.132,
+        "ours": 0.566,
+        "qwen_box_sam": 0.351,
+        "sa2va": 0.161,
+        "sam3text": 0.567
+      },
+      "referent": "the base panel of the laptop computer",
+      "sample_id": "paco_edit:441253:1588959"
+    },
+    {
+      "dataset": "paco_edit",
+      "file": "paco_edit_random_paco_edit_68646_1374330.jpg",
+      "group": "random",
+      "instruction": "make the body of the mouse (computer equipment) look like wood",
+      "iou": {
+        "grounded_sam2": 0.559,
+        "ours": 0.463,
+        "qwen_box_sam": 0.544,
+        "sa2va": 0.398,
+        "sam3text": 0.545
+      },
+      "referent": "the body of the mouse (computer equipment)",
+      "sample_id": "paco_edit:68646:1374330"
+    },
+    {
+      "dataset": "paco_edit",
+      "file": "paco_edit_ours_better_paco_edit_374806_1384460.jpg",
+      "group": "ours_better",
+      "instruction": "make the side of the basket orange",
+      "iou": {
+        "grounded_sam2": 0.0,
+        "ours": 0.961,
+        "qwen_box_sam": 0.0,
+        "sa2va": 0.0,
+        "sam3text": 0.0
+      },
+      "referent": "the side of the basket",
+      "sample_id": "paco_edit:374806:1384460"
+    },
+    {
+      "dataset": "paco_edit",
+      "file": "paco_edit_ours_better_paco_edit_216322_1673852.jpg",
+      "group": "ours_better",
+      "instruction": "make the lid of the trash can black",
+      "iou": {
+        "grounded_sam2": 0.871,
+        "ours": 0.892,
+        "qwen_box_sam": 0.91,
+        "sa2va": 0.117,
+        "sam3text": 0.0
+      },
+      "referent": "the lid of the trash can",
+      "sample_id": "paco_edit:216322:1673852"
+    },
+    {
+      "dataset": "paco_edit",
+      "file": "paco_edit_ours_better_paco_edit_450136_1639929.jpg",
+      "group": "ours_better",
+      "instruction": "make the bottom of the television set orange",
+      "iou": {
+        "grounded_sam2": 0.172,
+        "ours": 0.871,
+        "qwen_box_sam": 0.876,
+        "sa2va": 0.725,
+        "sam3text": 0.0
+      },
+      "referent": "the bottom of the television set",
+      "sample_id": "paco_edit:450136:1639929"
+    },
+    {
+      "dataset": "paco_edit",
+      "file": "paco_edit_ours_better_paco_edit_470068_1658604.jpg",
+      "group": "ours_better",
+      "instruction": "make the side of the microwave oven yellow",
+      "iou": {
+        "grounded_sam2": 0.451,
+        "ours": 0.865,
+        "qwen_box_sam": 0.443,
+        "sa2va": 0.555,
+        "sam3text": 0.0
+      },
+      "referent": "the side of the microwave oven",
+      "sample_id": "paco_edit:470068:1658604"
+    },
+    {
+      "dataset": "paco_edit",
+      "file": "paco_edit_ours_worse_paco_edit_15552_1516932.jpg",
+      "group": "ours_worse",
+      "instruction": "make the screen of the cellular telephone yellow",
+      "iou": {
+        "grounded_sam2": 0.973,
+        "ours": 0.0,
+        "qwen_box_sam": 0.603,
+        "sa2va": 0.523,
+        "sam3text": 0.982
+      },
+      "referent": "the screen of the cellular telephone",
+      "sample_id": "paco_edit:15552:1516932"
+    },
+    {
+      "dataset": "paco_edit",
+      "file": "paco_edit_ours_worse_paco_edit_542180_1558828.jpg",
+      "group": "ours_worse",
+      "instruction": "make the body of the plastic bag yellow",
+      "iou": {
+        "grounded_sam2": 0.954,
+        "ours": 0.0,
+        "qwen_box_sam": 0.934,
+        "sa2va": 0.861,
+        "sam3text": 0.94
+      },
+      "referent": "the body of the plastic bag",
+      "sample_id": "paco_edit:542180:1558828"
+    },
+    {
+      "dataset": "paco_edit",
+      "file": "paco_edit_ours_worse_paco_edit_350481_1656350.jpg",
+      "group": "ours_worse",
+      "instruction": "make the flap of the wallet blue",
+      "iou": {
+        "grounded_sam2": 0.276,
+        "ours": 0.0,
+        "qwen_box_sam": 0.279,
+        "sa2va": 0.249,
+        "sam3text": 0.933
+      },
+      "referent": "the flap of the wallet",
+      "sample_id": "paco_edit:350481:1656350"
+    },
+    {
+      "dataset": "paco_edit",
+      "file": "paco_edit_ours_worse_paco_edit_185360_1425191.jpg",
+      "group": "ours_worse",
+      "instruction": "make the grille of the car (automobile) pink",
+      "iou": {
+        "grounded_sam2": 0.038,
+        "ours": 0.0,
+        "qwen_box_sam": 0.899,
+        "sa2va": 0.042,
+        "sam3text": 0.925
+      },
+      "referent": "the grille of the car (automobile)",
+      "sample_id": "paco_edit:185360:1425191"
+    }
+  ],
+  "stage": "s2_from_s1_long"
+}

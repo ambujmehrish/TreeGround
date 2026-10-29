@@ -22,6 +22,7 @@ import b_baselines2 as B2  # noqa: E402
 #                   score >= 0.35 (Grounded-SAM 2 demo box threshold)
 #   sa2va_p         Sa2VA-Qwen3-VL-4B unchanged (already the model card's union of [SEG] masks); a separate stage so
 #                   the OP-HRG run with the official query wording does not mix with D13 / D31 caches
+#   qwenbox_ft      Group A: qwen_box_all with the LoRA trained on the S5 data (scripts/qwenbox_train.py)
 # Candidates below `floor` are dropped; the official threshold is applied by the evaluator (parity_eval.py), and
 # on gRefCOCO the threshold is also tuned on val exactly as for ours.
 
@@ -115,6 +116,25 @@ class QwenBoxAll(B.QwenBoxSam):
         return out
 
 
+class QwenBoxFT(QwenBoxAll):
+    # D40 Group A: qwen_box_all with the LoRA of scripts/qwenbox_train.py (best.pt, selected on PACO val)
+    def __init__(self, cfg: dict):
+        super().__init__(cfg)
+        import qwenbox_train as QT
+        from treeground import lora as LR
+        path, _ = QT.checkpoint(cfg)
+        state = torch.load(path, map_location="cpu", weights_only=False)
+        lc = state["meta"]["lora"]
+        if state["meta"]["prompt"] != self.s["prompt"]:
+            raise B.ProtocolError("qwenbox_ft: checkpoint prompt differs from the evaluation prompt")
+        LR.apply_lora(self.qwen, lc["r"], lc["alpha"], lc["dropout"], tuple(lc["targets"]))
+        missing, unexpected = LR.decoder(self.qwen).load_state_dict(state["lora"], strict=False)
+        if unexpected or any(".lora_" in k for k in missing):
+            raise B.ProtocolError(f"qwenbox_ft LoRA mismatch: missing {missing[:3]}, unexpected {unexpected[:3]}")
+        self.qwen.to(self.device).eval()
+        self.checkpoint = str(path)
+
+
 class GSam2All(B2.GroundedSam2):
     official = "official_box_threshold"
 
@@ -152,7 +172,8 @@ class Sa2VAP(B.Sa2VA):
         return [[(1.0, m)] if acc and m is not None else [] for m, _, _, acc in self(image, phrases)]
 
 
-PARITY = {"sam3_union": Sam3Union, "qwen_box_all": QwenBoxAll, "gsam2_all": GSam2All, "sa2va_p": Sa2VAP}
+PARITY = {"sam3_union": Sam3Union, "qwen_box_all": QwenBoxAll, "gsam2_all": GSam2All, "sa2va_p": Sa2VAP,
+          "qwenbox_ft": QwenBoxFT}
 
 
 def official_threshold(cfg: dict, method: str) -> float | None:

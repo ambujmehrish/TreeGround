@@ -1,0 +1,17 @@
+{
+ "id": "2026-10-29d-qwenbox-train",
+ "what": "D40 Group A: Qwen3-VL-4B box SFT on the S5 mix, 12k steps (4 GPUs)",
+ "script": "q_gpu4.sbatch",
+ "env": {
+  "TG_PY": "scripts/qwenbox_train.py",
+  "TG_ARGS": "--config configs/qwenbox_s5.yaml"
+ },
+ "sbatch": {
+  "time": "23:59:00"
+ },
+ "after": [
+  "2026-10-29d-qwenbox-prepare",
+  "2026-10-29c-s5v3-train"
+ ],
+ "collect": true
+}

@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-29d-parity-pacotest-qwenft",
+ "what": "D40 PACO-LVIS test qwenbox_ft (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "paco_test_eval --config configs/parity.yaml --method qwenbox_ft"
+ },
+ "sbatch": {
+  "time": "06:00:00",
+  "array": "0-31"
+ },
+ "after": [
+  "2026-10-29d-qwenbox-train"
+ ]
+}

@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-29d-parity-pt-qwenft",
+ "what": "D40 PARTONOMY-Core qwenbox_ft (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "partonomy_eval --config configs/parity.yaml --method qwenbox_ft"
+ },
+ "sbatch": {
+  "time": "06:00:00",
+  "array": "0-15"
+ },
+ "after": [
+  "2026-10-29d-qwenbox-train"
+ ]
+}

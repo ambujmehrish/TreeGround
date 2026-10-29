@@ -1,0 +1,19 @@
+{
+ "id": "2026-10-29d-qwenbox-prepare",
+ "what": "D40 Group A: Qwen box SFT data from the S5 training items",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qwenbox_train.py",
+  "TG_ARGS": "--config configs/qwenbox_s5.yaml --prepare"
+ },
+ "sbatch": {
+  "time": "08:00:00"
+ },
+ "after": [
+  "2026-10-28b-s5v3-pool-paco",
+  "2026-10-28b-s5v3-pool-pascal",
+  "2026-10-28b-s5v3-pool-grefcoco",
+  "2026-10-29c-s5-pool-partimagenet-lowmem"
+ ],
+ "collect": true
+}

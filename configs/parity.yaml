@@ -6,3 +6,5 @@ parity:
   qwen_box_all: {max_new_tokens: 1024}
   gsam2_all: {floor: 0.25, text_threshold: 0.25, official_box_threshold: 0.35}
   sa2va_p: {}
+  qwenbox_ft: {run: latest, checkpoint: best.pt}           # Group A (scripts/qwenbox_train.py); resolved run in the identity
+paco_test: {num_shards: 32}                                # as configs/pacotest_baselines.yaml

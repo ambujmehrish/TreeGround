@@ -1,0 +1,4 @@
+include: s5.yaml   # D40 Group A: the S5 training data, sources, shares and S2 schedule (cfg['s2'])
+qwenbox:
+  eval_batch: 16          # PACO val selection generation batch
+  max_new_tokens: 1024    # as parity qwen_box_all

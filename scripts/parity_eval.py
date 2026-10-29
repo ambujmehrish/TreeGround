@@ -22,12 +22,13 @@ from treeground.run import ProtocolError, load_config, require_approved, start_r
 #                  official threshold) and, exactly as for ours, 'set' and 'top1' with t chosen by 2-fold image CV
 #                  on val and the all-val t frozen for testA / testB
 #   partonomy_eval the official union, query 'the {part} of the {object}' as for every method in D32
+#   paco_test_eval the official union, the D35 phrase (single-target queries; the D13 / D31 rows are unchanged)
 #   ophrg_eval     the official union and OP-HRG's own query strings (benchmark_datasets.py): InstructPart and
 #                  PascalPart parts "{object}'s {part}", PascalPart objects "{object}", PartImageNet the category
 #                  name lower-cased ("{object} {part}")
 # Usage: python scripts/parity_eval.py <evaluator> --config configs/parity.yaml --method <parity method> [...]
 
-EVALUATORS = ("gres_eval", "partonomy_eval", "ophrg_eval")
+EVALUATORS = ("gres_eval", "partonomy_eval", "ophrg_eval", "paco_test_eval")
 
 
 def ophrg_query(key: str, kind: str, obj: str, part: str | None) -> str:
@@ -46,7 +47,11 @@ def install(mod, name: str, cfg: dict, method: str) -> None:
     base_identity = mod.identity
 
     def identity(cfg, *a, **k):
-        return {**base_identity(cfg, *a, **k), "parity": cfg["parity"]}
+        ident = {**base_identity(cfg, *a, **k), "parity": cfg["parity"]}
+        if method == "qwenbox_ft":
+            import qwenbox_train as QT
+            ident["qwenbox_checkpoint"] = str(QT.checkpoint(cfg)[0])   # the resolved run, not 'latest'
+        return ident
     mod.identity = identity
 
     if name == "gres_eval":
@@ -68,6 +73,27 @@ def install(mod, name: str, cfg: dict, method: str) -> None:
             def __call__(self, image, label, parts):
                 res = self.pred.instances(image, [mod.phrase(p, label) for p in parts])
                 return [{"pred": BP.official_union(self.cfg, self.method, c, image.shape[:2])} for c in res]
+        mod.Baseline = Baseline
+
+    elif name == "paco_test_eval":
+        import b_baselines as B
+
+        class Baseline:
+            def __init__(self, cfg, method):
+                self.cfg, self.method, self.pred = cfg, method, BP.PARITY[method](cfg)
+
+            def __call__(self, image, g, gts):
+                g = g[g.kind.isin(["object", "part"])]
+                res = self.pred.instances(image, [B.phrase(t) for t in g.text])
+                rows = []
+                for q, c in zip(g.itertuples(), res):
+                    mask = BP.official_union(self.cfg, self.method, c, image.shape[:2])
+                    rle = M.encode(mask)[0] if mask is not None and mask.any() else None
+                    gt = gts[json.loads(q.gt)[0]]
+                    rows.append({"qid": q.qid, "kind": q.kind, "image": q.image_key, "present": True,
+                                 "score": float(max((s for s, _ in c), default=float("nan"))),
+                                 "accepted": rle is not None, **B.overlap(rle, gt), "iou_any": B.overlap(rle, gt)["iou"]})
+                return rows
         mod.Baseline = Baseline
 
     else:

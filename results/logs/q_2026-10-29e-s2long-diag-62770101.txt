@@ -1,0 +1,94 @@
+500/1547 images, 2365 queries
+1000/1547 images, 4620 queries
+1500/1547 images, 6995 queries
+{
+ "label": "dev",
+ "split": "PACO-LVIS val, present object / part queries",
+ "stage": "s2_from_s1_long",
+ "eval_run": "20261024T212727265245Z_4f66b5ae",
+ "checkpoint_step": 10000,
+ "queries": 7225,
+ "covered": 4311,
+ "success_if_covered": 0.7680352586406867,
+ "oracle_best_iou_mean": 0.5651081205870159,
+ "pick_iou_mean": 0.425024888080261,
+ "by_kind": {
+  "object": {
+   "success_if_covered": 0.8532857870606215,
+   "n": 1963
+  },
+  "part": {
+   "success_if_covered": 0.696763202725724,
+   "n": 2348
+  }
+ },
+ "recall_of_first_good_at_k": {
+  "1": 0.7680352586406867,
+  "2": 0.8315935977731385,
+  "3": 0.8654604500115982,
+  "5": 0.9028067733704477,
+  "10": 0.9475759684527951
+ },
+ "rank_best_median": 2.0,
+ "wrong_pick_relation": {
+  "elsewhere": 0.388,
+  "partial_overlap": 0.226,
+  "too_big": 0.156,
+  "too_small": 0.137,
+  "near_duplicate": 0.093
+ },
+ "wrong_pick_relation_by_kind": {
+  "object": {
+   "elsewhere": 0.4618,
+   "too_small": 0.2188,
+   "partial_overlap": 0.1944,
+   "too_big": 0.0764,
+   "near_duplicate": 0.0486
+  },
+  "part": {
+   "elsewhere": 0.3581,
+   "partial_overlap": 0.2388,
+   "too_big": 0.1882,
+   "near_duplicate": 0.111,
+   "too_small": 0.1039
+  }
+ },
+ "feature_similarity_wrong_picks": {
+  "raw_cos_median": 0.8322863578796387,
+  "raw_cos_ge_0.95": 0.207,
+  "sel_cos_median": 0.922355055809021,
+  "sel_cos_ge_0.9": 0.569
+ },
+ "feature_similarity_reference_best_vs_random_node": {
+  "raw_cos_median": 0.3673229217529297,
+  "sel_cos_median": 0.5716489553451538
+ },
+ "success_by_target_size": {
+  "(0.0, 0.005]": {
+   "success": 0.662390276839973,
+   "n": 1481
+  },
+  "(0.005, 0.02]": {
+   "success": 0.7661417322834646,
+   "n": 1270
+  },
+  "(0.02, 0.08]": {
+   "success": 0.8382663847780126,
+   "n": 946
+  },
+  "(0.08, 0.3]": {
+   "success": 0.918200408997955,
+   "n": 489
+  },
+  "(0.3, 1.01]": {
+   "success": 0.92,
+   "n": 125
+  }
+ },
+ "score_margin_wrong_median": 0.6513153612613678,
+ "query_sensitivity": {
+  "query_pairs_with_different_targets": 18990,
+  "same_pick_rate": 0.1105318588730911
+ }
+}
+/leonardo_work/AIFAC_S07_041/treeground/runs/s2_from_s1_long_diag/20261029T164035439361Z_5ab48b41

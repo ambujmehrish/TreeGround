@@ -1,0 +1,90 @@
+{
+  "by_kind": {
+    "object": {
+      "n": 1963,
+      "success_if_covered": 0.8532857870606215
+    },
+    "part": {
+      "n": 2348,
+      "success_if_covered": 0.696763202725724
+    }
+  },
+  "checkpoint_step": 10000,
+  "covered": 4311,
+  "eval_run": "20261024T212727265245Z_4f66b5ae",
+  "feature_similarity_reference_best_vs_random_node": {
+    "raw_cos_median": 0.3673229217529297,
+    "sel_cos_median": 0.5716489553451538
+  },
+  "feature_similarity_wrong_picks": {
+    "raw_cos_ge_0.95": 0.207,
+    "raw_cos_median": 0.8322863578796387,
+    "sel_cos_ge_0.9": 0.569,
+    "sel_cos_median": 0.922355055809021
+  },
+  "label": "dev",
+  "oracle_best_iou_mean": 0.5651081205870159,
+  "pick_iou_mean": 0.425024888080261,
+  "queries": 7225,
+  "query_sensitivity": {
+    "query_pairs_with_different_targets": 18990,
+    "same_pick_rate": 0.1105318588730911
+  },
+  "rank_best_median": 2.0,
+  "recall_of_first_good_at_k": {
+    "1": 0.7680352586406867,
+    "2": 0.8315935977731385,
+    "3": 0.8654604500115982,
+    "5": 0.9028067733704477,
+    "10": 0.9475759684527951
+  },
+  "score_margin_wrong_median": 0.6513153612613678,
+  "split": "PACO-LVIS val, present object / part queries",
+  "stage": "s2_from_s1_long",
+  "success_by_target_size": {
+    "(0.0, 0.005]": {
+      "n": 1481,
+      "success": 0.662390276839973
+    },
+    "(0.005, 0.02]": {
+      "n": 1270,
+      "success": 0.7661417322834646
+    },
+    "(0.02, 0.08]": {
+      "n": 946,
+      "success": 0.8382663847780126
+    },
+    "(0.08, 0.3]": {
+      "n": 489,
+      "success": 0.918200408997955
+    },
+    "(0.3, 1.01]": {
+      "n": 125,
+      "success": 0.92
+    }
+  },
+  "success_if_covered": 0.7680352586406867,
+  "wrong_pick_relation": {
+    "elsewhere": 0.388,
+    "near_duplicate": 0.093,
+    "partial_overlap": 0.226,
+    "too_big": 0.156,
+    "too_small": 0.137
+  },
+  "wrong_pick_relation_by_kind": {
+    "object": {
+      "elsewhere": 0.4618,
+      "near_duplicate": 0.0486,
+      "partial_overlap": 0.1944,
+      "too_big": 0.0764,
+      "too_small": 0.2188
+    },
+    "part": {
+      "elsewhere": 0.3581,
+      "near_duplicate": 0.111,
+      "partial_overlap": 0.2388,
+      "too_big": 0.1882,
+      "too_small": 0.1039
+    }
+  }
+}

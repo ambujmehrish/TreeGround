@@ -1,0 +1,98 @@
+{
+  "accumulation": 1,
+  "best_checkpoint": "best.pt",
+  "best_step": 30,
+  "best_val_selector_success": 0.5576923076923077,
+  "deviations": [
+    "D10",
+    "D21",
+    "D30",
+    "D34",
+    "D36"
+  ],
+  "eval_curve": [
+    {
+      "by_kind": {
+        "object": 0.4583333333333333,
+        "part": 0.14285714285714285
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 52,
+      "queries": 90,
+      "selector_success": 0.28846153846153844,
+      "step": 0
+    },
+    {
+      "by_kind": {
+        "object": 0.6666666666666666,
+        "part": 0.4642857142857143
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 52,
+      "queries": 90,
+      "selector_success": 0.5576923076923077,
+      "step": 30
+    }
+  ],
+  "eval_images": 20,
+  "label": "dev",
+  "layer": 12,
+  "selection": "PACO val fixed subset, single-step selector success",
+  "smoke": false,
+  "sources": {
+    "grefcoco_train_s5": 0.25,
+    "grefcoco_train_s5_absent": 0.1,
+    "paco_train_s5": 0.35,
+    "partimagenet_train_s5": 0.15,
+    "pascal_part_train_s5": 0.15
+  },
+  "training_exclusions": {
+    "grefcoco_train_s5:absent": 17377,
+    "grefcoco_train_s5:box_instances": 50196,
+    "grefcoco_train_s5:box_proposed": 169832,
+    "grefcoco_train_s5:dropped_outside_own_pool": 83218,
+    "grefcoco_train_s5:instances": 240310,
+    "grefcoco_train_s5:proposal_failures": 1202,
+    "grefcoco_train_s5:queries": 171109,
+    "grefcoco_train_s5:training_items": 32627,
+    "grefcoco_train_s5_absent:training_items": 17377,
+    "paco_train_s5:box_instances": 19867,
+    "paco_train_s5:box_proposed": 30995,
+    "paco_train_s5:dropped_outside_own_pool": 4379,
+    "paco_train_s5:instances": 88223,
+    "paco_train_s5:proposal_failures": 8431,
+    "paco_train_s5:queries": 36147,
+    "paco_train_s5:training_items": 6553,
+    "paco_train_s5:unreachable_chains": 8762,
+    "partimagenet_train_s5:box_instances": 46851,
+    "partimagenet_train_s5:box_proposed": 62907,
+    "partimagenet_train_s5:dropped_outside_own_pool": 4154,
+    "partimagenet_train_s5:instances": 190501,
+    "partimagenet_train_s5:loader_degenerate_polygon_annotation": 147,
+    "partimagenet_train_s5:loader_no_part_annotation": 24,
+    "partimagenet_train_s5:proposal_failures": 11845,
+    "partimagenet_train_s5:queries": 92978,
+    "partimagenet_train_s5:skipped_ophrg_partimagenet_test": 3901,
+    "partimagenet_train_s5:training_items": 16536,
+    "partimagenet_train_s5:unreachable_chains": 12515,
+    "partimagenet_train_s5:with_object_mask": 20457,
+    "pascal_part_train_s5:box_instances": 27567,
+    "pascal_part_train_s5:box_proposed": 31699,
+    "pascal_part_train_s5:dropped_outside_own_pool": 3431,
+    "pascal_part_train_s5:instances": 103419,
+    "pascal_part_train_s5:proposal_failures": 7615,
+    "pascal_part_train_s5:queries": 43223,
+    "pascal_part_train_s5:training_items": 3813,
+    "pascal_part_train_s5:unreachable_chains": 7789
+  },
+  "training_items": 76906,
+  "v1_gate": {
+    "below_v1_gate": true,
+    "deviation": "D2",
+    "v1_feasible_path_coverage": 0.4982359858878871,
+    "v1_gate_passed": false,
+    "v1_part_recall": 0.40896114578797116,
+    "v1_run": "20261022T074517344153Z_43208246"
+  },
+  "world_size": 4
+}

@@ -7,3 +7,8 @@ You are using a model of type sam3_video to instantiate a model of type sam3_tra
 /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/image_processing_utils_fast.py:692: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
   image = torch.from_numpy(image).contiguous()
 The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[1] grefcoco:2068 nodes 256 instances 25 queries 10 absent 1 41.9s
+[2] grefcoco:7601 nodes 256 instances 16 queries 10 absent 2 15.3s
+[3] grefcoco:12495 nodes 256 instances 10 queries 12 absent 2 14.4s
+[4] grefcoco:16669 nodes 256 instances 17 queries 9 absent 2 16.4s
+[5] grefcoco:21443 nodes 256 instances 23 queries 18 absent 2 17.2s

@@ -8,3 +8,7 @@ You are using a model of type sam3_video to instantiate a model of type sam3_tra
   image = torch.from_numpy(image).contiguous()
 The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
 [1] grefcoco:2106 nodes 256 instances 8 queries 14 absent 0 34.1s
+[2] grefcoco:7621 nodes 256 instances 16 queries 9 absent 3 15.3s
+[3] grefcoco:12501 nodes 256 instances 27 queries 19 absent 3 19.4s
+[4] grefcoco:16697 nodes 256 instances 32 queries 17 absent 1 17.1s
+[5] grefcoco:21451 nodes 256 instances 22 queries 25 absent 0 18.9s

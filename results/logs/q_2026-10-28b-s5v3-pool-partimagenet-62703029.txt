@@ -243,3 +243,36 @@ The following generation flags are not valid and may be ignored: ['temperature',
 [234] partimagenet:18300 nodes 256 instances 12 queries 7 absent 0 10.3s
 [235] partimagenet:18428 nodes 256 instances 10 queries 5 absent 0 8.4s
 [236] partimagenet:18556 nodes 256 instances 16 queries 7 absent 0 11.6s
+[237] partimagenet:18620 nodes 256 instances 16 queries 5 absent 0 14.1s
+[238] partimagenet:18684 nodes 256 instances 13 queries 5 absent 0 10.5s
+[239] partimagenet:18748 nodes 256 instances 13 queries 5 absent 0 11.3s
+[240] partimagenet:18812 nodes 256 instances 12 queries 3 absent 0 9.4s
+[241] partimagenet:18876 nodes 256 instances 11 queries 5 absent 0 16.9s
+[242] partimagenet:18940 nodes 256 instances 13 queries 7 absent 0 9.8s
+[243] partimagenet:19004 nodes 256 instances 13 queries 3 absent 0 11.7s
+[244] partimagenet:19068 nodes 256 instances 11 queries 5 absent 0 9.7s
+[245] partimagenet:19132 nodes 256 instances 14 queries 5 absent 0 11.3s
+[W1029 11:50:48.866759115 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 18759024640 bytes (free: 14600896512, total: 68099571712).
+[W1029 11:51:05.220866906 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 18759024640 bytes (free: 10928783360, total: 68099571712).
+[W1029 11:51:05.242340691 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 18759024640 bytes (free: 11029446656, total: 68099571712).
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s5_pool.py", line 203, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s5_pool.py", line 199, in main
+    run_shard(load_config(args.config), args.source, args.shard, args.smoke)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s5_pool.py", line 165, in run_shard
+    nodes = S2N.node_set(sam, sproc, cfg, image, cap)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s2_nodes.py", line 98, in node_set
+    out = P.generate(sam, sproc, image, pcfg)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/proposals.py", line 68, in generate
+    s = stability_scores(logits, cfg.mask_threshold, cfg.stability_offset)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/proposals.py", line 45, in stability_scores
+    hi = (logits > thr + offset).flatten(-2).sum(-1, dtype=torch.int64)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 17.47 GiB. GPU 0 has a total capacity of 63.42 GiB of which 10.27 GiB is free. Including non-PyTorch memory, this process has 53.14 GiB memory in use. Of the allocated memory 28.24 GiB is allocated by PyTorch, and 24.33 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)

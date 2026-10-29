@@ -1,0 +1,18 @@
+{
+ "id": "2026-10-29-s5nosoft-gres-merge",
+ "what": "D39 GRES merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "gres_eval --config configs/gres_s5nosoft.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "after": [
+  "2026-10-29-s5nosoft-gres-val",
+  "2026-10-29-s5nosoft-gres-testA",
+  "2026-10-29-s5nosoft-gres-testB"
+ ],
+ "collect": true
+}

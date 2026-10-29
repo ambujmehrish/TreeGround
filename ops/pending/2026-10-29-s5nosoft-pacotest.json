@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-29-s5nosoft-pacotest",
+ "what": "D39 PACO-LVIS test (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "paco_test_eval --config configs/pacotest_s5nosoft.yaml --method ours"
+ },
+ "sbatch": {
+  "time": "08:00:00",
+  "array": "0-31"
+ },
+ "after": [
+  "2026-10-29-s5nosoft-train"
+ ]
+}

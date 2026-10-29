@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-29-s5nosoft-pacotest-merge",
+ "what": "D39 PACO-LVIS test merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "paco_test_eval --config configs/pacotest_s5nosoft.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-29-s5nosoft-pacotest"
+ ],
+ "collect": true
+}

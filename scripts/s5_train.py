@@ -157,7 +157,8 @@ def make_batch_terms(inner, tau: float, weight: float):
     return batch_terms
 
 
-S2T.deviations = lambda cfg: ["D10", "D21", "D30", "D34", "D36"] + (["D37"] if cfg["s2"].get("spec_sources") else [])
+S2T.deviations = lambda cfg: (["D10", "D21", "D30", "D34", "D36"] + (["D37"] if cfg["s2"].get("spec_sources") else [])
+                              + (["D39"] if float(cfg["s2"].get("soft_weight", 1)) == 0 else []))
 _warm_start = S2T.warm_start
 
 
@@ -185,7 +186,9 @@ def main() -> None:
     ap.add_argument("--config", required=True)
     known, _ = ap.parse_known_args()
     c = load_config(known.config)["s2"]
-    soft = S4.make_batch_terms(float(c["soft_lambda"]), float(c["soft_weight"]))
+    # soft_weight 0 (D39 ablation) drops the soft-tree term entirely, rather than adding zero terms to the mean
+    soft = (S4.make_batch_terms(float(c["soft_lambda"]), float(c["soft_weight"])) if float(c["soft_weight"]) > 0
+            else S4._batch_terms)
     V2.batch_terms = make_batch_terms(soft, float(c["listwise_tau"]), float(c["listwise_weight"]))
     S2T.main()
 

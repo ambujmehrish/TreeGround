@@ -857,6 +857,17 @@ PROPOSED_DEVIATIONS = [
                   "protocol and code are public, so its numbers can be cited without reproduction",
         "expected_impact": "a new part-grounding table; S5 and D37 training lose the held-out images",
     },
+    {
+        "id": "D39",
+        "spec_section": "3 (selector training), ablation",
+        "change": "S5 without the D34 soft-tree chain term (configs/s5_nosoft.yaml: soft_weight 0, the term is not "
+                  "computed; everything else as S5, same pools, data and schedule; runs/s2_from_s1_s5nosoft), "
+                  "evaluated on the same test splits as S5 and reported as an ablation row beside it",
+        "reason": "S4 (S3 + per-query pools + no-target share + soft-tree term) is below S3 on PACO-LVIS test; S5 keeps "
+                  "the S4 recipe, so the soft-tree term's contribution is measured by a pre-registered ablation, not "
+                  "chosen from test results",
+        "expected_impact": "an ablation row; S5 itself unchanged",
+    },
 ]
 
 

@@ -25,7 +25,7 @@ import b_baselines2 as B2  # noqa: E402
 #   sam3_union_na, gsam2_all_na   the same predictions; when no instance passes the official threshold the
 #                   highest-scoring one is the output (no abstention, as ours on target-only benchmarks)
 #   qwenbox_ft      Group A: qwen_box_all with the LoRA trained on the S5 data (scripts/qwenbox_train.py)
-# Candidates below `floor` are dropped; the official threshold is applied by the evaluator (parity_eval.py), and
+# Candidates below `floor` are dropped and at most `max_instances` (highest scores) are kept; the official threshold is applied by the evaluator (parity_eval.py), and
 # on gRefCOCO the threshold is also tuned on val exactly as for ours.
 
 
@@ -58,12 +58,12 @@ class Sam3Union(B.Sam3Text):
             if r.presence_logits is not None:
                 s = s * r.presence_logits[0].float().sigmoid()
             keep = torch.nonzero(s >= self.p["floor"]).flatten()
-            keep = keep[torch.argsort(s[keep], descending=True)]
+            keep = keep[torch.argsort(s[keep], descending=True)][:self.p["max_instances"]]
             cands = []
-            if len(keep):
-                ms = F.interpolate(r.pred_masks[0, keep][:, None].float().sigmoid(), size=(h, w), mode="bilinear",
+            for c in keep.split(8):
+                ms = F.interpolate(r.pred_masks[0, c][:, None].float().sigmoid(), size=(h, w), mode="bilinear",
                                    align_corners=False)[:, 0] > self.s["mask_threshold"]
-                cands = [(float(s[i]), m) for i, m in zip(keep.tolist(), ms.cpu().numpy())]
+                cands += [(float(s[i]), m) for i, m in zip(c.tolist(), ms.cpu().numpy())]
             out.append(cands)
         return out
 
@@ -85,6 +85,8 @@ class QwenBoxAll(B.QwenBoxSam):
             x0, y0, x1, y1 = (min(max(v, 0.0), B.QWEN_GRID) for v in vals)
             if x1 > x0 and y1 > y0:
                 out.append([x0, y0, x1, y1])
+        if not out and (b := B.parse_box(text)) is not None:
+            out.append(b)   # the D13 fallback: a bare [x0, y0, x1, y1] list
         return out
 
     @torch.no_grad()
@@ -133,7 +135,14 @@ class QwenBoxFT(QwenBoxAll):
         missing, unexpected = LR.decoder(self.qwen).load_state_dict(state["lora"], strict=False)
         if unexpected or any(".lora_" in k for k in missing):
             raise B.ProtocolError(f"qwenbox_ft LoRA mismatch: missing {missing[:3]}, unexpected {unexpected[:3]}")
+        if state["meta"]["qwen"] != cfg["models"]["qwen"]:
+            raise B.ProtocolError("qwenbox_ft: checkpoint Qwen revision differs from the evaluation model")
         self.qwen.to(self.device).eval()
+        for mod in self.qwen.modules():
+            # LoRA weights in the base dtype (training ran them under bf16 autocast); SAM 3 stays as in qwen_box_all
+            if isinstance(mod, LR.LoRALinear):
+                dt = mod.base.weight.dtype
+                mod.lora_A.data, mod.lora_B.data = mod.lora_A.data.to(dt), mod.lora_B.data.to(dt)
         self.checkpoint = str(path)
 
 
@@ -157,13 +166,15 @@ class GSam2All(B2.GroundedSam2):
             if len(det["scores"]) == 0:
                 out.append([])
                 continue
-            order = torch.argsort(det["scores"], descending=True).tolist()
+            order = torch.argsort(det["scores"], descending=True).tolist()[:self.p["max_instances"]]
             boxes = [[float(v) for v in det["boxes"][k].tolist()] for k in order]
-            sin = self.sproc(images=pil, input_boxes=[boxes], return_tensors="pt").to(self.device)
-            r = self.sam(**sin, multimask_output=False)
-            ms = self.sproc.post_process_masks(r.pred_masks.cpu(), sin["original_sizes"])[0][:, 0]
-            ms = np.asarray(ms.numpy() if hasattr(ms, "numpy") else ms, bool)
-            out.append([(float(det["scores"][k]), m) for k, m in zip(order, ms)])
+            masks = []
+            for j in range(0, len(boxes), 8):
+                sin = self.sproc(images=pil, input_boxes=[boxes[j:j + 8]], return_tensors="pt").to(self.device)
+                r = self.sam(**sin, multimask_output=False)
+                ms = self.sproc.post_process_masks(r.pred_masks.cpu(), sin["original_sizes"])[0][:, 0]
+                masks += list(np.asarray(ms.numpy() if hasattr(ms, "numpy") else ms, bool))
+            out.append([(float(det["scores"][k]), m) for k, m in zip(order, masks)])
         return out
 
 

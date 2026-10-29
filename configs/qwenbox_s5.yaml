@@ -2,3 +2,4 @@ include: s5.yaml   # D40 Group A: the S5 training data, sources, shares and S2 s
 qwenbox:
   eval_batch: 16          # PACO val selection generation batch
   max_new_tokens: 1024    # as parity qwen_box_all
+  val_max_new_tokens: 128 # selection scores the first box only

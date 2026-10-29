@@ -43,8 +43,8 @@ from treeground.run import (ProtocolError, assert_real_path, canonical_hash, ens
 #              selector are not used. Target = the Qwen3-VL grounding answer: a JSON list of every target's
 #              bbox_2d on the 0-1000 grid with the phrase as label, '[]' for no-target; chain queries are trained
 #              as their part ('the P of the X', the part's box). Loss = LM loss on the answer tokens.
-#   selection  every eval_every steps (and step 0): mean box IoU of the first predicted box on the PACO val subset
-#              (val only, as S2 selects on PACO val); best.pt is the best step
+#   selection  every eval_every steps (and step 0): success rate (IoU >= 0.5) of the first predicted box on the
+#              PACO val subset (val only, as S2's selector success on PACO val); best.pt is the best step
 # Inference: b_parity 'qwenbox_ft' (qwen_box_all with this LoRA), D13 prompt, every box -> SAM 3 mask.
 
 STAGE = "qwenbox_s5"
@@ -219,8 +219,10 @@ def val_box(model, processor, prompt, val, device, rank, world, batch_size, max_
         for v, r in zip(chunk, processor.batch_decode(gen[:, inp["input_ids"].shape[1]:], skip_special_tokens=True)):
             rows.append(box_iou(B.parse_box(r), v["box"]))
     model.train()
-    allr = [x for part in S2T.gather(rows, world) for x in part]
-    return {"box_iou": float(np.mean(allr)) if allr else 0.0, "queries": len(allr)}
+    allr = np.array([x for part in S2T.gather(rows, world) for x in part])
+    # selection as S2: success rate (IoU >= 0.5) on the PACO val subset; mean IoU reported beside it
+    return {"box_success": float((allr >= 0.5).mean()) if len(allr) else 0.0,
+            "box_iou": float(allr.mean()) if len(allr) else 0.0, "queries": int(len(allr))}
 
 
 def train(cfg: dict) -> None:
@@ -273,17 +275,21 @@ def train(cfg: dict) -> None:
     t0 = time.time()
 
     def evaluate_and_save(step: int, best: tuple) -> tuple:
-        res = val_box(model, processor, s["prompt"], val, device, rank, world, s["eval_batch"], s["max_new_tokens"])
+        res = val_box(model, processor, s["prompt"], val, device, rank, world, s["eval_batch"], s["val_max_new_tokens"])
         if rank == 0:
             state = {"lora": LR.lora_state(model), "meta": {**meta, "step": step, "val": res}}
             torch.save(state, run / f"step{step:06d}.pt")
-            if res["box_iou"] > best[0]:
-                best = (res["box_iou"], step)
+            if res["box_success"] > best[0]:
+                best = (res["box_success"], step)
                 torch.save(state, run / "best.pt")
             evals.append({"step": step, **res})
-            print(f"eval step {step}: PACO val box IoU {res['box_iou']:.4f}", flush=True)
+            print(f"eval step {step}: PACO val box success {res['box_success']:.4f} IoU {res['box_iou']:.4f}",
+                  flush=True)
             pd.DataFrame(log).to_csv(run / "train_curve.csv", index=False)
             write_json(run / "eval_curve.json", evals)
+            # progress record; metrics.json (what resolve_run accepts) is written only when the run completes
+            write_json(run / "metrics_partial.json", {"best_step": best[1], "best_val_box_success": best[0],
+                                                      "last_step": step})
         return S2T.broadcast(best, world)
 
     best = evaluate_and_save(0, best)
@@ -312,8 +318,8 @@ def train(cfg: dict) -> None:
             best = evaluate_and_save(step + 1, best)
     if rank == 0:
         write_json(run / "metrics.json", {
-            "label": "dev", "best_step": best[1], "best_checkpoint": "best.pt", "best_val_box_iou": best[0],
-            "selection": "PACO val fixed subset (s2_train.val_meta images), first-box IoU", "eval_curve": evals,
+            "label": "dev", "best_step": best[1], "best_checkpoint": "best.pt", "best_val_box_success": best[0],
+            "selection": "PACO val fixed subset (s2_train.val_meta images), first-box success (IoU >= 0.5)", "eval_curve": evals,
             "training_items": len(items), "world_size": world, "accumulation": accum,
             "sources": S2T.source_weights(c), "deviations": ["D36", "D40"]})
         print(run)

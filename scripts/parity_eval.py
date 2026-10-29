@@ -46,7 +46,8 @@ def install(mod, name: str, cfg: dict, method: str) -> None:
     base_identity = mod.identity
 
     def identity(cfg, *a, **k):
-        ident = {**base_identity(cfg, *a, **k), "parity": cfg["parity"]}
+        ident = {**base_identity(cfg, *a, **k), "parity": cfg["parity"][BP.SETTINGS.get(method, method)],
+                 "parity_method": method}
         if method == "qwenbox_ft":
             import qwenbox_train as QT
             ident["qwenbox_checkpoint"] = str(QT.checkpoint(cfg)[0])   # the resolved run, not 'latest'

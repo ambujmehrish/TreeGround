@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-29d-parity-ophrg-gsam2na-pascalpart",
+ "what": "D40 OP-HRG protocol pascalpart gsam2_all_na (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "ophrg_eval --config configs/parity.yaml --method gsam2_all_na --benchmark pascalpart"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ }
+}

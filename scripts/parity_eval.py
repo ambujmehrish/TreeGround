@@ -24,16 +24,15 @@ from treeground.run import ProtocolError, load_config, require_approved, start_r
 #   partonomy_eval the official union, query 'the {part} of the {object}' as for every method in D32
 #   paco_test_eval the official union, the D35 phrase (single-target queries; the D13 / D31 rows are unchanged)
 #   ophrg_eval     the official union and OP-HRG's own query strings (benchmark_datasets.py): InstructPart and
-#                  PascalPart parts "{object}'s {part}", PascalPart objects "{object}", PartImageNet the category
-#                  name lower-cased ("{object} {part}")
+#                  PascalPart parts "{object}'s {part}", PascalPart objects "{object}", PartImageNet "{word0}'s
+#                  {rest}" of the category name, lower-cased
 # Usage: python scripts/parity_eval.py <evaluator> --config configs/parity.yaml --method <parity method> [...]
 
 EVALUATORS = ("gres_eval", "partonomy_eval", "ophrg_eval", "paco_test_eval")
 
 
 def ophrg_query(key: str, kind: str, obj: str, part: str | None) -> str:
-    if key.startswith("partimagenet_ood:"):
-        return f"{obj} {part}"
+    # PartImageNetDataset.get_annotation rewrites the category name to "{word0}'s {rest}" before lower / strip('.')
     if kind == "object":
         return obj
     return f"{obj}'s {part}"

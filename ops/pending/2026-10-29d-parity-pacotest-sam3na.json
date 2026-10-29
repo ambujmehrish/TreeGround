@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-29d-parity-pacotest-sam3na",
+ "what": "D40 PACO-LVIS test sam3_union_na (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "paco_test_eval --config configs/parity.yaml --method sam3_union_na"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-31"
+ }
+}

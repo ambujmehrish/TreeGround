@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-29d-parity-pt-gsam2na",
+ "what": "D40 PARTONOMY-Core gsam2_all_na (shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "partonomy_eval --config configs/parity.yaml --method gsam2_all_na"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ }
+}

@@ -886,9 +886,15 @@ PROPOSED_DEVIATIONS = [
                   "every box at text 0.25 / box 0.35; Sa2VA-4B unchanged. gRefCOCO: besides the official output, "
                   "every baseline with a score gets the same 'set' and 'top1' rules as ours with t by 2-fold image "
                   "CV on val, the all-val t frozen for testA / testB. OP-HRG benchmarks: baselines get OP-HRG's own "
-                  "query strings (benchmark_datasets.py). PARTONOMY: the D32 phrase for every method. Ours on the "
+                  "query strings (benchmark_datasets.py; PartImageNet '{object}'s {part}' as "
+                  "PartImageNetDataset.get_annotation). PARTONOMY: the D32 phrase for every method. Ours on the "
                   "part benchmarks stays top-1 (a set rule for ours needs a validation split and is a separate "
-                  "deviation). Nothing is tuned on test",
+                  "deviation). On target-only benchmarks (PACO-LVIS test, PARTONOMY, OP-HRG) ours never "
+                  "abstains, so SAM 3 and Grounded-SAM 2 are also reported without abstention ('_na': the "
+                  "highest-scoring instance when none passes the official threshold); Group C also runs on PACO-LVIS "
+                  "test. Train / test overlap is re-checked read-only by exact pixel sha1, COCO id and a 64-bit "
+                  "difference hash over every S5 pool image vs every test image (scripts/leak_audit.py). Nothing is "
+                  "tuned on test",
         "reason": "audit of 29 Oct: on gRefCOCO ours used a val-tuned multi-target / no-target rule while baselines "
                   "returned one mask at a fixed threshold (ours top-1 51.0 / 47.4 vs Sa2VA-4B 51.5 / 46.0); the Qwen "
                   "baseline kept only the first box; SAM 3 kept only its top instance (PartImageNet 24.3 vs OP-HRG's "

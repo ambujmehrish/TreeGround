@@ -22,6 +22,8 @@ import b_baselines2 as B2  # noqa: E402
 #                   score >= 0.35 (Grounded-SAM 2 demo box threshold)
 #   sa2va_p         Sa2VA-Qwen3-VL-4B unchanged (already the model card's union of [SEG] masks); a separate stage so
 #                   the OP-HRG run with the official query wording does not mix with D13 / D31 caches
+#   sam3_union_na, gsam2_all_na   the same predictions; when no instance passes the official threshold the
+#                   highest-scoring one is the output (no abstention, as ours on target-only benchmarks)
 #   qwenbox_ft      Group A: qwen_box_all with the LoRA trained on the S5 data (scripts/qwenbox_train.py)
 # Candidates below `floor` are dropped; the official threshold is applied by the evaluator (parity_eval.py), and
 # on gRefCOCO the threshold is also tuned on val exactly as for ours.
@@ -32,7 +34,7 @@ class Sam3Union(B.Sam3Text):
 
     def __init__(self, cfg: dict):
         super().__init__(cfg)
-        self.p = cfg["parity"]["sam3_union"]
+        self.p = cfg["parity"]["sam3_union"]   # also the _na variant
         self.tok = self.proc.tokenizer
         self.limit = min(self.tok.model_max_length, 32)
 
@@ -172,20 +174,33 @@ class Sa2VAP(B.Sa2VA):
         return [[(1.0, m)] if acc and m is not None else [] for m, _, _, acc in self(image, phrases)]
 
 
+class Sam3UnionNA(Sam3Union):
+    fallback = True
+
+
+class GSam2AllNA(GSam2All):
+    fallback = True
+
+
 PARITY = {"sam3_union": Sam3Union, "qwen_box_all": QwenBoxAll, "gsam2_all": GSam2All, "sa2va_p": Sa2VAP,
-          "qwenbox_ft": QwenBoxFT}
+          "qwenbox_ft": QwenBoxFT, "sam3_union_na": Sam3UnionNA, "gsam2_all_na": GSam2AllNA}
+SETTINGS = {"sam3_union_na": "sam3_union", "gsam2_all_na": "gsam2_all"}   # same settings, no-abstain output
 
 
 def official_threshold(cfg: dict, method: str) -> float | None:
     # None: the method has no score, every instance it returns is its output
     key = PARITY[method].official
-    return None if key is None else float(cfg["parity"][method][key])
+    return None if key is None else float(cfg["parity"][SETTINGS.get(method, method)][key])
 
 
 def official_union(cfg: dict, method: str, cands: list[tuple], shape: tuple) -> np.ndarray | None:
-    # the method's official single output: union of its instances with score above its official threshold
+    # the method's official single output: union of its instances with score above its official threshold;
+    # the '_na' (no-abstain) variants fall back to their highest-scoring instance when none passes, as ours never
+    # abstains on benchmarks where every query has a target (PACO-LVIS test, PARTONOMY, OP-HRG)
     thr = official_threshold(cfg, method)
     ms = [m for s, m in cands if thr is None or s > thr]
+    if not ms and getattr(PARITY[method], "fallback", False) and cands:
+        ms = [cands[0][1]]
     if not ms:
         return None
     return np.logical_or.reduce([m.astype(bool) for m in ms])

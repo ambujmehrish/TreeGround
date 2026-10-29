@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-29d-leak-audit",
+ "what": "D40 read-only train/test leakage audit (sha1, COCO id, difference hash)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/leak_audit.py",
+  "TG_ARGS": "--config configs/leak_audit.yaml --workers 8"
+ },
+ "sbatch": {
+  "time": "08:00:00"
+ },
+ "collect": true
+}

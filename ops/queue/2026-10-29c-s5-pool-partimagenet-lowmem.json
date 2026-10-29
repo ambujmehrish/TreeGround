@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-29c-s5-pool-partimagenet-lowmem",
+ "what": "D36 pool partimagenet_train, rerun with points_per_batch 16 (finished shards skipped)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_pool.py",
+  "TG_ARGS": "--config configs/s5_pool_lowmem.yaml --source partimagenet_train"
+ },
+ "sbatch": {
+  "time": "06:00:00",
+  "array": "0-63"
+ }
+}

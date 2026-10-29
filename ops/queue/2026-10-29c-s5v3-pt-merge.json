@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-29c-s5v3-pt-merge",
+ "what": "D36 PARTONOMY-Core S5 merge (c)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "partonomy_eval --config configs/partonomy_s5.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-29c-s5v3-pt"
+ ],
+ "collect": true
+}

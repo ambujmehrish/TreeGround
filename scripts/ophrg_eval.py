@@ -271,7 +271,12 @@ def run_shard(cfg: dict, method: str, bench: str, shard: int) -> None:
     rows, t0 = [], time.time()
     for i, (key, path, qs) in enumerate(images, 1):
         if not Path(path).exists():
-            raise ProtocolError(f"{bench}: image {path} is missing (every listed image is evaluated)")
+            # upstream _iter_partimagenet skips an annotation whose image file is missing (FileNotFoundError); same
+            # here for PartImageNet, recorded by name; any other benchmark must have every listed image
+            if bench != "partimagenet":
+                raise ProtocolError(f"{bench}: image {path} is missing (every listed image is evaluated)")
+            SKIPPED.setdefault("partimagenet_missing_images", []).append(Path(path).name)
+            continue
         image = np.asarray(Image.open(path).convert("RGB"))
         qs = resolve(key, qs, *image.shape[:2])
         for q in qs:

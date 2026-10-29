@@ -1,0 +1,13 @@
+{
+ "id": "2026-10-29c-ophrg-s3-partimagenet",
+ "what": "D38 OP-HRG protocol partimagenet s3 (shards) (c)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ophrg_eval.py",
+  "TG_ARGS": "--config configs/ophrg_s3.yaml --method ours --benchmark partimagenet"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ }
+}

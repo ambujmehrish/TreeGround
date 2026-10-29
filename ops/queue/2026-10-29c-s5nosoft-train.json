@@ -1,0 +1,20 @@
+{
+ "id": "2026-10-29c-s5nosoft-train",
+ "what": "D39 S5 ablation without soft-tree term, 12k steps (4 GPUs) (c)",
+ "script": "q_gpu4.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_train.py",
+  "TG_ARGS": "--config configs/s5_nosoft.yaml"
+ },
+ "sbatch": {
+  "time": "16:00:00"
+ },
+ "after": [
+  "2026-10-28b-s5v3-pool-paco",
+  "2026-10-28b-s5v3-pool-pascal",
+  "2026-10-28b-s5v3-pool-grefcoco",
+  "2026-10-29c-s5-pool-partimagenet-lowmem",
+  "2026-10-29c-s5-quick"
+ ],
+ "collect": true
+}

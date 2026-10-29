@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-29c-s5parts-pt",
+ "what": "D37 PARTONOMY-Core S5-parts (shards) (c)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "partonomy_eval --config configs/partonomy_s5parts.yaml --method ours"
+ },
+ "sbatch": {
+  "time": "03:00:00",
+  "array": "0-15"
+ },
+ "after": [
+  "2026-10-29c-s5parts-train"
+ ]
+}

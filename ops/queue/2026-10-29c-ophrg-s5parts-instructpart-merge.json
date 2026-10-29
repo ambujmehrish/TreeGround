@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-29c-ophrg-s5parts-instructpart-merge",
+ "what": "D38 OP-HRG protocol instructpart s5parts merge (c)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "ophrg_eval --config configs/ophrg_s5parts.yaml --method ours --benchmark instructpart --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-29c-ophrg-s5parts-instructpart"
+ ],
+ "collect": true
+}

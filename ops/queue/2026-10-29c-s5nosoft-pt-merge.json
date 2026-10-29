@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-29c-s5nosoft-pt-merge",
+ "what": "D39 PARTONOMY-Core merge (c)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "partonomy_eval --config configs/partonomy_s5nosoft.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-29c-s5nosoft-pt"
+ ],
+ "collect": true
+}

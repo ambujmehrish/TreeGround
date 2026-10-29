@@ -1,0 +1,16 @@
+{
+ "id": "2026-10-29c-s5nosoft-ophrg-pascalpart-merge",
+ "what": "D39 OP-HRG pascalpart merge (c)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_eval.py",
+  "TG_ARGS": "ophrg_eval --config configs/ophrg_s5nosoft.yaml --method ours --benchmark pascalpart --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-10-29c-s5nosoft-ophrg-pascalpart"
+ ],
+ "collect": true
+}

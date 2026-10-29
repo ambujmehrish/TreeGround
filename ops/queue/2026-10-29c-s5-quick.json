@@ -1,0 +1,19 @@
+{
+ "id": "2026-10-29c-s5-quick",
+ "what": "D36 S5 pre-flight: 30 steps on the full pools (4 GPUs)",
+ "script": "q_gpu4.sbatch",
+ "env": {
+  "TG_PY": "scripts/s5_train.py",
+  "TG_ARGS": "--config configs/s5_quick.yaml"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "after": [
+  "2026-10-28b-s5v3-pool-paco",
+  "2026-10-28b-s5v3-pool-pascal",
+  "2026-10-28b-s5v3-pool-grefcoco",
+  "2026-10-29c-s5-pool-partimagenet-lowmem"
+ ],
+ "collect": true
+}

@@ -1,0 +1,7 @@
+include: s5.yaml
+s2:                                # D36 pre-flight: S5 recipe on the full pools for 30 steps (smoke mode lacks caches)
+  stage_suffix: _s5quick
+  steps: 30
+  warmup_steps: 5
+  eval_every: 30
+  eval_images: 20

@@ -79,7 +79,8 @@ def setup_device(cfg: dict) -> str:
 
 
 def stage(cfg: dict) -> str:
-    return f"ta_{cfg['ta']['variant']}"
+    # a non-empty ta.stage_suffix (short pipeline checks) keeps those runs out of the real runs/ta_<variant>
+    return f"ta_{cfg['ta']['variant']}{cfg['ta'].get('stage_suffix', '')}"
 
 
 def node_mode(variant: str) -> str:

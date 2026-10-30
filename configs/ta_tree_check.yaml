@@ -1,0 +1,11 @@
+include: ta_tree.yaml
+# Pipeline check on the full caches (the smoke caches are incomplete): 20 steps, 20 val images, no PACO rest
+# cache, own stage runs/ta_tree_check. Never a result; only shows that training, checkpointing and evaluation run,
+# and how fast and how much memory they take.
+ta:
+  stage_suffix: _check
+  steps: 20
+  eval_every: 10
+  eval_images: 20
+  log_every: 1
+  paco_rest: false

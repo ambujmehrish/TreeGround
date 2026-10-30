@@ -201,3 +201,17 @@ def test_variant_configs_share_one_recipe(monkeypatch):
     for key in ("proposals", "models", "s2_nodes", "manifest", "worklist", "data"):
         assert cfgs["tree"][key] == s2l[key]                                    # same caches as S2-long
     assert base["lora"] == s2l["s2"]["lora"] and base["steps"] == s2l["s2"]["steps"]
+
+
+def test_check_config_keeps_its_own_stage(tat, monkeypatch):
+    from pathlib import Path
+    from treeground.run import load_config
+    for v in ("TG_CACHE", "TG_DATA", "TG_ROOT", "TG_RUNS", "TG_SLURM_ACCOUNT"):
+        monkeypatch.setenv(v, "/x")
+    root = Path(__file__).resolve().parents[1] / "configs"
+    check, real = load_config(root / "ta_tree_check.yaml"), load_config(root / "ta_tree.yaml")
+    assert tat.stage(check) == "ta_tree_check" and tat.stage(real) == "ta_tree"
+    assert check["ta"]["steps"] == 20 and not check["ta"]["paco_rest"]
+    keep = {k: v for k, v in check["ta"].items() if k not in ("stage_suffix", "steps", "eval_every", "eval_images",
+                                                            "log_every", "paco_rest")}
+    assert keep == {k: v for k, v in real["ta"].items() if k in keep}

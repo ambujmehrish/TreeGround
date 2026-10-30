@@ -1,0 +1,111 @@
+[rank2]: Traceback (most recent call last):
+[rank2]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_eval.py", line 170, in <module>
+[rank2]:     main()
+[rank2]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_eval.py", line 122, in main
+[rank2]:     props = open_proposals(cfg, args.smoke, manifest, mhash, capped=True)
+[rank2]:             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/identity.py", line 95, in open_proposals
+[rank2]:     return ProposalStore(cache_dir(cfg, "proposals", ident), ident, manifest, node_cap(cfg, smoke) if capped else None)
+[rank2]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/cache.py", line 85, in __init__
+[rank2]:     check_identity(path, identity)
+[rank2]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/cache.py", line 50, in check_identity
+[rank2]:     raise ProtocolError(f"cache {path} has no identity.json")
+[rank2]: treeground.run.ProtocolError: cache /leonardo_scratch/large/userexternal/amehrish/treeground/cache/smoke/proposals/80f10c772951600a has no identity.json
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_eval.py", line 170, in <module>
+[rank3]:     main()
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_eval.py", line 122, in main
+[rank3]:     props = open_proposals(cfg, args.smoke, manifest, mhash, capped=True)
+[rank3]:             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/identity.py", line 95, in open_proposals
+[rank3]:     return ProposalStore(cache_dir(cfg, "proposals", ident), ident, manifest, node_cap(cfg, smoke) if capped else None)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/cache.py", line 85, in __init__
+[rank3]:     check_identity(path, identity)
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/cache.py", line 50, in check_identity
+[rank3]:     raise ProtocolError(f"cache {path} has no identity.json")
+[rank3]: treeground.run.ProtocolError: cache /leonardo_scratch/large/userexternal/amehrish/treeground/cache/smoke/proposals/80f10c772951600a has no identity.json
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_eval.py", line 170, in <module>
+[rank0]:     main()
+[rank0]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_eval.py", line 122, in main
+[rank0]:     props = open_proposals(cfg, args.smoke, manifest, mhash, capped=True)
+[rank0]:             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/identity.py", line 95, in open_proposals
+[rank0]:     return ProposalStore(cache_dir(cfg, "proposals", ident), ident, manifest, node_cap(cfg, smoke) if capped else None)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/cache.py", line 85, in __init__
+[rank0]:     check_identity(path, identity)
+[rank0]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/cache.py", line 50, in check_identity
+[rank0]:     raise ProtocolError(f"cache {path} has no identity.json")
+[rank0]: treeground.run.ProtocolError: cache /leonardo_scratch/large/userexternal/amehrish/treeground/cache/smoke/proposals/80f10c772951600a has no identity.json
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_eval.py", line 170, in <module>
+[rank1]:     main()
+[rank1]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_eval.py", line 122, in main
+[rank1]:     props = open_proposals(cfg, args.smoke, manifest, mhash, capped=True)
+[rank1]:             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/identity.py", line 95, in open_proposals
+[rank1]:     return ProposalStore(cache_dir(cfg, "proposals", ident), ident, manifest, node_cap(cfg, smoke) if capped else None)
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/cache.py", line 85, in __init__
+[rank1]:     check_identity(path, identity)
+[rank1]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/cache.py", line 50, in check_identity
+[rank1]:     raise ProtocolError(f"cache {path} has no identity.json")
+[rank1]: treeground.run.ProtocolError: cache /leonardo_scratch/large/userexternal/amehrish/treeground/cache/smoke/proposals/80f10c772951600a has no identity.json
+W1030 16:08:09.302000 2209403 torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 2209427 closing signal SIGTERM
+W1030 16:08:09.304000 2209403 torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 2209430 closing signal SIGTERM
+E1030 16:08:09.433000 2209403 torch/distributed/elastic/multiprocessing/api.py:1002] failed (exitcode: 1) local_rank: 1 (pid: 2209428) of binary: /leonardo_work/AIFAC_S07_041/treeground/tg-venv/bin/python
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/bin/torchrun", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 380, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/run.py", line 1138, in main
+    run(args)
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/run.py", line 1129, in run
+    elastic_launch(
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 197, in __call__
+    return launch_agent(
+           ^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 386, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+scripts/ta_eval.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-10-30_16:08:09
+  host      : lrdn2084-net6-3.leonardo.local
+  rank      : 2 (local_rank: 2)
+  exitcode  : 1 (pid: 2209429) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[2]:
+  time      : 2026-10-30_16:08:09
+  host      : lrdn2084-net6-3.leonardo.local
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 2209427) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[3]:
+  time      : 2026-10-30_16:08:09
+  host      : lrdn2084-net6-3.leonardo.local
+  rank      : 3 (local_rank: 3)
+  exitcode  : 1 (pid: 2209430) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-10-30_16:08:09
+  host      : lrdn2084.leonardo.local
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 2209428) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

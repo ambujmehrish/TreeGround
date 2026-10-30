@@ -39,3 +39,29 @@ rank 0: recomputed 732 images
   return func(*args, **kwargs)
 rank 3: recomputed 731 images
 rank 1: recomputed 731 images
+/leonardo_work/AIFAC_S07_041/treeground/runs/s2_from_s1_long_eval_cap256/20261030T104148483262Z_f427b7c0 tau_rej 0.8944723618090452
+/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+{
+ "label": "dev",
+ "split": "PACO-LVIS val, present object / part queries",
+ "node_cap": 256,
+ "queries": 7225,
+ "no_rejection": {
+  "gIoU": 0.42489547622163076,
+  "success@0.5": 0.4581314878892734,
+  "by_kind": {
+   "object": {
+    "gIoU": 0.6769253087296121,
+    "success@0.5": 0.7885068299576071
+   },
+   "part": {
+    "gIoU": 0.3200230076966515,
+    "success@0.5": 0.32065856526852216
+   }
+  }
+ },
+ "coverage@0.5": 0.5966782006920415,
+ "oracle_gIoU": 0.5651081205870159,
+ "selector_success_if_covered": 0.7678032938993273
+}

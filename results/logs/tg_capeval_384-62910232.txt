@@ -17,3 +17,51 @@ rank 2: 300/731 images 254s
 rank 0: 300/732 images 258s
 rank 1: 300/731 images 260s
 rank 3: 300/731 images 263s
+rank 2: 400/731 images 333s
+rank 3: 400/731 images 336s
+rank 0: 400/732 images 341s
+rank 1: 400/731 images 342s
+rank 2: 500/731 images 409s
+rank 3: 500/731 images 414s
+rank 0: 500/732 images 418s
+rank 1: 500/731 images 418s
+rank 2: 600/731 images 490s
+rank 3: 600/731 images 494s
+rank 0: 600/732 images 503s
+rank 1: 600/731 images 504s
+rank 2: 700/731 images 566s
+rank 3: 700/731 images 575s
+rank 0: 700/732 images 582s
+rank 1: 700/731 images 584s
+rank 2: recomputed 731 images
+rank 3: recomputed 731 images
+rank 0: recomputed 732 images
+/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+rank 1: recomputed 731 images
+/leonardo_work/AIFAC_S07_041/treeground/runs/s2_from_s1_long_eval_cap384/20261030T105028657181Z_f427b7c0 tau_rej 0.8944723618090452
+/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+{
+ "label": "dev",
+ "split": "PACO-LVIS val, present object / part queries",
+ "node_cap": 384,
+ "queries": 7225,
+ "no_rejection": {
+  "gIoU": 0.4233074557090776,
+  "success@0.5": 0.4593771626297578,
+  "by_kind": {
+   "object": {
+    "gIoU": 0.6666925589009991,
+    "success@0.5": 0.7870937352802638
+   },
+   "part": {
+    "gIoU": 0.32203215698770377,
+    "success@0.5": 0.3230105840846727
+   }
+  }
+ },
+ "coverage@0.5": 0.6213148788927335,
+ "oracle_gIoU": 0.5842301849279722,
+ "selector_success_if_covered": 0.7393628870572511
+}

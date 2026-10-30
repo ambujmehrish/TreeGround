@@ -39,3 +39,207 @@ rank 0: recomputed 732 images
 /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
   return func(*args, **kwargs)
 rank 1: recomputed 731 images
+[rank3]:[E1030 12:02:40.673256045 ProcessGroupNCCL.cpp:741] [PG GUID 0(default_pg) Rank 3] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5, OpType=ALLREDUCE, NumelIn=1, NumelOut=1, Timeout(ms)=600000) ran for 600013 milliseconds before timing out.
+[rank1]:[E1030 12:02:40.708567353 ProcessGroupNCCL.cpp:741] [PG GUID 0(default_pg) Rank 1] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5, OpType=ALLREDUCE, NumelIn=1, NumelOut=1, Timeout(ms)=600000) ran for 600054 milliseconds before timing out.
+[rank2]:[E1030 12:02:40.716198406 ProcessGroupNCCL.cpp:741] [PG GUID 0(default_pg) Rank 2] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5, OpType=ALLREDUCE, NumelIn=1, NumelOut=1, Timeout(ms)=600000) ran for 600062 milliseconds before timing out.
+[rank1]:[E1030 12:02:40.725834239 ProcessGroupNCCL.cpp:2390] [PG ID 0 PG GUID 0(default_pg) Rank 1]  failure detected by watchdog at work sequence id: 5 PG status: last enqueued work: 5, last started work: -1 (), last completed work: 4
+[rank2]:[E1030 12:02:40.725838157 ProcessGroupNCCL.cpp:2390] [PG ID 0 PG GUID 0(default_pg) Rank 2]  failure detected by watchdog at work sequence id: 5 PG status: last enqueued work: 5, last started work: -1 (), last completed work: 4
+[rank3]:[E1030 12:02:40.725839393 ProcessGroupNCCL.cpp:2390] [PG ID 0 PG GUID 0(default_pg) Rank 3]  failure detected by watchdog at work sequence id: 5 PG status: last enqueued work: 5, last started work: -1 (), last completed work: 4
+[rank2]:[E1030 12:02:40.787797456 ProcessGroupNCCL.cpp:785] Stack trace of the failed collective: 
+#0 barrier from /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/distributed_c10d.py:6364
+#1 wrapper from /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/c10d_logger.py:83
+#2 main from /leonardo_work/AIFAC_S07_041/TreeGround/scripts/s2_eval.py:131
+#3 main from /leonardo_work/AIFAC_S07_041/TreeGround/scripts/cap_eval.py:51
+#4 <module> from /leonardo_work/AIFAC_S07_041/TreeGround/scripts/cap_eval.py:71
+
+[rank3]:[E1030 12:02:40.787796912 ProcessGroupNCCL.cpp:785] Stack trace of the failed collective: 
+#0 barrier from /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/distributed_c10d.py:6364
+#1 wrapper from /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/c10d_logger.py:83
+#2 main from /leonardo_work/AIFAC_S07_041/TreeGround/scripts/s2_eval.py:131
+#3 main from /leonardo_work/AIFAC_S07_041/TreeGround/scripts/cap_eval.py:51
+#4 <module> from /leonardo_work/AIFAC_S07_041/TreeGround/scripts/cap_eval.py:71
+
+[rank1]:[E1030 12:02:40.787794419 ProcessGroupNCCL.cpp:785] Stack trace of the failed collective: 
+#0 barrier from /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/distributed_c10d.py:6364
+#1 wrapper from /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/c10d_logger.py:83
+#2 main from /leonardo_work/AIFAC_S07_041/TreeGround/scripts/s2_eval.py:131
+#3 main from /leonardo_work/AIFAC_S07_041/TreeGround/scripts/cap_eval.py:51
+#4 <module> from /leonardo_work/AIFAC_S07_041/TreeGround/scripts/cap_eval.py:71
+
+[rank2]:[E1030 12:02:40.787857564 ProcessGroupNCCL.cpp:2732] [PG ID 0 PG GUID 0(default_pg) Rank 2] First PG on this rank to signal dumping.
+[rank3]:[E1030 12:02:40.787866933 ProcessGroupNCCL.cpp:2732] [PG ID 0 PG GUID 0(default_pg) Rank 3] First PG on this rank to signal dumping.
+[rank1]:[E1030 12:02:40.787883084 ProcessGroupNCCL.cpp:2732] [PG ID 0 PG GUID 0(default_pg) Rank 1] First PG on this rank to signal dumping.
+[rank2]:[E1030 12:02:41.501306817 ProcessGroupNCCL.cpp:1982] [PG ID 0 PG GUID 0(default_pg) Rank 2] Received a dump signal due to a collective timeout from this local rank and we will try our best to dump the debug info. Last enqueued NCCL work: 5, last completed NCCL work: 4.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank3]:[E1030 12:02:41.501337474 ProcessGroupNCCL.cpp:1982] [PG ID 0 PG GUID 0(default_pg) Rank 3] Received a dump signal due to a collective timeout from this local rank and we will try our best to dump the debug info. Last enqueued NCCL work: 5, last completed NCCL work: 4.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank0]:[E1030 12:02:41.501403235 ProcessGroupNCCL.cpp:1917] [PG ID 0 PG GUID 0(default_pg) Rank 0] Observed flight recorder dump signal from another rank via TCPStore.
+[rank0]:[E1030 12:02:41.501519669 ProcessGroupNCCL.cpp:1982] [PG ID 0 PG GUID 0(default_pg) Rank 0] Received a dump signal due to a collective timeout from  rank 1 and we will try our best to dump the debug info. Last enqueued NCCL work: 4, last completed NCCL work: 4.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank1]:[E1030 12:02:41.501521756 ProcessGroupNCCL.cpp:1982] [PG ID 0 PG GUID 0(default_pg) Rank 1] Received a dump signal due to a collective timeout from this local rank and we will try our best to dump the debug info. Last enqueued NCCL work: 5, last completed NCCL work: 4.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank2]:[E1030 12:02:41.501631372 ProcessGroupNCCL.cpp:1694] [PG ID 0 PG GUID 0(default_pg) Rank 2] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank0]:[E1030 12:02:41.501633206 ProcessGroupNCCL.cpp:1694] [PG ID 0 PG GUID 0(default_pg) Rank 0] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank3]:[E1030 12:02:41.501644648 ProcessGroupNCCL.cpp:1694] [PG ID 0 PG GUID 0(default_pg) Rank 3] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank1]:[E1030 12:02:41.501772497 ProcessGroupNCCL.cpp:1694] [PG ID 0 PG GUID 0(default_pg) Rank 1] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+/leonardo_work/AIFAC_S07_041/treeground/runs/s2_from_s1_long_eval_cap512/20261030T104113647789Z_f427b7c0 tau_rej 0.8944723618090452
+/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+[rank1]:[E1030 12:05:13.656107582 ProcessGroupNCCL.cpp:802] [PG GUID 0(default_pg) Rank 1] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete data.
+[rank1]:[E1030 12:05:13.656149075 ProcessGroupNCCL.cpp:816] [PG GUID 0(default_pg) Rank 1] To avoid data inconsistency, we are taking the entire process down.
+[rank3]:[E1030 12:05:13.656160477 ProcessGroupNCCL.cpp:802] [PG GUID 0(default_pg) Rank 3] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete data.
+[rank3]:[E1030 12:05:13.656195927 ProcessGroupNCCL.cpp:816] [PG GUID 0(default_pg) Rank 3] To avoid data inconsistency, we are taking the entire process down.
+[rank2]:[E1030 12:05:13.656437603 ProcessGroupNCCL.cpp:802] [PG GUID 0(default_pg) Rank 2] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete data.
+[rank2]:[E1030 12:05:13.656471873 ProcessGroupNCCL.cpp:816] [PG GUID 0(default_pg) Rank 2] To avoid data inconsistency, we are taking the entire process down.
+[rank2]:[E1030 12:05:13.753496571 ProcessGroupNCCL.cpp:2192] [PG ID 0 PG GUID 0(default_pg) Rank 2] Process group watchdog thread terminated with exception: [PG GUID 0(default_pg) Rank 2] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5, OpType=ALLREDUCE, NumelIn=1, NumelOut=1, Timeout(ms)=600000) ran for 600062 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x154a803fa60d in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x154a803fb5e2 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x154a803fb712 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x154a81b113b7 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x154a81b1d351 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x154a81b1e5c7 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x154b8582a0e6 in /leonardo_work/AIFAC_S07_041/treeground/py312/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x81ca (0x154b9566b1ca in /lib64/libpthread.so.0)
+frame #8: clone + 0x43 (0x154b94b4de73 in /lib64/libc.so.6)
+
+[rank1]:[E1030 12:05:13.753499214 ProcessGroupNCCL.cpp:2192] [PG ID 0 PG GUID 0(default_pg) Rank 1] Process group watchdog thread terminated with exception: [PG GUID 0(default_pg) Rank 1] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5, OpType=ALLREDUCE, NumelIn=1, NumelOut=1, Timeout(ms)=600000) ran for 600054 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x1533cb65260d in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x1533cb6535e2 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x1533cb653712 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x1533ccd693b7 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x1533ccd75351 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x1533ccd765c7 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x1534d0a7f0e6 in /leonardo_work/AIFAC_S07_041/treeground/py312/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x81ca (0x1534e08c01ca in /lib64/libpthread.so.0)
+frame #8: clone + 0x43 (0x1534dfda2e73 in /lib64/libc.so.6)
+
+[rank3]:[E1030 12:05:13.753509610 ProcessGroupNCCL.cpp:2192] [PG ID 0 PG GUID 0(default_pg) Rank 3] Process group watchdog thread terminated with exception: [PG GUID 0(default_pg) Rank 3] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5, OpType=ALLREDUCE, NumelIn=1, NumelOut=1, Timeout(ms)=600000) ran for 600013 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x14ef8f2de60d in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x14ef8f2df5e2 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x14ef8f2df712 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x14ef909f53b7 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x14ef90a01351 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x14ef90a025c7 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x14f0947100e6 in /leonardo_work/AIFAC_S07_041/treeground/py312/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x81ca (0x14f0a45511ca in /lib64/libpthread.so.0)
+frame #8: clone + 0x43 (0x14f0a3a33e73 in /lib64/libc.so.6)
+
+terminate called after throwing an instance of 'c10::DistBackendErrorterminate called after throwing an instance of ''
+c10::DistBackendErrorterminate called after throwing an instance of ''
+c10::DistBackendError'
+  what():    what():  [PG ID 0 PG GUID 0(default_pg) Rank 2] Process group watchdog thread terminated with exception: [PG GUID 0(default_pg) Rank 2] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5, OpType=ALLREDUCE, NumelIn=1, NumelOut=1, Timeout(ms)=600000) ran for 600062 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x154a803fa60d in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x154a803fb5e2 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x154a803fb712 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x154a81b113b7 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x154a81b1d351 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x154a81b1e5c7 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x154b8582a0e6 in /leonardo_work/AIFAC_S07_041/treeground/py312/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x81ca (0x154b9566b1ca in /lib64/libpthread.so.0)
+frame #8: clone + 0x43 (0x154b94b4de73 in /lib64/libc.so.6)
+
+Exception raised from run at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2198 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x154a803fa60d in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x154a803fb5e2 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x154a803fb712 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #3: <unknown function> + 0xfa813a (0x154a814ed13a in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xdf0e6 (0x154b8582a0e6 in /leonardo_work/AIFAC_S07_041/treeground/py312/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x81ca (0x154b9566b1ca in /lib64/libpthread.so.0)
+frame #6: clone + 0x43 (0x154b94b4de73 in /lib64/libc.so.6)
+  what():  [PG ID 0 PG GUID 0(default_pg) Rank 1] Process group watchdog thread terminated with exception: [PG GUID 0(default_pg) Rank 1] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5, OpType=ALLREDUCE, NumelIn=1, NumelOut=1, Timeout(ms)=600000) ran for 600054 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x1533cb65260d in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x1533cb6535e2 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x1533cb653712 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x1533ccd693b7 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x1533ccd75351 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x1533ccd765c7 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x1534d0a7f0e6 in /leonardo_work/AIFAC_S07_041/treeground/py312/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x81ca (0x1534e08c01ca in /lib64/libpthread.so.0)
+frame #8: clone + 0x43 (0x1534dfda2e73 in /lib64/libc.so.6)
+
+Exception raised from run at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2198 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x1533cb65260d in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x1533cb6535e2 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x1533cb653712 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #3: <unknown function> + 0xfa813a (0x1533cc74513a in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xdf0e6 (0x1534d0a7f0e6 in /leonardo_work/AIFAC_S07_041/treeground/py312/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x81ca (0x1534e08c01ca in /lib64/libpthread.so.0)
+frame #6: clone + 0x43 (0x1534dfda2e73 in /lib64/libc.so.6)
+
+[PG ID 0 PG GUID 0(default_pg) Rank 3] Process group watchdog thread terminated with exception: [PG GUID 0(default_pg) Rank 3] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5, OpType=ALLREDUCE, NumelIn=1, NumelOut=1, Timeout(ms)=600000) ran for 600013 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x14ef8f2de60d in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x14ef8f2df5e2 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x14ef8f2df712 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x14ef909f53b7 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x14ef90a01351 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x14ef90a025c7 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x14f0947100e6 in /leonardo_work/AIFAC_S07_041/treeground/py312/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x81ca (0x14f0a45511ca in /lib64/libpthread.so.0)
+frame #8: clone + 0x43 (0x14f0a3a33e73 in /lib64/libc.so.6)
+
+Exception raised from run at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2198 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x14ef8f2de60d in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x14ef8f2df5e2 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x14ef8f2df712 in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #3: <unknown function> + 0xfa813a (0x14ef903d113a in /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xdf0e6 (0x14f0947100e6 in /leonardo_work/AIFAC_S07_041/treeground/py312/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x81ca (0x14f0a45511ca in /lib64/libpthread.so.0)
+frame #6: clone + 0x43 (0x14f0a3a33e73 in /lib64/libc.so.6)
+
+
+W1030 12:05:14.214000 3860241 torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3860277 closing signal SIGTERM
+E1030 12:05:14.679000 3860241 torch/distributed/elastic/multiprocessing/api.py:1002] failed (exitcode: -6) local_rank: 1 (pid: 3860278) of binary: /leonardo_work/AIFAC_S07_041/treeground/tg-venv/bin/python
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/bin/torchrun", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 380, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/run.py", line 1138, in main
+    run(args)
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/run.py", line 1129, in run
+    elastic_launch(
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 197, in __call__
+    return launch_agent(
+           ^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 386, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+=========================================================
+scripts/cap_eval.py FAILED
+---------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-10-30_12:05:14
+  host      : lrdn3419.leonardo.local
+  rank      : 0 (local_rank: 0)
+  exitcode  : -15 (pid: 3860277)  (SIGTERM)
+  error_file: <N/A>
+  traceback : Signal 15 (SIGTERM) received by PID 3860277
+[2]:
+  time      : 2026-10-30_12:05:14
+  host      : lrdn3419.leonardo.local
+  rank      : 2 (local_rank: 2)
+  exitcode  : -6 (pid: 3860279)  (SIGABRT)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 3860279
+[3]:
+  time      : 2026-10-30_12:05:14
+  host      : lrdn3419-net10-3.leonardo.local
+  rank      : 3 (local_rank: 3)
+  exitcode  : -6 (pid: 3860280)  (SIGABRT)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 3860280
+---------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-10-30_12:05:14
+  host      : lrdn3419.leonardo.local
+  rank      : 1 (local_rank: 1)
+  exitcode  : -6 (pid: 3860278)  (SIGABRT)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 3860278
+=========================================================

@@ -24,7 +24,7 @@ ta:
     targets: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
   sources: {paco_train: 0.6, pascal_part_train: 0.2, grefcoco_train: 0.2}
   paco_rest: true               # add the PACO-LVIS train images outside the 10k worklist
-  paco_rest_shards: 256
+  paco_rest_shards: 32            # array size of scripts/ta_paco_nodes.py (not part of the cache identity)
   paco_rest_smoke_images: 16
   eval_every: 1000
   eval_images: 500

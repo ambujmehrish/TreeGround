@@ -903,6 +903,33 @@ PROPOSED_DEVIATIONS = [
         "expected_impact": "new Group C rows and a Group A row on gRefCOCO, PARTONOMY and the OP-HRG benchmarks; "
                            "D13 / D31 rows stay as recorded, but headline comparisons use the D40 rows",
     },
+    {
+        "id": "D41",
+        "spec_section": "2 (selector), 3 (training): tree attention",
+        "change": "one input token per capped D3/D4 node appended after the answer (scripts/ta_train.py, "
+                  "treeground/tree_attn.py): embedding = MLP of the coverage-weighted mean image-token input "
+                  "embedding and 9 label-free geometry values (box, log area, log1p depth / #children / #siblings, "
+                  "log area ratio to the parent); 3-D rotary position = (after the answer, image offset + centroid "
+                  "row, image offset + centroid column); custom attention mask: text and image tokens stay causal "
+                  "and never see node tokens; a node token sees all non-image text, the image tokens of its own "
+                  "cells dilated by one cell, and itself, its parent, children and siblings. Score = cosine of the "
+                  "<SEL> head and the node-token head with a learned scale (init 1/0.07, at most 100) and bias "
+                  "(init -log K); heads at layers 12, 24 and 36 trained jointly, the layer chosen with the "
+                  "checkpoint by the S2 rule on the PACO val subset. Trained from scratch (base Qwen3-VL-4B, fresh "
+                  "LoRA, random heads; no S1 or S2 weights), S2 targets, negatives and focal + LM loss, 12k steps, "
+                  "batch 32, 500 warm-up steps. Data: the full PACO-LVIS train split (worklist + "
+                  "scripts/ta_paco_nodes.py for the rest, same proposals and node budget), Pascal-Part train, "
+                  "gRefCOCO train, shares 0.6 / 0.2 / 0.2. Four variants with the identical recipe: flat (S2 node "
+                  "features, no node tokens), full (node tokens attend to all nodes), tree, random_tree (parents "
+                  "shuffled within each depth, fixed per image); runs/ta_<variant>, evaluated by "
+                  "scripts/ta_eval.py with the unchanged V2 / V4 evaluators",
+        "reason": "the S2 selector scores every node independently: restricting the part search to the tree "
+                  "subtree matches the flat search (PACO val chains 0.656 vs 0.690) while a shuffled tree drops to "
+                  "0.238, so the tree is correct but unused; wrong picks are mostly the parent, a child or a "
+                  "near-duplicate (cosine 0.92 to the right node); S1 warm-starting is removed so every row of the "
+                  "ablation starts from the same point",
+        "expected_impact": "new stages only; S2-long and every existing cache and result are unchanged",
+    },
 ]
 
 

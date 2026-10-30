@@ -208,16 +208,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62715868",
-    "name": "q_2026-10-29c-s5parts-gres-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62715869",
     "name": "q_2026-10-29c-s5parts-pacotest-merge",
     "nodes": "1",
@@ -228,8 +218,28 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "62715868",
+    "name": "q_2026-10-29c-s5parts-gres-merge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62715865",
     "name": "q_2026-10-29c-s5paco-pt-merge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62715863",
+    "name": "q_2026-10-29c-s5paco-pacotest-merge",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
@@ -245,16 +255,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62715863",
-    "name": "q_2026-10-29c-s5paco-pacotest-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:00:00"
    },
    {
     "elapsed": "0:00",
@@ -325,6 +325,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "1:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62584048",
+    "name": "paperA_sweep",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "3:00:00"
    },
    {
     "elapsed": "0:00",
@@ -658,6 +668,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "62714055",
+    "name": "q_2026-10-29c-s5paco-train",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62714846_[0-15]",
     "name": "q_2026-10-29c-s5gref-gres-val",
     "nodes": "1",
@@ -688,28 +708,8 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62714055",
-    "name": "q_2026-10-29c-s5paco-train",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62714053",
     "name": "q_2026-10-29c-s5nosoft-train",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62714049",
-    "name": "q_2026-10-29c-s5gref-train",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
     "start": "N/A",
@@ -725,6 +725,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "4:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62714049",
+    "name": "q_2026-10-29c-s5gref-train",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "16:00:00"
    },
    {
     "elapsed": "0:00",
@@ -795,16 +805,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62584048",
-    "name": "paperA_sweep",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "3:00:00"
    },
    {
     "elapsed": "0:00",
@@ -15718,5 +15718,5 @@
    "waiting_for": null
   }
  },
- "updated": 1793365586.6244254
+ "updated": 1793369256.0112307
 }

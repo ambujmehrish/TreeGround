@@ -1,0 +1,247 @@
+{
+  "diagnostic": true,
+  "images": 2380,
+  "label": "dev",
+  "options": {
+    "amg_default": {
+      "chain_object_found": 0.12955703645629166,
+      "chain_part_found": 0.03606428851430812,
+      "chain_tree_feasible": 0.0001960015680125441,
+      "chains": 5102,
+      "confusers_per_chain_part_mean": 0.013916111328890632,
+      "good_candidates_per_found_part_mean": 1.0108695652173914,
+      "nodes_per_image_max": 107,
+      "nodes_per_image_mean": 5.752521008403361,
+      "part_recall": 0.030434992983984128,
+      "part_recall_by_size": {
+        "large": 0.025689819219790674,
+        "medium": 0.06519721577726217,
+        "small": 0.020972167777342218
+      },
+      "setting": {
+        "sam_iou": 0.88,
+        "stability": 0.95
+      }
+    },
+    "cap256_stability": {
+      "chain_object_found": 0.944139553116425,
+      "chain_part_found": 0.46021168169345356,
+      "chain_tree_feasible": 0.40787926303410427,
+      "chains": 5102,
+      "confusers_per_chain_part_mean": 1.3526068208545667,
+      "good_candidates_per_found_part_mean": 4.235519591141397,
+      "nodes_per_image_max": 256,
+      "nodes_per_image_mean": 256.0,
+      "part_recall": 0.3471718198093579,
+      "part_recall_by_size": {
+        "large": 0.7411988582302569,
+        "medium": 0.6262180974477958,
+        "small": 0.2415392656474585
+      },
+      "setting": {
+        "cap": 256
+      }
+    },
+    "cap384_stability": {
+      "chain_object_found": 0.9655037240297922,
+      "chain_part_found": 0.4882399059192474,
+      "chain_tree_feasible": 0.45178361426891417,
+      "chains": 5102,
+      "confusers_per_chain_part_mean": 2.271266170129361,
+      "good_candidates_per_found_part_mean": 5.927739863508631,
+      "nodes_per_image_max": 384,
+      "nodes_per_image_mean": 383.9983193277311,
+      "part_recall": 0.3720907727294721,
+      "part_recall_by_size": {
+        "large": 0.8001902949571836,
+        "medium": 0.6691415313225058,
+        "small": 0.2590487390565791
+      },
+      "setting": {
+        "cap": 384
+      }
+    },
+    "cap512_stability": {
+      "chain_object_found": 0.9725597804782439,
+      "chain_part_found": 0.5062720501764014,
+      "chain_tree_feasible": 0.4741277930223442,
+      "chains": 5102,
+      "confusers_per_chain_part_mean": 3.24500196001568,
+      "good_candidates_per_found_part_mean": 7.193573364305071,
+      "nodes_per_image_max": 512,
+      "nodes_per_image_mean": 511.8285714285714,
+      "part_recall": 0.3877195529104369,
+      "part_recall_by_size": {
+        "large": 0.8411037107516651,
+        "medium": 0.6983758700696056,
+        "small": 0.26911015288122303
+      },
+      "setting": {
+        "cap": 512
+      }
+    },
+    "level_cap512": {
+      "chain_object_found": 0.9739317914543316,
+      "chain_part_found": 0.48059584476675815,
+      "chain_tree_feasible": 0.44982359858878873,
+      "chains": 5102,
+      "confusers_per_chain_part_mean": 3.4633477067816543,
+      "good_candidates_per_found_part_mean": 7.819738988580751,
+      "nodes_per_image_max": 512,
+      "nodes_per_image_mean": 511.8285714285714,
+      "part_recall": 0.36642957371655294,
+      "part_recall_by_size": {
+        "large": 0.8287345385347288,
+        "medium": 0.6619489559164733,
+        "small": 0.2514700117600941
+      },
+      "setting": {
+        "balance": "level",
+        "cap": 512
+      }
+    },
+    "q80_cap256": {
+      "chain_object_found": 0.7757742061936496,
+      "chain_part_found": 0.21168169345354762,
+      "chain_tree_feasible": 0.14033712269698156,
+      "chains": 5102,
+      "confusers_per_chain_part_mean": 0.31125049000392,
+      "good_candidates_per_found_part_mean": 3.1972222222222224,
+      "nodes_per_image_max": 256,
+      "nodes_per_image_mean": 66.459243697479,
+      "part_recall": 0.16456186190545313,
+      "part_recall_by_size": {
+        "large": 0.5480494766888677,
+        "medium": 0.3382830626450116,
+        "small": 0.08931138115771593
+      },
+      "setting": {
+        "cap": 256,
+        "sam_iou": 0.8
+      }
+    },
+    "q80_cap512": {
+      "chain_object_found": 0.7757742061936496,
+      "chain_part_found": 0.21187769502156018,
+      "chain_tree_feasible": 0.14033712269698156,
+      "chains": 5102,
+      "confusers_per_chain_part_mean": 0.31125049000392,
+      "good_candidates_per_found_part_mean": 3.196114708603145,
+      "nodes_per_image_max": 349,
+      "nodes_per_image_mean": 66.5436974789916,
+      "part_recall": 0.16509411138530022,
+      "part_recall_by_size": {
+        "large": 0.5480494766888677,
+        "medium": 0.339907192575406,
+        "small": 0.08957271658173266
+      },
+      "setting": {
+        "cap": 512,
+        "sam_iou": 0.8
+      }
+    },
+    "q80_size_cap512": {
+      "chain_object_found": 0.7757742061936496,
+      "chain_part_found": 0.21187769502156018,
+      "chain_tree_feasible": 0.14033712269698156,
+      "chains": 5102,
+      "confusers_per_chain_part_mean": 0.31125049000392,
+      "good_candidates_per_found_part_mean": 3.196114708603145,
+      "nodes_per_image_max": 349,
+      "nodes_per_image_mean": 66.5436974789916,
+      "part_recall": 0.16509411138530022,
+      "part_recall_by_size": {
+        "large": 0.5480494766888677,
+        "medium": 0.339907192575406,
+        "small": 0.08957271658173266
+      },
+      "setting": {
+        "balance": "size",
+        "cap": 512,
+        "sam_iou": 0.8
+      }
+    },
+    "q80_size_cap512_nospill": {
+      "chain_object_found": 0.7606820854566837,
+      "chain_part_found": 0.20893767150137202,
+      "chain_tree_feasible": 0.1377891023128185,
+      "chains": 5102,
+      "confusers_per_chain_part_mean": 0.3026264210113681,
+      "good_candidates_per_found_part_mean": 3.1904315196998123,
+      "nodes_per_image_max": 349,
+      "nodes_per_image_mean": 64.47773109243697,
+      "part_recall": 0.1627715682005129,
+      "part_recall_by_size": {
+        "large": 0.544243577545195,
+        "medium": 0.33387470997679813,
+        "small": 0.08839670717365739
+      },
+      "setting": {
+        "balance": "size",
+        "cap": 512,
+        "nospill": true,
+        "sam_iou": 0.8
+      }
+    },
+    "size_cap256": {
+      "chain_object_found": 0.9598196785574284,
+      "chain_part_found": 0.44276754214033714,
+      "chain_tree_feasible": 0.395531164249314,
+      "chains": 5102,
+      "confusers_per_chain_part_mean": 1.5213641709133674,
+      "good_candidates_per_found_part_mean": 4.81319167773351,
+      "nodes_per_image_max": 256,
+      "nodes_per_image_mean": 256.0,
+      "part_recall": 0.3123336720375478,
+      "part_recall_by_size": {
+        "large": 0.8058991436726927,
+        "medium": 0.608584686774942,
+        "small": 0.19502156017248137
+      },
+      "setting": {
+        "balance": "size",
+        "cap": 256
+      }
+    },
+    "size_cap512": {
+      "chain_object_found": 0.9725597804782439,
+      "chain_part_found": 0.495687965503724,
+      "chain_tree_feasible": 0.4635437083496668,
+      "chains": 5102,
+      "confusers_per_chain_part_mean": 3.284594276754214,
+      "good_candidates_per_found_part_mean": 7.5278766310794785,
+      "nodes_per_image_max": 512,
+      "nodes_per_image_mean": 511.8285714285714,
+      "part_recall": 0.3674940726762472,
+      "part_recall_by_size": {
+        "large": 0.857278782112274,
+        "medium": 0.6777262180974478,
+        "small": 0.24650463870377629
+      },
+      "setting": {
+        "balance": "size",
+        "cap": 512
+      }
+    },
+    "uncapped": {
+      "chain_object_found": 0.9758918071344571,
+      "chain_part_found": 0.5284202273618189,
+      "chain_tree_feasible": 0.4982359858878871,
+      "chains": 5102,
+      "confusers_per_chain_part_mean": 6.625245001960016,
+      "good_candidates_per_found_part_mean": 10.311943620178042,
+      "nodes_per_image_max": 2397,
+      "nodes_per_image_mean": 1197.9172268907564,
+      "part_recall": 0.40896114578797116,
+      "part_recall_by_size": {
+        "large": 0.8867745004757374,
+        "medium": 0.7517401392111369,
+        "small": 0.2796289036978962
+      },
+      "setting": {}
+    }
+  },
+  "split": "PACO-LVIS val",
+  "stored_masks_per_image_mean": 1197.9172268907564,
+  "tau_d": 0.9
+}

@@ -1,10 +1,12 @@
 import argparse
 import json
 import sys
+from datetime import timedelta
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import torch.distributed as dist
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -20,7 +22,7 @@ from treeground.run import ProtocolError, write_json  # noqa: E402
 # '<stage>_eval_cap<k>' so the official '<stage>_eval' run is never replaced. Adds a no-rejection summary over all
 # present queries (gIoU, success@0.5) so caps compare directly; the conditioned selector success depends on coverage.
 
-_node_cap, _start_run = I.node_cap, S2E.start_run
+_node_cap, _start_run, _init_pg = I.node_cap, S2E.start_run, dist.init_process_group
 RUN = {}
 
 
@@ -46,6 +48,11 @@ def main() -> None:
         RUN["path"] = run
         return run
 
+    def init_pg(*a, **kw):
+        # rank 0 scores alone while the other ranks wait at the final barrier; the default 10 min limit is too short at large caps
+        return _init_pg(*a, **{"timeout": timedelta(hours=3), **kw})
+
+    dist.init_process_group = init_pg
     I.node_cap = node_cap
     S2E.start_run = start_run
     S2E.main()

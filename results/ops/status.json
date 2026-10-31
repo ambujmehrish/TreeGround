@@ -1,8 +1,8 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 283,
-   "RUNNING": 4
+   "PENDING": 272,
+   "RUNNING": 10
   },
   "ended_24h": [
    {
@@ -54,12 +54,52 @@
     "state": "CANCELLED"
    },
    {
+    "elapsed": "00:04:27",
+    "end": "2026-10-31T04:46:41",
+    "exit": "0:0",
+    "jobid": "62554141",
+    "name": "paperA_sweep",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:03:41",
+    "end": "2026-10-31T04:48:16",
+    "exit": "0:0",
+    "jobid": "62554146",
+    "name": "paperA_sweep",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:03:46",
+    "end": "2026-10-31T04:50:07",
+    "exit": "0:0",
+    "jobid": "62554148",
+    "name": "paperA_sweep",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:03:56",
+    "end": "2026-10-31T04:51:27",
+    "exit": "0:0",
+    "jobid": "62554150",
+    "name": "paperA_sweep",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:00:18",
     "end": "2026-10-30T18:25:15",
     "exit": "1:0",
     "jobid": "62584048",
     "name": "paperA_sweep",
     "state": "FAILED"
+   },
+   {
+    "elapsed": "00:05:52",
+    "end": "2026-10-31T04:46:55",
+    "exit": "0:0",
+    "jobid": "62586095",
+    "name": "paperA_sweep",
+    "state": "COMPLETED"
    },
    {
     "elapsed": "00:46:25",
@@ -533,6 +573,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "62714828_[0-15]",
+    "name": "q_2026-10-29c-ophrg-s5-instructpart",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "4:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62715857",
     "name": "q_2026-10-29c-s5nosoft-pacotest-merge",
     "nodes": "1",
@@ -883,6 +933,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "62714832_[0-15]",
+    "name": "q_2026-10-29c-ophrg-s5-partimagenet",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "4:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62714851_[0-15]",
     "name": "q_2026-10-29c-s5nosoft-gres-testB",
     "nodes": "1",
@@ -943,36 +1003,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62714055",
-    "name": "q_2026-10-29c-s5paco-train",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "2026-10-31T04:27:15",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62714053",
-    "name": "q_2026-10-29c-s5nosoft-train",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "2026-10-31T04:24:23",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62714049",
-    "name": "q_2026-10-29c-s5gref-train",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "2026-10-31T04:23:41",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62714843_[0-15]",
     "name": "q_2026-10-29c-s5gref-gres-testA",
     "nodes": "1",
@@ -980,16 +1010,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62714057",
-    "name": "q_2026-10-29c-s5parts-train",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "2026-10-31T04:27:16",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
    },
    {
     "elapsed": "0:00",
@@ -1033,36 +1053,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62714832_[0-15]",
-    "name": "q_2026-10-29c-ophrg-s5-partimagenet",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62714828_[0-15]",
-    "name": "q_2026-10-29c-ophrg-s5-instructpart",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62714065",
-    "name": "q_2026-10-29c-s5v3-train",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "2026-10-31T04:27:17",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62584051",
     "name": "paperA_quality",
     "nodes": "1",
@@ -1070,66 +1060,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "6:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62586095",
-    "name": "paperA_sweep",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62554141",
-    "name": "paperA_sweep",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62554146",
-    "name": "paperA_sweep",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62554148",
-    "name": "paperA_sweep",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62554150",
-    "name": "paperA_sweep",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62554152",
-    "name": "paperA_sweep",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "3:00:00"
    },
    {
     "elapsed": "0:00",
@@ -1553,6 +1483,26 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "62531842",
+    "name": "fact-wavedec",
+    "nodes": "2",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62531847",
+    "name": "fact-wavedec",
+    "nodes": "2",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62604672",
     "name": "fact-tts-train",
     "nodes": "2",
@@ -1913,16 +1863,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62531842",
-    "name": "fact-wavedec",
-    "nodes": "2",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62692599",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -1950,16 +1890,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62531847",
-    "name": "fact-wavedec",
-    "nodes": "2",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
    },
    {
     "elapsed": "0:00",
@@ -2513,16 +2443,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62693622",
-    "name": "ev_reader_Ours_s0_clean_it074_B_c2",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62698818",
     "name": "paperA_sweep",
     "nodes": "1",
@@ -2530,6 +2450,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "3:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62693622",
+    "name": "ev_reader_Ours_s0_clean_it074_B_c2",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "4:00:00"
    },
    {
     "elapsed": "0:00",
@@ -2973,16 +2903,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62693631",
-    "name": "ev_reader_Ours_s1_clean_it074_A_c2",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62703263",
     "name": "hypermem_H0_r4",
     "nodes": "1",
@@ -2990,6 +2910,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62693631",
+    "name": "ev_reader_Ours_s1_clean_it074_A_c2",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "4:00:00"
    },
    {
     "elapsed": "0:00",
@@ -3192,7 +3122,17 @@
     "time_limit": "12:00:00"
    },
    {
-    "elapsed": "7:37",
+    "elapsed": "57:18",
+    "jobid": "62714049",
+    "name": "q_2026-10-29c-s5gref-train",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3056",
+    "start": "2026-10-31T03:54:24",
+    "state": "RUNNING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "1:10:29",
     "jobid": "62943025",
     "name": "tg_ta_flat",
     "nodes": "1",
@@ -3202,7 +3142,47 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "52:15",
+    "elapsed": "49:14",
+    "jobid": "62714053",
+    "name": "q_2026-10-29c-s5nosoft-train",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn2321",
+    "start": "2026-10-31T04:02:28",
+    "state": "RUNNING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "49:14",
+    "jobid": "62714055",
+    "name": "q_2026-10-29c-s5paco-train",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn2760",
+    "start": "2026-10-31T04:02:28",
+    "state": "RUNNING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "49:14",
+    "jobid": "62714057",
+    "name": "q_2026-10-29c-s5parts-train",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3016",
+    "start": "2026-10-31T04:02:28",
+    "state": "RUNNING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "48:38",
+    "jobid": "62714065",
+    "name": "q_2026-10-29c-s5v3-train",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3256",
+    "start": "2026-10-31T04:03:04",
+    "state": "RUNNING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "1:55:07",
     "jobid": "62943027",
     "name": "tg_ta_full",
     "nodes": "1",
@@ -3212,7 +3192,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "1:02:46",
+    "elapsed": "2:05:38",
     "jobid": "62943028",
     "name": "tg_ta_tree",
     "nodes": "1",
@@ -3222,7 +3202,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "1:26:58",
+    "elapsed": "2:29:50",
     "jobid": "62943030",
     "name": "tg_ta_random_tree",
     "nodes": "1",
@@ -3230,6 +3210,16 @@
     "start": "2026-10-31T02:21:52",
     "state": "RUNNING",
     "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "3:35",
+    "jobid": "62554152",
+    "name": "paperA_sweep",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn2647",
+    "start": "2026-10-31T04:48:07",
+    "state": "RUNNING",
+    "time_limit": "3:00:00"
    },
    {
     "elapsed": "0:00",
@@ -15336,7 +15326,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1793271925.1826267,
@@ -15561,7 +15551,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1793271925.6235907,
@@ -15696,7 +15686,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1793271926.1214433,
@@ -15831,7 +15821,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1793271926.6980927,
@@ -15966,7 +15956,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1793271928.1888812,
@@ -16003,5 +15993,5 @@
    "waiting_for": null
   }
  },
- "updated": 1793414930.613232
+ "updated": 1793418702.7993805
 }

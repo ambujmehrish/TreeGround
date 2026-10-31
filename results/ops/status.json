@@ -1,7 +1,7 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 209
+   "PENDING": 208
   },
   "ended_24h": [
    {
@@ -1717,14 +1717,6 @@
     "state": "COMPLETED"
    },
    {
-    "elapsed": "00:28:26",
-    "end": "2026-10-30T13:53:53",
-    "exit": "0:0",
-    "jobid": "62916040",
-    "name": "tg_capeval_512",
-    "state": "COMPLETED"
-   },
-   {
     "elapsed": "00:06:13",
     "end": "2026-10-30T16:03:55",
     "exit": "0:0",
@@ -1794,6 +1786,14 @@
     "exit": "0:0",
     "jobid": "62943046",
     "name": "tg_ta_eval_full",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:25:23",
+    "end": "2026-10-31T14:08:29",
+    "exit": "0:0",
+    "jobid": "62943049",
+    "name": "tg_ta_eval_tree",
     "state": "COMPLETED"
    },
    {
@@ -2070,16 +2070,6 @@
    }
   ],
   "squeue": [
-   {
-    "elapsed": "0:00",
-    "jobid": "62943049",
-    "name": "tg_ta_eval_tree",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "6:00:00"
-   },
    {
     "elapsed": "0:00",
     "jobid": "62604671",
@@ -3482,6 +3472,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "62703263",
+    "name": "hypermem_H0_r4",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62416050",
     "name": "fact-wavedec",
     "nodes": "2",
@@ -3649,16 +3649,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62703263",
-    "name": "hypermem_H0_r4",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
    },
    {
     "elapsed": "0:00",
@@ -3972,16 +3962,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62693631",
-    "name": "ev_reader_Ours_s1_clean_it074_A_c2",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62541763",
     "name": "paperA_sweep",
     "nodes": "1",
@@ -3989,6 +3969,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "12:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62693631",
+    "name": "ev_reader_Ours_s1_clean_it074_A_c2",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "4:00:00"
    },
    {
     "elapsed": "0:00",
@@ -16902,5 +16892,5 @@
    "waiting_for": null
   }
  },
- "updated": 1793449297.6438606
+ "updated": 1793453158.1317737
 }

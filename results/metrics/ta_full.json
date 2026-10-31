@@ -1,0 +1,512 @@
+{
+  "accumulation": 1,
+  "best_checkpoint": "best.pt",
+  "best_layer": 36,
+  "best_step": 12000,
+  "best_val_selector_success": 0.8708955223880597,
+  "deviations": [
+    "D10",
+    "D21",
+    "D41"
+  ],
+  "eval_curve": [
+    {
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "by_kind": {
+            "object": 0.00482315112540193,
+            "part": 0.008356545961002786
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.006716417910447761
+        },
+        "24": {
+          "by_kind": {
+            "object": 0.008038585209003215,
+            "part": 0.006963788300835654
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.007462686567164179
+        },
+        "36": {
+          "by_kind": {
+            "object": 0.01929260450160772,
+            "part": 0.01532033426183844
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.017164179104477612
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.017164179104477612,
+      "step": 0
+    },
+    {
+      "best_layer": 24,
+      "by_layer": {
+        "12": {
+          "by_kind": {
+            "object": 0.8022508038585209,
+            "part": 0.5069637883008357
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.6440298507462686
+        },
+        "24": {
+          "by_kind": {
+            "object": 0.8729903536977492,
+            "part": 0.6935933147632312
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.7768656716417911
+        },
+        "36": {
+          "by_kind": {
+            "object": 0.8713826366559485,
+            "part": 0.6866295264623955
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.7723880597014925
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.7768656716417911,
+      "step": 1000
+    },
+    {
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "by_kind": {
+            "object": 0.8504823151125402,
+            "part": 0.6114206128133705
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.7223880597014926
+        },
+        "24": {
+          "by_kind": {
+            "object": 0.8729903536977492,
+            "part": 0.7214484679665738
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.7917910447761194
+        },
+        "36": {
+          "by_kind": {
+            "object": 0.882636655948553,
+            "part": 0.7395543175487466
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8059701492537313
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8059701492537313,
+      "step": 2000
+    },
+    {
+      "best_layer": 24,
+      "by_layer": {
+        "12": {
+          "by_kind": {
+            "object": 0.8745980707395499,
+            "part": 0.6462395543175488
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.7522388059701492
+        },
+        "24": {
+          "by_kind": {
+            "object": 0.8938906752411575,
+            "part": 0.7632311977715878
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8238805970149253
+        },
+        "36": {
+          "by_kind": {
+            "object": 0.8906752411575563,
+            "part": 0.7590529247910863
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8201492537313433
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8238805970149253,
+      "step": 3000
+    },
+    {
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "by_kind": {
+            "object": 0.8681672025723473,
+            "part": 0.6727019498607242
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.7634328358208955
+        },
+        "24": {
+          "by_kind": {
+            "object": 0.9035369774919614,
+            "part": 0.7701949860724234
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.832089552238806
+        },
+        "36": {
+          "by_kind": {
+            "object": 0.9067524115755627,
+            "part": 0.7715877437325905
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8343283582089552
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8343283582089552,
+      "step": 4000
+    },
+    {
+      "best_layer": 24,
+      "by_layer": {
+        "12": {
+          "by_kind": {
+            "object": 0.882636655948553,
+            "part": 0.7061281337047354
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.7880597014925373
+        },
+        "24": {
+          "by_kind": {
+            "object": 0.9067524115755627,
+            "part": 0.7743732590529248
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.835820895522388
+        },
+        "36": {
+          "by_kind": {
+            "object": 0.905144694533762,
+            "part": 0.7632311977715878
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8291044776119403
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.835820895522388,
+      "step": 5000
+    },
+    {
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "by_kind": {
+            "object": 0.8842443729903537,
+            "part": 0.7103064066852368
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.7910447761194029
+        },
+        "24": {
+          "by_kind": {
+            "object": 0.9019292604501608,
+            "part": 0.7743732590529248
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8335820895522388
+        },
+        "36": {
+          "by_kind": {
+            "object": 0.9019292604501608,
+            "part": 0.7771587743732591
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8350746268656717
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8350746268656717,
+      "step": 6000
+    },
+    {
+      "best_layer": 24,
+      "by_layer": {
+        "12": {
+          "by_kind": {
+            "object": 0.8987138263665595,
+            "part": 0.7353760445682451
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8111940298507463
+        },
+        "24": {
+          "by_kind": {
+            "object": 0.9180064308681672,
+            "part": 0.8022284122562674
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8559701492537314
+        },
+        "36": {
+          "by_kind": {
+            "object": 0.9147909967845659,
+            "part": 0.8050139275766016
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8559701492537314
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8559701492537314,
+      "step": 7000
+    },
+    {
+      "best_layer": 24,
+      "by_layer": {
+        "12": {
+          "by_kind": {
+            "object": 0.9067524115755627,
+            "part": 0.7395543175487466
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8171641791044776
+        },
+        "24": {
+          "by_kind": {
+            "object": 0.9067524115755627,
+            "part": 0.8161559888579387
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8582089552238806
+        },
+        "36": {
+          "by_kind": {
+            "object": 0.9067524115755627,
+            "part": 0.8119777158774373
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8559701492537314
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8582089552238806,
+      "step": 8000
+    },
+    {
+      "best_layer": 24,
+      "by_layer": {
+        "12": {
+          "by_kind": {
+            "object": 0.9003215434083601,
+            "part": 0.7562674094707521
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.823134328358209
+        },
+        "24": {
+          "by_kind": {
+            "object": 0.9163987138263665,
+            "part": 0.8203342618384402
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8649253731343284
+        },
+        "36": {
+          "by_kind": {
+            "object": 0.9115755627009646,
+            "part": 0.8189415041782729
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8619402985074627
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8649253731343284,
+      "step": 9000
+    },
+    {
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "by_kind": {
+            "object": 0.9131832797427653,
+            "part": 0.7674094707520891
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8350746268656717
+        },
+        "24": {
+          "by_kind": {
+            "object": 0.9196141479099679,
+            "part": 0.8245125348189415
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8686567164179104
+        },
+        "36": {
+          "by_kind": {
+            "object": 0.9244372990353698,
+            "part": 0.8217270194986073
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8694029850746269
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8694029850746269,
+      "step": 10000
+    },
+    {
+      "best_layer": 24,
+      "by_layer": {
+        "12": {
+          "by_kind": {
+            "object": 0.9180064308681672,
+            "part": 0.7715877437325905
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8395522388059702
+        },
+        "24": {
+          "by_kind": {
+            "object": 0.9260450160771704,
+            "part": 0.8175487465181058
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8679104477611941
+        },
+        "36": {
+          "by_kind": {
+            "object": 0.9244372990353698,
+            "part": 0.8189415041782729
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8679104477611941
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8679104477611941,
+      "step": 11000
+    },
+    {
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "by_kind": {
+            "object": 0.9163987138263665,
+            "part": 0.7715877437325905
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8388059701492537
+        },
+        "24": {
+          "by_kind": {
+            "object": 0.9260450160771704,
+            "part": 0.8217270194986073
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8701492537313433
+        },
+        "36": {
+          "by_kind": {
+            "object": 0.9244372990353698,
+            "part": 0.8245125348189415
+          },
+          "covered_queries": 1340,
+          "queries": 2288,
+          "selector_success": 0.8708955223880597
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8708955223880597,
+      "step": 12000
+    }
+  ],
+  "eval_images": 500,
+  "label": "dev",
+  "selection": "PACO val fixed subset, single-step selector success, best over steps and read-out layers",
+  "smoke": false,
+  "sources": {
+    "grefcoco_train": 0.2,
+    "paco_train": 0.6,
+    "pascal_part_train": 0.2
+  },
+  "training_exclusions": {
+    "absent_queries": 2000,
+    "grefcoco_train:absent": 17377,
+    "grefcoco_train:proposal_failures": 12534,
+    "grefcoco_train:queries": 159777,
+    "grefcoco_train:training_items": 32268,
+    "images_without_queries": 3670,
+    "paco_train_rest:proposal_failures": 43191,
+    "paco_train_rest:queries": 91159,
+    "paco_train_rest:training_items": 21515,
+    "paco_train_rest:unreachable_chains": 44485,
+    "pascal_part_train:proposal_failures": 14030,
+    "pascal_part_train:queries": 30144,
+    "pascal_part_train:training_items": 3771,
+    "pascal_part_train:unreachable_chains": 14453,
+    "proposal_failures": 12942,
+    "queries_chain": 8755,
+    "queries_object": 8393,
+    "queries_part": 9907,
+    "training_images": 10000,
+    "trees_built_for_no_target_items": 2000,
+    "unreachable_chains": 13343
+  },
+  "training_items": 65884,
+  "v1_gate": {
+    "below_v1_gate": true,
+    "deviation": "D2",
+    "v1_feasible_path_coverage": 0.4982359858878871,
+    "v1_gate_passed": false,
+    "v1_part_recall": 0.40896114578797116,
+    "v1_run": "20261022T074517344153Z_43208246"
+  },
+  "variant": "full",
+  "world_size": 4
+}

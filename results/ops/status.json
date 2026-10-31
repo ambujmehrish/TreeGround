@@ -61,14 +61,6 @@
     "state": "COMPLETED"
    },
    {
-    "elapsed": "00:00:18",
-    "end": "2026-10-30T18:25:15",
-    "exit": "1:0",
-    "jobid": "62584048",
-    "name": "paperA_sweep",
-    "state": "FAILED"
-   },
-   {
     "elapsed": "00:00:14",
     "end": "2026-10-31T08:17:02",
     "exit": "1:0",
@@ -3470,6 +3462,26 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "62617876",
+    "name": "paperA_sweep",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "12:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62617877",
+    "name": "paperA_sweep",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "12:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62416050",
     "name": "fact-wavedec",
     "nodes": "2",
@@ -3630,20 +3642,20 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62617876",
-    "name": "paperA_sweep",
+    "jobid": "62416081",
+    "name": "fact-eval-base",
     "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
+    "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "12:00:00"
    },
    {
     "elapsed": "0:00",
-    "jobid": "62416081",
-    "name": "fact-eval-base",
+    "jobid": "62617879",
+    "name": "paperA_sweep",
     "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
+    "reason_or_nodelist": "(Priority)",
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "12:00:00"
@@ -3684,16 +3696,6 @@
     "name": "fact-eval-base",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62617877",
-    "name": "paperA_sweep",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "12:00:00"
@@ -3854,16 +3856,6 @@
     "name": "fact-eval-base",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62617879",
-    "name": "paperA_sweep",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "12:00:00"
@@ -16860,5 +16852,5 @@
    "waiting_for": null
   }
  },
- "updated": 1793464611.305865
+ "updated": 1793468430.0322013
 }

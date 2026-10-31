@@ -62,7 +62,7 @@ def query_table(items):
     return queries
 
 
-@pytest.mark.parametrize("variant", ["flat", "full", "tree", "random_tree"])
+@pytest.mark.parametrize("variant", ["flat", "full", "tree", "random_tree", "hier", "hier_random_tree"])
 def test_train_then_eval_main(tmp_path, monkeypatch, variant):
     s2t, tat = load_script("s2_train"), load_script("ta_train")
     items, props = build_scene(s2t, tmp_path)

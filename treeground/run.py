@@ -930,6 +930,25 @@ PROPOSED_DEVIATIONS = [
                   "ablation starts from the same point",
         "expected_impact": "new stages only; S2-long and every existing cache and result are unchanged",
     },
+    {
+        "id": "D42",
+        "spec_section": "2 (selector): hierarchical decision over the candidate tree",
+        "change": "D41 tree variant with a stop / descend head per read-out layer (treeground/tree_attn.py HierHead): "
+                  "stop and descend scores are cosine scores with learned scale and bias between the <SEL> state "
+                  "and the node-token states, plus a root 'a target exists' logit from the <SEL> state; "
+                  "P(answer = v) = sigma(root) * prod over strict ancestors u of v of sigma(descend_u) * "
+                  "sigma(stop_v), maximised exactly over all nodes (no greedy descent) and used as the node logit "
+                  "by the unchanged evaluators. Training: the D41 loss on the stop scores (S2 targets, negatives "
+                  "and focal loss) plus, per <SEL> step, a focal descend term (positives: strict ancestors of the "
+                  "step's positives; ignored: ancestors of ignored near-copies only; negatives: all other nodes) "
+                  "and a focal root term (1 if the step has a positive); text-only items train only their text "
+                  "probe. Variants hier (true tree) and hier_random_tree (attention and decision over the "
+                  "shuffled tree), same recipe as D41 (runs/ta_hier, runs/ta_hier_random_tree)",
+        "reason": "D41 on PACO val: tree attention equals full attention (0.855 vs 0.856 selector success) and is "
+                  "0.9 points above the shuffled tree, so the tree is encoded but barely used; the hierarchy has "
+                  "to act in the decision, where a wrong-level pick (too big / too small) becomes a supervised error",
+        "expected_impact": "new stages only; D41 runs and every existing result are unchanged",
+    },
 ]
 
 

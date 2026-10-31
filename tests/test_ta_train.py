@@ -37,13 +37,13 @@ def make(s2t, tat, tmp_path, variant, seed=0):
     model, proc, extra = wrapped(s2t, seed)
     torch.manual_seed(seed)
     embed = None if variant == "flat" else TA.NodeEmbed(64, TA.embedding_rms(model))
-    readout = tat.Readout(64, LAYERS, 5, embed)
+    readout = tat.Readout(64, LAYERS, 5, embed, variant in tat.HIER)
     src = tat.Source({"proposals": {"node_dedup": 0.9}}, False, None, None, proc, extra["sel_id"], LABELS, variant, 0)
     src._props = props
     return items, props, model, proc, extra, readout, src
 
 
-@pytest.mark.parametrize("variant", ["flat", "full", "tree", "random_tree"])
+@pytest.mark.parametrize("variant", ["flat", "full", "tree", "random_tree", "hier", "hier_random_tree"])
 def test_training_step_every_variant(s2t, tat, tmp_path, variant):
     items, props, model, proc, extra, readout, src = make(s2t, tat, tmp_path, variant)
     model.train()
@@ -58,7 +58,10 @@ def test_training_step_every_variant(s2t, tat, tmp_path, variant):
     (l_sel + l_lm).backward()
     params = LR.trainable_parameters(model, extra["sel_emb"]) + list(readout.parameters())
     assert all(p.grad is not None and torch.isfinite(p.grad).all() for p in params)
-    assert all(h.bias.grad.abs() > 0 and h.log_scale.grad is not None for h in readout.heads)
+    stops = [readout.head(k) for k in LAYERS]
+    assert all(h.bias.grad.abs() > 0 and h.log_scale.grad is not None for h in stops)
+    if variant in tat.HIER:                                              # descend and root heads are trained
+        assert all(h.desc.bias.grad.abs() > 0 and h.root[2].bias.grad.abs() > 0 for h in readout.heads)
     assert any(p.grad.abs().sum() > 0 for n, p in model.named_parameters() if n.endswith("lora_B"))
     if variant != "flat":
         assert readout.embed.mix[0].weight.grad.abs().sum() > 0
@@ -191,7 +194,8 @@ def test_variant_configs_share_one_recipe(monkeypatch):
     for v in ("TG_CACHE", "TG_DATA", "TG_ROOT", "TG_RUNS", "TG_SLURM_ACCOUNT"):
         monkeypatch.setenv(v, "/x")
     root = Path(__file__).resolve().parents[1] / "configs"
-    cfgs = {v: load_config(root / f"ta_{v}.yaml") for v in ("flat", "full", "tree", "random_tree")}
+    cfgs = {v: load_config(root / f"ta_{v}.yaml") for v in ("flat", "full", "tree", "random_tree", "hier",
+                                                            "hier_random_tree")}
     base = {k: v for k, v in cfgs["tree"]["ta"].items() if k != "variant"}
     for v, cfg in cfgs.items():
         assert cfg["ta"]["variant"] == v
@@ -237,3 +241,24 @@ def test_relation_swap_for_evaluation(s2t, tat, tmp_path):
     with pytest.raises(Exception):
         source("tree", "nonsense")
     assert "self" not in tat.VARIANTS                                       # never a training variant
+
+
+def test_hier_logits_follow_the_tree_in_use(s2t, tat, tmp_path):
+    # hier scores the decision tree it was given: true tree vs shuffled tree give different logits
+    items, props, model, proc, extra, readout, src = make(s2t, tat, tmp_path, "hier")
+    model.eval()
+    m = items[0]
+    true = tat.query_logits(model, readout, src, m, m.queries[:1], "cpu", 1)[0]
+    (_, nb_true) = src.image_item(m, m.queries[:1])
+    for seed in range(20):                       # a 5-node tree can shuffle into itself; take a seed that changes it
+        rand_src = tat.Source({"proposals": {"node_dedup": 0.9}}, False, None, None, proc, extra["sel_id"], LABELS,
+                              "hier_random_tree", seed)
+        rand_src._props = props
+        (_, nb_rand) = rand_src.image_item(m, m.queries[:1])
+        if not np.array_equal(nb_true.anc, nb_rand.anc):
+            break
+    assert not np.array_equal(nb_true.anc, nb_rand.anc)
+    other = tat.query_logits(model, readout, rand_src, m, m.queries[:1], "cpu", 1)[0]
+    assert all(true[k].shape == (m.queries[0].answer.count(SEL), m.n) for k in LAYERS)
+    assert any(not torch.allclose(true[k], other[k]) for k in LAYERS)
+    assert tat.deviations("hier") == ["D10", "D21", "D41", "D42"] and tat.deviations("tree") == ["D10", "D21", "D41"]

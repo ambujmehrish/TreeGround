@@ -121,7 +121,7 @@ def main() -> None:
     c = TAT.stage_cfg(cfg, args.smoke)
     rank, world, _ = S2T.dist_env()
     device = TAT.setup_device(cfg)
-    require_approved(cfg, TAT.DEVIATIONS)
+    require_approved(cfg, TAT.deviations(c["variant"]))
     TA.check_version()
     gate = v1_gate(cfg, args.smoke)
     mrun, manifest, mhash, wl = manifest_inputs(cfg, args.smoke)
@@ -168,7 +168,7 @@ def main() -> None:
             "relations": args.relations or "as trained",
             "train_run": train_run.name, "checkpoint_step": meta["step"], "checkpoint_val": meta["val"],
             "single_step": metrics, "no_rejection": no_rejection(per_query), "chains": chain_metrics,
-            "v1_gate": gate, "deviations": TAT.DEVIATIONS})
+            "v1_gate": gate, "deviations": TAT.deviations(meta["variant"])})
         print(run, "tau_rej", tau)
     if world > 1:
         dist.barrier()

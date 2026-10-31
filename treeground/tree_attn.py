@@ -5,12 +5,13 @@ import cv2
 import numpy as np
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import transformers
 
 from treeground import masks as M
 from treeground import mllm
 from treeground import tree as T
-from treeground.selector import TEMPERATURE, Selector
+from treeground.selector import TEMPERATURE, Selector, focal, selection_loss
 
 # Tree attention (D41): one input token per candidate mask, appended after the answer. A mask token attends to the
 # text, to the image tokens of its own region and to its tree relatives; no earlier token attends to mask tokens.
@@ -31,6 +32,8 @@ class Nodes:
     rel: list[np.ndarray]                            # node indices each node attends to, itself included
     geom: np.ndarray                                 # (n, GEOM_DIM) float32
     cell: np.ndarray                                 # (n, 2) int64 (row, col) of the coverage centroid
+    anc: np.ndarray                                  # (n, n) bool, anc[v, u]: u is a strict ancestor of v in the
+                                                     # tree behind `rel` (the true tree, or the shuffled one)
 
     @property
     def n(self) -> int:
@@ -50,6 +53,18 @@ def relatives(tree: T.Tree, mode: str) -> list[np.ndarray]:
         if p != tree.root:
             rel.append(p)
         out.append(np.unique(np.asarray(rel, dtype=np.int64)))
+    return out
+
+
+def ancestors(tree: T.Tree) -> np.ndarray:
+    # (n, n) boolean, [v, u] = u is a strict ancestor of v (the virtual root excluded)
+    n = tree.n
+    out = np.zeros((n, n), bool)
+    for v in range(n):
+        u = int(tree.parent[v])
+        while u != tree.root:
+            out[v, u] = True
+            u = int(tree.parent[u])
     return out
 
 
@@ -101,7 +116,7 @@ def build_nodes(rles: list[M.Rle], parent: np.ndarray, grid: tuple[int, int], mo
     cov = (np.asarray(ptr, np.int64), np.concatenate(idx) if idx else np.zeros(0, np.int32),
            np.concatenate(wts) if wts else np.zeros(0, np.float32))
     rel = relatives(tree, mode if mode in ("full", "self") else "tree")
-    return Nodes(cov, region, rel, geometry(rles, tree, h, w), cell)
+    return Nodes(cov, region, rel, geometry(rles, tree, h, w), cell, ancestors(tree))
 
 
 class NodeEmbed(nn.Module):
@@ -135,6 +150,59 @@ class ScaledSelector(Selector):
 
     def scores(self, q: torch.Tensor, e: torch.Tensor) -> torch.Tensor:
         return q @ e.T * self.log_scale.exp().clamp(max=100.0) + self.bias
+
+
+def hier_logits(stop: torch.Tensor, desc: torch.Tensor, root: torch.Tensor, anc: torch.Tensor) -> torch.Tensor:
+    # D42 decision: P(answer = v) = sigma(root) * prod_{u strict ancestor of v} sigma(desc_u) * sigma(stop_v).
+    # stop, desc: (S, n) logits, root: (S,), anc: (n, n) bool. Returns the logit of that probability, so that
+    # argmax, sigmoid thresholds and the S2 evaluators read it like any other node logit.
+    score = (F.logsigmoid(stop) + F.logsigmoid(desc) @ anc.to(desc.dtype).T + F.logsigmoid(root)[:, None])
+    score = score.clamp(max=-1e-6)                     # log P < 0; keeps the logit finite
+    return score - torch.log(-torch.expm1(score))
+
+
+class HierHead(nn.Module):
+    # stop / descend scorers (cosine with learned scale and bias, as ScaledSelector) and a root "a target exists"
+    # logit from the <SEL> state; trained with S2 stop targets plus descend targets on the target's ancestors
+    def __init__(self, d_model: int, n_nodes: int, hidden: int = 256):
+        super().__init__()
+        self.stop = ScaledSelector(d_model, d_model, n_nodes)
+        self.desc = ScaledSelector(d_model, d_model, n_nodes)
+        self.root = nn.Sequential(nn.Linear(d_model, hidden), nn.GELU(), nn.Linear(hidden, 1))
+
+    def descend(self, probe: torch.Tensor, states: torch.Tensor) -> torch.Tensor:
+        return self.desc.scores(self.desc.queries(probe), self.desc.nodes(states))
+
+    def root_logit(self, probe: torch.Tensor) -> torch.Tensor:
+        return self.root(probe.float())[:, 0]
+
+    def logits(self, probe: torch.Tensor, states: torch.Tensor, anc: torch.Tensor) -> torch.Tensor:
+        stop = self.stop.scores(self.stop.queries(probe), self.stop.nodes(states))
+        return hier_logits(stop, self.descend(probe, states), self.root_logit(probe), anc)
+
+
+def descend_targets(anc: np.ndarray, pos: np.ndarray, ignore: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    # descend positives: every strict ancestor of a positive; ignored: ancestors of ignored near-copies only;
+    # negatives: every other node (the targets themselves, their descendants, all other branches)
+    n = anc.shape[0]
+    up = anc[pos].any(0) if len(pos) else np.zeros(n, bool)
+    up_ignored = anc[ignore].any(0) if len(ignore) else np.zeros(n, bool)
+    return np.flatnonzero(up), np.flatnonzero(~up & ~up_ignored)
+
+
+def hier_terms(head: HierHead, probe: torch.Tensor, states: torch.Tensor, anc: np.ndarray, steps: list,
+               gamma: float) -> list[torch.Tensor]:
+    # one descend term and one root term per <SEL> step (probe row t, step targets steps[t])
+    device = states.device
+    e = head.desc.nodes(states)
+    out = []
+    for t, st in enumerate(steps):
+        s = head.desc.scores(head.desc.queries(probe[t:t + 1]), e)[0]
+        pos, neg = descend_targets(anc, st.pos, st.ignore)
+        loss, _, _ = selection_loss(s[torch.as_tensor(pos, device=device, dtype=torch.long)],
+                                    s[torch.as_tensor(neg, device=device, dtype=torch.long)], gamma)
+        out.append(loss + focal(head.root_logit(probe[t:t + 1]), int(len(st.pos) > 0), gamma).mean())
+    return out
 
 
 @dataclass

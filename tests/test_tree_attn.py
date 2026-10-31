@@ -236,3 +236,49 @@ def test_random_tree_really_changes_the_relatives():
         assert np.array_equal(rand.depth, tree.depth)                       # levels kept, links shuffled
         rel = TA.relatives(rand, "tree")
         assert sum(np.array_equal(a, b) for a, b in zip(true, rel)) <= len(masks) // 2
+
+
+def test_ancestors_and_hierarchical_decision():
+    rles = M.encode(np.stack(scene_masks()))
+    tree = T.build_tree(rles)                                   # parents [root, 0, 0, 1, root]
+    anc = TA.ancestors(tree)
+    assert anc.sum(1).tolist() == [0, 1, 1, 2, 0] and anc[3, 1] and anc[3, 0] and not anc[3, 2]
+    # descend targets for target node 3: its ancestors 1 and 0 are positive; 3 itself and the rest negative
+    pos, neg = TA.descend_targets(anc, np.array([3]), np.array([], int))
+    assert pos.tolist() == [0, 1] and neg.tolist() == [2, 3, 4]
+    # target 1 with an ignored near-copy 3 inside it: descending into 1 also reaches an acceptable answer, so the
+    # descend score of 1 is left untrained; 0 stays positive, the other branches negative
+    pos, neg = TA.descend_targets(anc, np.array([1]), np.array([3]))
+    assert pos.tolist() == [0] and neg.tolist() == [2, 3, 4]
+    pos, neg = TA.descend_targets(anc, np.array([], int), np.array([], int))
+    assert pos.tolist() == [] and neg.tolist() == [0, 1, 2, 3, 4]       # no target: descend nowhere
+    stop = torch.tensor([[0.0, 0.0, 0.0, 3.0, 0.0]])
+    desc = torch.tensor([[4.0, 4.0, -4.0, -4.0, -4.0]])
+    root = torch.tensor([5.0])
+    lg = TA.hier_logits(stop, desc, root, torch.as_tensor(anc))
+    sig = torch.nn.functional.logsigmoid
+    expect = sig(root) + sig(stop[0, 3]) + sig(desc[0, 0]) + sig(desc[0, 1])   # P(3) along root -> 0 -> 1 -> 3
+    assert torch.allclose(torch.sigmoid(lg[0, 3]).log(), expect, atol=1e-5)
+    assert int(torch.argmax(lg)) == 3
+    # the same stop scores without the path (node 3 placed at the top) would favour it less than its descent does
+    flat = TA.hier_logits(stop, desc, root, torch.zeros_like(torch.as_tensor(anc)))
+    assert torch.sigmoid(lg[0, 3]) < torch.sigmoid(flat[0, 3])          # ancestors multiply in descend factors
+    low = TA.hier_logits(stop, desc, torch.tensor([-8.0]), torch.as_tensor(anc))
+    assert torch.sigmoid(low).max() < 1e-3                              # root says no target: every node low
+    assert torch.isfinite(TA.hier_logits(torch.full((1, 5), 50.0), torch.full((1, 5), 50.0), torch.tensor([50.0]),
+                                         torch.as_tensor(anc))).all()
+
+
+def test_hier_terms_train_descend_and_root(s2t):
+    from treeground.sampling import StepTarget
+    torch.manual_seed(0)
+    head = TA.HierHead(16, 5)
+    probe, states = torch.randn(2, 16), torch.randn(5, 16)
+    anc = TA.ancestors(T.build_tree(M.encode(np.stack(scene_masks()))))
+    steps = [StepTarget(np.array([1]), np.array([], int)), StepTarget(np.array([3]), np.array([], int))]
+    terms = TA.hier_terms(head, probe, states, anc, steps, 2.0)
+    assert len(terms) == 2 and all(torch.isfinite(t) for t in terms)
+    torch.stack(terms).mean().backward()
+    assert head.desc.bias.grad is not None and head.root[0].weight.grad.abs().sum() > 0
+    absent = TA.hier_terms(head, probe[:1], states, anc, [StepTarget(np.array([], int), np.array([], int))], 2.0)
+    assert torch.isfinite(absent[0])

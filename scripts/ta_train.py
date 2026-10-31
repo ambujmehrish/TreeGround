@@ -38,22 +38,44 @@ from treeground.run import (ProtocolError, assert_real_path, canonical_hash, ens
 #   full         mask tokens, every mask token attends to every other
 #   tree         mask tokens, attention to self, parent, children and siblings
 #   random_tree  as tree, over a tree with parents shuffled within each depth (fixed per image)
+# D42 adds the hierarchical decision on top of the tree variant (and its control):
+#   hier              tree attention + stop / descend head: P(v) = P(target) x prod_ancestors P(descend) x P(stop v)
+#   hier_random_tree  the same over the shuffled tree (attention and decision)
 # Heads are trained jointly at every read-out layer; the checkpoint and its layer are chosen on the fixed PACO val
 # subset by single-step selector success (S2 rule), best over steps and layers.
 
-VARIANTS = ("flat",) + TA.MODES
+HIER = {"hier": "tree", "hier_random_tree": "random_tree"}     # variant -> node relations and decision tree
+VARIANTS = ("flat",) + TA.MODES + tuple(HIER)
 DEVIATIONS = ["D10", "D21", "D41"]
 
 
+def deviations(variant: str) -> list[str]:
+    return DEVIATIONS + (["D42"] if variant in HIER else [])
+
+
 class Readout(nn.Module):
-    def __init__(self, d_model: int, layers: list[int], n_nodes: int, embed: TA.NodeEmbed | None):
+    def __init__(self, d_model: int, layers: list[int], n_nodes: int, embed: TA.NodeEmbed | None,
+                 hier: bool = False):
         super().__init__()
         self.layers = list(layers)
-        self.heads = nn.ModuleList(TA.ScaledSelector(d_model, d_model, n_nodes) for _ in layers)
+        self.hier = hier
+        make = (lambda: TA.HierHead(d_model, n_nodes)) if hier else (lambda: TA.ScaledSelector(d_model, d_model,
+                                                                                                n_nodes))
+        self.heads = nn.ModuleList(make() for _ in layers)
         self.embed = embed
 
     def head(self, layer: int) -> TA.ScaledSelector:
-        return self.heads[self.layers.index(layer)]
+        # the stop scorer of a hierarchical head is trained exactly like the flat selector
+        h = self.heads[self.layers.index(layer)]
+        return h.stop if self.hier else h
+
+    def node_logits(self, layer: int, probe: torch.Tensor, states: torch.Tensor, nb: TA.Nodes) -> torch.Tensor:
+        # (n_sel, n) decision logits of the node tokens for the <SEL> rows in probe
+        if self.hier:
+            anc = torch.as_tensor(nb.anc, device=states.device)
+            return self.heads[self.layers.index(layer)].logits(probe, states, anc)
+        h = self.head(layer)
+        return h.scores(h.queries(probe), h.nodes(states))
 
 
 def stage_cfg(cfg: dict, smoke: bool) -> dict:
@@ -85,7 +107,7 @@ def stage(cfg: dict) -> str:
 
 def node_mode(variant: str) -> str:
     # the flat variant only uses the coverage maps, which are the same for every mode
-    return "tree" if variant == "flat" else variant
+    return "tree" if variant == "flat" else HIER.get(variant, variant)
 
 
 class Source(S2T.Source):
@@ -164,6 +186,18 @@ def micro_step(model, extra, readout: Readout, mb, items, device, rng, gamma, st
         terms = V2.batch_terms(readout.head(k), recs, text_probes, rng, device, gamma,
                                stats if li == 0 else {key: 0 for key in stats})
         l_sel = l_sel + torch.stack(terms).mean()
+        if readout.hier:
+            # descend + root terms for every image query (text-only items train only their text probe, as in S2)
+            hterms = []
+            for b, smp in enumerate(samples):
+                if smp["as_text"]:
+                    continue
+                m = items[smp["item"]]
+                q = m.queries[smp["query"]]
+                hterms += TA.hier_terms(readout.heads[li], out.hidden[k][b, seqs[b].sel.to(device)].float(),
+                                        out.nodes[k][b].float(), smp["nodes"].anc, q.steps, gamma)
+            if hterms:
+                l_sel = l_sel + torch.stack(hterms).mean()
     return l_sel, l_lm
 
 
@@ -180,12 +214,8 @@ def query_logits(model, readout: Readout, src: Source, m: S2T.ImageMeta, queries
         with S2.autocast(device):
             res = run_forward(model, readout, batch, [nb] * len(seqs))
         for b, s in enumerate(seqs):
-            row = {}
-            for k in layers:
-                h = readout.head(k)
-                row[k] = h.scores(h.queries(res.hidden[k][b, s.sel.to(device)].float()),
-                                  h.nodes(res.nodes[k][b].float())).float().cpu()
-            out.append(row)
+            out.append({k: readout.node_logits(k, res.hidden[k][b, s.sel.to(device)].float(),
+                                               res.nodes[k][b].float(), nb).float().cpu() for k in layers})
     return out
 
 
@@ -263,7 +293,7 @@ def build(cfg: dict, c: dict, device: str, static: dict | None, n_nodes: int) ->
     d_model = model.config.text_config.hidden_size
     mllm.check_layers(model, c["readout_layers"])
     embed = None if c["variant"] == "flat" else TA.NodeEmbed(d_model, TA.embedding_rms(model))
-    readout = Readout(d_model, c["readout_layers"], n_nodes, embed).to(device)
+    readout = Readout(d_model, c["readout_layers"], n_nodes, embed, c["variant"] in HIER).to(device)
     return model, processor, extra, readout
 
 
@@ -281,7 +311,7 @@ def main() -> None:
         ensure_deviation_log(cfg)
     if world > 1:
         dist.barrier()
-    require_approved(cfg, DEVIATIONS)
+    require_approved(cfg, deviations(c["variant"]))
     TA.check_version()
     gate = v1_gate(cfg, args.smoke)
     mrun, manifest, mhash, wl = manifest_inputs(cfg, args.smoke)
@@ -392,7 +422,7 @@ def main() -> None:
             "selection": "PACO val fixed subset, single-step selector success, best over steps and read-out layers",
             "eval_images": c["eval_images"], "eval_curve": evals, "training_exclusions": counts,
             "training_items": len(items), "world_size": world, "accumulation": accum, "v1_gate": gate,
-            "sources": weights, "deviations": DEVIATIONS})
+            "sources": weights, "deviations": deviations(c["variant"])})
         print(run)
     if world > 1:
         dist.barrier()

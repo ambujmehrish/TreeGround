@@ -1,0 +1,187 @@
+{
+  "accumulation": 1,
+  "best_checkpoint": "best.pt",
+  "best_step": 8000,
+  "best_val_selector_success": 0.7858208955223881,
+  "deviations": [
+    "D10",
+    "D21",
+    "D30",
+    "D34",
+    "D36",
+    "D37"
+  ],
+  "eval_curve": [
+    {
+      "by_kind": {
+        "object": 0.003215434083601286,
+        "part": 0.004178272980501393
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.0037313432835820895,
+      "step": 0
+    },
+    {
+      "by_kind": {
+        "object": 0.8279742765273312,
+        "part": 0.6754874651810585
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.746268656716418,
+      "step": 1000
+    },
+    {
+      "by_kind": {
+        "object": 0.8504823151125402,
+        "part": 0.7047353760445683
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7723880597014925,
+      "step": 2000
+    },
+    {
+      "by_kind": {
+        "object": 0.8440514469453376,
+        "part": 0.7284122562674095
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7820895522388059,
+      "step": 3000
+    },
+    {
+      "by_kind": {
+        "object": 0.8569131832797428,
+        "part": 0.7103064066852368
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7783582089552239,
+      "step": 4000
+    },
+    {
+      "by_kind": {
+        "object": 0.8520900321543409,
+        "part": 0.7075208913649025
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7746268656716417,
+      "step": 5000
+    },
+    {
+      "by_kind": {
+        "object": 0.8520900321543409,
+        "part": 0.7214484679665738
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7820895522388059,
+      "step": 6000
+    },
+    {
+      "by_kind": {
+        "object": 0.8520900321543409,
+        "part": 0.7103064066852368
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7761194029850746,
+      "step": 7000
+    },
+    {
+      "by_kind": {
+        "object": 0.8633440514469454,
+        "part": 0.7186629526462396
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7858208955223881,
+      "step": 8000
+    },
+    {
+      "by_kind": {
+        "object": 0.8456591639871383,
+        "part": 0.724233983286908
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7805970149253731,
+      "step": 9000
+    },
+    {
+      "by_kind": {
+        "object": 0.8536977491961415,
+        "part": 0.7089136490250696
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7761194029850746,
+      "step": 10000
+    },
+    {
+      "by_kind": {
+        "object": 0.8504823151125402,
+        "part": 0.7116991643454039
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7761194029850746,
+      "step": 11000
+    },
+    {
+      "by_kind": {
+        "object": 0.8504823151125402,
+        "part": 0.7075208913649025
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "covered_queries": 1340,
+      "queries": 2288,
+      "selector_success": 0.7738805970149254,
+      "step": 12000
+    }
+  ],
+  "eval_images": 500,
+  "label": "dev",
+  "layer": 12,
+  "selection": "PACO val fixed subset, single-step selector success",
+  "smoke": false,
+  "sources": {
+    "paco_train_s5": 1.0
+  },
+  "training_exclusions": {
+    "paco_train_s5:box_instances": 19867,
+    "paco_train_s5:box_proposed": 30995,
+    "paco_train_s5:dropped_outside_own_pool": 4379,
+    "paco_train_s5:instances": 88223,
+    "paco_train_s5:proposal_failures": 8431,
+    "paco_train_s5:queries": 36147,
+    "paco_train_s5:training_items": 6553,
+    "paco_train_s5:unreachable_chains": 8762
+  },
+  "training_items": 6553,
+  "v1_gate": {
+    "below_v1_gate": true,
+    "deviation": "D2",
+    "v1_feasible_path_coverage": 0.4982359858878871,
+    "v1_gate_passed": false,
+    "v1_part_recall": 0.40896114578797116,
+    "v1_run": "20261022T074517344153Z_43208246"
+  },
+  "world_size": 4
+}

@@ -1,8 +1,7 @@
 {
  "cluster": {
   "counts": {
-   "COMPLETING": 1,
-   "PENDING": 218,
+   "PENDING": 217,
    "RUNNING": 5
   },
   "ended_24h": [
@@ -919,6 +918,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "00:02:00",
+    "end": "2026-10-31T08:35:05",
+    "exit": "0:0",
+    "jobid": "62715843",
+    "name": "q_2026-10-29c-s5gref-pacotest-merge",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:00:47",
     "end": "2026-10-31T08:05:03",
     "exit": "0:0",
@@ -1265,16 +1272,6 @@
   ],
   "squeue": [
    {
-    "elapsed": "4:53:20",
-    "jobid": "62943025",
-    "name": "tg_ta_flat",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0270",
-    "start": "2026-10-31T03:41:13",
-    "state": "COMPLETING",
-    "time_limit": "1-00:00:00"
-   },
-   {
     "elapsed": "0:00",
     "jobid": "62943051",
     "name": "tg_ta_eval_random_tree",
@@ -1298,16 +1295,6 @@
     "elapsed": "0:00",
     "jobid": "62943046",
     "name": "tg_ta_eval_full",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "6:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62943042",
-    "name": "tg_ta_eval_flat",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
@@ -1346,16 +1333,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62714862_[0-15]",
-    "name": "q_2026-10-29c-s5paco-gres-testA",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62714869_[0-15]",
     "name": "q_2026-10-29c-s5paco-pt",
     "nodes": "1",
@@ -1376,6 +1353,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "62714865_[0-15]",
+    "name": "q_2026-10-29c-s5paco-gres-val",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "4:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62714864_[0-15]",
     "name": "q_2026-10-29c-s5paco-gres-testB",
     "nodes": "1",
@@ -1386,8 +1373,8 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62714865_[0-15]",
-    "name": "q_2026-10-29c-s5paco-gres-val",
+    "jobid": "62714862_[0-15]",
+    "name": "q_2026-10-29c-s5paco-gres-testA",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
@@ -2046,6 +2033,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "62698818",
+    "name": "paperA_sweep",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "3:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "62680472",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -2263,16 +2260,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "62698818",
-    "name": "paperA_sweep",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "3:00:00"
    },
    {
     "elapsed": "0:00",
@@ -3435,17 +3422,17 @@
     "time_limit": "12:00:00"
    },
    {
-    "elapsed": "1:44",
-    "jobid": "62715843",
-    "name": "q_2026-10-29c-s5gref-pacotest-merge",
+    "elapsed": "10:49",
+    "jobid": "62943042",
+    "name": "tg_ta_eval_flat",
     "nodes": "1",
-    "reason_or_nodelist": "lrdn1869",
-    "start": "2026-10-31T08:33:05",
+    "reason_or_nodelist": "lrdn0109",
+    "start": "2026-10-31T08:34:57",
     "state": "RUNNING",
-    "time_limit": "1:00:00"
+    "time_limit": "6:00:00"
    },
    {
-    "elapsed": "4:32:21",
+    "elapsed": "4:43:18",
     "jobid": "62714055",
     "name": "q_2026-10-29c-s5paco-train",
     "nodes": "1",
@@ -3455,7 +3442,7 @@
     "time_limit": "16:00:00"
    },
    {
-    "elapsed": "5:38:14",
+    "elapsed": "5:49:11",
     "jobid": "62943027",
     "name": "tg_ta_full",
     "nodes": "1",
@@ -3465,7 +3452,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "5:48:45",
+    "elapsed": "5:59:42",
     "jobid": "62943028",
     "name": "tg_ta_tree",
     "nodes": "1",
@@ -3475,7 +3462,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "6:12:57",
+    "elapsed": "6:23:54",
     "jobid": "62943030",
     "name": "tg_ta_random_tree",
     "nodes": "1",
@@ -15526,15 +15513,15 @@
    "waiting_for": null
   },
   "2026-10-29c-s5gref-pacotest-merge": {
-   "collected": null,
+   "collected": 1793432408.8392847,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1793432408.839284,
    "invalid": null,
    "jobid": "62715843",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1793272693.948679,
@@ -16246,5 +16233,5 @@
    "waiting_for": null
   }
  },
- "updated": 1793432089.3029566
+ "updated": 1793432746.536299
 }

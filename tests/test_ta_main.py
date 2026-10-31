@@ -120,3 +120,13 @@ def test_train_then_eval_main(tmp_path, monkeypatch, variant):
     for m in items:
         for q in m.queries:
             assert seen[q.qid].shape == (q.answer.count(SEL), m.n)
+    if variant == "flat":
+        return
+    # relation swap: same checkpoint, node tokens see only themselves; own stage, different scores
+    trained = {k: v.clone() for k, v in seen.items()}
+    seen.clear()
+    monkeypatch.setattr(sys, "argv", ["ta_eval.py", "--config", "x", "--relations", "self"])
+    tae.main()
+    sw = json.loads((tmp_path / "e" / "runs" / f"ta_{variant}_eval_rel_self" / "metrics.json").read_text())
+    assert sw["relations"] == "self" and sw["layer"] == ev["layer"] and ev["relations"] == "as trained"
+    assert any(not torch.allclose(seen[k], trained[k]) for k in trained)

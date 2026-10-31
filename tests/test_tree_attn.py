@@ -221,3 +221,18 @@ def test_pinned_transformers_is_enforced(monkeypatch):
     monkeypatch.setattr(TA.transformers, "__version__", "9.9.9")
     with pytest.raises(RuntimeError):
         TA.check_version()
+
+
+def test_random_tree_really_changes_the_relatives():
+    # the random-tree control must not leave the attention pattern intact
+    masks = [box(10, 90, 10, 70), box(10, 40, 10, 40), box(50, 90, 40, 70), box(12, 24, 12, 24),
+             box(20, 80, 90, 125), box(30, 38, 30, 38), box(60, 70, 50, 60), box(22, 60, 92, 120),
+             box(25, 35, 95, 105), box(70, 78, 100, 118)]
+    rles = M.encode(np.stack(masks))
+    tree = T.build_tree(rles)
+    true = TA.relatives(tree, "tree")
+    for seed in (1, 2, 3):
+        rand = T.randomised_tree(tree, seed)
+        assert np.array_equal(rand.depth, tree.depth)                       # levels kept, links shuffled
+        rel = TA.relatives(rand, "tree")
+        assert sum(np.array_equal(a, b) for a, b in zip(true, rel)) <= len(masks) // 2

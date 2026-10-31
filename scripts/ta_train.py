@@ -89,9 +89,13 @@ def node_mode(variant: str) -> str:
 
 
 class Source(S2T.Source):
-    def __init__(self, cfg, smoke, manifest, mhash, processor, sel_id, text_labels, variant: str, seed: int):
+    def __init__(self, cfg, smoke, manifest, mhash, processor, sel_id, text_labels, variant: str, seed: int,
+                 relations: str | None = None):
+        # relations: evaluation-time override of which node tokens see each other (TA.RELATIONS); None = as trained
         super().__init__(cfg, smoke, manifest, mhash, processor, sel_id, text_labels)
-        self.mode, self.seed = node_mode(variant), seed
+        if relations is not None and (variant == "flat" or relations not in TA.RELATIONS):
+            raise ProtocolError(f"relations {relations!r} cannot override variant {variant!r}")
+        self.mode, self.seed = relations or node_mode(variant), seed
 
     def image_item(self, m: S2T.ImageMeta, queries: list[S2T.Query]) -> tuple[list[S2.Seq], TA.Nodes]:
         image = Image.fromarray(load_rgb(assert_real_path(m.file)))

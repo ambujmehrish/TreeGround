@@ -34,6 +34,11 @@ from treeground.run import (ProtocolError, load_config, require_approved, resolv
 EVAL_KINDS = ("object", "part", "chain", "absent")
 
 
+def eval_stage(cfg: dict, relations: str | None) -> str:
+    # a relation swap (diagnostic: is the tree used?) gets its own stage next to the regular evaluation
+    return f"{TAT.stage(cfg)}_eval" + (f"_rel_{relations}" if relations else "")
+
+
 class IdentitySelector(torch.nn.Module):
     def nodes(self, z: torch.Tensor) -> torch.Tensor:
         return z
@@ -108,6 +113,8 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True)
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--relations", choices=TA.RELATIONS, default=None,
+                    help="diagnostic: evaluate the checkpoint with other node-token relations than it was trained with")
     args = ap.parse_args()
     os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
     cfg = load_config(args.config)
@@ -135,13 +142,14 @@ def main() -> None:
     torch.backends.cudnn.allow_tf32 = False
     run = None
     if rank == 0:
-        run = start_run(f"{TAT.stage(cfg)}_eval", cfg, args.smoke, {
+        run = start_run(eval_stage(cfg, args.relations), cfg, args.smoke, {
+            "relations": args.relations or "as trained",
             "manifest_run": str(mrun), "train_run": str(train_run), "checkpoint": cfg["ta_eval"]["checkpoint"],
             "checkpoint_step": meta["step"], "layer": layer, "variant": meta["variant"], "world_size": world})
     run = Path(S2T.broadcast(str(run) if run else None, world))
     out = run / "logits"
     src = TAT.Source(cfg, args.smoke, manifest, mhash, processor, extra["sel_id"], set(), meta["variant"],
-                     meta["seed"])
+                     meta["seed"], args.relations)
     n = compute_logits(model, readout, src, props, queries, wl, layer, device, out, cfg["ta_eval"]["batch_size"],
                        rank, world)
     print(f"rank {rank}: logits for {n} images", flush=True)
@@ -157,6 +165,7 @@ def main() -> None:
         chain_metrics.update(V4.search_metrics(cfg, chains, tau, run))
         write_json(run / "metrics.json", {
             "label": "dev", "smoke": args.smoke, "variant": meta["variant"], "layer": layer,
+            "relations": args.relations or "as trained",
             "train_run": train_run.name, "checkpoint_step": meta["step"], "checkpoint_val": meta["val"],
             "single_step": metrics, "no_rejection": no_rejection(per_query), "chains": chain_metrics,
             "v1_gate": gate, "deviations": TAT.DEVIATIONS})

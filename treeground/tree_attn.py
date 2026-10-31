@@ -18,7 +18,8 @@ from treeground.selector import TEMPERATURE, Selector
 # so that the language model can be called with the extended sequence and a custom 4-D mask.
 
 PINNED_TRANSFORMERS = "5.0.0"
-MODES = ("tree", "full", "random_tree")
+MODES = ("tree", "full", "random_tree")        # training variants with node tokens
+RELATIONS = MODES + ("self",)                  # + evaluation-time swap: node tokens see only themselves
 GEOM_DIM = 9
 REGION_DILATE = 1   # image-token cells of margin around a mask's own cells
 
@@ -40,6 +41,8 @@ def relatives(tree: T.Tree, mode: str) -> list[np.ndarray]:
     n = tree.n
     if mode == "full":
         return [np.arange(n, dtype=np.int64) for _ in range(n)]
+    if mode == "self":
+        return [np.array([v], dtype=np.int64) for v in range(n)]
     out = []
     for v in range(n):
         p = int(tree.parent[v])
@@ -68,7 +71,7 @@ def geometry(rles: list[M.Rle], tree: T.Tree, h: int, w: int) -> np.ndarray:
 
 def build_nodes(rles: list[M.Rle], parent: np.ndarray, grid: tuple[int, int], mode: str,
                 tree_seed: int | None = None) -> Nodes:
-    if mode not in MODES:
+    if mode not in RELATIONS:
         raise ValueError(f"unknown tree-attention mode {mode!r}")
     gh, gw = grid
     h, w = rles[0]["size"] if rles else (1, 1)
@@ -97,7 +100,8 @@ def build_nodes(rles: list[M.Rle], parent: np.ndarray, grid: tuple[int, int], mo
         ptr.append(ptr[-1] + len(nz))
     cov = (np.asarray(ptr, np.int64), np.concatenate(idx) if idx else np.zeros(0, np.int32),
            np.concatenate(wts) if wts else np.zeros(0, np.float32))
-    return Nodes(cov, region, relatives(tree, "full" if mode == "full" else "tree"), geometry(rles, tree, h, w), cell)
+    rel = relatives(tree, mode if mode in ("full", "self") else "tree")
+    return Nodes(cov, region, rel, geometry(rles, tree, h, w), cell)
 
 
 class NodeEmbed(nn.Module):

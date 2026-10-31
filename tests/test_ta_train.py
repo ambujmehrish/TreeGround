@@ -215,3 +215,25 @@ def test_check_config_keeps_its_own_stage(tat, monkeypatch):
     keep = {k: v for k, v in check["ta"].items() if k not in ("stage_suffix", "steps", "eval_every", "eval_images",
                                                             "log_every", "paco_rest")}
     assert keep == {k: v for k, v in real["ta"].items() if k in keep}
+
+
+def test_relation_swap_for_evaluation(s2t, tat, tmp_path):
+    items, props, model, proc, extra, readout, src = make(s2t, tat, tmp_path, "tree")
+    m = items[0]
+    base = {"cfg": {"proposals": {"node_dedup": 0.9}}, "smoke": False, "manifest": None, "mhash": None,
+            "processor": proc, "sel_id": extra["sel_id"], "text_labels": set()}
+
+    def source(variant, relations):
+        s = tat.Source(*base.values(), variant, 0, relations)
+        s._props = props
+        return s
+
+    (_, nb_tree), (_, nb_self) = (source("tree", r).image_item(m, m.queries[:1]) for r in (None, "self"))
+    assert all(r.tolist() == [v] for v, r in enumerate(nb_self.rel))
+    assert all(np.array_equal(a, b) for a, b in zip(nb_tree.region, nb_self.region))
+    assert source("random_tree", None).mode == "random_tree" and source("tree", "full").mode == "full"
+    with pytest.raises(Exception):
+        source("flat", "self")
+    with pytest.raises(Exception):
+        source("tree", "nonsense")
+    assert "self" not in tat.VARIANTS                                       # never a training variant

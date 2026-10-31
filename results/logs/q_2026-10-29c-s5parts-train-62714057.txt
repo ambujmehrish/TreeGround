@@ -120,3 +120,187 @@ step 1060/12000 L_sel 0.9492 L_LM 0.0001 2652s
 step 1070/12000 L_sel 0.9943 L_LM 0.0000 2665s
 step 1080/12000 L_sel 1.2946 L_LM 0.0000 2678s
 step 1090/12000 L_sel 1.0739 L_LM 0.0000 2695s
+step 1100/12000 L_sel 1.1739 L_LM 0.0000 2712s
+step 1110/12000 L_sel 1.2409 L_LM 0.0000 2731s
+step 1120/12000 L_sel 1.0155 L_LM 0.0007 2746s
+step 1130/12000 L_sel 1.1322 L_LM 0.0000 2758s
+step 1140/12000 L_sel 1.0453 L_LM 0.0000 2770s
+step 1150/12000 L_sel 1.2393 L_LM 0.0000 2787s
+step 1160/12000 L_sel 0.9193 L_LM 0.0000 2822s
+step 1170/12000 L_sel 1.1440 L_LM 0.0000 2841s
+step 1180/12000 L_sel 0.9889 L_LM 0.0000 2855s
+step 1190/12000 L_sel 1.0936 L_LM 0.0000 2874s
+step 1200/12000 L_sel 0.8870 L_LM 0.0000 2890s
+step 1210/12000 L_sel 0.9637 L_LM 0.0000 2907s
+step 1220/12000 L_sel 0.9154 L_LM 0.0000 2920s
+step 1230/12000 L_sel 1.0047 L_LM 0.0000 2933s
+step 1240/12000 L_sel 1.2798 L_LM 0.0000 2946s
+step 1250/12000 L_sel 0.8592 L_LM 0.0000 2970s
+step 1260/12000 L_sel 1.0682 L_LM 0.0000 2994s
+step 1270/12000 L_sel 0.9961 L_LM 0.0000 3058s
+step 1280/12000 L_sel 1.0062 L_LM 0.0000 3079s
+step 1290/12000 L_sel 1.1154 L_LM 0.0000 3119s
+step 1300/12000 L_sel 1.1138 L_LM 0.0000 3149s
+step 1310/12000 L_sel 0.9075 L_LM 0.0000 3189s
+step 1320/12000 L_sel 1.0971 L_LM 0.0000 3243s
+step 1330/12000 L_sel 0.8923 L_LM 0.0000 3267s
+step 1340/12000 L_sel 1.2573 L_LM 0.0000 3295s
+step 1350/12000 L_sel 0.9619 L_LM 0.0000 3315s
+step 1360/12000 L_sel 1.0277 L_LM 0.0000 3361s
+step 1370/12000 L_sel 1.0563 L_LM 0.0000 3374s
+step 1380/12000 L_sel 1.0687 L_LM 0.0000 3417s
+step 1390/12000 L_sel 1.0137 L_LM 0.0000 3443s
+step 1400/12000 L_sel 1.1092 L_LM 0.0000 3465s
+step 1410/12000 L_sel 1.1500 L_LM 0.0000 3509s
+step 1420/12000 L_sel 1.0605 L_LM 0.0585 3527s
+step 1430/12000 L_sel 1.1036 L_LM 0.0001 3543s
+step 1440/12000 L_sel 1.2609 L_LM 0.0003 3567s
+step 1450/12000 L_sel 1.0074 L_LM 0.0000 3580s
+step 1460/12000 L_sel 0.9009 L_LM 0.0000 3593s
+step 1470/12000 L_sel 1.0277 L_LM 0.0000 3606s
+step 1480/12000 L_sel 1.4481 L_LM 0.0000 3628s
+[rank3]:[W1031 05:08:04.143484780 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 3 while trying to allocate 4227858432 bytes (free: 338165760, total: 68099571712).
+[rank3]:[W1031 05:08:17.522219887 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 3 while trying to allocate 4227858432 bytes (free: 4014473216, total: 68099571712).
+[rank3]:[W1031 05:08:22.367036534 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 3 while trying to allocate 4227858432 bytes (free: 73924608, total: 68099571712).
+[rank3]:[W1031 05:08:25.336173041 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 3 while trying to allocate 4227858432 bytes (free: 394788864, total: 68099571712).
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s5_train.py", line 197, in <module>
+[rank3]:     main()
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s5_train.py", line 193, in main
+[rank3]:     S2T.main()
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s2_train.py", line 590, in main
+[rank3]:     l_sel, l_lm = micro_step(model, extra, selector, next(it), items, layer, device, rng, c["gamma"], stats)
+[rank3]:                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s2_train.py", line 419, in micro_step
+[rank3]:     hl, last = S2.forward(model, batch, layer)
+[rank3]:                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/s2.py", line 81, in forward
+[rank3]:     out = model.model(**batch, output_hidden_states=True, use_cache=False)
+[rank3]:           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+[rank3]:     return self._call_impl(*args, **kwargs)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+[rank3]:     return forward_call(*args, **kwargs)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 1002, in wrapper
+[rank3]:     outputs = func(self, *args, **kwargs)
+[rank3]:               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/modeling_qwen3_vl.py", line 1274, in forward
+[rank3]:     outputs = self.language_model(
+[rank3]:               ^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+[rank3]:     return self._call_impl(*args, **kwargs)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+[rank3]:     return forward_call(*args, **kwargs)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 1002, in wrapper
+[rank3]:     outputs = func(self, *args, **kwargs)
+[rank3]:               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/modeling_qwen3_vl.py", line 911, in forward
+[rank3]:     layer_outputs = decoder_layer(
+[rank3]:                     ^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/modeling_layers.py", line 92, in __call__
+[rank3]:     return self._gradient_checkpointing_func(partial(super().__call__, **kwargs), *args)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/_compile.py", line 54, in inner
+[rank3]:     return disable_fn(*args, **kwargs)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/_dynamo/eval_frame.py", line 1548, in _fn
+[rank3]:     return fn(*args, **kwargs)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/utils/checkpoint.py", line 606, in checkpoint
+[rank3]:     return _checkpoint_impl(
+[rank3]:            ^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/utils/checkpoint.py", line 681, in _checkpoint_impl
+[rank3]:     gen.throw(e)
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/utils/checkpoint.py", line 1988, in _checkpoint_without_reentrant_generator_impl
+[rank3]:     yield
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/utils/checkpoint.py", line 678, in _checkpoint_impl
+[rank3]:     ret = function(*args, **kwargs)
+[rank3]:           ^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+[rank3]:     return self._call_impl(*args, **kwargs)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+[rank3]:     return forward_call(*args, **kwargs)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 955, in wrapped_forward
+[rank3]:     output = orig_forward(*args, **kwargs)
+[rank3]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 955, in wrapped_forward
+[rank3]:     output = orig_forward(*args, **kwargs)
+[rank3]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/modeling_qwen3_vl.py", line 544, in forward
+[rank3]:     hidden_states, _ = self.self_attn(
+[rank3]:                        ^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+[rank3]:     return self._call_impl(*args, **kwargs)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+[rank3]:     return forward_call(*args, **kwargs)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/modeling_qwen3_vl.py", line 487, in forward
+[rank3]:     attn_output, attn_weights = attention_interface(
+[rank3]:                                 ^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/integrations/sdpa_attention.py", line 92, in sdpa_attention_forward
+[rank3]:     attn_output = torch.nn.functional.scaled_dot_product_attention(
+[rank3]:                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]: torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 3.94 GiB. GPU 3 has a total capacity of 63.42 GiB of which 376.50 MiB is free. Including non-PyTorch memory, this process has 63.05 GiB memory in use. Of the allocated memory 44.68 GiB is allocated by PyTorch, and 17.19 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+W1031 05:08:39.181000 418025 torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 418050 closing signal SIGTERM
+W1031 05:08:39.182000 418025 torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 418051 closing signal SIGTERM
+W1031 05:08:39.183000 418025 torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 418052 closing signal SIGTERM
+E1031 05:08:40.026000 418025 torch/distributed/elastic/multiprocessing/api.py:1002] failed (exitcode: 1) local_rank: 3 (pid: 418053) of binary: /leonardo_work/AIFAC_S07_041/treeground/tg-venv/bin/python
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/bin/torchrun", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 380, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/run.py", line 1138, in main
+    run(args)
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/run.py", line 1129, in run
+    elastic_launch(
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 197, in __call__
+    return launch_agent(
+           ^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 386, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+scripts/s5_train.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-10-31_05:08:40
+  host      : lrdn3016.leonardo.local
+  rank      : 0 (local_rank: 0)
+  exitcode  : -15 (pid: 418050)  (SIGTERM)
+  error_file: <N/A>
+  traceback : Signal 15 (SIGTERM) received by PID 418050
+[2]:
+  time      : 2026-10-31_05:08:40
+  host      : lrdn3016-net9-3.leonardo.local
+  rank      : 1 (local_rank: 1)
+  exitcode  : -15 (pid: 418051)  (SIGTERM)
+  error_file: <N/A>
+  traceback : Signal 15 (SIGTERM) received by PID 418051
+[3]:
+  time      : 2026-10-31_05:08:40
+  host      : lrdn3016-net9-3.leonardo.local
+  rank      : 2 (local_rank: 2)
+  exitcode  : -15 (pid: 418052)  (SIGTERM)
+  error_file: <N/A>
+  traceback : Signal 15 (SIGTERM) received by PID 418052
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-10-31_05:08:39
+  host      : lrdn3016-net9-3.leonardo.local
+  rank      : 3 (local_rank: 3)
+  exitcode  : 1 (pid: 418053) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

@@ -63,6 +63,7 @@ class Readout(nn.Module):
                                                                                                 n_nodes))
         self.heads = nn.ModuleList(make() for _ in layers)
         self.embed = embed
+        self.decision = "product"   # hier only; ta_eval --decision: "stop" or "stop_root" read parts of the rule
 
     def head(self, layer: int) -> TA.ScaledSelector:
         # the stop scorer of a hierarchical head is trained exactly like the flat selector
@@ -72,8 +73,15 @@ class Readout(nn.Module):
     def node_logits(self, layer: int, probe: torch.Tensor, states: torch.Tensor, nb: TA.Nodes) -> torch.Tensor:
         # (n_sel, n) decision logits of the node tokens for the <SEL> rows in probe
         if self.hier:
+            h = self.heads[self.layers.index(layer)]
+            if self.decision == "stop":
+                return h.stop.scores(h.stop.queries(probe), h.stop.nodes(states))
             anc = torch.as_tensor(nb.anc, device=states.device)
-            return self.heads[self.layers.index(layer)].logits(probe, states, anc)
+            if self.decision == "stop_root":                             # no ancestor factors
+                anc = torch.zeros_like(anc)
+            elif self.decision != "product":
+                raise ProtocolError(f"unknown decision {self.decision!r}")
+            return h.logits(probe, states, anc)
         h = self.head(layer)
         return h.scores(h.queries(probe), h.nodes(states))
 

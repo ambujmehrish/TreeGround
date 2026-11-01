@@ -34,9 +34,13 @@ from treeground.run import (ProtocolError, load_config, require_approved, resolv
 EVAL_KINDS = ("object", "part", "chain", "absent")
 
 
-def eval_stage(cfg: dict, relations: str | None) -> str:
-    # a relation swap (diagnostic: is the tree used?) gets its own stage next to the regular evaluation
-    return f"{TAT.stage(cfg)}_eval" + (f"_rel_{relations}" if relations else "")
+DECISIONS = ("product", "stop", "stop_root")
+
+
+def eval_stage(cfg: dict, relations: str | None, decision: str = "product") -> str:
+    # diagnostics (a relation swap: is the tree used?; a partial decision rule of a hier model) get their own stage
+    return (f"{TAT.stage(cfg)}_eval" + (f"_rel_{relations}" if relations else "")
+            + (f"_dec_{decision}" if decision != "product" else ""))
 
 
 class IdentitySelector(torch.nn.Module):
@@ -115,6 +119,8 @@ def main() -> None:
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--relations", choices=TA.RELATIONS, default=None,
                     help="diagnostic: evaluate the checkpoint with other node-token relations than it was trained with")
+    ap.add_argument("--decision", choices=DECISIONS, default="product",
+                    help="hier models only: score by the stop scores alone, stop x root, or the full path product")
     args = ap.parse_args()
     os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
     cfg = load_config(args.config)
@@ -136,14 +142,17 @@ def main() -> None:
     if extra["sel_id"] != meta["sel_id"]:
         raise ProtocolError("<SEL> token id differs from the checkpoint")
     LR.load_trainable(model, extra["sel_emb"], readout, ckpt)
+    if args.decision != "product" and not readout.hier:
+        raise ProtocolError(f"--decision {args.decision} needs a hier checkpoint, not {meta['variant']}")
+    readout.decision = args.decision
     model.eval()
     readout.eval()
     torch.backends.cuda.matmul.allow_tf32 = False
     torch.backends.cudnn.allow_tf32 = False
     run = None
     if rank == 0:
-        run = start_run(eval_stage(cfg, args.relations), cfg, args.smoke, {
-            "relations": args.relations or "as trained",
+        run = start_run(eval_stage(cfg, args.relations, args.decision), cfg, args.smoke, {
+            "relations": args.relations or "as trained", "decision": args.decision,
             "manifest_run": str(mrun), "train_run": str(train_run), "checkpoint": cfg["ta_eval"]["checkpoint"],
             "checkpoint_step": meta["step"], "layer": layer, "variant": meta["variant"], "world_size": world})
     run = Path(S2T.broadcast(str(run) if run else None, world))
@@ -165,7 +174,7 @@ def main() -> None:
         chain_metrics.update(V4.search_metrics(cfg, chains, tau, run))
         write_json(run / "metrics.json", {
             "label": "dev", "smoke": args.smoke, "variant": meta["variant"], "layer": layer,
-            "relations": args.relations or "as trained",
+            "relations": args.relations or "as trained", "decision": args.decision,
             "train_run": train_run.name, "checkpoint_step": meta["step"], "checkpoint_val": meta["val"],
             "single_step": metrics, "no_rejection": no_rejection(per_query), "chains": chain_metrics,
             "v1_gate": gate, "deviations": TAT.deviations(meta["variant"])})

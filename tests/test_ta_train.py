@@ -262,3 +262,31 @@ def test_hier_logits_follow_the_tree_in_use(s2t, tat, tmp_path):
     assert all(true[k].shape == (m.queries[0].answer.count(SEL), m.n) for k in LAYERS)
     assert any(not torch.allclose(true[k], other[k]) for k in LAYERS)
     assert tat.deviations("hier") == ["D10", "D21", "D41", "D42"] and tat.deviations("tree") == ["D10", "D21", "D41"]
+
+
+def test_partial_decisions_of_a_hier_model(s2t, tat, tmp_path):
+    items, props, model, proc, extra, readout, src = make(s2t, tat, tmp_path, "hier")
+    model.eval()
+    m = items[0]
+    q = m.queries[:1]
+    got = {}
+    for d in ("product", "stop", "stop_root"):
+        readout.decision = d
+        got[d] = tat.query_logits(model, readout, src, m, q, "cpu", 1, [4])[0][4]
+    readout.decision = "product"
+    (seq,), nb = src.image_item(m, q)
+    batch = {k: v for k, v in tat.S2.collate([seq], src.pad_id).items()}
+    with torch.no_grad(), tat.S2.autocast("cpu"):
+        res = tat.run_forward(model, readout, batch, [nb])
+    h = readout.heads[readout.layers.index(4)]
+    probe, states = res.hidden[4][0, seq.sel].float(), res.nodes[4][0].float()
+    with torch.no_grad():
+        stop = h.stop.scores(h.stop.queries(probe), h.stop.nodes(states))
+        root = h.root_logit(probe)
+    assert torch.allclose(got["stop"], stop, atol=1e-5)
+    p = torch.sigmoid(root)[:, None] * torch.sigmoid(stop)
+    assert torch.allclose(torch.sigmoid(got["stop_root"]), p, atol=1e-5)
+    assert torch.all(torch.sigmoid(got["product"]) <= torch.sigmoid(got["stop_root"]) + 1e-6)   # extra factors <= 1
+    readout.decision = "nonsense"
+    with pytest.raises(Exception):
+        tat.query_logits(model, readout, src, m, q, "cpu", 1, [4])

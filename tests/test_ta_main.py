@@ -130,3 +130,14 @@ def test_train_then_eval_main(tmp_path, monkeypatch, variant):
     sw = json.loads((tmp_path / "e" / "runs" / f"ta_{variant}_eval_rel_self" / "metrics.json").read_text())
     assert sw["relations"] == "self" and sw["layer"] == ev["layer"] and ev["relations"] == "as trained"
     assert any(not torch.allclose(seen[k], trained[k]) for k in trained)
+    if variant not in ("hier", "hier_random_tree"):
+        monkeypatch.setattr(sys, "argv", ["ta_eval.py", "--config", "x", "--decision", "stop"])
+        with pytest.raises(Exception):
+            tae.main()
+        return
+    seen.clear()
+    monkeypatch.setattr(sys, "argv", ["ta_eval.py", "--config", "x", "--decision", "stop"])
+    tae.main()
+    dec = json.loads((tmp_path / "e" / "runs" / f"ta_{variant}_eval_dec_stop" / "metrics.json").read_text())
+    assert dec["decision"] == "stop" and ev["decision"] == "product"
+    assert any(not torch.allclose(seen[k], trained[k]) for k in trained)

@@ -1,8 +1,9 @@
          JOBID                         NAME    STATE       TIME NODELIST(REASON)
       63214113     tg_ta_hier_dec_stop_root  PENDING       0:00 (Priority)
       63214111          tg_ta_hier_dec_stop  PENDING       0:00 (Priority)
-      63227936 tg_tt_oph_partimagenet_tree_  PENDING       0:00 (Dependency)
-      63227928 tg_tt_oph_instructpart_tree_  PENDING       0:00 (Dependency)
+      63243750                tg_check_part  PENDING       0:00 (Priority)
+      63243744                tg_check_leak  PENDING       0:00 (Priority)
+      63227936 tg_tt_oph_partimagenet_tree_  PENDING       0:00 (Priority)
       63227921            tg_tt_gres_tree_m  PENDING       0:00 (Dependency)
 63227917_[0-3]        tg_tt_gres_testA_tree  PENDING       0:00 (Priority)
 63227915_[0-3]          tg_tt_gres_val_tree  PENDING       0:00 (Priority)
@@ -12,25 +13,8 @@
 63227911_[0-3]  tg_tt_oph_partimagenet_full  PENDING       0:00 (Priority)
       63227910  tg_tt_oph_pascalpart_full_m  PENDING       0:00 (Dependency)
     63227909_3    tg_tt_oph_pascalpart_full  PENDING       0:00 (Priority)
-      63227908 tg_tt_oph_instructpart_full_  PENDING       0:00 (Dependency)
+      63227908 tg_tt_oph_instructpart_full_  PENDING       0:00 (Priority)
       63227906            tg_tt_part_full_m  PENDING       0:00 (Priority)
       63227904            tg_tt_gres_full_m  PENDING       0:00 (Dependency)
+      63227898            tg_tt_paco_full_m  PENDING       0:00 (Priority)
 63227902_[1-3]        tg_tt_gres_testB_full  PENDING       0:00 (Priority)
-      63227898            tg_tt_paco_full_m  PENDING       0:00 (Dependency)
-    63227907_1  tg_tt_oph_instructpart_full  RUNNING    1:20:57 lrdn2641
-    63227935_0  tg_tt_oph_partimagenet_tree  RUNNING    1:25:03 lrdn0031
-    63227935_1  tg_tt_oph_partimagenet_tree  RUNNING    1:25:03 lrdn1403
-    63227935_2  tg_tt_oph_partimagenet_tree  RUNNING    1:25:03 lrdn3339
-    63227935_3  tg_tt_oph_partimagenet_tree  RUNNING    1:25:03 lrdn3417
-    63227927_0  tg_tt_oph_instructpart_tree  RUNNING    1:23:51 lrdn3076
-    63227913_0              tg_tt_paco_tree  RUNNING    1:18:05 lrdn2502
-    63227913_1              tg_tt_paco_tree  RUNNING    1:18:05 lrdn0026
-    63227913_2              tg_tt_paco_tree  RUNNING    1:18:05 lrdn2292
-    63227896_7              tg_tt_paco_full  RUNNING    1:26:47 lrdn2760
-    63227896_3              tg_tt_paco_full  RUNNING    1:27:22 lrdn0671
-    63227896_4              tg_tt_paco_full  RUNNING    1:27:22 lrdn0842
-    63227896_5              tg_tt_paco_full  RUNNING    1:27:22 lrdn1295
-    63227896_6              tg_tt_paco_full  RUNNING    1:27:22 lrdn3304
-    63227896_0              tg_tt_paco_full  RUNNING    1:27:58 lrdn0428
-    63227896_1              tg_tt_paco_full  RUNNING    1:27:58 lrdn2711
-    63227896_2              tg_tt_paco_full  RUNNING    1:27:58 lrdn3441

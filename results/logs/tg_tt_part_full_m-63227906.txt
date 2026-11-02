@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 265, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 261, in main
+    module.main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/partonomy_eval.py", line 305, in main
+    merge(cfg, args.method)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/partonomy_eval.py", line 277, in merge
+    raise ProtocolError(f"{len(missing)} of {n} shards missing in {d}, e.g. {missing[:5]}")
+treeground.run.ProtocolError: 4 of 4 shards missing in /leonardo_scratch/large/userexternal/amehrish/treeground/cache/full/partonomy_eval/ta_full/15beda2ca4a79d9e, e.g. [0, 1, 2, 3]

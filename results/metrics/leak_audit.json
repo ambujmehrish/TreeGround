@@ -1,0 +1,5230 @@
+{
+  "coco_id": {
+    "eval_coco_ids": 14573,
+    "examples": [],
+    "overlap": 0,
+    "train_coco_ids": 51990
+  },
+  "exact_overlap": [],
+  "max_hamming": 4,
+  "near_duplicates": [
+    {
+      "hamming": 3,
+      "set": "grefcoco_testB",
+      "test": "$TG_DATA/coco/train2014/COCO_train2014_000000329993.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000147342.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "grefcoco_testB",
+      "test": "$TG_DATA/coco/train2014/COCO_train2014_000000329993.jpg",
+      "train": "$TG_DATA/coco/train2017/000000109532.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "grefcoco_testB",
+      "test": "$TG_DATA/coco/train2014/COCO_train2014_000000329993.jpg",
+      "train": "$TG_DATA/coco/train2017/000000373439.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "grefcoco_testB",
+      "test": "$TG_DATA/coco/train2014/COCO_train2014_000000329993.jpg",
+      "train": "$TG_DATA/coco/train2017/000000428503.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "grefcoco_testB",
+      "test": "$TG_DATA/coco/train2014/COCO_train2014_000000329993.jpg",
+      "train": "$TG_DATA/coco/train2017/000000434239.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "grefcoco_testB",
+      "test": "$TG_DATA/coco/train2014/COCO_train2014_000000329993.jpg",
+      "train": "$TG_DATA/coco/train2017/000000546962.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "grefcoco_testB",
+      "test": "$TG_DATA/coco/train2014/COCO_train2014_000000329993.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_000816.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "grefcoco_testA",
+      "test": "$TG_DATA/coco/train2014/COCO_train2014_000000453930.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_000151.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000096070.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000147342.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000377411.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/coco/train2017/000000008829.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/coco/train2017/000000100215.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/coco/train2017/000000131961.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/coco/train2017/000000144951.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/coco/train2017/000000303308.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/coco/train2017/000000321007.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/coco/train2017/000000364656.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/coco/train2017/000000373439.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/coco/train2017/000000546962.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_005415.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000006393.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_004153.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000009723.jpg",
+      "train": "$TG_DATA/coco/train2017/000000299468.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000040901.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000147342.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000040901.jpg",
+      "train": "$TG_DATA/coco/train2017/000000144951.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000043719.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000494434.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000043719.jpg",
+      "train": "$TG_DATA/coco/train2017/000000494434.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000054218.jpg",
+      "train": "$TG_DATA/coco/train2017/000000208146.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000055119.jpg",
+      "train": "$TG_DATA/coco/train2017/000000111556.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000084013.jpg",
+      "train": "$TG_DATA/coco/train2017/000000021698.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000087929.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000144772.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000087929.jpg",
+      "train": "$TG_DATA/coco/train2017/000000144772.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000111043.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000143713.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000123843.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000123843.jpg",
+      "train": "$TG_DATA/coco/train2017/000000089892.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000123843.jpg",
+      "train": "$TG_DATA/coco/train2017/000000131961.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000123843.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000123843.jpg",
+      "train": "$TG_DATA/coco/train2017/000000376572.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000123843.jpg",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000123843.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001245.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000123843.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_007448.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000123843.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000123843.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_001976.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000131665.jpg",
+      "train": "$TG_DATA/coco/train2017/000000320649.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000139139.jpg",
+      "train": "$TG_DATA/coco/train2017/000000385971.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000174357.jpg",
+      "train": "$TG_DATA/coco/train2017/000000320649.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000174357.jpg",
+      "train": "$TG_DATA/coco/train2017/000000463132.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000174357.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_005673.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000175734.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000042680.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 0,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000178928.jpg",
+      "train": "$TG_DATA/coco/train2017/000000491223.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000178928.jpg",
+      "train": "$TG_DATA/coco/train2017/000000497439.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 1,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000147342.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/coco/train2017/000000100215.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/coco/train2017/000000112240.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/coco/train2017/000000292554.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/coco/train2017/000000297509.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/coco/train2017/000000303308.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/coco/train2017/000000321007.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/coco/train2017/000000373439.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/coco/train2017/000000442026.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/coco/train2017/000000475812.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/coco/train2017/000000503809.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/coco/train2017/000000546962.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_000816.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000210976.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_004153.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000220782.jpg",
+      "train": "$TG_DATA/coco/train2017/000000044361.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000222394.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_001970.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000222394.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002180.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000228474.jpg",
+      "train": "$TG_DATA/coco/train2017/000000109532.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000228474.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_000816.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257134.jpg",
+      "train": "$TG_DATA/coco/train2017/000000170888.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/coco/train2017/000000136780.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/coco/train2017/000000240298.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_000181.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001747.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000257196.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000271542.jpg",
+      "train": "$TG_DATA/coco/train2017/000000030589.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000271542.jpg",
+      "train": "$TG_DATA/coco/train2017/000000185519.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000271542.jpg",
+      "train": "$TG_DATA/coco/train2017/000000191546.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000272426.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_003477.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000273516.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000273516.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000273516.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000273516.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000280293.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000280293.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000283237.jpg",
+      "train": "$TG_DATA/coco/train2017/000000524628.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000307050.jpg",
+      "train": "$TG_DATA/coco/train2017/000000099129.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000307050.jpg",
+      "train": "$TG_DATA/coco/train2017/000000494003.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000307050.jpg",
+      "train": "$TG_DATA/coco/train2017/000000541580.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000310906.jpg",
+      "train": "$TG_DATA/coco/train2017/000000285579.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000328487.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_007477.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000332646.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000332646.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000332646.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000332646.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000332646.jpg",
+      "train": "$TG_DATA/coco/train2017/000000214213.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000332646.jpg",
+      "train": "$TG_DATA/coco/train2017/000000543480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000332646.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000332646.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_001976.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000377411.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000546154.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000030731.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000089892.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000117684.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000122631.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000136780.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000157944.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000159456.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000240298.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000355828.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000376572.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 1,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000408789.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/coco/train2017/000000546154.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_000181.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001245.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_007357.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001747.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_005056.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000337775.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000340119.jpg",
+      "train": "$TG_DATA/coco/train2017/000000514697.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000369961.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000369961.jpg",
+      "train": "$TG_DATA/coco/train2017/000000122631.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000369961.jpg",
+      "train": "$TG_DATA/coco/train2017/000000131961.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000369961.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000369961.jpg",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000369961.jpg",
+      "train": "$TG_DATA/coco/train2017/000000543480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000369961.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_007357.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000369961.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000371911.jpg",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000378901.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000143439.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000378901.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000162213.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000378901.jpg",
+      "train": "$TG_DATA/coco/train2017/000000172501.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000378901.jpg",
+      "train": "$TG_DATA/coco/train2017/000000464605.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000378901.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_005535.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000388511.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000143439.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000388511.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000379567.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000388511.jpg",
+      "train": "$TG_DATA/coco/train2017/000000086842.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000388511.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000388511.jpg",
+      "train": "$TG_DATA/coco/train2017/000000172501.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000388511.jpg",
+      "train": "$TG_DATA/coco/train2017/000000214213.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000388511.jpg",
+      "train": "$TG_DATA/coco/train2017/000000331425.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000388511.jpg",
+      "train": "$TG_DATA/coco/train2017/000000331844.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 1,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000388511.jpg",
+      "train": "$TG_DATA/coco/train2017/000000464605.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000388511.jpg",
+      "train": "$TG_DATA/coco/train2017/000000543480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000388511.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000397941.jpg",
+      "train": "$TG_DATA/coco/train2017/000000147635.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000399353.jpg",
+      "train": "$TG_DATA/coco/train2017/000000431152.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 1,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000411709.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000253217.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000415646.jpg",
+      "train": "$TG_DATA/coco/train2017/000000321007.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000415889.jpg",
+      "train": "$TG_DATA/coco/train2017/000000187792.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000415889.jpg",
+      "train": "$TG_DATA/coco/train2017/000000248702.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000377411.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000379567.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/coco/train2017/000000477516.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001245.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_005056.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000420366.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000449270.jpg",
+      "train": "$TG_DATA/coco/train2017/000000170751.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000449270.jpg",
+      "train": "$TG_DATA/coco/train2017/000000561137.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000470960.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000085046.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000470960.jpg",
+      "train": "$TG_DATA/coco/train2017/000000085046.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000473003.jpg",
+      "train": "$TG_DATA/coco/train2017/000000364656.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000473003.jpg",
+      "train": "$TG_DATA/coco/train2017/000000393089.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000476607.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000432727.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000476607.jpg",
+      "train": "$TG_DATA/coco/train2017/000000432727.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000143439.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/coco/train2017/000000167692.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/coco/train2017/000000464605.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/coco/train2017/000000543480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_000181.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000504997.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_005535.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000515136.jpg",
+      "train": "$TG_DATA/coco/train2017/000000141065.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000518242.jpg",
+      "train": "$TG_DATA/coco/train2017/000000155244.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000518242.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_002270.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000521482.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000521482.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000521482.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000521482.jpg",
+      "train": "$TG_DATA/coco/train2017/000000477516.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000521482.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_000181.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000521482.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000579404.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000470053.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/train2017/000000579404.jpg",
+      "train": "$TG_DATA/coco/train2017/000000470053.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000015497.jpg",
+      "train": "$TG_DATA/coco/train2017/000000411695.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 0,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000020333.jpg",
+      "train": "$TG_DATA/coco/train2017/000000062297.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000076731.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000076731.jpg",
+      "train": "$TG_DATA/coco/train2017/000000172501.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000076731.jpg",
+      "train": "$TG_DATA/coco/train2017/000000464605.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000076731.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001245.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000076731.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000099024.jpg",
+      "train": "$TG_DATA/coco/train2017/000000477516.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000118515.jpg",
+      "train": "$TG_DATA/coco/train2017/000000498374.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 1,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000140556.jpg",
+      "train": "$TG_DATA/coco/train2017/000000080010.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000180878.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000372180.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000180878.jpg",
+      "train": "$TG_DATA/coco/train2017/000000056036.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000180878.jpg",
+      "train": "$TG_DATA/coco/train2017/000000372180.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000180878.jpg",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000180878.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_004153.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000203488.jpg",
+      "train": "$TG_DATA/coco/train2017/000000514697.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000216296.jpg",
+      "train": "$TG_DATA/coco/train2017/000000073508.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000229358.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000528467.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000229358.jpg",
+      "train": "$TG_DATA/coco/train2017/000000528467.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000273712.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000317210.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000290768.jpg",
+      "train": "$TG_DATA/coco/train2017/000000211041.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000320490.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000377411.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000320490.jpg",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000320490.jpg",
+      "train": "$TG_DATA/coco/train2017/000000549201.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000372203.jpg",
+      "train": "$TG_DATA/coco/train2017/000000247609.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 0,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000387098.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_000848.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 0,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000423123.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000334631.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 0,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000423123.jpg",
+      "train": "$TG_DATA/coco/train2017/000000334631.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000429623.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000377411.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000429623.jpg",
+      "train": "$TG_DATA/coco/train2017/000000086842.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000429623.jpg",
+      "train": "$TG_DATA/coco/train2017/000000117684.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000429623.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000429623.jpg",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000429623.jpg",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000429623.jpg",
+      "train": "$TG_DATA/coco/train2017/000000487687.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000429623.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000429623.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000430286.jpg",
+      "train": "$TG_DATA/coco/train2017/000000361136.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000430286.jpg",
+      "train": "$TG_DATA/coco/train2017/000000503809.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000430286.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_001976.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000432085.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000147342.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000432085.jpg",
+      "train": "$TG_DATA/coco/train2017/000000393089.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000433915.jpg",
+      "train": "$TG_DATA/coco/train2017/000000035628.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000433915.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_004153.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000457262.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000487962.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000457262.jpg",
+      "train": "$TG_DATA/coco/train2017/000000321035.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000546626.jpg",
+      "train": "$TG_DATA/coco/train2017/000000035628.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000546626.jpg",
+      "train": "$TG_DATA/coco/train2017/000000178761.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000546626.jpg",
+      "train": "$TG_DATA/coco/train2017/000000359713.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "paco_test",
+      "test": "$TG_DATA/coco/val2017/000000558213.jpg",
+      "train": "$TG_DATA/coco/train2017/000000364656.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000377411.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000001180.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000046753.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000122631.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000131961.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000136780.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000262477.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001245.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_007357.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_005056.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/355218177_4ab6b84aba_o-light_switch-switch_toggle.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 0,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bed_001573-bed-sleeping_surface.jpg",
+      "train": "$TG_DATA/coco/train2017/000000067046.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000026764.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000143439.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000379567.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000026764.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000086842.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000167692.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000234642.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000331844.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000360480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000464605.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/bottle_002218-bottle-body.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 0,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002498-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000148908.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000377411.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000379567.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000546154.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000001180.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000030731.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000046753.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000080281.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000086842.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000089892.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000122631.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000131961.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000136780.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000157944.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 0,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000170077.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000214213.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000240298.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000262477.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000295410.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000323491.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000331844.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000355828.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000360480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000376572.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000393050.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000408789.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000464605.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000477516.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000509497.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000543480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/coco/train2017/000000546154.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_000181.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001245.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_007357.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 0,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001747.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003093.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_005056.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_001976.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/couch_002928-sofa-couch_cushion.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_004950.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/cup_002102-cup-handle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000086842.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/cup_002102-cup-handle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000167692.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/cup_002102-cup-handle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000234642.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/cup_2-cup-lid.jpg",
+      "train": "$TG_DATA/coco/train2017/000000556326.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/fork_000748-fork-handle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000008170.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/fork_000748-fork-handle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000417063.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 0,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_000154-knife-handle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000133050.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 0,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_000477-knife-handle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000472865.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 0,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_001493-knife-handle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000245242.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_001725-knife-blade.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_006249.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 0,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_002301-knife-handle.jpg",
+      "train": "$TG_DATA/coco/train2017/000000116005.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_002352-knife-blade.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000143439.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_002352-knife-blade.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000206225.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_002352-knife-blade.jpg",
+      "train": "$TG_DATA/coco/train2017/000000081680.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_002352-knife-blade.jpg",
+      "train": "$TG_DATA/coco/train2017/000000167692.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_002352-knife-blade.jpg",
+      "train": "$TG_DATA/coco/train2017/000000206225.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_002352-knife-blade.jpg",
+      "train": "$TG_DATA/coco/train2017/000000347877.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_002352-knife-blade.jpg",
+      "train": "$TG_DATA/coco/train2017/000000463132.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_002352-knife-blade.jpg",
+      "train": "$TG_DATA/coco/train2017/000000499166.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/knife_002352-knife-blade.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_000740.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_000114-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000040625.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_000114-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000249620.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_000114-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000377411.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_000114-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_000114-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000040625.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_000114-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000131961.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_000114-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000376572.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_000114-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_000114-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_000114-scissors-blades.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_001673-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000266487.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000162213.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000360480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000464605.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/coco/train2017/000000535143.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/scissors_002169-scissors-blades.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_instructpart",
+      "test": "$TG_DATA/instructpart/test/images/wine_3-wine_glass-stem.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000196111.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_12740.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000540617.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_12740.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_12740.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000089892.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_12740.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000131961.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_12740.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_12740.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000376572.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_12740.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_12740.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000538709.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_12740.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000540617.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_12740.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001245.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_12740.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_007448.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_12740.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_12740.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_001976.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000018614.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000540617.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000018614.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000131961.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000214213.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000262477.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000316477.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000331425.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000444757.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000540617.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000577604.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_004153.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_14428.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_001976.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000162213.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000377411.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000546154.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000019194.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000046753.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000089892.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000136780.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000157944.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000202402.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000240298.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000262477.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000295410.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000323491.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000360480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000376572.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000408789.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000435811.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000464605.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000546154.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_000181.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001245.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_006481.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001747.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_004153.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_005056.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 0,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_5417.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_7720.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000109532.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_784.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_007477.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_8839.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_8839.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_8839.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000535143.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_8839.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000546962.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_9273.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01491361/n01491361_9273.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000546962.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_1067.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000297509.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_1067.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000434239.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_22484.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000030731.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_22484.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000157944.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_22484.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000189461.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_22484.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000202402.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_22484.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000376572.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_22484.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_22484.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000435811.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_22484.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_22484.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_22484.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000503996.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_22484.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_24390.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000030589.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_24390.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000185519.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_24390.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000191546.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_24390.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001927.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_24390.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_000459.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_24390.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002839.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_28076.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_28076.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000071735.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_28076.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000360480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_28076.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_28076.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000546962.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_28076.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_005535.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_3747.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000026764.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_3747.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000026764.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_3747.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_3747.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000167692.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_3747.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000174667.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_3747.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4174.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000147342.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4174.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000321007.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4174.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000331425.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4174.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000340573.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4174.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000373439.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4174.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000464605.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4174.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4174.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000546962.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4174.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_005415.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4969.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4969.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4969.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_007357.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4969.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_4969.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002236.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5183.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000147342.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5183.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000200775.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5183.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000428503.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5183.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000556356.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5840.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000344038.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5840.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5840.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5840.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000262477.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5840.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000308103.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5840.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000316477.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5840.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000376572.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5840.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5840.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000541619.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5840.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_004153.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_5840.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000377411.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000080281.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000089892.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000131961.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000157944.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000214213.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000262477.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000376572.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000543480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001245.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_004153.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_005056.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_001976.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_8931.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01494475/n01494475_9202.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000205693.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01644373/n01644373_1720.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000030589.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01644373/n01644373_1720.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000191546.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01644373/n01644373_1720.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_003512.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01697457/n01697457_4903.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000364656.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01734418/n01734418_9297.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000538709.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n01843065/n01843065_1781.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000549943.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000136780.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000240298.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000262477.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000464605.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_000181.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_007357.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_1690.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_6432.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02092339/n02092339_6432.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_004153.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02134418/n02134418_1891.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_004688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02134418/n02134418_2175.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000013300.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02447366/n02447366_1144.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001302.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02480495/n02480495_2608.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000477516.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02480495/n02480495_4061.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000131961.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02480495/n02480495_4061.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_001976.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000040625.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000377411.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000040625.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000111635.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000262477.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_11235.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_13720.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000573501.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_8016.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000143439.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_8016.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000463132.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02655020/n02655020_8317.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000123282.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n02835271/n02835271_690.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000360480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n04147183/n04147183_40521.JPEG",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000487962.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n04147183/n04147183_40521.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000213220.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n04147183/n04147183_43380.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n04147183/n04147183_43380.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000154754.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n04147183/n04147183_43380.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n04147183/n04147183_43380.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000214213.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n04147183/n04147183_43380.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000239007.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n04147183/n04147183_43380.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n04147183/n04147183_5860.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000251938.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n04147183/n04147183_5860.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_007129.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 1,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n04552348/n04552348_20218.JPEG",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_003196.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n04591713/n04591713_321.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000551359.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_partimagenet",
+      "test": "$TG_DATA/partimagenet_ood/test/n04591713/n04591713_3522.JPEG",
+      "train": "$TG_DATA/coco/train2017/000000364656.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0330ba2a606633a81729e394507b3492d92decca84cd407c5e8809c06551d457.jpg",
+      "train": "$TG_DATA/coco/train2017/000000163362.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/08ee7551648375ce455d803b6f834b56a5a108b288a3e863d02e90ab208f0c7f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000196117.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/08ee7551648375ce455d803b6f834b56a5a108b288a3e863d02e90ab208f0c7f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000240062.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/08ee7551648375ce455d803b6f834b56a5a108b288a3e863d02e90ab208f0c7f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000417063.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000377411.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000004282.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000131961.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000360480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000431152.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000464605.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000521863.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000543480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001245.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_005056.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_001976.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0cd9c40d04e9f7aab57c693b15a1ebe72a6687fda6a650d71f1652be9c47565f.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0dfed0ca4d9e0cec3e2345f2a5855abba930e93cfb7fc9d0c2f25c702f80d6d8.jpg",
+      "train": "$TG_DATA/coco/train2017/000000196117.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0dfed0ca4d9e0cec3e2345f2a5855abba930e93cfb7fc9d0c2f25c702f80d6d8.jpg",
+      "train": "$TG_DATA/coco/train2017/000000483530.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0dfed0ca4d9e0cec3e2345f2a5855abba930e93cfb7fc9d0c2f25c702f80d6d8.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_005101.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0f6c962b4d52376e25527c87a518b1e46fe8713fd9994874b62440ca3c2e0ce0.jpg",
+      "train": "$TG_DATA/coco/train2017/000000334073.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0fed797e2021d3d6e86ab14c64e952794e5aae72c878236b542761f60e0b386b.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000106290.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 1,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/0fed797e2021d3d6e86ab14c64e952794e5aae72c878236b542761f60e0b386b.jpg",
+      "train": "$TG_DATA/coco/train2017/000000139304.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/10410_5.jpg",
+      "train": "$TG_DATA/coco/train2017/000000008170.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/10410_5.jpg",
+      "train": "$TG_DATA/coco/train2017/000000417063.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/12e0d2a36e94db3bd0faf41b77757507b9ccd28675c897dcd5099fde68ea8411.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000479779.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/12e0d2a36e94db3bd0faf41b77757507b9ccd28675c897dcd5099fde68ea8411.jpg",
+      "train": "$TG_DATA/coco/train2017/000000479779.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/13052a04014b8ba98f17beba5064dba75a0a50bee1ba6fc76a306b79c13bf8ee.jpg",
+      "train": "$TG_DATA/coco/train2017/000000556326.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/13052a04014b8ba98f17beba5064dba75a0a50bee1ba6fc76a306b79c13bf8ee.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_005275.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000143439.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000379567.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/coco/train2017/000000111635.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/coco/train2017/000000167692.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/coco/train2017/000000331844.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/coco/train2017/000000360480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1bb66c91ca73adc9d9b7071d0722671fd047be16679a5ba06ce3b79294e3c7f5.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1d50212492a900c39b7e73551f6ef9b220e206c3a2b960efc9d90bd1862baba8.jpg",
+      "train": "$TG_DATA/coco/train2017/000000522034.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1d50212492a900c39b7e73551f6ef9b220e206c3a2b960efc9d90bd1862baba8.jpg",
+      "train": "$TG_DATA/coco/train2017/000000556326.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 2,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1f5ab41dd53a77292502f87a5b0d84c1e43541260ca1cd6dba0e516e6c42e26b.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000270984.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 2,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/1f5ab41dd53a77292502f87a5b0d84c1e43541260ca1cd6dba0e516e6c42e26b.jpg",
+      "train": "$TG_DATA/coco/train2017/000000270984.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/2227ee4c-034f-44cb-ae23-99050a455b23.jpg",
+      "train": "$TG_DATA/coco/train2017/000000196117.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/2227ee4c-034f-44cb-ae23-99050a455b23.jpg",
+      "train": "$TG_DATA/coco/train2017/000000417063.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/25e9ba92578c953d901d3b957b0bc6a75575f52154260eba7bec599a4ee62ff3.jpg",
+      "train": "$TG_DATA/coco/train2017/000000196117.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/28e2f35119a781a9bc91e1b5122c179822c2d9043e694a13bd9e6ed73c5e30b3.jpg",
+      "train": "$TG_DATA/coco/train2017/000000196117.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/29602_r_22.jpg",
+      "train": "$TG_DATA/coco/train2017/000000115804.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/29602_r_22.jpg",
+      "train": "$TG_DATA/coco/train2017/000000233075.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/29602_r_22.jpg",
+      "train": "$TG_DATA/coco/train2017/000000497900.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/2c07de7c187bc47ee9557c7699aac9b9ae38a74145e90f342cb8755fba6ad090.jpg",
+      "train": "$TG_DATA/coco/train2017/000000196117.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/2d3ff366c1592dedb87b3acd02b1d5e4be74aaca4d6b40ad76e01b535af5c010.jpg",
+      "train": "$TG_DATA/coco/train2017/000000169154.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/2d3ff366c1592dedb87b3acd02b1d5e4be74aaca4d6b40ad76e01b535af5c010.jpg",
+      "train": "$TG_DATA/coco/train2017/000000417063.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/2f79b773ae933aff5e011dd453d0bf3342054efce5d2e5d3617a235e42e8a1b9.jpg",
+      "train": "$TG_DATA/coco/train2017/000000169154.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/4159e925c08edac5f202d849ccb02f8475e0758fdd6687ee2d13112d22546255.jpg",
+      "train": "$TG_DATA/coco/train2017/000000368218.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/447e4016a1bad23d4ee31e80fe8a3eb72657ad689247c61d8494264c8329cc24.jpg",
+      "train": "$TG_DATA/coco/train2017/000000417063.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/906f64da8bf0095b22ffd82a905e6efe458300fe7b87917000c72a6ef3af3183.jpg",
+      "train": "$TG_DATA/coco/train2017/000000392458.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/94f0f60e497d9feccb76805118cdf5f91a0bd0c0331612a76ab0f313cdad1f6f.jpg",
+      "train": "$TG_DATA/coco/train2017/000000196117.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 1,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/9a54240da5fa0e8e91bd10b423396541e183ba9a0087310037cc756b4824d4f3.jpg",
+      "train": "$TG_DATA/coco/train2017/000000196117.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/9a54240da5fa0e8e91bd10b423396541e183ba9a0087310037cc756b4824d4f3.jpg",
+      "train": "$TG_DATA/coco/train2017/000000417063.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/9a54240da5fa0e8e91bd10b423396541e183ba9a0087310037cc756b4824d4f3.jpg",
+      "train": "$TG_DATA/coco/train2017/000000483530.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/9a54240da5fa0e8e91bd10b423396541e183ba9a0087310037cc756b4824d4f3.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_005101.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/K348_1500x1500.jpg",
+      "train": "$TG_DATA/coco/train2017/000000196117.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/K348_1500x1500.jpg",
+      "train": "$TG_DATA/coco/train2017/000000417063.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/QQ20241006-101312.png",
+      "train": "$TG_DATA/coco/train2017/000000201419.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/QQ20241006-104056.png",
+      "train": "$TG_DATA/coco/train2017/000000320649.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/entrance_download (1).jpeg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000489844.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/hqdefault-1.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000489844.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "partonomy_test",
+      "test": "$TG_DATA/partonomy-core/images/polder_1.jpg",
+      "train": "$TG_DATA/coco/train2017/000000487687.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001249.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000147342.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001249.jpg",
+      "train": "$TG_DATA/coco/train2017/000000321007.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001249.jpg",
+      "train": "$TG_DATA/coco/train2017/000000373439.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_002604.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000147342.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_002604.jpg",
+      "train": "$TG_DATA/coco/train2017/000000100215.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_002604.jpg",
+      "train": "$TG_DATA/coco/train2017/000000200775.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_002604.jpg",
+      "train": "$TG_DATA/coco/train2017/000000373439.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_002604.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_000816.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000096070.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000162213.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2014/COCO_train2014_000000377411.jpg",
+      "train_source": "grefcoco_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2017/000000003866.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2017/000000065855.jpg",
+      "train_source": "paco_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2017/000000131961.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2017/000000135122.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2017/000000166711.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2017/000000172501.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2017/000000210322.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2017/000000404095.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2017/000000459982.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2017/000000464605.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2017/000000489920.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/coco/train2017/000000543480.jpg",
+      "train_source": "paco_train_rest"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_001245.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2008_005146.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 2,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_001285.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003087.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 4,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_005056.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2009_003849.jpg",
+      "train": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_002688.jpg",
+      "train_source": "pascal_part_train"
+    },
+    {
+      "hamming": 3,
+      "set": "ophrg_pascalpart",
+      "test": "$TG_DATA/pascal_part/VOCdevkit/VOC2010/JPEGImages/2010_004063.jpg",
+      "train": "$TG_DATA/coco/train2017/000000195969.jpg",
+      "train_source": "paco_train_rest"
+    }
+  ],
+  "per_test_set": {
+    "grefcoco_testA": {
+      "exact": 0,
+      "images": 750,
+      "near": 1
+    },
+    "grefcoco_testB": {
+      "exact": 0,
+      "images": 750,
+      "near": 1
+    },
+    "ophrg_instructpart": {
+      "exact": 0,
+      "images": 600,
+      "near": 18
+    },
+    "ophrg_partimagenet": {
+      "exact": 0,
+      "images": 4589,
+      "near": 40
+    },
+    "ophrg_pascalpart": {
+      "exact": 0,
+      "images": 925,
+      "near": 4
+    },
+    "paco_test": {
+      "exact": 0,
+      "images": 9443,
+      "near": 74
+    },
+    "partonomy_test": {
+      "exact": 0,
+      "images": 1065,
+      "near": 30
+    }
+  },
+  "test_images": 18122,
+  "train_by_source": {
+    "grefcoco_train": 15402,
+    "paco_train": 10000,
+    "paco_train_rest": 34406,
+    "pascal_part_train": 4998
+  },
+  "train_images": 64806
+}

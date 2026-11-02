@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_checks.py", line 126, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_checks.py", line 115, in main
+    a = part_ious(qs, partonomy_cache(cfg, args.against), "pred_nodes", PE.gt_mask, PE.iou)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_checks.py", line 56, in partonomy_cache
+    raise ProtocolError(f"expected one partonomy cache under {base}, found {len(dirs)}")
+treeground.run.ProtocolError: expected one partonomy cache under /leonardo_scratch/large/userexternal/amehrish/treeground/cache/full/partonomy_eval/s2_from_s1_long, found 2

@@ -142,4 +142,4 @@ def test_test_configs(monkeypatch):
     for v in ("full", "tree"):
         c, base = load_config(root / f"ta_test_{v}.yaml"), load_config(root / f"ta_{v}.yaml")
         assert c["ta"] == base["ta"] and c["ta_eval"] == base["ta_eval"]               # same checkpoint selection
-        assert c["gres_eval"]["splits"] == ["val", "testA", "testB"] and c["paco_test"]["num_shards"] == 32
+        assert c["gres_eval"]["splits"] == ["val", "testA", "testB"] and c["paco_test"]["num_shards"] == 8

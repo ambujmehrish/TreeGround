@@ -18,7 +18,8 @@ def config(tmp_path, variant):
             "ta": {"variant": variant, "readout_layers": [2, 4], "seed": 0, "steps": 3, "batch_images": 3,
                    "micro_batch": 3, "text_only_fraction": 0.34, "gamma": 2.0, "head_lr": 1e-3,
                    "head_weight_decay": 0.01, "lora_lr": 1e-3, "lora_weight_decay": 0.0, "warmup_steps": 1,
-                   "max_grad_norm": 1.0, "lora": {"r": 4, "alpha": 8, "dropout": 0.05,
+                   "max_grad_norm": 1.0, "fam_margin": 0.1, "fam_weight": 1.0, "soft_lr": 1e-2,
+                   "lora": {"r": 4, "alpha": 8, "dropout": 0.05,
                                                   "targets": ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj",
                                                               "up_proj", "down_proj"]},
                    "sources": {"paco_train": 1.0}, "paco_rest": False, "eval_every": 2, "eval_images": 2,
@@ -62,7 +63,8 @@ def query_table(items):
     return queries
 
 
-@pytest.mark.parametrize("variant", ["flat", "full", "tree", "random_tree", "hier", "hier_random_tree"])
+@pytest.mark.parametrize("variant", ["flat", "full", "tree", "random_tree", "hier", "hier_random_tree", "soft",
+                                     "soft_random_tree", "fam", "fam_random_tree", "soft_fam", "soft_fam_random_tree"])
 def test_train_then_eval_main(tmp_path, monkeypatch, variant):
     s2t, tat = load_script("s2_train"), load_script("ta_train")
     items, props = build_scene(s2t, tmp_path)
@@ -121,6 +123,11 @@ def test_train_then_eval_main(tmp_path, monkeypatch, variant):
         for q in m.queries:
             assert seen[q.qid].shape == (q.answer.count(SEL), m.n)
     if variant == "flat":
+        return
+    if variant in tat.D43:                               # relation swaps are refused for D43 checkpoints
+        monkeypatch.setattr(sys, "argv", ["ta_eval.py", "--config", "x", "--relations", "self"])
+        with pytest.raises(Exception):
+            tae.main()
         return
     # relation swap: same checkpoint, node tokens see only themselves; own stage, different scores
     trained = {k: v.clone() for k, v in seen.items()}

@@ -949,6 +949,29 @@ PROPOSED_DEVIATIONS = [
                   "to act in the decision, where a wrong-level pick (too big / too small) becomes a supervised error",
         "expected_impact": "new stages only; D41 runs and every existing result are unchanged",
     },
+    {
+        "id": "D43",
+        "spec_section": "2 (selector), 3 (training): soft tree attention and family loss",
+        "change": "two single-pass uses of the candidate tree on the D41 recipe (scripts/ta_train.py, "
+                  "treeground/tree_attn.py): (1) soft tree attention: every node token attends to every other "
+                  "(as D41 full) plus a learned additive bias per decoder layer and tree relation of the key to "
+                  "the query node (self, parent, child, sibling, further ancestor, further descendant, other; "
+                  "36 x 7 parameters initialised to 0 = full attention), added by pre-forward hooks to the "
+                  "node-token block of the 4-D mask; (2) family loss: per <SEL> step and positive, "
+                  "mean relu(margin - (cos_pos - cos_f)) of the query cosines over its own parent and children f in "
+                  "the tree (positives and ignored near-copies excluded), margin 0.1 in cosine units so the learned "
+                  "score scale cannot satisfy it, weight 1.0, at every read-out layer, added to the D41 loss; the "
+                  "relation biases get their own AdamW group (lr 1e-2, no weight decay); siblings share a real "
+                  "parent (top-level pairs are 'other'). Variants with the identical D41 recipe and data: soft, fam (full "
+                  "attention + family loss), soft_fam, and for each a control over the per-image shuffled tree "
+                  "(relations, geometry and family targets all from the shuffled tree): soft_random_tree, "
+                  "fam_random_tree, soft_fam_random_tree (runs/ta_<variant>). One variant is chosen on PACO val "
+                  "(S2 checkpoint rule); it, its control and D41 full are evaluated on the test splits",
+        "reason": "D41 hard tree attention equals full attention and D42's path product lowers part scores on PACO "
+                  "val; the tree has to be usable softly inside the one forward pass, and the selector has to be "
+                  "trained on the parent / child confusions that make up about 30% of its wrong picks",
+        "expected_impact": "new stages only; D41 / D42 runs and every existing result are unchanged",
+    },
 ]
 
 

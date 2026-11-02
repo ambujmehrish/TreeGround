@@ -44,19 +44,31 @@ from treeground.run import (ProtocolError, assert_real_path, canonical_hash, ens
 # Heads are trained jointly at every read-out layer; the checkpoint and its layer are chosen on the fixed PACO val
 # subset by single-step selector success (S2 rule), best over steps and layers.
 
+# D43 adds soft tree attention (learned per-layer bias by tree relation; every node token sees every other) and a
+# family loss (a positive must outscore its own parent and children by a margin), alone and combined, each with
+# its shuffled-tree control:
+#   soft, soft_random_tree          soft tree attention
+#   fam, fam_random_tree            full attention + family loss (tree for geometry and the loss)
+#   soft_fam, soft_fam_random_tree  both
 HIER = {"hier": "tree", "hier_random_tree": "random_tree"}     # variant -> node relations and decision tree
-VARIANTS = ("flat",) + TA.MODES + tuple(HIER)
+D43 = {"soft": ("soft", False), "soft_random_tree": ("soft_random_tree", False),
+       "fam": ("full", True), "fam_random_tree": ("full_random_tree", True),
+       "soft_fam": ("soft", True), "soft_fam_random_tree": ("soft_random_tree", True)}   # -> (node mode, family)
+VARIANTS = ("flat",) + TA.MODES + tuple(HIER) + tuple(D43)
 DEVIATIONS = ["D10", "D21", "D41"]
 
 
 def deviations(variant: str) -> list[str]:
-    return DEVIATIONS + (["D42"] if variant in HIER else [])
+    return DEVIATIONS + (["D42"] if variant in HIER else []) + (["D43"] if variant in D43 else [])
 
 
 class Readout(nn.Module):
     def __init__(self, d_model: int, layers: list[int], n_nodes: int, embed: TA.NodeEmbed | None,
-                 hier: bool = False):
+                 hier: bool = False, soft: TA.SoftTreeBias | None = None,
+                 family: tuple[float, float] | None = None):
         super().__init__()
+        self.soft = soft                 # D43 soft tree attention bias (hooks installed on the model by build)
+        self.family = family             # D43 family loss (margin, weight)
         self.layers = list(layers)
         self.hier = hier
         make = (lambda: TA.HierHead(d_model, n_nodes)) if hier else (lambda: TA.ScaledSelector(d_model, d_model,
@@ -115,7 +127,9 @@ def stage(cfg: dict) -> str:
 
 def node_mode(variant: str) -> str:
     # the flat variant only uses the coverage maps, which are the same for every mode
-    return "tree" if variant == "flat" else HIER.get(variant, variant)
+    if variant == "flat":
+        return "tree"
+    return HIER[variant] if variant in HIER else D43[variant][0] if variant in D43 else variant
 
 
 class Source(S2T.Source):
@@ -123,7 +137,7 @@ class Source(S2T.Source):
                  relations: str | None = None):
         # relations: evaluation-time override of which node tokens see each other (TA.RELATIONS); None = as trained
         super().__init__(cfg, smoke, manifest, mhash, processor, sel_id, text_labels)
-        if relations is not None and (variant == "flat" or relations not in TA.RELATIONS):
+        if relations is not None and (variant == "flat" or variant in D43 or relations not in TA.RELATIONS):
             raise ProtocolError(f"relations {relations!r} cannot override variant {variant!r}")
         self.mode, self.seed = relations or node_mode(variant), seed
 
@@ -166,7 +180,7 @@ class MicroBatches(torch.utils.data.Dataset):
 def run_forward(model, readout: Readout, batch: dict, nodes: list[TA.Nodes | None]) -> TA.Output:
     if readout.embed is None:
         return TA.flat_forward(model, batch, nodes, readout.layers)
-    return TA.forward(model, batch, nodes, readout.embed, readout.layers)
+    return TA.forward(model, batch, nodes, readout.embed, readout.layers, readout.soft)
 
 
 def micro_step(model, extra, readout: Readout, mb, items, device, rng, gamma, stats):
@@ -194,6 +208,17 @@ def micro_step(model, extra, readout: Readout, mb, items, device, rng, gamma, st
         terms = V2.batch_terms(readout.head(k), recs, text_probes, rng, device, gamma,
                                stats if li == 0 else {key: 0 for key in stats})
         l_sel = l_sel + torch.stack(terms).mean()
+        if readout.family is not None:
+            margin, weight = readout.family
+            fterms = []
+            for b, smp in enumerate(samples):
+                if smp["as_text"]:
+                    continue
+                q = items[smp["item"]].queries[smp["query"]]
+                fterms += TA.family_terms(readout.head(k), out.hidden[k][b, seqs[b].sel.to(device)].float(),
+                                          out.nodes[k][b].float(), smp["nodes"], q.steps, margin)
+            if fterms:
+                l_sel = l_sel + weight * torch.stack(fterms).mean()
         if readout.hier:
             # descend + root terms for every image query (text-only items train only their text probe, as in S2)
             hterms = []
@@ -301,7 +326,13 @@ def build(cfg: dict, c: dict, device: str, static: dict | None, n_nodes: int) ->
     d_model = model.config.text_config.hidden_size
     mllm.check_layers(model, c["readout_layers"])
     embed = None if c["variant"] == "flat" else TA.NodeEmbed(d_model, TA.embedding_rms(model))
-    readout = Readout(d_model, c["readout_layers"], n_nodes, embed, c["variant"] in HIER).to(device)
+    v = c["variant"]
+    soft = TA.SoftTreeBias(model.config.text_config.num_hidden_layers) if v in D43 and D43[v][0].startswith(
+        "soft") else None
+    family = (float(c["fam_margin"]), float(c["fam_weight"])) if v in D43 and D43[v][1] else None
+    readout = Readout(d_model, c["readout_layers"], n_nodes, embed, v in HIER, soft, family).to(device)
+    if soft is not None:
+        readout.soft.install(model)
     return model, processor, extra, readout
 
 
@@ -336,8 +367,9 @@ def main() -> None:
     readout.train()
     model.train()
     lora_params = LR.trainable_parameters(model, extra["sel_emb"])
-    head_params = list(readout.parameters())
-    params = lora_params + head_params
+    soft_params = list(readout.soft.parameters()) if readout.soft is not None else []
+    head_params = [p for p in readout.parameters() if all(p is not q for q in soft_params)]
+    params = lora_params + head_params + soft_params
     if world > 1:
         for p in params:
             dist.broadcast(p.data, 0)
@@ -361,9 +393,11 @@ def main() -> None:
                                          num_workers=c["workers"], collate_fn=lambda x: x,
                                          prefetch_factor=4 if c["workers"] else None)
 
-    opt = torch.optim.AdamW([
-        {"params": head_params, "lr": c["head_lr"], "weight_decay": c["head_weight_decay"]},
-        {"params": lora_params, "lr": c["lora_lr"], "weight_decay": c["lora_weight_decay"]}])
+    groups = [{"params": head_params, "lr": c["head_lr"], "weight_decay": c["head_weight_decay"]},
+              {"params": lora_params, "lr": c["lora_lr"], "weight_decay": c["lora_weight_decay"]}]
+    if soft_params:   # D43 relation biases: few parameters, larger steps, not decayed towards full attention
+        groups.append({"params": soft_params, "lr": c["soft_lr"], "weight_decay": 0.0})
+    opt = torch.optim.AdamW(groups)
     sched = torch.optim.lr_scheduler.LambdaLR(opt, V2.lr_lambda(c["warmup_steps"], c["steps"]))
     run = None
     if rank == 0:

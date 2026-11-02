@@ -37,13 +37,18 @@ def make(s2t, tat, tmp_path, variant, seed=0):
     model, proc, extra = wrapped(s2t, seed)
     torch.manual_seed(seed)
     embed = None if variant == "flat" else TA.NodeEmbed(64, TA.embedding_rms(model))
-    readout = tat.Readout(64, LAYERS, 5, embed, variant in tat.HIER)
+    soft = TA.SoftTreeBias(4) if variant in tat.D43 and tat.D43[variant][0].startswith("soft") else None
+    family = (0.1, 1.0) if variant in tat.D43 and tat.D43[variant][1] else None
+    readout = tat.Readout(64, LAYERS, 5, embed, variant in tat.HIER, soft, family)
+    if soft is not None:
+        soft.install(model)
     src = tat.Source({"proposals": {"node_dedup": 0.9}}, False, None, None, proc, extra["sel_id"], LABELS, variant, 0)
     src._props = props
     return items, props, model, proc, extra, readout, src
 
 
-@pytest.mark.parametrize("variant", ["flat", "full", "tree", "random_tree", "hier", "hier_random_tree"])
+@pytest.mark.parametrize("variant", ["flat", "full", "tree", "random_tree", "hier", "hier_random_tree", "soft",
+                                     "soft_random_tree", "fam", "fam_random_tree", "soft_fam", "soft_fam_random_tree"])
 def test_training_step_every_variant(s2t, tat, tmp_path, variant):
     items, props, model, proc, extra, readout, src = make(s2t, tat, tmp_path, variant)
     model.train()
@@ -60,6 +65,8 @@ def test_training_step_every_variant(s2t, tat, tmp_path, variant):
     assert all(p.grad is not None and torch.isfinite(p.grad).all() for p in params)
     stops = [readout.head(k) for k in LAYERS]
     assert all(h.bias.grad.abs() > 0 and h.log_scale.grad is not None for h in stops)
+    if readout.soft is not None:                                         # the relation biases are trained
+        assert readout.soft.bias.grad.abs().sum() > 0
     if variant in tat.HIER:                                              # descend and root heads are trained
         assert all(h.desc.bias.grad.abs() > 0 and h.root[2].bias.grad.abs() > 0 for h in readout.heads)
     assert any(p.grad.abs().sum() > 0 for n, p in model.named_parameters() if n.endswith("lora_B"))
@@ -188,14 +195,18 @@ def test_rest_items_skip_the_worklist(tat, monkeypatch):
     assert [k for k, *_ in tat.TPN.rest_items({}, 0, 1)] == ["paco_lvis:1", "paco_lvis:3"]
 
 
+def tat_variants():
+    return ("flat", "full", "tree", "random_tree", "hier", "hier_random_tree", "soft", "soft_random_tree", "fam",
+            "fam_random_tree", "soft_fam", "soft_fam_random_tree")
+
+
 def test_variant_configs_share_one_recipe(monkeypatch):
     from pathlib import Path
     from treeground.run import load_config
     for v in ("TG_CACHE", "TG_DATA", "TG_ROOT", "TG_RUNS", "TG_SLURM_ACCOUNT"):
         monkeypatch.setenv(v, "/x")
     root = Path(__file__).resolve().parents[1] / "configs"
-    cfgs = {v: load_config(root / f"ta_{v}.yaml") for v in ("flat", "full", "tree", "random_tree", "hier",
-                                                            "hier_random_tree")}
+    cfgs = {v: load_config(root / f"ta_{v}.yaml") for v in tat_variants()}
     base = {k: v for k, v in cfgs["tree"]["ta"].items() if k != "variant"}
     for v, cfg in cfgs.items():
         assert cfg["ta"]["variant"] == v
@@ -290,3 +301,22 @@ def test_partial_decisions_of_a_hier_model(s2t, tat, tmp_path):
     readout.decision = "nonsense"
     with pytest.raises(Exception):
         tat.query_logits(model, readout, src, m, q, "cpu", 1, [4])
+
+
+def test_family_loss_enters_the_selection_loss(s2t, tat, tmp_path):
+    # same batch, same weights: the fam variant adds a non-negative family term to the full-attention loss
+    losses = {}
+    for variant in ("full", "fam"):
+        (tmp_path / variant).mkdir()
+        items, props, model, proc, extra, readout, src = make(s2t, tat, tmp_path / variant, variant)
+        model.eval()
+        c = {"batch_images": 3, "micro_batch": 3, "seed": 0, "text_only_fraction": 0.0, "steps": 1}
+        mb = tat.MicroBatches(s2t.plan(items, c, LABELS, 1, 0), items, src)[0]
+        with torch.no_grad():
+            torch.manual_seed(0)
+            losses[variant] = tat.micro_step(model, extra, readout, mb, items, "cpu", np.random.default_rng(0), 2.0,
+                                             {k: 0 for k in s2t.STAT_KEYS})[0]
+    assert losses["fam"] >= losses["full"] - 1e-6
+    assert tat.deviations("soft_fam") == ["D10", "D21", "D41", "D43"]
+    with pytest.raises(Exception):
+        tat.Source({"proposals": {"node_dedup": 0.9}}, False, None, None, None, 0, set(), "soft", 0, "self")

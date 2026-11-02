@@ -1,5 +1,6 @@
 import math
 from dataclasses import dataclass
+from functools import partial
 
 import cv2
 import numpy as np
@@ -21,6 +22,12 @@ from treeground.selector import TEMPERATURE, Selector, focal, selection_loss
 PINNED_TRANSFORMERS = "5.0.0"
 MODES = ("tree", "full", "random_tree")        # training variants with node tokens
 RELATIONS = MODES + ("self",)                  # + evaluation-time swap: node tokens see only themselves
+# D43 modes: every node token sees every other (as full); 'soft' adds learned per-layer biases by tree relation
+# (SoftTreeBias); 'full_random_tree' / 'soft_random_tree' build geometry, relations and family targets on the
+# shuffled tree (controls)
+D43_MODES = ("soft", "soft_random_tree", "full_random_tree")
+REL_SELF, REL_PARENT, REL_CHILD, REL_SIBLING, REL_ANC, REL_DESC, REL_OTHER = range(7)
+N_REL = 7
 GEOM_DIM = 9
 REGION_DILATE = 1   # image-token cells of margin around a mask's own cells
 
@@ -34,6 +41,8 @@ class Nodes:
     cell: np.ndarray                                 # (n, 2) int64 (row, col) of the coverage centroid
     anc: np.ndarray                                  # (n, n) bool, anc[v, u]: u is a strict ancestor of v in the
                                                      # tree behind `rel` (the true tree, or the shuffled one)
+    par: np.ndarray | None = None                    # (n,) parent in that tree, -1 for top-level nodes
+    relk: np.ndarray | None = None                   # (n, n) int8 tree relation of u to v (D43 soft modes)
 
     @property
     def n(self) -> int:
@@ -68,6 +77,24 @@ def ancestors(tree: T.Tree) -> np.ndarray:
     return out
 
 
+def relation_matrix(tree: T.Tree) -> np.ndarray:
+    # (n, n) int8: [v, u] = relation of u to v. Direct links override further ones; siblings share a real parent
+    # (top-level nodes are 'other' to each other: the virtual root is the whole image, not a part-whole link)
+    n = tree.n
+    anc = ancestors(tree)
+    par = tree.parent[:n]
+    out = np.full((n, n), REL_OTHER, np.int8)
+    out[(par[:, None] == par[None, :]) & (par[:, None] != tree.root)] = REL_SIBLING
+    out[anc] = REL_ANC
+    out[anc.T] = REL_DESC
+    for v in range(n):
+        if par[v] != tree.root:
+            out[v, par[v]] = REL_PARENT
+            out[par[v], v] = REL_CHILD
+    out[np.arange(n), np.arange(n)] = REL_SELF
+    return out
+
+
 def geometry(rles: list[M.Rle], tree: T.Tree, h: int, w: int) -> np.ndarray:
     # label-free per-node inputs: normalised box, log area fraction, log(1 + depth / #children / #siblings) and
     # the log area ratio to the parent (the whole image for top-level nodes)
@@ -86,14 +113,14 @@ def geometry(rles: list[M.Rle], tree: T.Tree, h: int, w: int) -> np.ndarray:
 
 def build_nodes(rles: list[M.Rle], parent: np.ndarray, grid: tuple[int, int], mode: str,
                 tree_seed: int | None = None) -> Nodes:
-    if mode not in RELATIONS:
+    if mode not in RELATIONS + D43_MODES:
         raise ValueError(f"unknown tree-attention mode {mode!r}")
     gh, gw = grid
     h, w = rles[0]["size"] if rles else (1, 1)
     tree = T.from_parents(parent)
     if tree.n != len(rles):
         raise ValueError(f"tree has {tree.n} nodes for {len(rles)} masks")
-    if mode == "random_tree":
+    if mode.endswith("random_tree"):
         if tree_seed is None:
             raise ValueError("random_tree needs a per-image seed")
         tree = T.randomised_tree(tree, tree_seed)   # same depth profile, parents shuffled within each depth
@@ -115,8 +142,10 @@ def build_nodes(rles: list[M.Rle], parent: np.ndarray, grid: tuple[int, int], mo
         ptr.append(ptr[-1] + len(nz))
     cov = (np.asarray(ptr, np.int64), np.concatenate(idx) if idx else np.zeros(0, np.int32),
            np.concatenate(wts) if wts else np.zeros(0, np.float32))
-    rel = relatives(tree, mode if mode in ("full", "self") else "tree")
-    return Nodes(cov, region, rel, geometry(rles, tree, h, w), cell, ancestors(tree))
+    seen = "self" if mode == "self" else ("tree" if mode in ("tree", "random_tree") else "full")
+    par = np.where(tree.parent[:tree.n] == tree.root, -1, tree.parent[:tree.n]).astype(np.int64)
+    return Nodes(cov, region, relatives(tree, seen), geometry(rles, tree, h, w), cell, ancestors(tree), par,
+                 relation_matrix(tree) if mode.startswith("soft") else None)
 
 
 class NodeEmbed(nn.Module):
@@ -205,6 +234,79 @@ def hier_terms(head: HierHead, probe: torch.Tensor, states: torch.Tensor, anc: n
     return out
 
 
+class SoftTreeBias(nn.Module):
+    # D43: a learned additive attention bias between node tokens per decoder layer and tree relation (7 relations,
+    # initialised to 0 = full attention). Pre-forward hooks on the decoder layers add bias[layer, relation(v, u)] to
+    # the node-token block of the 4-D mask; the context of a forward stays set until the next one so that gradient
+    # checkpointing recomputes the same masks in backward.
+    def __init__(self, n_layers: int):
+        super().__init__()
+        self.bias = nn.Parameter(torch.zeros(n_layers, N_REL))
+        self._ctx = None
+        self._hooks = []
+
+    def install(self, model) -> None:
+        if self._hooks:
+            raise RuntimeError("SoftTreeBias is already installed")
+        layers = model.model.language_model.layers
+        if len(layers) != self.bias.shape[0]:
+            raise ValueError(f"{len(layers)} decoder layers for {self.bias.shape[0]} bias rows")
+        for i, layer in enumerate(layers):
+            self._hooks.append(layer.register_forward_pre_hook(partial(self._pre, i), with_kwargs=True))
+
+    def clear(self) -> None:
+        self._ctx = None
+
+    def set(self, nodes: list, L: int, K: int, device) -> None:
+        if K == 0:
+            self._ctx = None
+            return
+        B = len(nodes)
+        rel = torch.zeros((B, K, K), dtype=torch.long)
+        valid = torch.zeros((B, K, K), dtype=torch.bool)
+        for b, nb in enumerate(nodes):
+            if nb is not None and nb.n:
+                if nb.relk is None:
+                    raise ValueError("soft tree attention needs node relations (a soft mode)")
+                rel[b, :nb.n, :nb.n] = torch.from_numpy(nb.relk.astype(np.int64))
+                valid[b, :nb.n, :nb.n] = True
+        self._ctx = (rel.to(device), valid.to(device), L, K)
+
+    def _pre(self, i: int, module, args, kwargs):
+        if self._ctx is None:
+            return None
+        rel, valid, L, K = self._ctx
+        m = kwargs.get("attention_mask")
+        if m is None or m.dim() != 4 or m.shape[-1] != L + K or m.shape[0] != rel.shape[0]:
+            raise RuntimeError("soft tree bias context does not match this forward")
+        add = torch.where(valid, self.bias[i][rel], torch.zeros((), device=rel.device)).to(m.dtype)
+        out = m.clone()
+        out[:, 0, L:, L:] = m[:, 0, L:, L:] + add
+        kwargs["attention_mask"] = out
+        return args, kwargs
+
+
+def family_terms(sel, probe: torch.Tensor, states: torch.Tensor, nb: "Nodes", steps: list, margin: float
+                 ) -> list[torch.Tensor]:
+    # D43 family loss: every positive's cosine with the query must exceed that of its own parent and children (in
+    # the tree behind nb) by `margin`; cosines, not scores, so the learned scale cannot satisfy it without changing
+    # the ranking; family members that are positives or ignored near-copies are left out
+    e = sel.nodes(states)
+    out = []
+    for t, st in enumerate(steps):
+        if not len(st.pos):
+            continue
+        s = (sel.queries(probe[t:t + 1]) @ e.T)[0]
+        excl = set(int(x) for x in st.pos) | set(int(x) for x in st.ignore)
+        for p in (int(x) for x in st.pos):
+            fam = ([int(nb.par[p])] if nb.par[p] >= 0 else []) + [int(c) for c in np.flatnonzero(nb.par == p)]
+            fam = [f for f in fam if f not in excl]
+            if fam:
+                idx = torch.as_tensor(fam, device=s.device, dtype=torch.long)
+                out.append(F.relu(margin - (s[p] - s[idx])).mean())
+    return out
+
+
 @dataclass
 class Output:
     hidden: dict[int, torch.Tensor]   # layer -> (B, L, D) states of the text and image positions
@@ -267,7 +369,7 @@ def positions(pos: torch.Tensor, am: torch.Tensor, img: torch.Tensor, nodes: lis
 
 
 def forward(model, batch: dict[str, torch.Tensor], nodes: list[Nodes | None], embed: NodeEmbed,
-            layers: list[int]) -> Output:
+            layers: list[int], soft: SoftTreeBias | None = None) -> Output:
     check_version()
     inner = model.model
     ids, am = batch["input_ids"], batch["attention_mask"]
@@ -303,9 +405,13 @@ def forward(model, batch: dict[str, torch.Tensor], nodes: list[Nodes | None], em
     mask = attention_mask(am.cpu(), img.cpu(), nodes, K, emb.dtype).to(emb.device)
     pos_full = positions(pos.cpu(), am.cpu(), img.cpu(), nodes, K).to(emb.device)
     vis = torch.cat([img, img.new_zeros((B, K))], 1)
+    if soft is not None:
+        soft.set(nodes, L, K, emb.device)
     out = inner.language_model(input_ids=None, inputs_embeds=x, attention_mask=mask, position_ids=pos_full,
                                visual_pos_masks=vis if deepstack is not None else None,
                                deepstack_visual_embeds=deepstack, use_cache=False, output_hidden_states=True)
+    if soft is not None and not torch.is_grad_enabled():
+        soft.clear()                       # with grad the context must survive until checkpoint recomputation
     hs = out.hidden_states
     if len(hs) != model.config.text_config.num_hidden_layers + 1:
         raise RuntimeError("unexpected number of hidden states")

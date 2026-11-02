@@ -1,3 +1,5 @@
+from types import SimpleNamespace
+
 import numpy as np
 import pytest
 import torch
@@ -282,3 +284,132 @@ def test_hier_terms_train_descend_and_root(s2t):
     assert head.desc.bias.grad is not None and head.root[0].weight.grad.abs().sum() > 0
     absent = TA.hier_terms(head, probe[:1], states, anc, [StepTarget(np.array([], int), np.array([], int))], 2.0)
     assert torch.isfinite(absent[0])
+
+
+def test_relation_matrix():
+    rles = M.encode(np.stack(scene_masks()))
+    tree = T.build_tree(rles)                                   # parents [root, 0, 0, 1, root]
+    r = TA.relation_matrix(tree)
+    assert r[1, 0] == TA.REL_PARENT and r[0, 1] == TA.REL_CHILD and r[3, 1] == TA.REL_PARENT
+    assert r[3, 0] == TA.REL_ANC and r[0, 3] == TA.REL_DESC
+    assert r[1, 2] == TA.REL_SIBLING and r[0, 4] == TA.REL_OTHER          # top-level nodes are not siblings
+    assert r[3, 2] == TA.REL_OTHER and r[2, 3] == TA.REL_OTHER            # uncle / nephew
+    assert (np.diag(r) == TA.REL_SELF).all()
+    assert ((r == TA.REL_PARENT) == (r == TA.REL_CHILD).T).all() and ((r == TA.REL_ANC) == (r == TA.REL_DESC).T).all()
+
+
+def test_soft_modes_build_full_relations(s2t):
+    model, proc, extra, seqs, batch, embed = setup(s2t)
+    masks = scene_masks() + [box(30, 38, 30, 38), box(60, 70, 50, 60)]
+    soft, _, _ = nodes_for(seqs[0], proc, masks, "soft")
+    full, _, _ = nodes_for(seqs[0], proc, masks, "full")
+    srand, _, _ = nodes_for(seqs[0], proc, masks, "soft_random_tree", 7)
+    frand, _, _ = nodes_for(seqs[0], proc, masks, "full_random_tree", 7)
+    assert all(np.array_equal(a, b) for a, b in zip(soft.rel, full.rel)) and full.relk is None
+    assert soft.relk.shape == (7, 7) and not np.array_equal(soft.relk, srand.relk)
+    assert np.array_equal(srand.par, frand.par) and not np.array_equal(srand.par, soft.par)
+    assert frand.relk is None and np.array_equal(soft.par, full.par)
+    assert soft.par[1] == 0 and soft.par[0] == -1
+
+
+def test_zero_soft_bias_is_full_attention_and_bias_trains(s2t):
+    model, proc, extra, seqs, batch, embed = setup(s2t)
+    soft_nb, _, _ = nodes_for(seqs[0], proc, scene_masks(), "soft")
+    full_nb, _, _ = nodes_for(seqs[0], proc, scene_masks(), "full")
+    bias = TA.SoftTreeBias(4)
+    bias.install(model)
+    with pytest.raises(RuntimeError):
+        bias.install(model)
+    with torch.no_grad():
+        a = TA.forward(model, batch, [full_nb, None, None], embed, LAYERS)
+        b = TA.forward(model, batch, [soft_nb, None, None], embed, LAYERS, bias)
+    for k in LAYERS:
+        assert torch.equal(a.nodes[k][0], b.nodes[k][0]) and torch.equal(a.hidden[k], b.hidden[k])
+    with torch.no_grad():
+        bias.bias[:, TA.REL_OTHER] = -6.0
+        c = TA.forward(model, batch, [soft_nb, None, None], embed, LAYERS, bias)
+    m = valid(batch)
+    assert torch.allclose(c.hidden[4][m], a.hidden[4][m], atol=1e-6)                 # text never sees node tokens
+    assert not torch.allclose(c.nodes[4][0], a.nodes[4][0])
+    model.train()
+    with S2.autocast("cpu"):
+        out = TA.forward(model, batch, [soft_nb, None, None], embed, LAYERS, bias)
+        loss = out.nodes[4][0].float().pow(2).mean()
+    loss.backward()                                      # gradient checkpointing recomputes the hooked masks
+    assert bias.bias.grad is not None and bias.bias.grad.abs().sum() > 0
+    assert bias.bias.grad[:, TA.REL_SELF].abs().sum() > 0
+    with torch.no_grad():
+        TA.forward(model, batch, [soft_nb, None, None], embed, LAYERS, bias)
+    assert bias._ctx is None                             # no-grad forwards leave no context behind
+
+
+def test_soft_bias_shapes_the_attention(s2t):
+    model, proc, extra, seqs, batch, embed = setup(s2t)
+    nb, _, _ = nodes_for(seqs[0], proc, scene_masks(), "soft")
+    bias = TA.SoftTreeBias(4)
+    bias.install(model)
+    with torch.no_grad():
+        bias.bias[:, TA.REL_OTHER] = -1e4
+    model.config._attn_implementation = "eager"
+    model.model.language_model.config._attn_implementation = "eager"
+    captured = []
+    hooks = [layer.self_attn.register_forward_hook(lambda mod, i, o: captured.append(o[1].detach()))
+             for layer in model.model.language_model.layers]
+    try:
+        with torch.no_grad():
+            TA.forward(model, batch, [nb, None, None], embed, LAYERS, bias)
+    finally:
+        for h in hooks:
+            h.remove()
+    L = batch["input_ids"].shape[1]
+    other = torch.from_numpy(nb.relk == TA.REL_OTHER)
+    for probs in captured:
+        block = probs[0, :, L:L + nb.n, L:L + nb.n]
+        assert torch.all(block[:, other] < 1e-6) and torch.all(block[:, ~other].sum(-1) > 0)
+    bias.set([nb, None, None], 3, nb.n, "cpu")           # a stale context of another shape must not apply
+    bias._ctx = (bias._ctx[0][:, :2, :2], bias._ctx[1][:, :2, :2], 3, 2)
+    with pytest.raises(RuntimeError), torch.no_grad():
+        model.model(**batch)
+
+
+def test_family_terms():
+    from treeground.sampling import StepTarget
+    rles = M.encode(np.stack(scene_masks()))
+    tree = T.build_tree(rles)
+    nb = SimpleNamespace(par=np.where(tree.parent[:5] == tree.root, -1, tree.parent[:5]))
+
+    class Fixed:
+        def nodes(self, z):
+            return z
+
+        def queries(self, h):
+            return h
+
+        def scores(self, q, e):
+            return q @ e.T
+
+    e = torch.eye(5)
+    probe = torch.tensor([[1.0, 3.0, 0.0, 2.5, 0.0]], requires_grad=True)   # cosines = probe (identity heads)
+    t = TA.family_terms(Fixed(), probe, e, nb, [StepTarget(np.array([1]), np.array([], int))], 2.0)
+    # positive 1: parent 0 (3-1=2 -> 0 loss), child 3 (3-2.5=0.5 -> 1.5): mean 0.75
+    assert len(t) == 1 and torch.isclose(t[0], torch.tensor(0.75))
+    t = TA.family_terms(Fixed(), probe, e, nb, [StepTarget(np.array([1]), np.array([3]))], 2.0)
+    assert torch.isclose(t[0], torch.tensor(0.0))                            # ignored child left out
+    assert TA.family_terms(Fixed(), probe, e, nb, [StepTarget(np.array([], int), np.array([], int))], 2.0) == []
+    t = TA.family_terms(Fixed(), probe, e, nb, [StepTarget(np.array([1]), np.array([], int))], 2.0)
+    t[0].backward()
+    assert probe.grad[0, 1] < 0 and probe.grad[0, 3] > 0
+
+
+def test_family_terms_ignore_the_score_scale():
+    from treeground.sampling import StepTarget
+    torch.manual_seed(0)
+    sel = TA.ScaledSelector(8, 8, 5)
+    probe, states = torch.randn(1, 8), torch.randn(5, 8)
+    nb = SimpleNamespace(par=np.array([-1, 0, 0, 1, -1]))
+    step = [StepTarget(np.array([1]), np.array([], int))]
+    a = TA.family_terms(sel, probe, states, nb, step, 0.1)[0]
+    with torch.no_grad():
+        sel.log_scale.fill_(4.0)
+        sel.bias.fill_(3.0)
+    assert torch.isclose(a, TA.family_terms(sel, probe, states, nb, step, 0.1)[0])

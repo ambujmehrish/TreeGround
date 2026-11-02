@@ -1,0 +1,10 @@
+include: ta_soft_fam.yaml
+# GPU check of the D43 soft bias + family loss (memory, speed, gradients through the attention mask): 20 steps,
+# 20 val images, no PACO rest cache, own stage runs/ta_soft_fam_check. Never a result.
+ta:
+  stage_suffix: _check
+  steps: 20
+  eval_every: 10
+  eval_images: 20
+  log_every: 1
+  paco_rest: false

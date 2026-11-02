@@ -17,6 +17,9 @@ ta:
   lora_weight_decay: 0.0
   warmup_steps: 500
   max_grad_norm: 1.0
+  fam_margin: 0.1               # D43 family loss: cosine margin of a positive over its own parent / children
+  fam_weight: 1.0
+  soft_lr: 1.0e-2               # D43 soft tree biases (36 x 7), own AdamW group without weight decay
   lora:
     r: 16
     alpha: 32

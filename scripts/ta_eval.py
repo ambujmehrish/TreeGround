@@ -74,6 +74,18 @@ def load_checkpoint(cfg: dict, smoke: bool) -> tuple[dict, Path]:
     return ckpt, run
 
 
+def load_trained(cfg: dict, c: dict, device: str, static: dict | None, smoke: bool) -> tuple:
+    # the selected checkpoint of the config's D41/D42 stage, eval mode not yet set
+    ckpt, train_run = load_checkpoint(cfg, smoke)
+    meta = ckpt["meta"]
+    built = {**c, "lora": meta["lora"], "readout_layers": meta["readout_layers"]}
+    model, processor, extra, readout = TAT.build(cfg, built, device, static, meta["n_nodes"])
+    if extra["sel_id"] != meta["sel_id"]:
+        raise ProtocolError("<SEL> token id differs from the checkpoint")
+    LR.load_trainable(model, extra["sel_emb"], readout, ckpt)
+    return model, processor, extra, readout, meta, train_run
+
+
 def compute_logits(model, readout, src, props, queries, wl, layer, device, out: Path, batch_size, rank, world) -> int:
     # every query of an evaluated image in cache order, so that the stored offsets index the logit rows
     files, keys = dict(zip(wl.sha1, wl.path)), dict(zip(wl.sha1, wl.image_key))
@@ -134,14 +146,8 @@ def main() -> None:
     static = qwen_static(cfg)
     props = open_proposals(cfg, args.smoke, manifest, mhash, capped=True)
     qdir, queries = open_queries(cfg, args.smoke, mhash, static)
-    ckpt, train_run = load_checkpoint(cfg, args.smoke)
-    meta = ckpt["meta"]
+    model, processor, extra, readout, meta, train_run = load_trained(cfg, c, device, static, args.smoke)
     layer = int(meta["layer"])
-    built = {**c, "lora": meta["lora"], "readout_layers": meta["readout_layers"]}
-    model, processor, extra, readout = TAT.build(cfg, built, device, static, meta["n_nodes"])
-    if extra["sel_id"] != meta["sel_id"]:
-        raise ProtocolError("<SEL> token id differs from the checkpoint")
-    LR.load_trainable(model, extra["sel_emb"], readout, ckpt)
     if args.decision != "product" and not readout.hier:
         raise ProtocolError(f"--decision {args.decision} needs a hier checkpoint, not {meta['variant']}")
     readout.decision = args.decision

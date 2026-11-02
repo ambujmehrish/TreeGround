@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 265, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 261, in main
+    module.main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ophrg_eval.py", line 345, in main
+    merge(cfg, args.method, args.benchmark)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ophrg_eval.py", line 302, in merge
+    raise ProtocolError(f"{len(miss)} of {n} shards missing in {d}")
+treeground.run.ProtocolError: 3 of 4 shards missing in /leonardo_scratch/large/userexternal/amehrish/treeground/cache/full/ophrg_eval/ta_full/pascalpart/5d994e4269ab267a

@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 265, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 261, in main
+    module.main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/gres_eval.py", line 305, in main
+    merge(cfg, args.method)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/gres_eval.py", line 259, in merge
+    splits = {sp: load_split(cfg, method, sp) for sp in SPLITS if cfg["gres_eval"]["splits"].count(sp)}
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/gres_eval.py", line 249, in load_split
+    raise ProtocolError(f"{split}: {len(missing)} of {n} shards missing in {d}")
+treeground.run.ProtocolError: val: 4 of 4 shards missing in /leonardo_scratch/large/userexternal/amehrish/treeground/cache/full/gres_eval/ta_full/val/367bd2c7247d4d03

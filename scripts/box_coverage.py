@@ -30,13 +30,19 @@ from treeground.run import (ProtocolError, assert_real_path, canonical_hash, loa
 #   box3     every Qwen box of the query x SAM 3's 3 masks
 #   obj3     the parent object's Qwen boxes x 3 masks (part queries; equals box3 for object queries)
 #   boxes    box3 + obj3
-#   union    auto + boxes (the proposed candidate set)
-# box1 is a real prediction; every other column is an oracle (best candidate) ceiling for a selector.
+#   union    auto + boxes
+#   text1    SAM 3 text, top instance for the query phrase (the D13 sam3_text prediction)
+#   text3    SAM 3 text, top-3 instances for the query phrase (s3_pool.TextInstances)
+#   objtext3 top-3 instances for the parent object's phrase (equals text3 for object queries)
+#   union_text  auto + text3 + objtext3 (the query-aware tree of the proposed method)
+#   union_all   auto + boxes + text3 + objtext3
+# box1 and text1 are real predictions; every other column is an oracle (best candidate) ceiling for a selector.
 # Qwen: 'zero' = Qwen3-VL-4B unchanged (b_parity qwen_box_all), 'ft' = its D40 Group A LoRA (qwenbox_ft).
 
 FILES = ("scripts/box_coverage.py", "scripts/b_parity.py", "scripts/b_baselines.py", "scripts/s2_nodes.py",
-         "treeground/proposals.py", "treeground/data/paco.py")
-SETS = ("auto", "box1", "box_top", "box3", "obj3", "boxes", "union")
+         "scripts/s3_pool.py", "treeground/proposals.py", "treeground/data/paco.py")
+SETS = ("auto", "box1", "box_top", "box3", "obj3", "boxes", "union", "text1", "text3", "objtext3", "union_text",
+        "union_all")
 BOX_MODELS = {"zero": "qwen_box_all", "ft": "qwenbox_ft"}
 THR = 0.5
 
@@ -49,6 +55,7 @@ def identity(cfg: dict, box: str) -> dict:
     ident = {"kind": "box_coverage", "box": box, "code": h.hexdigest(), "models": {k: cfg["models"][k]
              for k in ("qwen", "sam3")}, "proposals": cfg["proposals"], "cap": node_cap(cfg, False),
              "prompt": cfg["baselines"]["qwen_box_sam"], "parity": cfg["parity"][BOX_MODELS[box]],
+             "sam3_text": cfg["baselines"]["sam3_text"], "instances_per_phrase": c["instances_per_phrase"],
              "max_images": c["max_images"], "num_shards": c["num_shards"]}
     if box == "ft":
         import qwenbox_train as QT
@@ -93,8 +100,9 @@ def best(cands: np.ndarray, gt: np.ndarray) -> float:
     return float((inter / np.maximum(union, 1)).max())
 
 
-def query_rows(key: str, queries: list[dict], gts: dict, auto: list, prompted: dict) -> list[dict]:
+def query_rows(key: str, queries: list[dict], gts: dict, auto: list, prompted: dict, text: dict) -> list[dict]:
     # prompted: phrase -> list over its boxes of (masks (3, h, w) bool, scores (3,), single (h, w) bool)
+    # text: phrase -> list of (mask (h, w) bool, score), highest score first
     auto_iou = M.iou(auto, [gts[q["gt"]] for q in queries]).max(0) if auto and queries else np.zeros(len(queries))
     rows = []
     for k, q in enumerate(queries):
@@ -102,7 +110,10 @@ def query_rows(key: str, queries: list[dict], gts: dict, auto: list, prompted: d
         gt = M.decode(gt_rle).astype(bool)
         own = prompted.get(q["phrase"], [])
         par = prompted.get(q["obj_phrase"], []) if q["obj_phrase"] else own
+        t_own = text.get(q["phrase"], [])
+        t_par = text.get(q["obj_phrase"], []) if q["obj_phrase"] else t_own
         three = lambda boxes: np.concatenate([b[0] for b in boxes]) if boxes else np.zeros((0,) + gt.shape, bool)
+        stack = lambda inst: np.stack([m for m, _ in inst]) if inst else np.zeros((0,) + gt.shape, bool)
         r = {"qid": q["qid"], "kind": q["kind"], "image": key, "area_bin": area_bin(float(M.areas([gt_rle])[0])),
              "n_boxes": len(own), "n_obj_boxes": len(par), "auto": float(auto_iou[k]),
              "box1": best(own[0][2][None], gt) if own else 0.0,
@@ -110,6 +121,10 @@ def query_rows(key: str, queries: list[dict], gts: dict, auto: list, prompted: d
              "box3": best(three(own), gt), "obj3": best(three(par), gt)}
         r["boxes"] = max(r["box3"], r["obj3"])
         r["union"] = max(r["auto"], r["boxes"])
+        r["text1"] = best(t_own[0][0][None], gt) if t_own else 0.0
+        r["text3"], r["objtext3"] = best(stack(t_own), gt), best(stack(t_par), gt)
+        r["union_text"] = max(r["auto"], r["text3"], r["objtext3"])
+        r["union_all"] = max(r["union"], r["union_text"])
         rows.append(r)
     return rows
 
@@ -118,8 +133,11 @@ class Prompter:
     def __init__(self, cfg: dict, box: str):
         import b_parity as BP
         import s2_nodes as S2N
+        import s3_pool as S3P
         self.cfg, self.S2N = cfg, S2N
         self.pred = BP.PARITY[BOX_MODELS[box]](cfg)
+        self.text = S3P.TextInstances(cfg)
+        self.k = int(cfg["box_coverage"]["instances_per_phrase"])
         self.cap = node_cap(cfg, False)
 
     @torch.no_grad()
@@ -166,8 +184,9 @@ class Prompter:
     def __call__(self, key: str, image: np.ndarray, queries: list[dict], gts: dict) -> list[dict]:
         phrases = sorted({q["phrase"] for q in queries} | {q["obj_phrase"] for q in queries if q["obj_phrase"]})
         prompted = dict(zip(phrases, self.masks(image, self.boxes(image, phrases))))
+        text = dict(zip(phrases, self.text(image, phrases, self.k)))
         auto = self.S2N.node_set(self.pred.sam, self.pred.sproc, self.cfg, image, self.cap)
-        return query_rows(key, queries, gts, auto, prompted)
+        return query_rows(key, queries, gts, auto, prompted, text)
 
 
 def run_shard(cfg: dict, box: str, shard: int) -> None:

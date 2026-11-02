@@ -1,3 +1,3 @@
 include: parity.yaml
 # go / no-go candidate-coverage diagnostic of the box-then-select method (scripts/box_coverage.py), PACO-LVIS val
-box_coverage: {max_images: 1000, num_shards: 8}
+box_coverage: {max_images: 1000, num_shards: 8, instances_per_phrase: 3}   # top-k SAM 3 text instances per phrase, as s3_pool

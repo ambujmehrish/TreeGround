@@ -52,19 +52,25 @@ def test_query_rows_sets(bc):
                          (np.stack([handle, empty, empty]), np.array([0.5, 0.4, 0.3]), handle)],
         obj["phrase"]: [(np.stack([mug, mug | handle, handle]), np.array([0.9, 0.5, 0.1]), mug)],
     }
-    rows = bc.query_rows("paco_lvis:1", qs, paco.gt_rles(img), M.encode(mug[None]), prompted)
+    # SAM 3 text: the part phrase's top instance is the mug, its second the half handle; the object phrase's
+    # top instance is the mug alone
+    text = {part["phrase"]: [(mug, 0.8), (half, 0.3)], obj["phrase"]: [(mug, 0.9)]}
+    rows = bc.query_rows("paco_lvis:1", qs, paco.gt_rles(img), M.encode(mug[None]), prompted, text)
     o, p = rows
     assert o["auto"] == 1.0 and o["box1"] == 1.0 and o["obj3"] == o["box3"] == 1.0
+    assert o["text1"] == o["text3"] == o["objtext3"] == o["union_text"] == o["union_all"] == 1.0
     assert p["auto"] == 0.0 and p["box1"] == 0.0
     assert p["box_top"] == pytest.approx(half.sum() / handle.sum())
     assert p["box3"] == 1.0 and p["obj3"] == 1.0 and p["boxes"] == 1.0 and p["union"] == 1.0
     assert p["n_boxes"] == 2 and p["n_obj_boxes"] == 1
+    assert p["text1"] == 0.0 and p["text3"] == pytest.approx(half.sum() / handle.sum()) and p["objtext3"] == 0.0
+    assert p["union_text"] == p["text3"] and p["union_all"] == 1.0
 
 
 def test_query_rows_without_boxes_or_nodes(bc):
     img, _, _ = scene()
     qs = bc.image_queries(img)
-    rows = bc.query_rows("paco_lvis:1", qs, paco.gt_rles(img), [], {})
+    rows = bc.query_rows("paco_lvis:1", qs, paco.gt_rles(img), [], {}, {})
     for r in rows:
         assert all(r[s] == 0.0 for s in bc.SETS) and r["n_boxes"] == 0
 

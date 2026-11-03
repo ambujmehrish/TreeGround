@@ -972,6 +972,27 @@ PROPOSED_DEVIATIONS = [
                   "trained on the parent / child confusions that make up about 30% of its wrong picks",
         "expected_impact": "new stages only; D41 / D42 runs and every existing result are unchanged",
     },
+    {
+        "id": "D44",
+        "spec_section": "1 (candidates), 2 (selector), 5 (evaluation): query-aware tree with object-anchored part "
+                        "selection",
+        "change": "the D41 / D43 selectors trained over the D30 pool (scripts/ta_train.py pool_* variants, "
+                  "configs/ta_pool*.yaml): per image the capped grid nodes plus the top-3 SAM 3 text instances of "
+                  "its query phrases (s3_pool caches: dedup 0.95, one containment tree, targets over the pool), "
+                  "trained on the pool caches alone (no PACO rest cache, every other D41 setting unchanged). Node "
+                  "tokens get 5 provenance inputs next to the 9 geometry values (grid / text, rank one-hot, SAM 3 "
+                  "score). At evaluation (scripts/ta_test_eval.py) the pool is built per query (grid + that query's "
+                  "phrases' instances, one tree) and a part query is asked as the object -> part chain and decided "
+                  "object-first: the object token's top node, then the part token inside its subtree (hard) or over "
+                  "every node with a logit bonus on that subtree (soft, bonus in {0.5, 1, 2, 4}) or flat; the rule is "
+                  "chosen on the PACO val chains at checkpoint selection and stored in the checkpoint (ta_eval.anchor "
+                  "auto). Variants: pool_full, pool_soft, pool_fam, pool_soft_fam and their shuffled-tree controls; "
+                  "checkpoint and layer chosen as D41 (single-step selector success on PACO val)",
+        "reason": "on PACO val parts a mask with IoU >= 0.5 exists in the grid tree for 46% of queries, in the grid + "
+                  "text pool for 62% (box_coverage diagnostic); the gap between SAM 3 text's top instance (44%) and "
+                  "its top three (55%) is a choice of level or instance, the decision a part-whole tree is for",
+        "expected_impact": "new stages only (runs/ta_pool_*); D41-D43 runs and every existing result are unchanged",
+    },
 ]
 
 

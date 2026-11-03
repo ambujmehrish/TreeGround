@@ -1,0 +1,9 @@
+include: ta_pool_soft_random_tree.yaml
+# test-split evaluation of runs/ta_pool_soft_random_tree (scripts/ta_test_eval.py); few shards (job-submit limit)
+data:
+  partimagenet_ood: ${TG_DATA}/partimagenet_ood
+  instructpart: ${TG_DATA}/instructpart
+paco_test: {num_shards: 8}                               # D35
+gres_eval: {num_shards: 4, splits: [val, testA, testB]} # D33
+partonomy_eval: {num_shards: 4}                         # D32
+ophrg_eval: {num_shards: 4}                             # D38

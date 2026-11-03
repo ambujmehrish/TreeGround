@@ -7,6 +7,7 @@ import pytest
 import torch
 
 from test_s2 import build_scene, load_script, wrapped
+from treeground import tree_attn as TA
 from treeground.mllm import SEL
 
 LABELS = {"bottle:cap", "mug:handle"}
@@ -24,7 +25,9 @@ def config(tmp_path, variant):
                                                               "up_proj", "down_proj"]},
                    "sources": {"paco_train": 1.0}, "paco_rest": False, "eval_every": 2, "eval_images": 2,
                    "eval_batch": 2, "workers": 0, "log_every": 1},
-            "ta_eval": {"checkpoint": "best.pt", "batch_size": 2}}
+            "ta_eval": {"checkpoint": "best.pt", "batch_size": 2, "anchor": "auto"},
+            "s3_pool": {"instances_per_phrase": 3, "max_instances": 160, "dup_iou": 0.95},
+            "baselines": {"sam3_text": {"score_threshold": 0.5, "mask_threshold": 0.5}}}
 
 
 def patch_common(mod, monkeypatch, s2t, tmp_path, cfg, items, props):
@@ -64,11 +67,13 @@ def query_table(items):
 
 
 @pytest.mark.parametrize("variant", ["flat", "full", "tree", "random_tree", "hier", "hier_random_tree", "soft",
-                                     "soft_random_tree", "fam", "fam_random_tree", "soft_fam", "soft_fam_random_tree"])
+                                     "soft_random_tree", "fam", "fam_random_tree", "soft_fam", "soft_fam_random_tree",
+                                     "pool_full", "pool_soft_fam", "pool_soft_fam_random_tree"])
 def test_train_then_eval_main(tmp_path, monkeypatch, variant):
     s2t, tat = load_script("s2_train"), load_script("ta_train")
     items, props = build_scene(s2t, tmp_path)
     cfg = config(tmp_path, variant)
+    pool = tat.is_pool(variant)
     queries = query_table(items)
     wl = pd.DataFrame({"sha1": [m.sha1 for m in items], "path": [m.file for m in items],
                        "image_key": [m.key for m in items]})
@@ -82,16 +87,41 @@ def test_train_then_eval_main(tmp_path, monkeypatch, variant):
                         [s2t.Query(q.qid, q.kind, q.user, q.answer, [], None, np.linspace(0, 1, m.n))
                          for q in m.queries if q.kind != "chain"]) for m in items[:2]]
     monkeypatch.setattr(tat.S2T, "val_meta", lambda *a: vm)
+    if pool:
+        # the pool caches and SAM 3 text are replaced: every scene item is a pool of grid nodes (zero provenance),
+        # val items keep their chains with (2, n) IoUs
+        tat.add_missing_trees(items, props, 0.9, None)
+        pitems = [tat.PoolMeta(**{f: getattr(m, f) for f in s2t.ImageMeta.__dataclass_fields__},
+                               inst=TA.pool_features(m.n, [])) for m in items]
+        by_source = {}
+        for m in pitems:
+            by_source.setdefault(m.source, []).append(m)
+        monkeypatch.setattr(tat, "pool_meta", lambda cfg, source, smoke: (by_source.get(source, []), {f"{source}:x": 1}))
+        pvm = [tat.PoolMeta(m.sha1, m.key, m.file, m.n, m.parents, None, None, None,
+                            [s2t.Query(q.qid, q.kind, q.user, q.answer, [], None,
+                                       np.stack([np.linspace(0, 1, m.n)] * 2) if q.kind == "chain"
+                                       else np.linspace(0, 1, m.n)) for q in m.queries],
+                            inst=m.inst, rles=props.nodes(m.sha1, 0.9)["rles"]) for m in pitems[:2]]
+        monkeypatch.setattr(tat, "pool_val_meta", lambda *a: pvm)
+        monkeypatch.setattr(tat.S3P, "TextInstances", lambda cfg: object())
+        cfg["ta"]["sources"] = {"paco_train": 1.0}
     monkeypatch.setattr(sys, "argv", ["ta_train.py", "--config", "x"])
     tat.main()
     run = runs / f"ta_{variant}"
     metrics = json.loads((run / "metrics.json").read_text())
     assert metrics["variant"] == variant and metrics["best_layer"] in (2, 4)
     assert [e["step"] for e in metrics["eval_curve"]] == [0, 2, 3]
-    assert metrics["training_exclusions"]["trees_built_for_no_target_items"] == 1
+    assert metrics["training_exclusions"]["trees_built_for_no_target_items"] == (0 if pool else 1)
     assert (run / "best.pt").exists() and len(pd.read_csv(run / "train_curve.csv")) == 3
     best = torch.load(run / "best.pt")
     assert best["meta"]["variant"] == variant and best["meta"]["step"] == metrics["best_step"]
+    assert best["meta"]["pool"] == pool and metrics["pool"] == pool
+    if pool:
+        assert best["meta"]["anchor"] == metrics["anchor"] and metrics["anchor"] is not None
+        assert best["meta"]["pool_settings"] == cfg["s3_pool"]
+        assert best["selector"]["embed.geom.0.weight"].shape[1] == TA.GEOM_DIM + TA.INST_DIM
+    else:
+        assert best["meta"]["anchor"] is None
 
     # evaluation of that checkpoint through the unchanged V2 / V4 interfaces (evaluators replaced by probes)
     tae = load_script("ta_eval")
@@ -115,6 +145,10 @@ def test_train_then_eval_main(tmp_path, monkeypatch, variant):
     monkeypatch.setattr(tae.V4, "chain_inputs", lambda *a: [])
     monkeypatch.setattr(tae.V4, "search_metrics", lambda cfg, chains, tau, run: {"chains": len(chains)})
     monkeypatch.setattr(sys, "argv", ["ta_eval.py", "--config", "x"])
+    if pool:                                              # the grid-only val evaluator refuses a pool checkpoint
+        with pytest.raises(Exception):
+            tae.main()
+        return
     tae.main()
     ev = json.loads((tmp_path / "e" / "runs" / f"ta_{variant}_eval" / "metrics.json").read_text())
     assert ev["layer"] == best["meta"]["layer"] and ev["no_rejection"]["success@0.5"] == 1.0

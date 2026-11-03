@@ -1,0 +1,9 @@
+include: ta_pool_soft_fam.yaml
+# GPU check of the D44 pool training (pool caches, SAM 3 text val pools, memory, speed, anchors): 20 steps, 20 val
+# images, own stage runs/ta_pool_soft_fam_check. Never a result.
+ta:
+  stage_suffix: _check
+  steps: 20
+  eval_every: 10
+  eval_images: 20
+  log_every: 1

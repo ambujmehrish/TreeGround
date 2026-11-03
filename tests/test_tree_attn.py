@@ -413,3 +413,52 @@ def test_family_terms_ignore_the_score_scale():
         sel.log_scale.fill_(4.0)
         sel.bias.fill_(3.0)
     assert torch.isclose(a, TA.family_terms(sel, probe, states, nb, step, 0.1)[0])
+
+
+def test_pool_features_follow_the_instance_meta():
+    f = TA.pool_features(2, [{"phrase": 0, "rank": 0, "score": 0.9}, {"phrase": 1, "rank": 2, "score": 0.25}])
+    assert f.shape == (4, TA.INST_DIM) and not f[:2].any()
+    assert f[2].tolist() == [1, 1, 0, 0, pytest.approx(0.9)] and f[3].tolist() == [1, 0, 0, 1, 0.25]
+    with pytest.raises(ValueError):
+        TA.pool_features(0, [{"phrase": 0, "rank": 3, "score": 0.1}])
+
+
+def test_anchor_decisions():
+    rles = M.encode(np.stack(scene_masks()))
+    parent = T.build_tree(rles).parent                     # 0 holds 1, 2; 1 holds 3; 4 apart
+    obj = np.array([3.0, 0.0, 0.0, 0.0, 1.0])
+    part = np.array([0.0, 1.0, 0.5, 0.0, 2.0])             # the flat pick is the unrelated node 4
+    assert TA.anchor(obj, part, parent, None) == (0, 4)
+    assert TA.anchor(obj, part, parent, TA.HARD) == (0, 1)  # best inside node 0
+    assert TA.anchor(obj, part, parent, 0.5) == (0, 4)      # a small bonus does not overturn node 4
+    assert TA.anchor(obj, part, parent, 2.0) == (0, 1)
+    leaf = np.array([0.0, 0.0, 0.0, 5.0, 0.0])              # object pick without descendants: flat fallback
+    assert TA.anchor(leaf, part, parent, TA.HARD) == (3, 4)
+    assert TA.anchor(np.zeros(0), np.zeros(0), np.array([-1]), TA.HARD) == (-1, -1)
+    for mode in (None, TA.HARD, 0.5, 2.0):
+        assert TA.anchor_mode(TA.anchor_name(mode)) == mode
+    with pytest.raises(ValueError):
+        TA.anchor_mode("tree")
+
+
+def test_pool_features_enter_the_embedding(s2t):
+    model, proc, extra, seqs, batch, embed = setup(s2t)
+    nb, rles, grid = nodes_for(seqs[0], proc, scene_masks(), "soft")
+    inst = TA.pool_features(3, [{"phrase": 0, "rank": 0, "score": 0.8}, {"phrase": 0, "rank": 1, "score": 0.3}])
+    pool = TA.build_nodes(rles, T.build_tree(rles).parent, grid, "soft", None, inst)
+    assert pool.features.shape == (5, TA.GEOM_DIM + TA.INST_DIM) and nb.inst is None
+    assert np.array_equal(pool.features[:, :TA.GEOM_DIM], nb.geom)
+    with pytest.raises(ValueError):
+        TA.build_nodes(rles, T.build_tree(rles).parent, grid, "soft", None, inst[:4])
+    wide = TA.NodeEmbed(64, TA.embedding_rms(model), TA.GEOM_DIM + TA.INST_DIM)
+    with torch.no_grad():
+        with pytest.raises(ValueError):                     # a grid embedding cannot read pool features
+            TA.forward(model, batch, [pool, None, None], embed, LAYERS)
+        with pytest.raises(ValueError):                     # and a pool embedding needs them
+            TA.forward(model, batch, [nb, None, None], wide, LAYERS)
+        out = TA.forward(model, batch, [pool, None, None], wide, LAYERS)
+        other = TA.build_nodes(rles, T.build_tree(rles).parent, grid, "soft", None, inst * 0)
+        out2 = TA.forward(model, batch, [other, None, None], wide, LAYERS)
+    assert out.nodes[2][0].shape == (5, 64)
+    assert not torch.allclose(out.nodes[2][0][3:], out2.nodes[2][0][3:])     # provenance changes the tokens
+    assert torch.allclose(out.hidden[2][0], out2.hidden[2][0])              # text states never see them

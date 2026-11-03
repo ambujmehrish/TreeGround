@@ -36,9 +36,11 @@ def make(s2t, tat, tmp_path, variant, seed=0):
     assert tat.add_missing_trees(items, props, 0.9, None) == 1          # the no-target item had no tree
     model, proc, extra = wrapped(s2t, seed)
     torch.manual_seed(seed)
-    embed = None if variant == "flat" else TA.NodeEmbed(64, TA.embedding_rms(model))
-    soft = TA.SoftTreeBias(4) if variant in tat.D43 and tat.D43[variant][0].startswith("soft") else None
-    family = (0.1, 1.0) if variant in tat.D43 and tat.D43[variant][1] else None
+    mode, fam = tat.D43.get(variant) or tat.D44.get(variant) or ("", False)
+    d_geom = TA.GEOM_DIM + (TA.INST_DIM if tat.is_pool(variant) else 0)
+    embed = None if variant == "flat" else TA.NodeEmbed(64, TA.embedding_rms(model), d_geom)
+    soft = TA.SoftTreeBias(4) if mode.startswith("soft") else None
+    family = (0.1, 1.0) if fam else None
     readout = tat.Readout(64, LAYERS, 5, embed, variant in tat.HIER, soft, family)
     if soft is not None:
         soft.install(model)
@@ -320,3 +322,136 @@ def test_family_loss_enters_the_selection_loss(s2t, tat, tmp_path):
     assert tat.deviations("soft_fam") == ["D10", "D21", "D41", "D43"]
     with pytest.raises(Exception):
         tat.Source({"proposals": {"node_dedup": 0.9}}, False, None, None, None, 0, set(), "soft", 0, "self")
+
+
+def as_pool(s2t, tat, items):
+    # the grid scene as pool items: every entry a grid node (provenance zero), masks read from the store as before
+    return [tat.PoolMeta(**{f: getattr(m, f) for f in s2t.ImageMeta.__dataclass_fields__},
+                         inst=TA.pool_features(m.n, [])) for m in items]
+
+
+@pytest.mark.parametrize("variant", sorted(load_script("ta_train").D44))
+def test_training_step_pool_variants(s2t, tat, tmp_path, variant):
+    items, props, model, proc, extra, readout, src = make(s2t, tat, tmp_path, variant)
+    assert readout.embed.d_geom == TA.GEOM_DIM + TA.INST_DIM
+    items = as_pool(s2t, tat, items)
+    c = {"batch_images": 3, "micro_batch": 3, "seed": 0, "text_only_fraction": 0.34, "steps": 1}
+    mb = tat.MicroBatches(s2t.plan(items, c, LABELS, 1, 0), items, src)[0]
+    assert all(s["nodes"].inst.shape == (items[s["item"]].n, TA.INST_DIM) for s in mb["samples"])
+    stats = {k: 0 for k in s2t.STAT_KEYS}
+    l_sel, l_lm = tat.micro_step(model, extra, readout, mb, items, "cpu", np.random.default_rng(0), 2.0, stats)
+    (l_sel + l_lm).backward()
+    assert torch.isfinite(l_sel) and readout.embed.geom[0].weight.grad[:, TA.GEOM_DIM:].abs().sum() == 0  # zero inputs
+    assert readout.embed.geom[0].weight.grad[:, :TA.GEOM_DIM].abs().sum() > 0
+    if readout.soft is not None:
+        assert readout.soft.bias.grad.abs().sum() > 0
+    with pytest.raises(Exception):                                            # no relation swap for pool checkpoints
+        tat.Source({"proposals": {"node_dedup": 0.9}}, False, None, None, proc, extra["sel_id"], LABELS, variant, 0,
+                   "self")
+
+
+def test_variant_tables(tat):
+    assert set(tat.D44) <= set(tat.VARIANTS) and all(tat.is_pool(v) for v in tat.D44)
+    assert not any(tat.is_pool(v) for v in ("flat", "full", "tree", "soft_fam", "hier"))
+    assert tat.deviations("pool_full") == ["D10", "D21", "D41", "D44"]
+    assert tat.deviations("pool_soft_fam_random_tree") == ["D10", "D21", "D41", "D43", "D44"]
+    assert tat.deviations("pool_fam") == ["D10", "D21", "D41", "D43", "D44"]
+    assert tat.deviations("soft") == ["D10", "D21", "D41", "D43"] and tat.deviations("tree") == ["D10", "D21", "D41"]
+    assert tat.node_mode("pool_soft_fam") == "soft" and tat.node_mode("pool_full_random_tree") == "full_random_tree"
+    assert tat.node_mode("pool_fam") == "full" and tat.node_mode("hier") == "tree"
+
+
+def pool_shard(tmp_path, items, props):
+    # an s3_pool shard over the scene: grid nodes + one text instance per image (a copy of the part mask)
+    d = tmp_path / "pool"
+    (d / "nodes").mkdir(parents=True)
+    (d / "shards").mkdir()
+    recs = []
+    for m in items:
+        if m.absent:
+            continue
+        rles = list(props.nodes(m.sha1, 0.9)["rles"])
+        pool = rles + [rles[1]]
+        parent = T.build_tree(pool).parent
+        rel = f"nodes/{m.sha1}.json"
+        (d / rel).write_text(json.dumps({"h": 96, "w": 128, "counts": [r["counts"] for r in pool]}))
+        qs = [{"qid": q.qid, "kind": q.kind, "text": q.user + (f" {SEL}" if q.kind != "chain" else ""),
+               "steps": [(s.pos.tolist(), s.ignore.tolist()) for s in q.steps], "path": q.path} for q in m.queries]
+        recs.append({"key": m.key, "path": m.file, "h": 96, "w": 128, "nodes": rel, "parent": parent, "queries": qs,
+                     "absent": [{"qid": "gref|x", "text": f"nothing {SEL}"}], "n_nodes": len(rles),
+                     "phrases": ["the cap"], "instances": [{"phrase": 0, "rank": 1, "score": 0.7}],
+                     "labels": list(m.labels) + [""], "parts": list(m.parts) + [""], "high": list(m.high) + [True]})
+    torch.save({"records": recs, "counts": {"queries": 6}}, d / "shards" / "00000.pt")
+    return d
+
+
+def test_pool_meta_reads_the_d30_cache(s2t, tat, tmp_path, monkeypatch):
+    items, props = build_scene(s2t, tmp_path)
+    d = pool_shard(tmp_path, items, props)
+    monkeypatch.setattr(tat, "pool_cache", lambda cfg, source, smoke: (d, sorted((d / "shards").glob("*.pt"))))
+    metas, counts = tat.pool_meta({}, "paco_train", False)
+    assert counts["paco_train_pool:training_items"] == 4 and counts["paco_train_pool:queries"] == 6
+    present = [m for m in metas if not m.absent]
+    assert len(present) == 2 and all(m.source == "paco_train" and m.n == 6 for m in metas)
+    m = present[0]
+    assert m.inst.shape == (6, TA.INST_DIM) and m.inst[5].tolist() == [1, 0, 1, 0, pytest.approx(0.7)]
+    assert not m.inst[:5].any() and m.rles is None and m.nodes.endswith("nodes/s0.json")
+    assert m.high[5] and len(m.labels) == 6 and [q.kind for q in m.queries] == ["chain", "object", "part"]
+    absent = [m for m in metas if m.absent]
+    assert len(absent) == 2 and absent[0].queries[0].kind == "absent" and absent[0].parents is not None
+    bad = torch.load(d / "shards" / "00000.pt", weights_only=False)
+    bad["records"][0]["instances"] = []
+    torch.save(bad, d / "shards" / "00000.pt")
+    with pytest.raises(Exception):
+        tat.pool_meta({}, "paco_train", False)
+
+
+class FakeText:
+    # s3_pool.TextInstances stand-in: the phrase's instance is a copy of the part mask, then an empty mask
+    def __init__(self, part_mask):
+        self.part, self.calls = part_mask, []
+
+    def __call__(self, image, phrases, k):
+        self.calls.append(list(phrases))
+        return [[(self.part.copy(), 0.9), (np.zeros_like(self.part), 0.1)] for _ in phrases]
+
+
+def test_pool_val_meta_builds_pools_with_chain_ious(s2t, tat, tmp_path, monkeypatch):
+    from test_s2 import box, paco_image, query_rows
+    items, props = build_scene(s2t, tmp_path)
+    img = paco_image(1, "bottle", "cap", box(10, 90, 20, 60), box(10, 30, 30, 50))
+    monkeypatch.setattr(tat.paco, "load", lambda root, split, ids: {1: img})
+    q = query_rows(img, "s0").assign(split="val", text=lambda d: d.text)
+    wl = pd.DataFrame({"sha1": ["s0"], "image_key": ["paco_lvis:1"], "path": [items[0].file], "role": ["paco_val"]})
+    cfg = {"proposals": {"node_dedup": 0.9}, "data": {"paco_lvis": "x"},
+           "s3_pool": {"instances_per_phrase": 2, "max_instances": 160, "dup_iou": 0.95}}
+    text = FakeText(box(10, 30, 30, 50))
+    metas = tat.pool_val_meta(cfg, wl, props, q, None, 5, 0, 0, 1, text)
+    assert len(metas) == 1 and text.calls == [["the cap of the bottle", "the bottle"]]   # chain qid first
+    m = metas[0]
+    assert m.n == 6 and len(m.rles) == 6 and m.inst[5].tolist() == [1, 1, 0, 0, pytest.approx(0.9)]  # dedup drops
+    kinds = {q.kind: q for q in m.queries}                                                           # the copies
+    assert set(kinds) == {"object", "part", "chain"} and kinds["part"].ious.shape == (6,)
+    assert kinds["chain"].ious.shape == (2, 6) and kinds["chain"].ious[1, 5] == 1.0 and kinds["part"].ious[5] == 1.0
+    assert m.parents[5] == 0                                                   # the instance sits under the bottle
+
+
+def test_val_success_scores_chains_and_chooses_an_anchor(s2t, tat, tmp_path):
+    items, props, model, proc, extra, readout, src = make(s2t, tat, tmp_path, "pool_soft")
+    items = as_pool(s2t, tat, items)
+    metas = []
+    for m in items[:2]:
+        qs = [s2t.Query(q.qid, q.kind, q.user, q.answer, [], None,
+                        np.stack([np.linspace(0, 1, m.n), np.linspace(1, 0, m.n)]) if q.kind == "chain"
+                        else np.linspace(0, 1, m.n)) for q in m.queries]
+        metas.append(tat.PoolMeta(m.sha1, m.key, m.file, m.n, m.parents, None, None, None, qs, inst=m.inst))
+    res = tat.val_success(model, readout, src, metas, "cpu", 1, 2)
+    for k, v in res["by_layer"].items():
+        assert v["queries"] == 4 and v["chains"] == 2                        # chains do not enter the S2 criterion
+        assert {"chain_object", "chain_part_none", "chain_part_hard", "chain_part_soft2"} <= set(v["by_kind"])
+        assert v["anchor"] in ["none", TA.HARD] + [TA.anchor_name(a) for a in TA.ANCHORS]
+    assert res["anchor"] == res["by_layer"][res["best_layer"]]["anchor"]
+    (tmp_path / "g").mkdir()
+    items, props, model, proc, extra, readout, src = make(s2t, tat, tmp_path / "g", "tree")
+    grid = tat.val_success(model, readout, src, val_metas(s2t, items), "cpu", 1, 2)
+    assert grid["anchor"] is None and all(v["chains"] == 0 for v in grid["by_layer"].values())

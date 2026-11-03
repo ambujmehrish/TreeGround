@@ -1,0 +1,10 @@
+include: [s3.yaml, ta.yaml]
+# D44: the D41/D43 selectors over the query-aware pool of D30 (scripts/ta_train.py pool_* variants). Training reads
+# the s3_pool caches (grid nodes + top-k SAM 3 text instances of the image's query phrases, one tree; s3.yaml gives
+# their identity); no PACO rest cache. The part decision (none | hard | soft<x>) is chosen on the PACO val chains and
+# stored in the checkpoint; ta_eval.anchor auto uses it.
+ta:
+  variant: pool_soft_fam
+  paco_rest: false
+ta_eval:
+  anchor: auto

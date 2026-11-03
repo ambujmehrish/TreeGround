@@ -30,6 +30,12 @@ REL_SELF, REL_PARENT, REL_CHILD, REL_SIBLING, REL_ANC, REL_DESC, REL_OTHER = ran
 N_REL = 7
 GEOM_DIM = 9
 REGION_DILATE = 1   # image-token cells of margin around a mask's own cells
+# D44 query-aware pool: per-node provenance next to the geometry: [from SAM 3 text, rank 1, rank 2, rank 3 among the
+# phrase's instances, SAM 3 instance score]; all zero for grid nodes
+INST_DIM = 5
+MAX_RANK = 3
+HARD = "hard"                              # anchor: the part is chosen inside the selected object's subtree
+ANCHORS = (HARD, 0.5, 1.0, 2.0, 4.0)       # val grid of the D44 part decision (soft: logit bonus on that subtree)
 
 
 @dataclass
@@ -43,10 +49,63 @@ class Nodes:
                                                      # tree behind `rel` (the true tree, or the shuffled one)
     par: np.ndarray | None = None                    # (n,) parent in that tree, -1 for top-level nodes
     relk: np.ndarray | None = None                   # (n, n) int8 tree relation of u to v (D43 soft modes)
+    inst: np.ndarray | None = None                   # (n, INST_DIM) float32 pool provenance (D44), else None
 
     @property
     def n(self) -> int:
         return len(self.rel)
+
+    @property
+    def features(self) -> np.ndarray:
+        # the node-embedding input: geometry, plus provenance for a query-aware pool
+        return self.geom if self.inst is None else np.concatenate([self.geom, self.inst], 1)
+
+
+def pool_features(n_grid: int, instances: list[dict]) -> np.ndarray:
+    # (n_grid + len(instances), INST_DIM): s3_pool.augment's meta (phrase, rank, score) in pool order after the grid
+    out = np.zeros((n_grid + len(instances), INST_DIM), np.float32)
+    for i, m in enumerate(instances):
+        rank = int(m["rank"])
+        if not 0 <= rank < MAX_RANK:
+            raise ValueError(f"instance rank {rank} outside 0..{MAX_RANK - 1}")
+        out[n_grid + i, 0] = 1.0
+        out[n_grid + i, 1 + rank] = 1.0
+        out[n_grid + i, 1 + MAX_RANK] = float(m["score"])
+    return out
+
+
+def anchor_name(mode) -> str:
+    return "none" if mode is None else HARD if mode == HARD else f"soft{float(mode):g}"
+
+
+def anchor_mode(name: str):
+    if name == "none":
+        return None
+    if name == HARD:
+        return HARD
+    if name.startswith("soft"):
+        return float(name[4:])
+    raise ValueError(f"unknown anchor {name!r}")
+
+
+def anchor(obj_logits: np.ndarray, part_logits: np.ndarray, parent: np.ndarray, mode) -> tuple[int, int]:
+    # D44 part decision: the object token picks a1 = argmax; the part token picks a2 inside a1's subtree (mode HARD),
+    # or over every node with `mode` added to the logits of that subtree (a float), or flat (mode None); an empty
+    # subtree falls back to the flat pick. Returns (a1, a2); (-1, -1) without nodes.
+    n = len(part_logits)
+    if n == 0:
+        return -1, -1
+    a1 = int(np.argmax(obj_logits))
+    if mode is None:
+        return a1, int(np.argmax(part_logits))
+    desc = T.from_parents(parent).strict_descendants(a1)
+    if len(desc) == 0:
+        return a1, int(np.argmax(part_logits))
+    if mode == HARD:
+        return a1, int(desc[int(np.argmax(part_logits[desc]))])
+    bonus = np.zeros(n)
+    bonus[desc] = float(mode)
+    return a1, int(np.argmax(part_logits + bonus))
 
 
 def relatives(tree: T.Tree, mode: str) -> list[np.ndarray]:
@@ -112,7 +171,7 @@ def geometry(rles: list[M.Rle], tree: T.Tree, h: int, w: int) -> np.ndarray:
 
 
 def build_nodes(rles: list[M.Rle], parent: np.ndarray, grid: tuple[int, int], mode: str,
-                tree_seed: int | None = None) -> Nodes:
+                tree_seed: int | None = None, inst: np.ndarray | None = None) -> Nodes:
     if mode not in RELATIONS + D43_MODES:
         raise ValueError(f"unknown tree-attention mode {mode!r}")
     gh, gw = grid
@@ -120,6 +179,10 @@ def build_nodes(rles: list[M.Rle], parent: np.ndarray, grid: tuple[int, int], mo
     tree = T.from_parents(parent)
     if tree.n != len(rles):
         raise ValueError(f"tree has {tree.n} nodes for {len(rles)} masks")
+    if inst is not None:
+        inst = np.asarray(inst, np.float32)
+        if inst.shape != (len(rles), INST_DIM):
+            raise ValueError(f"pool features {inst.shape} for {len(rles)} masks")
     if mode.endswith("random_tree"):
         if tree_seed is None:
             raise ValueError("random_tree needs a per-image seed")
@@ -145,7 +208,7 @@ def build_nodes(rles: list[M.Rle], parent: np.ndarray, grid: tuple[int, int], mo
     seen = "self" if mode == "self" else ("tree" if mode in ("tree", "random_tree") else "full")
     par = np.where(tree.parent[:tree.n] == tree.root, -1, tree.parent[:tree.n]).astype(np.int64)
     return Nodes(cov, region, relatives(tree, seen), geometry(rles, tree, h, w), cell, ancestors(tree), par,
-                 relation_matrix(tree) if mode.startswith("soft") else None)
+                 relation_matrix(tree) if mode.startswith("soft") else None, inst)
 
 
 class NodeEmbed(nn.Module):
@@ -157,7 +220,14 @@ class NodeEmbed(nn.Module):
         self.kind = nn.Parameter(torch.zeros(d_model))
         self.gain = nn.Parameter(torch.tensor(float(gain)))
 
+    @property
+    def d_geom(self) -> int:
+        return self.geom[0].in_features
+
     def forward(self, pooled: torch.Tensor, geom: torch.Tensor) -> torch.Tensor:
+        if geom.shape[-1] != self.d_geom:
+            raise ValueError(f"node features of width {geom.shape[-1]} for an embedding of width {self.d_geom} "
+                             "(a pool checkpoint needs pool features and vice versa)")
         x = self.mix(torch.cat([pooled, self.geom(geom)], -1)) + self.kind
         return x * (self.gain * torch.rsqrt(x.pow(2).mean(-1, keepdim=True) + 1e-6))
 
@@ -398,7 +468,7 @@ def forward(model, batch: dict[str, torch.Tensor], nodes: list[Nodes | None], em
                 raise ValueError("a sequence with mask tokens has no image tokens")
             with torch.autocast(device_type=emb.device.type, enabled=False):
                 pooled = mllm.pool(emb[b, img_pos], *nb.cov)
-            x = embed(pooled, torch.from_numpy(nb.geom).to(emb.device))
+            x = embed(pooled, torch.from_numpy(nb.features).to(emb.device))
             block = torch.cat([x.to(emb.dtype), emb.new_zeros((K - nb.n, D))])
         blocks.append(block)
     x = torch.cat([emb, torch.stack(blocks)], 1) if K else emb

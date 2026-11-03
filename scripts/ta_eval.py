@@ -147,6 +147,9 @@ def main() -> None:
     props = open_proposals(cfg, args.smoke, manifest, mhash, capped=True)
     qdir, queries = open_queries(cfg, args.smoke, mhash, static)
     model, processor, extra, readout, meta, train_run = load_trained(cfg, c, device, static, args.smoke)
+    if TAT.is_pool(meta["variant"]):
+        raise ProtocolError("ta_eval scores the grid nodes only; a pool checkpoint is chosen on ta_train's val curve "
+                            "(selector success, chain anchors) and evaluated by ta_test_eval")
     layer = int(meta["layer"])
     if args.decision != "product" and not readout.hier:
         raise ProtocolError(f"--decision {args.decision} needs a hier checkpoint, not {meta['variant']}")

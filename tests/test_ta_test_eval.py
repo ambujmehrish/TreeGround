@@ -65,6 +65,8 @@ def test_rows_follow_the_s3_eval_rules(tte):
     df = pd.DataFrame(rows).assign(image="k")
     res = pt.summarize_ours(df, {"n": 50, "seed": 0})                                 # the protocol summary reads them
     assert res["present_queries"] == 2 and res["chain"]["chains"] == 1
+    leaf = [np.array([[0.0, 0.0, 0.0, 9.0, 0.0], [0.0, 0.3, 0.1, 0.0, 0.95]])]     # object pick without children
+    assert tte.single_rows(g.iloc[2:], [pool], leaf, gts)[0]["part_tree_iou"] == M.iou([rles[3]], [rles[1]])[0, 0]
     empty = tte.Pool([], None, 0)
     rows = tte.single_rows(g, [empty] * 3, [np.zeros((1, 0)), np.zeros((1, 0)), np.zeros((2, 0))], gts)
     assert rows[0]["sel_iou"] == 0.0 and rows[2]["part_tree_iou"] == 0.0
@@ -101,6 +103,7 @@ class FakeScorer:
         self.device, self.calls, self.lg, self.pool = "cpu", [], logits, pool
         self.cfg = {"ta_eval": {"anchor": "auto"}}
         self.meta = {"pool": pool, "anchor": anchor if pool else None}
+        self.anchor = anchor if pool else None
 
     def pools(self, image, texts):
         if not self.pool:
@@ -160,11 +163,12 @@ def test_predictors_of_a_pool_checkpoint(tte, monkeypatch):
     assert res[0]["nodes"].sum() == M.areas([part.s.rles[1]])[0]        # the handle, not the flat pick (node 4)
     oph = tte.OphrgOurs({})
     gt = M.decode(part.s.rles[1]).astype(bool)
-    r = oph(image, "img1", [("img1|part|mug:handle", "part", "mug", "handle", gt),
+    r = oph(image, "img1", [("img1|part|coffee_mug:handle", "part", "coffee_mug", "handle", gt),
                             ("img1|object|mug", "object", "mug", None, M.decode(part.s.rles[0]).astype(bool))])
     assert r[0]["inter"] == r[0]["union"] == int(gt.sum()) and r[0]["pick_kind"] == "inst"
     assert r[1]["inter"] == r[1]["union"] and r[1]["pick_kind"] == "node"
     assert [q.kind for q in oph.s.calls[0]] == ["chain", "object"]
+    assert oph.s.calls[0][0].user == "Locate the coffee_mug and then its handle."     # the benchmark's own names
     gres = tte.GresOurs({})
     out = gres(image, ["the handle"])
     assert len(out[0]["nodes"]) == 6 and gres.s.calls[0][0].kind == "object"   # single pick over the query pool

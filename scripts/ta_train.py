@@ -346,7 +346,8 @@ def val_success(model, readout, src, metas, device, world, batch_size) -> dict:
         parts = {a: by_kind.get(f"chain_part_{TA.anchor_name(a)}") for a in (None,) + TA.ANCHORS}
         anchor = None
         if all(v is not None for v in parts.values()):
-            # the part decision for evaluation: best covered chain-part success; ties favour no / softer anchoring
+            # the part decision for evaluation: best covered chain-part success; ties go to the earlier rule
+            # (none, hard, then the smaller bonuses)
             anchor = TA.anchor_name(max(parts, key=lambda a: (parts[a], -((None,) + TA.ANCHORS).index(a))))
         by_layer[int(k)] = {"selector_success": float((cov.sel_iou >= 0.5).mean()) if len(cov) else 0.0,
                             "by_kind": by_kind, "covered_queries": int(len(cov)), "queries": int(len(single)),
@@ -428,10 +429,12 @@ def pool_val_meta(cfg, wl, props, queries, device, n_images: int, seed: int, ran
                                   s["dup_iou"])
         parents = T.build_tree(pool, device).parent if pool else None
         gts = paco.gt_rles(img)
+        ids = sorted({a for q in g.itertuples() for a in json.loads(q.gt)})
+        col = {a: i for i, a in enumerate(ids)}
+        all_ious = M.iou(pool, [gts[a] for a in ids]).T if pool and ids else np.zeros((len(ids), len(pool)))
         qs = []
         for q in g.itertuples():
-            gt = [gts[a] for a in json.loads(q.gt)]
-            ious = M.iou(pool, gt).T if pool else np.zeros((len(gt), 0))
+            ious = all_ious[[col[a] for a in json.loads(q.gt)]]
             qs.append(S2T.Query(q.qid, q.kind, S2.user_text(q.text), S2.answer_text(q.kind, q.qid, q.text), [],
                                 None, ious if q.kind == "chain" else ious[0]))
         out.append(PoolMeta(r.sha1, r.image_key, r.path, len(pool), parents, None, None, None, qs,
@@ -540,6 +543,9 @@ def main() -> None:
     if pool:
         if c["paco_rest"]:
             raise ProtocolError("pool variants train on the D30 pool caches alone: set ta.paco_rest to false")
+        if int(S3P.settings(cfg)["instances_per_phrase"]) > TA.MAX_RANK:
+            raise ProtocolError(f"pool provenance encodes ranks up to {TA.MAX_RANK}; s3_pool.instances_per_phrase "
+                                f"is {S3P.settings(cfg)['instances_per_phrase']}")
         items, counts = [], {}
         for source in weights:
             metas, pc = pool_meta(cfg, source, args.smoke)

@@ -107,7 +107,7 @@ class Scorer:
                                            cfg.get("hf_home"))
         self.cap = node_cap(cfg, False)
         self.pool = bool(self.meta.get("pool"))
-        self.anchor = TA.anchor_mode(anchor_setting(cfg, self.meta)) if self.pool else None
+        self.anchor = anchor_setting(cfg, self.meta)          # the part decision's name (None: grid checkpoint)
         if self.pool:
             import s3_pool as S3P
             self.S3P = S3P
@@ -186,8 +186,11 @@ def single_rows(g: pd.DataFrame, pools: list[Pool], lgs: list[np.ndarray], gts: 
         ious = M.iou(rles, gt) if n else np.zeros((0, len(gt)))
         kind_of = lambda i: "none" if i < 0 else "node" if i < pool.n_grid else "inst"
         if q.kind == "chain":
+            # the S2 chain rule (s3_eval.image_rows): the part inside the object's subtree, the object itself when
+            # that subtree is empty
             a1, af = TA.anchor(lg[0], lg[1], pool.parents, None)
-            _, a2 = TA.anchor(lg[0], lg[1], pool.parents, TA.HARD)
+            desc = T.from_parents(pool.parents).strict_descendants(a1) if n else np.zeros(0, np.int64)
+            a2 = int(desc[int(np.argmax(lg[1][desc]))]) if len(desc) else a1
             rows.append({**base, "object_iou": float(ious[a1, 0]) if n else 0.0,
                          "part_flat_iou": float(ious[af, 1]) if n else 0.0,
                          "part_tree_iou": float(ious[a2, 1]) if n else 0.0,
@@ -225,7 +228,7 @@ class PacoOurs:
         self.s = Scorer(cfg)
 
     def __call__(self, image: np.ndarray, g: pd.DataFrame, gts: dict) -> list[dict]:
-        anchor = anchor_setting(self.s.cfg, self.s.meta)
+        anchor = self.s.anchor
         pools, lgs = self.s.score(image, g.image_key.iloc[0], g.text.tolist(), queries_of(g, anchor is not None))
         return single_rows(g, pools, lgs, gts, anchor)
 
@@ -257,7 +260,7 @@ class PartonomyOurs:
 
     def __call__(self, image: np.ndarray, label: str, parts: list[str]) -> list[dict]:
         import partonomy_eval as PE
-        anchor = anchor_setting(self.s.cfg, self.s.meta)
+        anchor = self.s.anchor
         texts = [f"Locate {PE.phrase(p, label)}. {mllm.SEL}" for p in parts]
         qs = [S2T.Query(f"partonomy|part|{label}:{p}", "part", S2.user_text(t), f"{p} of the {label} {mllm.SEL}", [])
               for p, t in zip(parts, texts)]
@@ -280,11 +283,14 @@ class OphrgOurs:
 
     def __call__(self, image: np.ndarray, key: str, qs: list) -> list[dict]:
         import ophrg_eval as OE
-        anchor = anchor_setting(self.s.cfg, self.s.meta)
+        anchor = self.s.anchor
         gts = {i: M.encode(q[4])[0] for i, q in enumerate(qs)}
         g = pd.DataFrame([{"qid": q[0], "kind": q[1], "text": OE.text(q[1], q[2], q[3]), "n_sel": 1,
                            "gt": json.dumps([i]), "image_key": key} for i, q in enumerate(qs)])
-        pools, lgs = self.s.score(image, key, g.text.tolist(), queries_of(g, anchor is not None))
+        queries = queries_of(g)
+        if anchor is not None:   # object-first with the benchmark's own names, as OE.text words the part query
+            queries = [chain_query(q[0], q[2], q[3]) if q[1] == "part" else qq for q, qq in zip(qs, queries)]
+        pools, lgs = self.s.score(image, key, g.text.tolist(), queries)
         return [{"qid": r["qid"], "kind": r["kind"], "image": key, "inter": r["sel_inter"], "union": r["sel_union"],
                  "pick_kind": r["pick_kind"]} for r in single_rows(g, pools, lgs, gts, anchor)]
 

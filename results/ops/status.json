@@ -1,7 +1,8 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 113
+   "PENDING": 109,
+   "RUNNING": 4
   },
   "ended_24h": [
    {
@@ -222,46 +223,6 @@
    }
   ],
   "squeue": [
-   {
-    "elapsed": "0:00",
-    "jobid": "63409685",
-    "name": "tg_pool_soft_fam_random_tree",
-    "nodes": "1",
-    "reason_or_nodelist": "(PartitionConfig)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63409684",
-    "name": "tg_pool_soft_fam",
-    "nodes": "1",
-    "reason_or_nodelist": "(PartitionConfig)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63409682",
-    "name": "tg_pool_soft",
-    "nodes": "1",
-    "reason_or_nodelist": "(PartitionConfig)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63409679",
-    "name": "tg_pool_full",
-    "nodes": "1",
-    "reason_or_nodelist": "(PartitionConfig)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
    {
     "elapsed": "0:00",
     "jobid": "63257173",
@@ -1074,6 +1035,26 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "63431773",
+    "name": "tg_tt_paco_pool_soft_fam_m",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63431772_[0-7]",
+    "name": "tg_tt_paco_pool_soft_fam",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "12:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "63431793",
     "name": "tg_tt_gres_pool_full_m",
     "nodes": "1",
@@ -1081,6 +1062,36 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63431783",
+    "name": "tg_tt_oph_instructpart_pool_soft_fam_m",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63431782_[0-3]",
+    "name": "tg_tt_oph_instructpart_pool_soft_fam",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63431781",
+    "name": "tg_tt_part_pool_soft_fam_m",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1:00:00"
    },
    {
     "elapsed": "0:00",
@@ -1101,16 +1112,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63431781",
-    "name": "tg_tt_part_pool_soft_fam_m",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:00:00"
    },
    {
     "elapsed": "0:00",
@@ -1141,26 +1142,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "8:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63431773",
-    "name": "tg_tt_paco_pool_soft_fam_m",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63431772_[0-7]",
-    "name": "tg_tt_paco_pool_soft_fam",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
    },
    {
     "elapsed": "0:00",
@@ -1254,26 +1235,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63431783",
-    "name": "tg_tt_oph_instructpart_pool_soft_fam_m",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63431782_[0-3]",
-    "name": "tg_tt_oph_instructpart_pool_soft_fam",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "62703289",
     "name": "hm_eval_llm_r4",
     "nodes": "1",
@@ -1351,6 +1312,46 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "12:00:00"
+   },
+   {
+    "elapsed": "28:12",
+    "jobid": "63409684",
+    "name": "tg_pool_soft_fam",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3194",
+    "start": "2026-11-04T00:25:47",
+    "state": "RUNNING",
+    "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "29:05",
+    "jobid": "63409685",
+    "name": "tg_pool_soft_fam_random_tree",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn2414",
+    "start": "2026-11-04T00:24:54",
+    "state": "RUNNING",
+    "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "29:05",
+    "jobid": "63409679",
+    "name": "tg_pool_full",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3110",
+    "start": "2026-11-04T00:24:54",
+    "state": "RUNNING",
+    "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "29:05",
+    "jobid": "63409682",
+    "name": "tg_pool_soft",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3454",
+    "start": "2026-11-04T00:24:54",
+    "state": "RUNNING",
+    "time_limit": "1-00:00:00"
    }
   ]
  },
@@ -14094,5 +14095,5 @@
    "waiting_for": null
   }
  },
- "updated": 1793746292.8224907
+ "updated": 1793750039.7220876
 }

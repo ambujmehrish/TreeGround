@@ -186,7 +186,8 @@ def test_install_replaces_only_the_ours_bookkeeping(tte, monkeypatch):
         mod = tte.install(bench)
         assert mod.Ours is tte.OURS[bench]
         cfg = {"ta": {"variant": "full"}, "ta_eval": {"checkpoint": "best.pt"}, "paco_test": {"num_shards": 32},
-               "gres_eval": {"num_shards": 16}, "partonomy_eval": {"num_shards": 16}, "ophrg_eval": {"num_shards": 16}}
+               "gres_eval": {"num_shards": 16}, "partonomy_eval": {"num_shards": 16}, "ophrg_eval": {"num_shards": 16},
+               "gseval_eval": {"num_shards": 4}}
         tte.CONFIG["cfg"] = cfg
         monkeypatch.setattr(tte.TAE, "load_checkpoint", lambda c, s: ({"meta": {"step": 12000, "layer": 36}},
                                                                      SimpleNamespace(name="run1")))
@@ -195,7 +196,7 @@ def test_install_replaces_only_the_ours_bookkeeping(tte, monkeypatch):
         ident = mod.identity(cfg, "ours", *extra)
         assert ident["run"] == "run1" and ident["pool"] == "tree_nodes_only" and ident["layer"] == 36
         assert ident.get("split", ident.get("benchmark", "x")) in ("testA", "instructpart", "x")
-        args = (cfg, "ours") if bench in ("paco", "ophrg") else ("ours",)
+        args = (cfg, "ours") if bench in ("paco", "ophrg", "gseval") else ("ours",)
         assert mod.approvals(*args) == [tte.PROTOCOL[bench], "D10", "D21", "D41"]
         assert mod.stage_name(cfg, "sam3_text") == "sam3_text"                        # baselines untouched
         pool_meta = {"step": 1, "layer": 12, "pool": True, "anchor": "hard", "pool_settings": {"instances_per_phrase": 3}}
@@ -224,6 +225,7 @@ def test_test_configs(monkeypatch):
         c, base = load_config(root / f"ta_test_{v}.yaml"), load_config(root / f"ta_{v}.yaml")
         assert c["ta"] == base["ta"] and c["ta_eval"] == base["ta_eval"]               # same checkpoint selection
         assert c["gres_eval"]["splits"] == ["val", "testA", "testB"] and c["paco_test"]["num_shards"] == 8
+        assert c["gseval_eval"]["num_shards"] == 4 and c["data"]["gseval"].endswith("/gseval")
         if v in tat.D44:
             assert c["ta"]["variant"] == v and not c["ta"]["paco_rest"] and c["ta_eval"]["anchor"] == "auto"
             assert c["s3_pool"]["instances_per_phrase"] == 3 and "sam3_text" in c["baselines"]

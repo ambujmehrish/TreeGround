@@ -67,6 +67,10 @@ def test_images(cfg: dict) -> dict[str, str]:
         for _, path, _ in O.LOADERS[bench](cfg):
             if Path(path).exists():
                 out[path] = f"ophrg_{bench}"
+    if Path(cfg["data"].get("gseval", "")).exists():
+        import gseval_eval as GS
+        for path in GS.expressions(cfg).path.unique():
+            out[path] = "gseval"
     return out
 
 

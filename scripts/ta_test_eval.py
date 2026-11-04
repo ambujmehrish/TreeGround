@@ -29,7 +29,7 @@ from treeground.run import ProtocolError  # noqa: E402
 
 # Test-split evaluation of a trained D41 / D42 / D43 / D44 checkpoint (configs/ta_test_<variant>.yaml) under the
 # existing protocol scripts, which run unchanged: paco_test_eval (D35), gres_eval (D33), partonomy_eval (D32),
-# ophrg_eval (D38). Only their 'ours' predictor, stage name, cache identity and approvals are replaced. Queries
+# ophrg_eval (D38), gseval_eval (D45; the gRefCOCO predictor, its 'set' threshold read from the gres run). Only their 'ours' predictor, stage name, cache identity and approvals are replaced. Queries
 # and answers are built exactly as in each script's S2 predictor; scores come from the checkpoint at its read-out
 # layer, chosen with the checkpoint on PACO val. gRefCOCO thresholds are chosen on gRefCOCO val by gres_eval's own
 # rule and frozen for testA / testB. Nothing is tuned on a test split.
@@ -38,9 +38,10 @@ from treeground.run import ProtocolError  # noqa: E402
 # (s3_pool.augment, as in training), one tree per query; a part query is asked as the object -> part chain and
 # decided object-first with the anchor chosen on PACO val and stored in the checkpoint (TA.anchor).
 
-BENCHES = ("paco", "gres", "partonomy", "ophrg")
-MODULES = {"paco": "paco_test_eval", "gres": "gres_eval", "partonomy": "partonomy_eval", "ophrg": "ophrg_eval"}
-PROTOCOL = {"paco": "D35", "gres": "D33", "partonomy": "D32", "ophrg": "D38"}
+BENCHES = ("paco", "gres", "partonomy", "ophrg", "gseval")
+MODULES = {"paco": "paco_test_eval", "gres": "gres_eval", "partonomy": "partonomy_eval", "ophrg": "ophrg_eval",
+           "gseval": "gseval_eval"}
+PROTOCOL = {"paco": "D35", "gres": "D33", "partonomy": "D32", "ophrg": "D38", "gseval": "D45"}
 TA_FILES = ("scripts/ta_test_eval.py", "scripts/ta_eval.py", "scripts/ta_train.py", "treeground/tree_attn.py")
 
 
@@ -295,7 +296,7 @@ class OphrgOurs:
                  "pick_kind": r["pick_kind"]} for r in single_rows(g, pools, lgs, gts, anchor)]
 
 
-OURS = {"paco": PacoOurs, "gres": GresOurs, "partonomy": PartonomyOurs, "ophrg": OphrgOurs}
+OURS = {"paco": PacoOurs, "gres": GresOurs, "partonomy": PartonomyOurs, "ophrg": OphrgOurs, "gseval": GresOurs}
 
 
 def code_hash(module) -> str:
@@ -309,7 +310,8 @@ def install(bench: str):
     # swap the 'ours' predictor and bookkeeping of one protocol script; everything else in it runs unchanged
     module = __import__(MODULES[bench])
     stage0, ident0, appr0 = module.stage_name, module.identity, module.approvals
-    shards_key = {"paco": "paco_test", "gres": "gres_eval", "partonomy": "partonomy_eval", "ophrg": "ophrg_eval"}[bench]
+    shards_key = {"paco": "paco_test", "gres": "gres_eval", "partonomy": "partonomy_eval", "ophrg": "ophrg_eval",
+                  "gseval": "gseval_eval"}[bench]
 
     def stage_name(cfg, method):
         return TAT.stage(cfg) if method == "ours" else stage0(cfg, method)
@@ -320,7 +322,7 @@ def install(bench: str):
         ckpt, run = TAE.load_checkpoint(cfg, False)
         meta = ckpt["meta"]
         ident = {"kind": {"paco": "paco_test_eval", "gres": "gres_eval", "partonomy": "partonomy_eval",
-                          "ophrg": "ophrg_eval"}[bench],
+                          "ophrg": "ophrg_eval", "gseval": "gseval_eval"}[bench],
                  "method": method, "stage": stage_name(cfg, method), "num_shards": cfg[shards_key]["num_shards"],
                  "code": code_hash(module), "run": run.name, "checkpoint": cfg["ta_eval"]["checkpoint"],
                  "step": meta["step"], "layer": meta["layer"], "pool": "tree_nodes_only"}

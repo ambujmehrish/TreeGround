@@ -993,6 +993,21 @@ PROPOSED_DEVIATIONS = [
                   "its top three (55%) is a choice of level or instance, the decision a part-whole tree is for",
         "expected_impact": "new stages only (runs/ta_pool_*); D41-D43 runs and every existing result are unchanged",
     },
+    {
+        "id": "D45",
+        "spec_section": "5 (evaluation): GroundingSuite-Eval (GSEval) as a further test benchmark",
+        "change": "scripts/gseval_eval.py evaluates on GSEval (Hu et al., ICCV 2025; hustvl/GSEval, pinned revision in "
+                  "configs/paths.yaml): 3,7xx expressions on COCO unlabeled2017 images in four strata (stuff, part, "
+                  "multi-object, single-object), scored as the official evaluate_grounding.py in mask mode (per-"
+                  "expression IoU, gIoU per class and overall, empty prediction = 0), which PANORAMA (arXiv 2609.19143, "
+                  "Table 10) copies, so its zero-shot rows are cited unchanged. Ours: the gRefCOCO predictor (D33), the "
+                  "expression as the query, top-1 and the union over the checkpoint's gRefCOCO val threshold; "
+                  "baselines: the D13 / D31 predictors. Nothing is tuned on GSEval; its images are checked against "
+                  "every training image by the leakage audit",
+        "reason": "PANORAMA is the closest published method and reports no number on our part benchmarks; GSEval is the "
+                  "one benchmark with a part stratum where it publishes a zero-shot number",
+        "expected_impact": "a new test benchmark; no existing stage or result changes",
+    },
 ]
 
 

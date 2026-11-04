@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Download datasets into $TG_DATA on a LOGIN node.  bash scripts/fetch_data.sh [item ...]
 # items: paco grefcoco partonomy sceneparser coco_val2017 coco_train2017 coco_train2014 (default: all)
+# gseval (D45) is a pinned Hub dataset: python scripts/fetch_models.py --config configs/paths.yaml --datasets --only gseval
 # EgoObjects images (SceneParser) are licence-gated: place them at $TG_DATA/egoobjects/datasets/EgoObjects/images
 set -euo pipefail
 : "${TG_DATA:?source tg_env.sh first}"

@@ -1,0 +1,36 @@
+{
+  "benchmark": "pascalpart",
+  "deviation": "D38",
+  "images": 851,
+  "label": "test",
+  "method": "ours",
+  "protocol": "OP-HRG (arXiv 2607.15374)",
+  "results": {
+    "objects": {
+      "cIoU": 0.8244611581907929,
+      "gIoU": {
+        "ci95": [
+          0.7936945852709719,
+          0.8191239662049375
+        ],
+        "mean": 0.8063530693669438,
+        "n": 1077
+      },
+      "queries": 1077
+    },
+    "parts": {
+      "cIoU": 0.5344474210890885,
+      "gIoU": {
+        "ci95": [
+          0.38944305446211813,
+          0.4092811340319633
+        ],
+        "mean": 0.399336300619777,
+        "n": 9552
+      },
+      "queries": 9552
+    },
+    "train_overlap_images": 0
+  },
+  "stage": "ta_pool_full"
+}

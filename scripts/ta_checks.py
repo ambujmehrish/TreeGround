@@ -50,11 +50,19 @@ def ta_train_images(cfg: dict) -> dict[str, str]:
 
 
 def partonomy_cache(cfg: dict, stage: str) -> pd.DataFrame:
+    # the complete cache of the stage (every shard of its identity present); several complete ones: the newest
     base = Path(cfg["cache_root"]) / "full" / "partonomy_eval" / stage
-    dirs = [d for d in base.glob("*") if (d / "shards").is_dir()]
-    if len(dirs) != 1:
-        raise ProtocolError(f"expected one partonomy cache under {base}, found {len(dirs)}")
-    files = sorted((dirs[0] / "shards").glob("*.parquet"))
+    done = []
+    for d in base.glob("*"):
+        if not (d / "shards").is_dir() or not (d / "identity.json").exists():
+            continue
+        n = json.loads((d / "identity.json").read_text())["identity"]["num_shards"]
+        files = sorted((d / "shards").glob("*.parquet"))
+        if len(files) == n:
+            done.append((max(f.stat().st_mtime for f in files), d, files))
+    if not done:
+        raise ProtocolError(f"no complete partonomy cache under {base}")
+    _, d, files = max(done)
     return pd.concat([pd.read_parquet(f) for f in files], ignore_index=True)
 
 

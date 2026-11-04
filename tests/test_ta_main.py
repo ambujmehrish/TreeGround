@@ -68,7 +68,7 @@ def query_table(items):
 
 @pytest.mark.parametrize("variant", ["flat", "full", "tree", "random_tree", "hier", "hier_random_tree", "soft",
                                      "soft_random_tree", "fam", "fam_random_tree", "soft_fam", "soft_fam_random_tree",
-                                     "pool_full", "pool_soft_fam", "pool_soft_fam_random_tree"])
+                                     "pool_flat", "pool_full", "pool_soft_fam", "pool_soft_fam_random_tree"])
 def test_train_then_eval_main(tmp_path, monkeypatch, variant):
     s2t, tat = load_script("s2_train"), load_script("ta_train")
     items, props = build_scene(s2t, tmp_path)
@@ -119,7 +119,8 @@ def test_train_then_eval_main(tmp_path, monkeypatch, variant):
     if pool:
         assert best["meta"]["anchor"] == metrics["anchor"] and metrics["anchor"] is not None
         assert best["meta"]["pool_settings"] == cfg["s3_pool"]
-        assert best["selector"]["embed.geom.0.weight"].shape[1] == TA.GEOM_DIM + TA.INST_DIM
+        if variant != "pool_flat":
+            assert best["selector"]["embed.geom.0.weight"].shape[1] == TA.GEOM_DIM + TA.INST_DIM
     else:
         assert best["meta"]["anchor"] is None
 

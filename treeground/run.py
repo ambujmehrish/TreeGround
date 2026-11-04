@@ -986,7 +986,9 @@ PROPOSED_DEVIATIONS = [
                   "object-first: the object token's top node, then the part token inside its subtree (hard) or over "
                   "every node with a logit bonus on that subtree (soft, bonus in {0.5, 1, 2, 4}) or flat; the rule is "
                   "chosen on the PACO val chains at checkpoint selection and stored in the checkpoint (ta_eval.anchor "
-                  "auto). Variants: pool_full, pool_soft, pool_fam, pool_soft_fam and their shuffled-tree controls; "
+                  "auto). Variants: pool_full, pool_soft, pool_fam, pool_soft_fam and their shuffled-tree controls, plus "
+                  "pool_flat (the S2 coverage-pooled feature selector over the same pool, no mask tokens: the in-context "
+                  "mask tokens' ablation); "
                   "checkpoint and layer chosen as D41 (single-step selector success on PACO val)",
         "reason": "on PACO val parts a mask with IoU >= 0.5 exists in the grid tree for 46% of queries, in the grid + "
                   "text pool for 62% (box_coverage diagnostic); the gap between SAM 3 text's top instance (44%) and "

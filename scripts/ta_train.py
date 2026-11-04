@@ -56,7 +56,7 @@ from treeground.run import (ProtocolError, assert_real_path, canonical_hash, ens
 #   soft, soft_random_tree          soft tree attention
 #   fam, fam_random_tree            full attention + family loss (tree for geometry and the loss)
 #   soft_fam, soft_fam_random_tree  both
-# D44 (pool_*): the same selectors over the query-aware pool of D30 (grid nodes + SAM 3 text instances of the query
+# D44 (pool_*; pool_flat = the S2 feature selector over the pool, no mask tokens): the same selectors over the query-aware pool of D30 (grid nodes + SAM 3 text instances of the query
 # phrases, one tree); node tokens carry pool provenance; part queries are decided object-first (TA.anchor), the
 # anchor chosen on the val chains and stored in the checkpoint.
 HIER = {"hier": "tree", "hier_random_tree": "random_tree"}     # variant -> node relations and decision tree
@@ -66,9 +66,12 @@ D43 = {"soft": ("soft", False), "soft_random_tree": ("soft_random_tree", False),
 # D44: the same selectors over the query-aware pool (D30 s3_pool caches: grid nodes + top-k SAM 3 text instances of
 # the image's query phrases, one tree over the pool). Node tokens carry pool provenance (TA.INST_DIM); part queries
 # are decided object-first at evaluation (TA.anchor). Trained on the pool caches alone (no PACO rest cache).
-D44 = {"pool_full": ("full", False), "pool_soft": ("soft", False), "pool_fam": ("full", True),
-       "pool_soft_fam": ("soft", True), "pool_full_random_tree": ("full_random_tree", False),
+# pool_flat: the S2 feature selector (no mask tokens, coverage-pooled layer states) over the same pool: the
+# in-context mask tokens' ablation
+D44 = {"pool_flat": ("tree", False), "pool_full": ("full", False), "pool_soft": ("soft", False),
+       "pool_fam": ("full", True), "pool_soft_fam": ("soft", True), "pool_full_random_tree": ("full_random_tree", False),
        "pool_soft_random_tree": ("soft_random_tree", False), "pool_soft_fam_random_tree": ("soft_random_tree", True)}
+FLAT = ("flat", "pool_flat")
 VARIANTS = ("flat",) + TA.MODES + tuple(HIER) + tuple(D43) + tuple(D44)
 DEVIATIONS = ["D10", "D21", "D41"]
 
@@ -157,8 +160,8 @@ def stage(cfg: dict) -> str:
 
 
 def node_mode(variant: str) -> str:
-    # the flat variant only uses the coverage maps, which are the same for every mode
-    if variant == "flat":
+    # the flat variants only use the coverage maps, which are the same for every mode
+    if variant in FLAT:
         return "tree"
     if variant in HIER:
         return HIER[variant]
@@ -170,7 +173,7 @@ class Source(S2T.Source):
                  relations: str | None = None):
         # relations: evaluation-time override of which node tokens see each other (TA.RELATIONS); None = as trained
         super().__init__(cfg, smoke, manifest, mhash, processor, sel_id, text_labels)
-        if relations is not None and (variant == "flat" or variant in D43 or variant in D44
+        if relations is not None and (variant in FLAT or variant in D43 or variant in D44
                                       or relations not in TA.RELATIONS):
             raise ProtocolError(f"relations {relations!r} cannot override variant {variant!r}")
         self.mode, self.seed = relations or node_mode(variant), seed
@@ -488,7 +491,7 @@ def build(cfg: dict, c: dict, device: str, static: dict | None, n_nodes: int) ->
     mllm.check_layers(model, c["readout_layers"])
     v = c["variant"]
     d_geom = TA.GEOM_DIM + (TA.INST_DIM if is_pool(v) else 0)
-    embed = None if v == "flat" else TA.NodeEmbed(d_model, TA.embedding_rms(model), d_geom)
+    embed = None if v in FLAT else TA.NodeEmbed(d_model, TA.embedding_rms(model), d_geom)
     mode, fam = D43.get(v) or D44.get(v) or ("", False)
     soft = TA.SoftTreeBias(model.config.text_config.num_hidden_layers) if mode.startswith("soft") else None
     family = (float(c["fam_margin"]), float(c["fam_weight"])) if fam else None

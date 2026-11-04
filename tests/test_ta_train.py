@@ -38,7 +38,7 @@ def make(s2t, tat, tmp_path, variant, seed=0):
     torch.manual_seed(seed)
     mode, fam = tat.D43.get(variant) or tat.D44.get(variant) or ("", False)
     d_geom = TA.GEOM_DIM + (TA.INST_DIM if tat.is_pool(variant) else 0)
-    embed = None if variant == "flat" else TA.NodeEmbed(64, TA.embedding_rms(model), d_geom)
+    embed = None if variant in tat.FLAT else TA.NodeEmbed(64, TA.embedding_rms(model), d_geom)
     soft = TA.SoftTreeBias(4) if mode.startswith("soft") else None
     family = (0.1, 1.0) if fam else None
     readout = tat.Readout(64, LAYERS, 5, embed, variant in tat.HIER, soft, family)
@@ -333,7 +333,10 @@ def as_pool(s2t, tat, items):
 @pytest.mark.parametrize("variant", sorted(load_script("ta_train").D44))
 def test_training_step_pool_variants(s2t, tat, tmp_path, variant):
     items, props, model, proc, extra, readout, src = make(s2t, tat, tmp_path, variant)
-    assert readout.embed.d_geom == TA.GEOM_DIM + TA.INST_DIM
+    if variant == "pool_flat":
+        assert readout.embed is None
+    else:
+        assert readout.embed.d_geom == TA.GEOM_DIM + TA.INST_DIM
     items = as_pool(s2t, tat, items)
     c = {"batch_images": 3, "micro_batch": 3, "seed": 0, "text_only_fraction": 0.34, "steps": 1}
     mb = tat.MicroBatches(s2t.plan(items, c, LABELS, 1, 0), items, src)[0]
@@ -341,8 +344,10 @@ def test_training_step_pool_variants(s2t, tat, tmp_path, variant):
     stats = {k: 0 for k in s2t.STAT_KEYS}
     l_sel, l_lm = tat.micro_step(model, extra, readout, mb, items, "cpu", np.random.default_rng(0), 2.0, stats)
     (l_sel + l_lm).backward()
-    assert torch.isfinite(l_sel) and readout.embed.geom[0].weight.grad[:, TA.GEOM_DIM:].abs().sum() == 0  # zero inputs
-    assert readout.embed.geom[0].weight.grad[:, :TA.GEOM_DIM].abs().sum() > 0
+    assert torch.isfinite(l_sel)
+    if readout.embed is not None:
+        assert readout.embed.geom[0].weight.grad[:, TA.GEOM_DIM:].abs().sum() == 0      # zero provenance inputs
+        assert readout.embed.geom[0].weight.grad[:, :TA.GEOM_DIM].abs().sum() > 0
     if readout.soft is not None:
         assert readout.soft.bias.grad.abs().sum() > 0
     with pytest.raises(Exception):                                            # no relation swap for pool checkpoints
@@ -354,6 +359,7 @@ def test_variant_tables(tat):
     assert set(tat.D44) <= set(tat.VARIANTS) and all(tat.is_pool(v) for v in tat.D44)
     assert not any(tat.is_pool(v) for v in ("flat", "full", "tree", "soft_fam", "hier"))
     assert tat.deviations("pool_full") == ["D10", "D21", "D41", "D44"]
+    assert tat.deviations("pool_flat") == ["D10", "D21", "D41", "D44"] and tat.node_mode("pool_flat") == "tree"
     assert tat.deviations("pool_soft_fam_random_tree") == ["D10", "D21", "D41", "D43", "D44"]
     assert tat.deviations("pool_fam") == ["D10", "D21", "D41", "D43", "D44"]
     assert tat.deviations("soft") == ["D10", "D21", "D41", "D43"] and tat.deviations("tree") == ["D10", "D21", "D41"]

@@ -12,12 +12,15 @@ CFG=configs/ta_test_$V.yaml
 cd "${TG_REPO:?}"
 mkdir -p logs
 dep=(); [ -n "$DEP" ] && dep=(--dependency=afterok:$DEP)
+# D46: a Qwen3-VL-8B checkpoint runs through the 8B launcher
+PY=scripts/ta_test_eval.py; PRE=""
+[[ $V == *_8b ]] && { PY=scripts/qwen8.py; PRE="scripts/ta_test_eval.py "; }
 want() { [[ " $ONLY " == *" $1 "* ]]; }
 
 sub() {   # sub <name> <time> <array or ''> <TG_ARGS> [extra sbatch args]
   local name=$1 time=$2 array=$3 args=$4; shift 4
   local arr=(); [ -n "$array" ] && arr=(--array=$array)
-  TG_PY=scripts/ta_test_eval.py TG_ARGS="$args" \
+  TG_PY=$PY TG_ARGS="$PRE$args" \
     sbatch --parsable --account="$ACC" --job-name="$name" --time="$time" "${arr[@]}" "$@" slurm/q_gpu.sbatch | cut -d';' -f1
 }
 

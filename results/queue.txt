@@ -1,15 +1,25 @@
          JOBID                         NAME    STATE       TIME NODELIST(REASON)
-63523136_[0-7] tg_tt_paco_pool_full_random_  PENDING       0:00 (Priority)
-63523152_[0-3] tg_tt_oph_partimagenet_pool_  PENDING       0:00 (Priority)
-63523149_[0-3] tg_tt_oph_pascalpart_pool_fu  PENDING       0:00 (Priority)
-63523146_[0-3] tg_tt_oph_instructpart_pool_  PENDING       0:00 (Priority)
-63523144_[0-3] tg_tt_part_pool_full_random_  PENDING       0:00 (Priority)
-63523140_[0-3] tg_tt_gres_testB_pool_full_r  PENDING       0:00 (Priority)
-      63574658            tg_diag_partonomy  PENDING       0:00 (Priority)
-      63574657         tg_diag_instructpart  PENDING       0:00 (Priority)
-      63574600                 tg_pool_flat  PENDING       0:00 (Priority)
-63574092_[0-7]         tg_gse_qwen8_box_sam  PENDING       0:00 (Priority)
-63574088_[0-7]                 tg_gse_sa2va  PENDING       0:00 (Priority)
+      63574652 tg_tt_oph_partimagenet_pool_  PENDING       0:00 (Dependency)
+63574650_[0-3] tg_tt_oph_partimagenet_pool_  PENDING       0:00 (Dependency)
+      63574647 tg_tt_oph_pascalpart_pool_fl  PENDING       0:00 (Dependency)
+63574644_[0-3] tg_tt_oph_pascalpart_pool_fl  PENDING       0:00 (Dependency)
+      63574643 tg_tt_oph_instructpart_pool_  PENDING       0:00 (Dependency)
+63574641_[0-3] tg_tt_oph_instructpart_pool_  PENDING       0:00 (Dependency)
+      63574638       tg_tt_part_pool_flat_m  PENDING       0:00 (Dependency)
+63574637_[0-3]         tg_tt_part_pool_flat  PENDING       0:00 (Dependency)
+      63574636     tg_tt_gseval_pool_flat_m  PENDING       0:00 (Dependency)
+63574635_[0-3]       tg_tt_gseval_pool_flat  PENDING       0:00 (Dependency)
+      63574634       tg_tt_gres_pool_flat_m  PENDING       0:00 (Dependency)
+63574633_[0-3]   tg_tt_gres_testB_pool_flat  PENDING       0:00 (Dependency)
+63574631_[0-3]   tg_tt_gres_testA_pool_flat  PENDING       0:00 (Dependency)
+63574604_[0-3]     tg_tt_gres_val_pool_flat  PENDING       0:00 (Dependency)
+      63574603       tg_tt_paco_pool_flat_m  PENDING       0:00 (Dependency)
+63574602_[0-7]         tg_tt_paco_pool_flat  PENDING       0:00 (Dependency)
+      63574091               tg_gse_sa2va_m  PENDING       0:00 (Dependency)
+      63574087        tg_gse_qwen_box_sam_m  PENDING       0:00 (Dependency)
+      63574085           tg_gse_sam3_text_m  PENDING       0:00 (Dependency)
+      63574080          tg_tt_gseval_full_m  PENDING       0:00 (Dependency)
+      63574041 tg_tt_gseval_pool_soft_fam_m  PENDING       0:00 (Dependency)
       63523154 tg_tt_oph_partimagenet_pool_  PENDING       0:00 (Dependency)
       63523150 tg_tt_oph_pascalpart_pool_fu  PENDING       0:00 (Dependency)
       63523147 tg_tt_oph_instructpart_pool_  PENDING       0:00 (Dependency)
@@ -17,47 +27,63 @@
       63523143 tg_tt_gseval_pool_full_rando  PENDING       0:00 (Dependency)
       63523141 tg_tt_gres_pool_full_random_  PENDING       0:00 (Dependency)
       63523137 tg_tt_paco_pool_full_random_  PENDING       0:00 (Dependency)
-      63574652 tg_tt_oph_partimagenet_pool_  PENDING       0:00 (Dependency)
-63574650_[0-3] tg_tt_oph_partimagenet_pool_  PENDING       0:00 (Dependency)
-63574086_[0-7]          tg_gse_qwen_box_sam  PENDING       0:00 (Priority)
-      63574647 tg_tt_oph_pascalpart_pool_fl  PENDING       0:00 (Dependency)
-63574644_[0-3] tg_tt_oph_pascalpart_pool_fl  PENDING       0:00 (Dependency)
-63574083_[0-7]             tg_gse_sam3_text  PENDING       0:00 (Priority)
-      63574643 tg_tt_oph_instructpart_pool_  PENDING       0:00 (Dependency)
-63574641_[0-3] tg_tt_oph_instructpart_pool_  PENDING       0:00 (Dependency)
-      63574638       tg_tt_part_pool_flat_m  PENDING       0:00 (Dependency)
-63574078_[0-3]            tg_tt_gseval_full  PENDING       0:00 (Priority)
-63574637_[0-3]         tg_tt_part_pool_flat  PENDING       0:00 (Dependency)
-63574068_[0-3] tg_tt_gseval_pool_soft_fam_r  PENDING       0:00 (Priority)
-      63574636     tg_tt_gseval_pool_flat_m  PENDING       0:00 (Dependency)
-63574635_[0-3]       tg_tt_gseval_pool_flat  PENDING       0:00 (Dependency)
-63574038_[0-3]   tg_tt_gseval_pool_soft_fam  PENDING       0:00 (Priority)
-      63563080                  tg_8b_check  PENDING       0:00 (Priority)
-      63574634       tg_tt_gres_pool_flat_m  PENDING       0:00 (Dependency)
-63574633_[0-3]   tg_tt_gres_testB_pool_flat  PENDING       0:00 (Dependency)
-63574013_[0-3]       tg_tt_gseval_pool_full  PENDING       0:00 (Priority)
-63574631_[0-3]   tg_tt_gres_testA_pool_flat  PENDING       0:00 (Dependency)
-63574033_[0-3]       tg_tt_gseval_pool_soft  PENDING       0:00 (Priority)
-63574604_[0-3]     tg_tt_gres_val_pool_flat  PENDING       0:00 (Dependency)
-      63574603       tg_tt_paco_pool_flat_m  PENDING       0:00 (Dependency)
-63574602_[0-7]         tg_tt_paco_pool_flat  PENDING       0:00 (Dependency)
-      63574094       tg_gse_qwen8_box_sam_m  PENDING       0:00 (Dependency)
-      63574091               tg_gse_sa2va_m  PENDING       0:00 (Dependency)
-      63574087        tg_gse_qwen_box_sam_m  PENDING       0:00 (Dependency)
-63523139_[2-3] tg_tt_gres_testA_pool_full_r  PENDING       0:00 (Priority)
-      63574085           tg_gse_sam3_text_m  PENDING       0:00 (Dependency)
-      63574080          tg_tt_gseval_full_m  PENDING       0:00 (Dependency)
       63574077 tg_tt_gseval_pool_soft_fam_r  PENDING       0:00 (Dependency)
-      63574041 tg_tt_gseval_pool_soft_fam_m  PENDING       0:00 (Dependency)
       63574034     tg_tt_gseval_pool_soft_m  PENDING       0:00 (Dependency)
       63574022     tg_tt_gseval_pool_full_m  PENDING       0:00 (Dependency)
-    63523142_0 tg_tt_gseval_pool_full_rando  RUNNING      58:35 lrdn0205
-    63523142_1 tg_tt_gseval_pool_full_rando  RUNNING      58:35 lrdn0240
-    63523142_2 tg_tt_gseval_pool_full_rando  RUNNING      58:35 lrdn0326
-    63523142_3 tg_tt_gseval_pool_full_rando  RUNNING      58:35 lrdn2380
-    63523138_0 tg_tt_gres_val_pool_full_ran  RUNNING      58:35 lrdn2896
-    63523139_0 tg_tt_gres_testA_pool_full_r  RUNNING      58:35 lrdn3355
-    63523138_1 tg_tt_gres_val_pool_full_ran  RUNNING      58:35 lrdn3170
-    63523138_2 tg_tt_gres_val_pool_full_ran  RUNNING      58:35 lrdn3224
-    63523138_3 tg_tt_gres_val_pool_full_ran  RUNNING      58:35 lrdn3229
-    63523139_1 tg_tt_gres_testA_pool_full_r  RUNNING      58:35 lrdn3370
+      63574600                 tg_pool_flat  PENDING       0:00 (Priority)
+    63574033_3       tg_tt_gseval_pool_soft  PENDING       0:00 (Priority)
+63574038_[0-3]   tg_tt_gseval_pool_soft_fam  PENDING       0:00 (Priority)
+63574013_[0-3]       tg_tt_gseval_pool_full  PENDING       0:00 (Priority)
+63574078_[2-3]            tg_tt_gseval_full  PENDING       0:00 (Priority)
+63523139_[2-3] tg_tt_gres_testA_pool_full_r  PENDING       0:00 (Priority)
+    63523140_0 tg_tt_gres_testB_pool_full_r  RUNNING      14:35 lrdn2704
+    63523136_3 tg_tt_paco_pool_full_random_  RUNNING      14:35 lrdn1257
+    63523136_4 tg_tt_paco_pool_full_random_  RUNNING      14:35 lrdn1291
+    63523136_5 tg_tt_paco_pool_full_random_  RUNNING      14:35 lrdn1380
+    63523136_6 tg_tt_paco_pool_full_random_  RUNNING      14:35 lrdn2488
+    63523136_7 tg_tt_paco_pool_full_random_  RUNNING      14:35 lrdn2619
+    63523140_1 tg_tt_gres_testB_pool_full_r  RUNNING      14:35 lrdn2830
+    63523140_2 tg_tt_gres_testB_pool_full_r  RUNNING      14:35 lrdn3064
+    63523140_3 tg_tt_gres_testB_pool_full_r  RUNNING      14:35 lrdn3094
+    63523136_0 tg_tt_paco_pool_full_random_  RUNNING      15:14 lrdn2436
+    63523136_1 tg_tt_paco_pool_full_random_  RUNNING      15:14 lrdn2548
+    63523136_2 tg_tt_paco_pool_full_random_  RUNNING      15:14 lrdn3105
+    63523144_2 tg_tt_part_pool_full_random_  RUNNING      13:20 lrdn3094
+    63523144_3 tg_tt_part_pool_full_random_  RUNNING      13:20 lrdn0804
+    63523144_0 tg_tt_part_pool_full_random_  RUNNING      14:35 lrdn3237
+    63523144_1 tg_tt_part_pool_full_random_  RUNNING      14:35 lrdn3276
+    63523146_0 tg_tt_oph_instructpart_pool_  RUNNING      13:20 lrdn1138
+    63523149_0 tg_tt_oph_pascalpart_pool_fu  RUNNING      13:20 lrdn1622
+    63523152_0 tg_tt_oph_partimagenet_pool_  RUNNING      13:20 lrdn2247
+    63523146_1 tg_tt_oph_instructpart_pool_  RUNNING      13:20 lrdn1234
+    63523146_2 tg_tt_oph_instructpart_pool_  RUNNING      13:20 lrdn1241
+    63523146_3 tg_tt_oph_instructpart_pool_  RUNNING      13:20 lrdn1568
+    63523149_1 tg_tt_oph_pascalpart_pool_fu  RUNNING      13:20 lrdn1641
+    63523149_2 tg_tt_oph_pascalpart_pool_fu  RUNNING      13:20 lrdn1816
+    63523149_3 tg_tt_oph_pascalpart_pool_fu  RUNNING      13:20 lrdn2104
+    63523152_1 tg_tt_oph_partimagenet_pool_  RUNNING      13:20 lrdn2356
+    63523152_2 tg_tt_oph_partimagenet_pool_  RUNNING      13:20 lrdn2442
+    63523152_3 tg_tt_oph_partimagenet_pool_  RUNNING      13:20 lrdn2461
+      63574658            tg_diag_partonomy  RUNNING      20:34 lrdn3071
+      63574657         tg_diag_instructpart  RUNNING      20:34 lrdn3210
+    63574088_7                 tg_gse_sa2va  RUNNING       9:02 lrdn2444
+    63574086_6          tg_gse_qwen_box_sam  RUNNING       6:53 lrdn0326
+    63574086_7          tg_gse_qwen_box_sam  RUNNING       6:53 lrdn0343
+    63574086_5          tg_gse_qwen_box_sam  RUNNING       7:37 lrdn2749
+    63574086_1          tg_gse_qwen_box_sam  RUNNING       8:21 lrdn2619
+    63574086_2          tg_gse_qwen_box_sam  RUNNING       8:21 lrdn0152
+    63574086_3          tg_gse_qwen_box_sam  RUNNING       8:21 lrdn1903
+    63574086_4          tg_gse_qwen_box_sam  RUNNING       8:21 lrdn2063
+    63574086_0          tg_gse_qwen_box_sam  RUNNING       9:02 lrdn3203
+    63574078_0            tg_tt_gseval_full  RUNNING       6:09 lrdn2170
+    63574068_1 tg_tt_gseval_pool_soft_fam_r  RUNNING       6:09 lrdn0205
+    63574068_2 tg_tt_gseval_pool_soft_fam_r  RUNNING       6:09 lrdn0212
+    63574068_3 tg_tt_gseval_pool_soft_fam_r  RUNNING       6:09 lrdn0228
+    63574078_1            tg_tt_gseval_full  RUNNING       6:09 lrdn2205
+    63574068_0 tg_tt_gseval_pool_soft_fam_r  RUNNING       6:53 lrdn0697
+      63574094       tg_gse_qwen8_box_sam_m  RUNNING       1:21 lrdn0548
+    63574083_3             tg_gse_sam3_text  RUNNING       5:26 lrdn0365
+    63574083_4             tg_gse_sam3_text  RUNNING       5:26 lrdn1207
+    63574033_0       tg_tt_gseval_pool_soft  RUNNING       4:43 lrdn0284
+    63574033_1       tg_tt_gseval_pool_soft  RUNNING       4:43 lrdn0536
+    63574033_2       tg_tt_gseval_pool_soft  RUNNING       4:43 lrdn2493

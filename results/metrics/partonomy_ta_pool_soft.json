@@ -1,0 +1,78 @@
+{
+  "deviation": "D32",
+  "gt_masks_resized": 0,
+  "label": "PARTONOMY-Core (gt) setting",
+  "method": "ours",
+  "published_reference": "arXiv 2505.20759 Table 2 (gt rows: X-Decoder, SEEM, Grounded SAM 2)",
+  "results": {
+    "nodes": {
+      "difference": {
+        "dropped_questions_without_parts": 0,
+        "macro_gIoU": {
+          "ci95": [
+            0.4777614272420138,
+            0.5091493159414155
+          ],
+          "mean": 0.4930348077887957,
+          "n": 1030
+        },
+        "micro_gIoU": {
+          "ci95": [
+            0.4666444654144073,
+            0.4947774943457924
+          ],
+          "mean": 0.4805205546647205,
+          "n": 2813
+        },
+        "parts": 2813,
+        "questions": 1030,
+        "skipped_parts_without_mask": 0
+      },
+      "identification": {
+        "dropped_questions_without_parts": 0,
+        "macro_gIoU": {
+          "ci95": [
+            0.49745329157878343,
+            0.526974405259754
+          ],
+          "mean": 0.5122862874809018,
+          "n": 1068
+        },
+        "micro_gIoU": {
+          "ci95": [
+            0.48315566701971013,
+            0.5097511375125674
+          ],
+          "mean": 0.4965532016539282,
+          "n": 3542
+        },
+        "parts": 3542,
+        "questions": 1068,
+        "skipped_parts_without_mask": 0
+      },
+      "intersection": {
+        "dropped_questions_without_parts": 129,
+        "macro_gIoU": {
+          "ci95": [
+            0.5360774053361324,
+            0.5788570941969388
+          ],
+          "mean": 0.5574422119626913,
+          "n": 895
+        },
+        "micro_gIoU": {
+          "ci95": [
+            0.513138518452241,
+            0.5523949752365156
+          ],
+          "mean": 0.5326974183916605,
+          "n": 1348
+        },
+        "parts": 1348,
+        "questions": 895,
+        "skipped_parts_without_mask": 142
+      }
+    }
+  },
+  "stage": "ta_pool_soft"
+}

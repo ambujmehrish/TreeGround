@@ -1021,6 +1021,18 @@ PROPOSED_DEVIATIONS = [
                   "against a backbone of the same size, as the reporting rules require; also a 4B -> 8B scaling row",
         "expected_impact": "new stages only; every 4B run and result is unchanged",
     },
+    {
+        "id": "D47",
+        "spec_section": "6 (editing): CoCoEdit-protocol mask source for the ta_* checkpoints",
+        "change": "scripts/cocoedit_ta_source.py adds a D25 mask source for a trained ta_* checkpoint (configs/"
+                  "edit_cocoedit_pool.yaml: the D44 pool_full checkpoint): the referent is asked as on gRefCOCO "
+                  "(ta_test_eval.GresOurs), the candidates are the checkpoint's own (grid nodes + the referent's top-3 "
+                  "SAM 3 text instances), and the edit mask is the highest-scoring candidate. Edits, judge and metrics "
+                  "follow D25 unchanged; the raw (instruction-only) edits are shared with the D25 runs",
+        "reason": "the CoCoEdit rows so far use the S2-long selector, whose edit-region localization (0.42 IoU) is below "
+                  "SAM 3 text and Qwen box + SAM 3; the current model is evaluated under the same protocol",
+        "expected_impact": "new rows only (run tag _pool); the D25 / D29 rows are unchanged",
+    },
 ]
 
 

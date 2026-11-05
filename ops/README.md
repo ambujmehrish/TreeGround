@@ -7,9 +7,9 @@ Status of the queue and of all your jobs: `results/ops/status.json` (pushed at l
 
 ## Start / stop (Leonardo login node)
 
-    tmux new -s ops
+    tmux new -s treeground_runner
     source $WORK/treeground/tg_env.sh && cd $TG_REPO && bash scripts/runner.sh
-    # Ctrl-b d to detach; `tmux attach -t ops` to look; Ctrl-c inside it to stop
+    # Ctrl-b d to detach; `tmux attach -t treeground_runner` to look; Ctrl-c inside it to stop
 
 State: `$TG_ROOT/ops_state/state.json` (outside the repo, so restarts never re-submit). Log:
 `$TG_REPO/logs/ops_runner.log`. `INTERVAL=600 bash scripts/runner.sh` changes the period. One runner at a time

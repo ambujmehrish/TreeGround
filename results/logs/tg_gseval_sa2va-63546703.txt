@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/gseval_eval.py", line 236, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/gseval_eval.py", line 232, in main
+    run_shard(cfg, args.method, args.shard)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/gseval_eval.py", line 115, in run_shard
+    df = expressions(cfg)
+         ^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/gseval_eval.py", line 45, in expressions
+    for line in (root / "GroundingSuite-Eval.jsonl").read_text(encoding="utf-8").splitlines():
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/py312/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/py312/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/leonardo_scratch/large/userexternal/amehrish/treeground/data/gseval/GroundingSuite-Eval.jsonl'

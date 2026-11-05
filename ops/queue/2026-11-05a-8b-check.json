@@ -1,0 +1,8 @@
+{
+ "id": "2026-11-05a-8b-check",
+ "what": "D46 8B check (20 steps) through the 8B launcher, rerun after the 4B width pin stopped it",
+ "script": "q_gpu4.sbatch",
+ "env": {"TG_PY": "scripts/qwen8.py", "TG_ARGS": "scripts/ta_train.py --config configs/ta_pool_full_8b_check.yaml"},
+ "sbatch": {"time": "01:00:00"},
+ "collect": true
+}

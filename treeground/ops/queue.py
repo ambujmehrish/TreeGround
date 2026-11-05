@@ -13,7 +13,7 @@ from pathlib import Path
 # the collector for finished requests, and writes $TG_ROOT/results/ops/status.json (with a snapshot of ALL the
 # user's jobs). The collector pushes results/ to git, so the queue is readable without cluster access.
 
-ACCOUNT = "AIFAC_S07_041"
+ACCOUNT = "IscrC_RHYME_0"   # the user moved TreeGround jobs off AIFAC_S07_041 (Nov 5)
 BRANCH = "claude/lucid-bardeen-k2k41b"
 SLURM_DIR = "slurm"
 QUEUE_DIR = "ops/queue"

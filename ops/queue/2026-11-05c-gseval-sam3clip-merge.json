@@ -1,0 +1,9 @@
+{
+ "id": "2026-11-05c-gseval-sam3clip-merge",
+ "what": "D45 GSEval SAM 3 text (clipped) merge",
+ "script": "q_gpu.sbatch",
+ "env": {"TG_PY": "scripts/gseval_sam3clip.py", "TG_ARGS": "--config configs/gseval_baselines.yaml --method sam3_text --merge"},
+ "sbatch": {"time": "00:30:00"},
+ "after": ["2026-11-05b-gseval-sam3clip"],
+ "collect": true
+}

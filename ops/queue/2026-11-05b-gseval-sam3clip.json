@@ -1,0 +1,8 @@
+{
+ "id": "2026-11-05b-gseval-sam3clip",
+ "what": "D45 GSEval SAM 3 text baseline, expressions clipped to the 32-token text limit (8 shards)",
+ "script": "q_gpu.sbatch",
+ "env": {"TG_PY": "scripts/gseval_sam3clip.py", "TG_ARGS": "--config configs/gseval_baselines.yaml --method sam3_text"},
+ "sbatch": {"time": "04:00:00", "array": "0-7"},
+ "collect": false
+}

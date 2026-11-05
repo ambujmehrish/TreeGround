@@ -1010,6 +1010,17 @@ PROPOSED_DEVIATIONS = [
                   "one benchmark with a part stratum where it publishes a zero-shot number",
         "expected_impact": "a new test benchmark; no existing stage or result changes",
     },
+    {
+        "id": "D46",
+        "spec_section": "2 (model): backbone scale",
+        "change": "the D44 pool_full recipe on Qwen3-VL-8B-Instruct (configs/ta_pool_full_8b.yaml, pinned revision as the "
+                  "D31 baselines): every setting unchanged except micro-batch 4 (the global batch of 32 is kept through "
+                  "accumulation); runs/ta_pool_full_8b. The query table is read from the cache built for the 4B "
+                  "backbone (texts are model-independent; ta.query_cache_qwen). Evaluated on the same test protocols",
+        "reason": "the published gRefCOCO rows closest in size (7-8B: SAM4MLLM, MLLMSeg, GSVA, LISA, RAS-7B) are compared "
+                  "against a backbone of the same size, as the reporting rules require; also a 4B -> 8B scaling row",
+        "expected_impact": "new stages only; every 4B run and result is unchanged",
+    },
 ]
 
 

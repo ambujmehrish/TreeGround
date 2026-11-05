@@ -461,3 +461,25 @@ def test_val_success_scores_chains_and_chooses_an_anchor(s2t, tat, tmp_path):
     items, props, model, proc, extra, readout, src = make(s2t, tat, tmp_path / "g", "tree")
     grid = tat.val_success(model, readout, src, val_metas(s2t, items), "cpu", 1, 2)
     assert grid["anchor"] is None and all(v["chains"] == 0 for v in grid["by_layer"].values())
+
+
+def test_8b_config_reads_the_4b_query_cache(tat, monkeypatch):
+    from pathlib import Path
+    from treeground.run import load_config
+    for v in ("TG_CACHE", "TG_DATA", "TG_ROOT", "TG_RUNS", "TG_SLURM_ACCOUNT"):
+        monkeypatch.setenv(v, "/x")
+    root = Path(__file__).resolve().parents[1] / "configs"
+    big, base = load_config(root / "ta_pool_full_8b.yaml"), load_config(root / "ta_pool_full.yaml")
+    assert big["models"]["qwen"]["repo"] == "Qwen/Qwen3-VL-8B-Instruct" and tat.stage(big) == "ta_pool_full_8b"
+    assert big["models"]["qwen"] == load_config(root / "baselines2.yaml")["models"]["qwen8"]   # the pinned D31 revision
+    q = tat.query_cfg(big)
+    assert q["models"]["qwen"] == base["models"]["qwen"] and q["ta"] is big["ta"]
+    assert tat.query_cfg(base) is base
+    assert tat.run_deviations(big["ta"]) == tat.deviations("pool_full") + ["D46"]
+    assert tat.run_deviations(base["ta"]) == tat.deviations("pool_full")
+    same = {k: v for k, v in big["ta"].items() if k not in ("stage_suffix", "micro_batch", "query_cache_qwen")}
+    assert same == {k: v for k, v in base["ta"].items() if k not in ("stage_suffix", "micro_batch")}
+    check = load_config(root / "ta_pool_full_8b_check.yaml")
+    assert tat.stage(check) == "ta_pool_full_8b_check" and check["ta"]["steps"] == 20
+    t = load_config(root / "ta_test_pool_full_8b.yaml")
+    assert t["ta"] == big["ta"] and t["models"]["qwen"] == big["models"]["qwen"]

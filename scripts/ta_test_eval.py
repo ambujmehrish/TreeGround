@@ -340,7 +340,7 @@ def install(bench: str):
         if method != "ours":
             return appr0(*args)
         cfg = args[0] if len(args) == 2 else CONFIG["cfg"]
-        return [PROTOCOL[bench]] + TAT.deviations(cfg["ta"]["variant"])
+        return [PROTOCOL[bench]] + TAT.run_deviations(cfg["ta"])
 
     module.Ours = OURS[bench]
     module.stage_name, module.identity, module.approvals = stage_name, identity, approvals

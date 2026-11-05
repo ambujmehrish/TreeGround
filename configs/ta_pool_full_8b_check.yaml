@@ -1,0 +1,8 @@
+include: ta_pool_full_8b.yaml
+# GPU check of the 8B run (memory at micro-batch 4, step time, val pools): 20 steps, own stage. Never a result.
+ta:
+  stage_suffix: _8b_check
+  steps: 20
+  eval_every: 10
+  eval_images: 20
+  log_every: 1

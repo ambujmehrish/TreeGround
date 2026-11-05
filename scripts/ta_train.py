@@ -80,6 +80,18 @@ def is_pool(variant: str) -> bool:
     return variant in D44
 
 
+def query_cfg(cfg: dict) -> dict:
+    # the query table is model-independent text; a run on another backbone (D46) reads the cache built for the
+    # backbone named in ta.query_cache_qwen instead of rebuilding it
+    q = cfg["ta"].get("query_cache_qwen")
+    return cfg if not q else {**cfg, "models": {**cfg["models"], "qwen": q}}
+
+
+def run_deviations(c: dict) -> list[str]:
+    # the variant's deviations, plus D46 for a run on another backbone than the default Qwen3-VL-4B
+    return deviations(c["variant"]) + (["D46"] if c.get("query_cache_qwen") else [])
+
+
 def deviations(variant: str) -> list[str]:
     out = DEVIATIONS + (["D42"] if variant in HIER else [])
     mode, fam = D43.get(variant) or D44.get(variant) or ("", False)
@@ -515,13 +527,14 @@ def main() -> None:
         ensure_deviation_log(cfg)
     if world > 1:
         dist.barrier()
-    require_approved(cfg, deviations(c["variant"]))
+    require_approved(cfg, run_deviations(c))
     TA.check_version()
     gate = v1_gate(cfg, args.smoke)
     mrun, manifest, mhash, wl = manifest_inputs(cfg, args.smoke)
     static = qwen_static(cfg)
     props = open_proposals(cfg, args.smoke, manifest, mhash, capped=True)
-    qdir, queries = open_queries(cfg, args.smoke, mhash, static)
+    qcfg = query_cfg(cfg)
+    qdir, queries = open_queries(qcfg, args.smoke, mhash, qwen_static(qcfg) if qcfg is not cfg else static)
     torch.backends.cuda.matmul.allow_tf32 = False
     torch.backends.cudnn.allow_tf32 = False
 
@@ -653,7 +666,7 @@ def main() -> None:
             "selection": "PACO val fixed subset, single-step selector success, best over steps and read-out layers",
             "eval_images": c["eval_images"], "eval_curve": evals, "training_exclusions": counts,
             "training_items": len(items), "world_size": world, "accumulation": accum, "v1_gate": gate,
-            "sources": weights, "deviations": deviations(c["variant"])})
+            "sources": weights, "deviations": run_deviations(c)})
         print(run)
     if world > 1:
         dist.barrier()

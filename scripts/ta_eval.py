@@ -139,13 +139,14 @@ def main() -> None:
     c = TAT.stage_cfg(cfg, args.smoke)
     rank, world, _ = S2T.dist_env()
     device = TAT.setup_device(cfg)
-    require_approved(cfg, TAT.deviations(c["variant"]))
+    require_approved(cfg, TAT.run_deviations(c))
     TA.check_version()
     gate = v1_gate(cfg, args.smoke)
     mrun, manifest, mhash, wl = manifest_inputs(cfg, args.smoke)
     static = qwen_static(cfg)
     props = open_proposals(cfg, args.smoke, manifest, mhash, capped=True)
-    qdir, queries = open_queries(cfg, args.smoke, mhash, static)
+    qcfg = TAT.query_cfg(cfg)
+    qdir, queries = open_queries(qcfg, args.smoke, mhash, qwen_static(qcfg) if qcfg is not cfg else static)
     model, processor, extra, readout, meta, train_run = load_trained(cfg, c, device, static, args.smoke)
     if TAT.is_pool(meta["variant"]):
         raise ProtocolError("ta_eval scores the grid nodes only; a pool checkpoint is chosen on ta_train's val curve "
@@ -186,7 +187,7 @@ def main() -> None:
             "relations": args.relations or "as trained", "decision": args.decision,
             "train_run": train_run.name, "checkpoint_step": meta["step"], "checkpoint_val": meta["val"],
             "single_step": metrics, "no_rejection": no_rejection(per_query), "chains": chain_metrics,
-            "v1_gate": gate, "deviations": TAT.deviations(meta["variant"])})
+            "v1_gate": gate, "deviations": TAT.run_deviations(c)})
         print(run, "tau_rej", tau)
     if world > 1:
         dist.barrier()

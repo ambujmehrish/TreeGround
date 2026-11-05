@@ -1,0 +1,8 @@
+include: ta_pool_full.yaml
+# D46: the pool_full recipe on Qwen3-VL-8B-Instruct (runs/ta_pool_full_8b); micro-batch 4, global batch 32 unchanged
+models:
+  qwen: {repo: Qwen/Qwen3-VL-8B-Instruct, revision: 0c351dd01ed87e9c1b53cbc748cba10e6187ff3b}
+ta:
+  stage_suffix: _8b
+  micro_batch: 4
+  query_cache_qwen: {repo: Qwen/Qwen3-VL-4B-Instruct, revision: ebb281ec70b05090aa6165b016eac8ec08e71b17}

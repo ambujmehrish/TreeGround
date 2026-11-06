@@ -364,6 +364,9 @@ def test_variant_tables(tat):
     assert tat.deviations("pool_fam") == ["D10", "D21", "D41", "D43", "D44"]
     assert tat.deviations("soft") == ["D10", "D21", "D41", "D43"] and tat.deviations("tree") == ["D10", "D21", "D41"]
     assert tat.node_mode("pool_soft_fam") == "soft" and tat.node_mode("pool_full_random_tree") == "full_random_tree"
+    assert tat.node_mode("pool_soft_fam_free") == "soft_free" and tat.is_pool("pool_soft_fam_free")
+    assert tat.deviations("pool_soft_fam_free") == ["D10", "D21", "D41", "D43", "D44", "D48"]
+    assert tat.deviations("pool_soft_fam") == ["D10", "D21", "D41", "D43", "D44"]
     assert tat.node_mode("pool_fam") == "full" and tat.node_mode("hier") == "tree"
 
 

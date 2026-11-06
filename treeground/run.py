@@ -1033,6 +1033,17 @@ PROPOSED_DEVIATIONS = [
                   "SAM 3 text and Qwen box + SAM 3; the current model is evaluated under the same protocol",
         "expected_impact": "new rows only (run tag _pool); the D25 / D29 rows are unchanged",
     },
+    {
+        "id": "D48",
+        "spec_section": "ablation of the D41 region-restricted mask-token attention",
+        "change": "variant pool_soft_fam_free (configs/ta_pool_soft_fam_free.yaml): the val-chosen pool_soft_fam recipe "
+                  "with one change: every mask token attends to every image token (tree_attn FREE mode) instead of "
+                  "the image tokens of its own dilated region. Data, losses, schedule, mask-token inputs (coverage-"
+                  "pooled embedding, geometry, provenance, centroid position) and test protocol unchanged",
+        "reason": "the region restriction separates the method from candidate-token MLLMs whose mask tokens see the "
+                  "whole image (RAS); the claim needs its own controlled ablation on the test splits",
+        "expected_impact": "one new training run and its test rows; no existing run or result changes",
+    },
 ]
 
 

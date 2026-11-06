@@ -462,3 +462,27 @@ def test_pool_features_enter_the_embedding(s2t):
     assert out.nodes[2][0].shape == (5, 64)
     assert not torch.allclose(out.nodes[2][0][3:], out2.nodes[2][0][3:])     # provenance changes the tokens
     assert torch.allclose(out.hidden[2][0], out2.hidden[2][0])              # text states never see them
+
+
+def test_free_mode_opens_every_image_token_and_nothing_else(s2t):
+    # D48: '_free' changes only the image tokens a mask token reads; relations, geometry and positions stay
+    model, proc, extra, seqs, batch, embed = setup(s2t)
+    soft, _, grid = nodes_for(seqs[0], proc, scene_masks(), "soft")
+    free, _, _ = nodes_for(seqs[0], proc, scene_masks(), "soft" + TA.FREE)
+    n_img = grid[0] * grid[1]
+    assert any(len(r) < n_img for r in soft.region) and all(np.array_equal(r, np.arange(n_img)) for r in free.region)
+    assert all(np.array_equal(a, b) for a, b in zip(soft.rel, free.rel))
+    assert np.array_equal(soft.relk, free.relk) and np.array_equal(soft.geom, free.geom)
+    assert np.array_equal(soft.cell, free.cell) and np.array_equal(soft.anc, free.anc)
+    img = batch["input_ids"] == model.config.image_token_id
+    L = batch["input_ids"].shape[1]
+    m_soft = TA.attention_mask(batch["attention_mask"], img, [soft, None, None], soft.n, torch.float32)[0, 0] == 0
+    m_free = TA.attention_mask(batch["attention_mask"], img, [free, None, None], free.n, torch.float32)[0, 0] == 0
+    assert torch.equal(m_soft[:L], m_free[:L])                                  # text / image rows unchanged
+    rows = m_free[L:L + free.n]
+    assert rows[:, torch.nonzero(img[0]).reshape(-1)].all()                     # every image token
+    non_img = torch.ones(L + free.n, dtype=torch.bool)
+    non_img[torch.nonzero(img[0]).reshape(-1)] = False
+    assert torch.equal(rows[:, non_img], m_soft[L:L + soft.n][:, non_img])     # text and mask keys as before
+    with pytest.raises(ValueError):
+        nodes_for(seqs[0], proc, scene_masks(), "bogus" + TA.FREE)

@@ -30,6 +30,7 @@ REL_SELF, REL_PARENT, REL_CHILD, REL_SIBLING, REL_ANC, REL_DESC, REL_OTHER = ran
 N_REL = 7
 GEOM_DIM = 9
 REGION_DILATE = 1   # image-token cells of margin around a mask's own cells
+FREE = "_free"      # mode suffix (D48 ablation): every mask token attends to every image token, not only its region
 # D44 query-aware pool: per-node provenance next to the geometry: [from SAM 3 text, rank 1, rank 2, rank 3 among the
 # phrase's instances, SAM 3 instance score]; all zero for grid nodes
 INST_DIM = 5
@@ -172,6 +173,8 @@ def geometry(rles: list[M.Rle], tree: T.Tree, h: int, w: int) -> np.ndarray:
 
 def build_nodes(rles: list[M.Rle], parent: np.ndarray, grid: tuple[int, int], mode: str,
                 tree_seed: int | None = None, inst: np.ndarray | None = None) -> Nodes:
+    free = mode.endswith(FREE)
+    mode = mode.removesuffix(FREE)
     if mode not in RELATIONS + D43_MODES:
         raise ValueError(f"unknown tree-attention mode {mode!r}")
     gh, gw = grid
@@ -195,7 +198,7 @@ def build_nodes(rles: list[M.Rle], parent: np.ndarray, grid: tuple[int, int], mo
         if not (c > 0).any():
             raise ValueError("node mask has zero coverage on the token grid")
         grown = cv2.dilate((c > 0).reshape(gh, gw).astype(np.uint8), kernel).reshape(-1)
-        region.append(np.flatnonzero(grown))
+        region.append(np.arange(gh * gw) if free else np.flatnonzero(grown))
         cell[v] = [int(round(float(c @ rows) / c.sum())), int(round(float(c @ cols) / c.sum()))]
     ptr, idx, wts = [0], [], []
     for c in maps:

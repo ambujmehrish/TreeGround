@@ -67,10 +67,12 @@ D43 = {"soft": ("soft", False), "soft_random_tree": ("soft_random_tree", False),
 # the image's query phrases, one tree over the pool). Node tokens carry pool provenance (TA.INST_DIM); part queries
 # are decided object-first at evaluation (TA.anchor). Trained on the pool caches alone (no PACO rest cache).
 # pool_flat: the S2 feature selector (no mask tokens, coverage-pooled layer states) over the same pool: the
-# in-context mask tokens' ablation
+# in-context mask tokens' ablation. pool_soft_fam_free (D48): pool_soft_fam with every mask token attending to every
+# image token instead of its own region (TA.FREE): the region-restriction ablation
 D44 = {"pool_flat": ("tree", False), "pool_full": ("full", False), "pool_soft": ("soft", False),
        "pool_fam": ("full", True), "pool_soft_fam": ("soft", True), "pool_full_random_tree": ("full_random_tree", False),
-       "pool_soft_random_tree": ("soft_random_tree", False), "pool_soft_fam_random_tree": ("soft_random_tree", True)}
+       "pool_soft_random_tree": ("soft_random_tree", False), "pool_soft_fam_random_tree": ("soft_random_tree", True),
+       "pool_soft_fam_free": ("soft" + TA.FREE, True)}
 FLAT = ("flat", "pool_flat")
 VARIANTS = ("flat",) + TA.MODES + tuple(HIER) + tuple(D43) + tuple(D44)
 DEVIATIONS = ["D10", "D21", "D41"]
@@ -97,7 +99,7 @@ def deviations(variant: str) -> list[str]:
     mode, fam = D43.get(variant) or D44.get(variant) or ("", False)
     if variant in D43 or (variant in D44 and (mode.startswith("soft") or fam)):
         out.append("D43")
-    return out + (["D44"] if variant in D44 else [])
+    return out + (["D44"] if variant in D44 else []) + (["D48"] if node_mode(variant).endswith(TA.FREE) else [])
 
 
 @dataclass

@@ -230,5 +230,7 @@ def test_test_configs(monkeypatch):
             assert c["ta"]["variant"] == v and not c["ta"]["paco_rest"] and c["ta_eval"]["anchor"] == "auto"
             assert c["s3_pool"]["instances_per_phrase"] == 3 and "sam3_text" in c["baselines"]
             assert c["ta"]["sources"] == {"paco_train": 0.6, "pascal_part_train": 0.2, "grefcoco_train": 0.2}
+    free, fam = load_config(root / "ta_test_pool_soft_fam_free.yaml"), load_config(root / "ta_test_pool_soft_fam.yaml")
+    assert {**free, "ta": {**free["ta"], "variant": "pool_soft_fam"}} == fam                 # D48: one change only
     check = load_config(root / "ta_pool_check.yaml")
     assert check["ta"]["stage_suffix"] == "_check" and check["ta"]["steps"] == 20 and check["ta"]["variant"] == "pool_soft_fam"

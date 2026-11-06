@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-06d-gseval-groundedsam2-merge",
+ "what": "Grounded-SAM 2 on GSEval merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gseval_eval.py",
+  "TG_ARGS": "--config configs/gseval_baselines.yaml --method grounded_sam2 --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "collect": true,
+ "after": [
+  "2026-11-06d-gseval-groundedsam2"
+ ]
+}

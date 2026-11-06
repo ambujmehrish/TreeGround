@@ -1,0 +1,14 @@
+{
+ "id": "2026-11-06d-ophrg-qwen8boxsam-pascalpart",
+ "what": "qwen8_box_sam on pascalpart (D38 baseline, inference only)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ophrg_eval.py",
+  "TG_ARGS": "--config configs/ophrg_baselines.yaml --method qwen8_box_sam --benchmark pascalpart"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-15"
+ },
+ "collect": false
+}

@@ -1,0 +1,14 @@
+{
+ "id": "2026-11-06d-gseval-groundedsam2",
+ "what": "Grounded-SAM 2 on GSEval (D45 baseline, inference only)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gseval_eval.py",
+  "TG_ARGS": "--config configs/gseval_baselines.yaml --method grounded_sam2"
+ },
+ "sbatch": {
+  "time": "04:00:00",
+  "array": "0-7"
+ },
+ "collect": false
+}

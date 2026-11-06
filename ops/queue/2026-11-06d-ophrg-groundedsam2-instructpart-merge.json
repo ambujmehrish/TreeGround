@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-06d-ophrg-groundedsam2-instructpart-merge",
+ "what": "grounded_sam2 on instructpart merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ophrg_eval.py",
+  "TG_ARGS": "--config configs/ophrg_baselines.yaml --method grounded_sam2 --benchmark instructpart --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "collect": true,
+ "after": [
+  "2026-11-06d-ophrg-groundedsam2-instructpart"
+ ]
+}

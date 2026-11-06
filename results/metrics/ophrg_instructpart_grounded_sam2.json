@@ -1,0 +1,24 @@
+{
+  "benchmark": "instructpart",
+  "deviation": "D38",
+  "images": 600,
+  "label": "test",
+  "method": "grounded_sam2",
+  "protocol": "OP-HRG (arXiv 2607.15374)",
+  "results": {
+    "images_equal_to_manifest_train_images": 0,
+    "parts": {
+      "cIoU": 0.2804472393809843,
+      "gIoU": {
+        "ci95": [
+          0.378236844976577,
+          0.4296720568975023
+        ],
+        "mean": 0.40427675479933584,
+        "n": 600
+      },
+      "queries": 600
+    }
+  },
+  "stage": "grounded_sam2"
+}

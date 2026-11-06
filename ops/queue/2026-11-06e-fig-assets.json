@@ -1,0 +1,8 @@
+{
+ "id": "2026-11-06e-fig-assets",
+ "what": "overview-figure assets: pool_soft_fam on PACO test mug:handle queries (read-only, JSON under results/figures)",
+ "script": "q_gpu.sbatch",
+ "env": {"TG_PY": "scripts/fig_assets.py", "TG_ARGS": "--config configs/ta_test_pool_soft_fam.yaml --label mug:handle"},
+ "sbatch": {"time": "02:00:00"},
+ "collect": true
+}

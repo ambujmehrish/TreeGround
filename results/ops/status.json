@@ -2,7 +2,7 @@
  "cluster": {
   "counts": {
    "PENDING": 124,
-   "RUNNING": 5
+   "RUNNING": 4
   },
   "ended_24h": [
    {
@@ -2230,6 +2230,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "00:01:52",
+    "end": "2026-11-06T11:47:18",
+    "exit": "0:0",
+    "jobid": "63655147",
+    "name": "q_2026-11-06d-gseval-groundedsam2-merge",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:01:05",
     "end": "2026-11-06T11:38:42",
     "exit": "0:0",
@@ -2569,16 +2577,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63432991",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63430730",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -2739,6 +2737,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "63432991",
+    "name": "fact-eval-base",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "63432936",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -2893,6 +2901,36 @@
     "name": "hm_eval_Ours_s0_it029_r4",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "12:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63574600",
+    "name": "tg_pool_flat",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63652199",
+    "name": "q_2026-11-06a-8b-train",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63652201",
+    "name": "q_2026-11-06b-free-train",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "12:00:00"
@@ -3159,6 +3197,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "63574602_[0-7]",
+    "name": "tg_tt_paco_pool_flat",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "12:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "63652433_[0-3]",
     "name": "q_2026-11-06a-8b-oph-partimagenet",
     "nodes": "1",
@@ -3209,16 +3257,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63652201",
-    "name": "q_2026-11-06b-free-train",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63652427_[0-3]",
     "name": "q_2026-11-06a-8b-gres-testA",
     "nodes": "1",
@@ -3226,16 +3264,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "8:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652199",
-    "name": "q_2026-11-06a-8b-train",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
    },
    {
     "elapsed": "0:00",
@@ -3289,16 +3317,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63574600",
-    "name": "tg_pool_flat",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63574641_[0-3]",
     "name": "tg_tt_oph_instructpart_pool_flat",
     "nodes": "1",
@@ -3349,16 +3367,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63574602_[0-7]",
-    "name": "tg_tt_paco_pool_flat",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63574634",
     "name": "tg_tt_gres_pool_flat_m",
     "nodes": "1",
@@ -3366,26 +3374,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63574604_[0-3]",
-    "name": "tg_tt_gres_val_pool_flat",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "8:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63574603",
-    "name": "tg_tt_paco_pool_flat_m",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:00:00"
    },
    {
     "elapsed": "0:00",
@@ -3406,6 +3394,26 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "8:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63574604_[0-3]",
+    "name": "tg_tt_gres_val_pool_flat",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "8:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63574603",
+    "name": "tg_tt_paco_pool_flat_m",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1:00:00"
    },
    {
     "elapsed": "0:00",
@@ -3528,7 +3536,7 @@
     "time_limit": "4:00:00"
    },
    {
-    "elapsed": "42:49",
+    "elapsed": "1:12:25",
     "jobid": "63563414",
     "name": "paperA_v5g0",
     "nodes": "1",
@@ -3538,7 +3546,7 @@
     "time_limit": "20:00:00"
    },
    {
-    "elapsed": "41:29",
+    "elapsed": "1:11:05",
     "jobid": "63430714",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -3548,7 +3556,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "1:28:18",
+    "elapsed": "1:57:54",
     "jobid": "63652204",
     "name": "q_2026-11-06c-diag-partonomy",
     "nodes": "1",
@@ -3558,7 +3566,7 @@
     "time_limit": "8:00:00"
    },
    {
-    "elapsed": "1:28:17",
+    "elapsed": "1:57:53",
     "jobid": "63652203",
     "name": "q_2026-11-06c-diag-instructpart",
     "nodes": "1",
@@ -3566,16 +3574,6 @@
     "start": "2026-11-06T10:18:55",
     "state": "RUNNING",
     "time_limit": "8:00:00"
-   },
-   {
-    "elapsed": "1:46",
-    "jobid": "63655147",
-    "name": "q_2026-11-06d-gseval-groundedsam2-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn1337",
-    "start": "2026-11-06T11:45:26",
-    "state": "RUNNING",
-    "time_limit": "30:00"
    }
   ]
  },
@@ -16973,15 +16971,15 @@
    "waiting_for": null
   },
   "2026-11-06d-gseval-groundedsam2-merge": {
-   "collected": null,
+   "collected": 1793962372.0930974,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1793962372.0930967,
    "invalid": null,
    "jobid": "63655147",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1793959359.5542233,
@@ -17183,5 +17181,5 @@
    "waiting_for": null
   }
  },
- "updated": 1793962033.2412772
+ "updated": 1793963808.6545186
 }

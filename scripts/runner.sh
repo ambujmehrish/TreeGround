@@ -23,6 +23,17 @@ while true; do
     tail -n 3 "$LOG"
     # TreeGround jobs (names q_20*, tg_*) ahead of the user's other pending jobs; harmless if 'scontrol top' is off
     squeue -u "$USER" -h -t PD -o "%F %j" | awk '$2 ~ /^(q_20|tg_)/{print $1}' | sort -u | xargs -r -n1 scontrol top >/dev/null 2>&1
+    # CINECA keeps leaving jobs pending with Reason=PartitionConfig although they are within the partition limits; a
+    # hold + release re-queues them. Only TreeGround's own jobs, at most once every 30 min (the stamp), logged.
+    pc=$TG_ROOT/ops_state/partitionconfig.stamp
+    if [ ! -f "$pc" ] || [ -n "$(find "$pc" -mmin +30)" ]; then
+      J=$(squeue -u "$USER" -h -t PD -o "%F %j %R" | awk '$3=="(PartitionConfig)" && $2 ~ /^(q_20|tg_|edit_cocoedit_pool)/{print $1}' | sort -u | paste -sd,)
+      if [ -n "$J" ]; then
+        scontrol hold "$J" >/dev/null 2>&1; sleep 2; scontrol release "$J" >/dev/null 2>&1
+        echo "$(date '+%F %T') PartitionConfig: hold+release $J" >> "$LOG"
+      fi
+      touch "$pc"
+    fi
   else
     git rebase --abort 2>/dev/null
     echo "$(date '+%F %T') ALERT git update failed or left conflicts (see git status / git stash list); tick skipped" | tee -a "$LOG"

@@ -405,14 +405,6 @@
     "state": "COMPLETED"
    },
    {
-    "elapsed": "00:55:31",
-    "end": "2026-11-05T09:58:08",
-    "exit": "0:0",
-    "jobid": "63524751",
-    "name": "paperA_quality",
-    "state": "COMPLETED"
-   },
-   {
     "elapsed": "00:02:28",
     "end": "2026-11-05T10:16:35",
     "exit": "0:0",
@@ -2170,16 +2162,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63574602_[0-7]",
-    "name": "tg_tt_paco_pool_flat",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63574635_[0-3]",
     "name": "tg_tt_gseval_pool_flat",
     "nodes": "1",
@@ -2210,6 +2192,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "63574631_[0-3]",
+    "name": "tg_tt_gres_testA_pool_flat",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "8:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "63574604_[0-3]",
     "name": "tg_tt_gres_val_pool_flat",
     "nodes": "1",
@@ -2230,13 +2222,13 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63574631_[0-3]",
-    "name": "tg_tt_gres_testA_pool_flat",
+    "jobid": "63574602_[0-7]",
+    "name": "tg_tt_paco_pool_flat",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
     "state": "PENDING",
-    "time_limit": "8:00:00"
+    "time_limit": "12:00:00"
    },
    {
     "elapsed": "0:00",
@@ -2244,7 +2236,7 @@
     "name": "edit_cocoedit_pool_judge_qwen_gedit_full",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
+    "start": "2026-11-06T10:08:44",
     "state": "PENDING",
     "time_limit": "10:00:00"
    },
@@ -2254,7 +2246,7 @@
     "name": "edit_cocoedit_pool_judge_flux_gedit_full",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
+    "start": "2026-11-06T10:08:44",
     "state": "PENDING",
     "time_limit": "10:00:00"
    },
@@ -2264,7 +2256,7 @@
     "name": "edit_cocoedit_pool_judge_qwen_imgedit_full",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
+    "start": "2026-11-06T10:08:44",
     "state": "PENDING",
     "time_limit": "10:00:00"
    },
@@ -2300,6 +2292,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "63563076_[0-3]",
+    "name": "edit_cocoedit_pool_judge_flux_imgedit_full",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "2026-11-06T10:08:44",
+    "state": "PENDING",
+    "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "63563055",
     "name": "edit_cocoedit_pool_eval_flux_gedit_full",
     "nodes": "1",
@@ -2307,16 +2309,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63563076_[0-3]",
-    "name": "edit_cocoedit_pool_judge_flux_imgedit_full",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
    },
    {
     "elapsed": "0:00",
@@ -15148,5 +15140,5 @@
    "waiting_for": null
   }
  },
- "updated": 1793952228.5849888
+ "updated": 1793956124.526427
 }

@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-06b-free-oph-partimagenet-merge",
+ "what": "pool_soft_fam_free test: OP-HRG partimagenet merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ta_test_eval.py",
+  "TG_ARGS": "--bench ophrg --config configs/ta_test_pool_soft_fam_free.yaml --method ours --benchmark partimagenet --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "collect": true,
+ "after": [
+  "2026-11-06b-free-oph-partimagenet"
+ ]
+}

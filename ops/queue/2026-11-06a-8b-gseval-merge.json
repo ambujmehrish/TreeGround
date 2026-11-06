@@ -1,0 +1,17 @@
+{
+ "id": "2026-11-06a-8b-gseval-merge",
+ "what": "pool_full_8b test: GSEval merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qwen8.py",
+  "TG_ARGS": "scripts/ta_test_eval.py --bench gseval --config configs/ta_test_pool_full_8b.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "collect": true,
+ "after": [
+  "2026-11-06a-8b-gseval",
+  "2026-11-06a-8b-gres-merge"
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "id": "2026-11-06a-8b-paco",
+ "what": "pool_full_8b test: PACO-LVIS shards",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qwen8.py",
+  "TG_ARGS": "scripts/ta_test_eval.py --bench paco --config configs/ta_test_pool_full_8b.yaml --method ours"
+ },
+ "sbatch": {
+  "time": "12:00:00",
+  "array": "0-7"
+ },
+ "collect": false,
+ "after": [
+  "2026-11-06a-8b-train"
+ ]
+}

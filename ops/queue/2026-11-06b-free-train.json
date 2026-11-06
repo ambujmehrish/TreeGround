@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-06b-free-train",
+ "what": "train pool_soft_fam_free",
+ "script": "q_gpu4.sbatch",
+ "env": {
+  "TG_PY": "scripts/ta_train.py",
+  "TG_ARGS": "--config configs/ta_pool_soft_fam_free.yaml"
+ },
+ "sbatch": {
+  "time": "12:00:00"
+ },
+ "collect": true
+}

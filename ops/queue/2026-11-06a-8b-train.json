@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-06a-8b-train",
+ "what": "train pool_full_8b",
+ "script": "q_gpu4.sbatch",
+ "env": {
+  "TG_PY": "scripts/qwen8.py",
+  "TG_ARGS": "scripts/ta_train.py --config configs/ta_pool_full_8b.yaml"
+ },
+ "sbatch": {
+  "time": "24:00:00"
+ },
+ "collect": true
+}

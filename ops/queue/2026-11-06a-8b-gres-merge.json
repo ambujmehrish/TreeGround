@@ -1,0 +1,18 @@
+{
+ "id": "2026-11-06a-8b-gres-merge",
+ "what": "pool_full_8b test: gRefCOCO merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qwen8.py",
+  "TG_ARGS": "scripts/ta_test_eval.py --bench gres --config configs/ta_test_pool_full_8b.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "collect": true,
+ "after": [
+  "2026-11-06a-8b-gres-val",
+  "2026-11-06a-8b-gres-testA",
+  "2026-11-06a-8b-gres-testB"
+ ]
+}

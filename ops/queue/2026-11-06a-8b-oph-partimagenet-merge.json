@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-06a-8b-oph-partimagenet-merge",
+ "what": "pool_full_8b test: OP-HRG partimagenet merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qwen8.py",
+  "TG_ARGS": "scripts/ta_test_eval.py --bench ophrg --config configs/ta_test_pool_full_8b.yaml --method ours --benchmark partimagenet --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "collect": true,
+ "after": [
+  "2026-11-06a-8b-oph-partimagenet"
+ ]
+}

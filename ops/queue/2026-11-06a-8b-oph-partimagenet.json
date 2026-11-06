@@ -1,0 +1,17 @@
+{
+ "id": "2026-11-06a-8b-oph-partimagenet",
+ "what": "pool_full_8b test: OP-HRG partimagenet shards",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qwen8.py",
+  "TG_ARGS": "scripts/ta_test_eval.py --bench ophrg --config configs/ta_test_pool_full_8b.yaml --method ours --benchmark partimagenet"
+ },
+ "sbatch": {
+  "time": "10:00:00",
+  "array": "0-3"
+ },
+ "collect": false,
+ "after": [
+  "2026-11-06a-8b-train"
+ ]
+}

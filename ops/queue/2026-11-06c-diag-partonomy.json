@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-06c-diag-partonomy",
+ "what": "pool diagnostics (partonomy), rerun with 8 h",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ta_pool_diag.py",
+  "TG_ARGS": "--config configs/ta_test_pool_full.yaml --bench partonomy"
+ },
+ "sbatch": {
+  "time": "08:00:00"
+ },
+ "collect": true
+}

@@ -15,3 +15,107 @@ You are using a model of type sam3_video to instantiate a model of type sam3_tra
 [450] 13577s
 [500] 14713s
 [550] 16249s
+[600] 17274s
+{
+ "queries": 600,
+ "pool_size_mean": 260.9,
+ "gIoU": {
+  "flat": 0.6704393636519377,
+  "hard": 0.650491151876044,
+  "anchor_as_evaluated": 0.6719687772920946,
+  "rank1_part_instance": 0.6737114155767805,
+  "best_in_pool": 0.800345500812599
+ },
+ "rank1_present": 1.0,
+ "flat_pick": {
+  "grid": {
+   "share": 0.18166666666666667,
+   "gIoU": 0.40963781379376596
+  },
+  "part_r1": {
+   "share": 0.6116666666666667,
+   "gIoU": 0.7972839095532204
+  },
+  "part_r2": {
+   "share": 0.09666666666666666,
+   "gIoU": 0.5057747302856153
+  },
+  "part_r3": {
+   "share": 0.05,
+   "gIoU": 0.49491541458546384
+  },
+  "object_r1": {
+   "share": 0.03333333333333333,
+   "gIoU": 0.5991012738361546
+  },
+  "object_r2": {
+   "share": 0.01,
+   "gIoU": 0.7037601424759105
+  },
+  "object_r3": {
+   "share": 0.016666666666666666,
+   "gIoU": 0.46229185559021274
+  }
+ },
+ "hard_pick": {
+  "grid": {
+   "share": 0.225,
+   "gIoU": 0.4079351707710354
+  },
+  "part_r1": {
+   "share": 0.5783333333333334,
+   "gIoU": 0.7960248310971693
+  },
+  "part_r2": {
+   "share": 0.1,
+   "gIoU": 0.4806613659737751
+  },
+  "part_r3": {
+   "share": 0.045,
+   "gIoU": 0.48244467212858333
+  },
+  "object_r1": {
+   "share": 0.025,
+   "gIoU": 0.6064812306451214
+  },
+  "object_r2": {
+   "share": 0.01,
+   "gIoU": 0.5722734348879751
+  },
+  "object_r3": {
+   "share": 0.016666666666666666,
+   "gIoU": 0.46062795059159356
+  }
+ },
+ "best_in_pool_source": {
+  "grid": 0.5233333333333333,
+  "part_r1": 0.36,
+  "part_r2": 0.05,
+  "part_r3": 0.03333333333333333,
+  "object_r1": 0.011666666666666667,
+  "object_r2": 0.006666666666666667,
+  "object_r3": 0.015
+ },
+ "object_pick_source": {
+  "grid": 0.4083333333333333,
+  "part_r1": 0.035,
+  "part_r2": 0.0016666666666666668,
+  "part_r3": 0.0016666666666666668,
+  "object_r1": 0.5266666666666666,
+  "object_r2": 0.016666666666666666,
+  "object_r3": 0.01
+ },
+ "flat_vs_rank1": {
+  "flat_better_by_0.1": 0.105,
+  "rank1_better_by_0.1": 0.13666666666666666,
+  "flat_picks_other_than_rank1_and_wins_0.1": 0.105
+ },
+ "containment": {
+  "flat_in_object_mean": 0.9336672788835351,
+  "flat_in_object_ge_0.8": 0.935,
+  "hard_in_object_mean": 0.9790759690456616,
+  "hard_fallback_rate": 0.0,
+  "hard_minus_flat_gIoU": -0.019948211775893683
+ }
+}
+/leonardo_work/AIFAC_S07_041/treeground/runs/ta_pool_diag_ta_pool_full_instructpart/20261106T092350591801Z_dc0e7909

@@ -63,41 +63,42 @@ $^\S$our model is trained on this dataset's training split; all other columns ar
 \centering
 \setlength{\tabcolsep}{3.5pt}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{llllcccccccccc}
+\begin{tabular}{llrrlcccccccccc}
 \toprule
- & & & & \multicolumn{5}{c}{Part grounding} & \multicolumn{3}{c}{Object and referring} & \multicolumn{2}{c}{Rejection} \\
-\cmidrule(lr){5-9}\cmidrule(lr){10-12}\cmidrule(lr){13-14}
- & & & & PARTONOMY & GSEval & PascalPart & PartImage- & Instruct- & GSEval & \multicolumn{2}{c}{gRefCOCO} & \multicolumn{2}{c}{gRefCOCO N-acc} \\
-\cmidrule(lr){11-12}\cmidrule(lr){13-14}
-Method & Backbone & Trained & Training data & macro & Part & -116 & Net & Part & All & testA & testB & testA & testB \\
+ & & \multicolumn{2}{c}{Parameters} & & \multicolumn{5}{c}{Part grounding} & \multicolumn{3}{c}{Object and referring} & \multicolumn{2}{c}{Rejection} \\
+\cmidrule(lr){3-4}\cmidrule(lr){6-10}\cmidrule(lr){11-13}\cmidrule(lr){14-15}
+ & & & & & PARTONOMY & GSEval & PascalPart & PartImage- & Instruct- & GSEval & \multicolumn{2}{c}{gRefCOCO} & \multicolumn{2}{c}{gRefCOCO N-acc} \\
+\cmidrule(lr){12-13}\cmidrule(lr){14-15}
+Method & Backbone & Total & Trainable & Training data & macro & Part & -116 & Net & Part & All & testA & testB & testA & testB \\
 \midrule
-\multicolumn{14}{l}{\textit{Same size ($\le$4B)}} \\
-UniPixel       & 3B          & LoRA r128 + SAM\,2.1     & $\sim$2.9M samples, 3 stages & --   & --   & 30.6 & 46.2 & 59.7 & --   & --   & --   & --   & --   \\
-InstructSeg    & 3B          & LoRA r8 + Mask2Former    & RefCOCO/+/g, ReasonSeg, video & --   & 24.2 & --   & --   & --   & 52.5 & --   & --   & --   & --   \\
-SAMTok         & 3B          & full LLM                 & 5M SFT + RL                & --   & 40.8 & --   & --   & --   & 67.8 & --   & --   & --   & --   \\
-SAMTok         & Qwen3-VL-4B & full LLM                 & 5M SFT + RL                & --   & --   & --   & --   & --   & --   & 76.9\indom & 69.1\indom & 66.2\indom & 60.8\indom \\
-Sa2VA          & 4B          & LoRA r256 + SAM\,2 dec.  & 1.1M samples               & --   & 17.4 & 14.7 & 38.1 & 50.2 & 58.5 & --   & --   & --   & --   \\
-OP-HRG         & Qwen3-VL-4B & full MLLM (RL)           & 8.2K pairs                 & --   & --   & 38.6 & \textbf{56.9} & \textbf{75.6}\indom & --   & --   & --   & --   & --   \\
-PANORAMA       & Qwen3-VL-4B & 1.32B (LoRA r256 + bridge, fusion enc.) & 957K samples & --   & \textbf{53.5} & --   & --   & --   & \textbf{75.5} & \textbf{79.8}\indom & \textbf{74.5}\indom & 85.5\indom & 81.2\indom \\
+\multicolumn{15}{l}{\textit{Same size ($\le$4B)}} \\
+UniPixel & 3B & 3.88B & - & $\sim$2.9M samples & -- & -- & 30.6 & 46.2 & 59.7 & -- & -- & -- & -- & -- \\
+InstructSeg & 3B & - & - & RefCOCO/+/g, ReasonSeg, video & -- & 24.2 & -- & -- & -- & 52.5 & -- & -- & -- & -- \\
+SAMTok & 3B & 3.75B & - & 5M SFT + RL & -- & 40.8 & -- & -- & -- & 67.8 & -- & -- & -- & -- \\
+SAMTok & Qwen3-VL-4B & 5.06B & 0.91B$^\ddagger$ & 5M SFT + RL & -- & -- & -- & -- & -- & -- & 76.9\indom & 69.1\indom & 66.2\indom & 60.8\indom \\
+Sa2VA & 4B & 3.94B & 0.88B$^\ddagger$ & 1.1M samples & -- & 17.4 & 14.7 & 38.1 & 50.2 & 58.5 & -- & -- & -- & -- \\
+OP-HRG & Qwen3-VL-4B & 4.44B & 4.44B (full) & 8.2K pairs & -- & -- & 38.6 & \textbf{56.9} & \textbf{75.6}\indom & -- & -- & -- & -- & -- \\
+PANORAMA & Qwen3-VL-4B & 5.32B & 1.32B & 957K samples & -- & \textbf{53.5} & -- & -- & -- & \textbf{75.5} & \textbf{79.8}\indom & \textbf{74.5}\indom & 85.5\indom & 81.2\indom \\
 \midrule
-\multicolumn{14}{l}{\textit{Larger backbones}} \\
-SegLLM         & 7B          & full LLM                 & MRSeg                      & 32.4 & --   & --   & --   & --   & --   & --   & --   & --   & --   \\
-PLUM (PARTONOMY-ft) & 13B    & LoRA r8 + SAM dec.       & mixed + PARTONOMY          & 41.6\indom & --   & --   & --   & --   & --   & --   & --   & --   & --   \\
-LISA           & 7B          & LoRA + SAM dec.          & 10 datasets                & --   & 21.2 & 13.8\indom & 29.9\indom & 43.3 & 57.6 & --   & --   & --   & --   \\
-LISA (GRES-ft) & 7B          & LoRA + SAM dec.          & 10 datasets + gRefCOCO     & --   & --   & --   & --   & --   & --   & 66.3\indom & 58.8\indom & 50.0\indom & 51.9\indom \\
-VisionReasoner & 7B          & RL (GRPO)                & 7K samples                 & --   & --   & 27.4 & 45.6 & 59.4 & --   & --   & --   & --   & --   \\
-GLaMM          & 7B          & LoRA + pixel decoder     & GranD (11M images)         & --   & 16.5 & --   & --   & --   & 57.2 & --   & --   & --   & --   \\
-Sa2VA          & 8B          & LoRA r256 + SAM\,2 dec.  & 1.1M samples               & --   & 18.0 & --   & --   & --   & 56.3 & --   & --   & --   & --   \\
-SAMTok (GRES-ft) & 7B        & full LLM                 & 5M SFT + RL + gRefCOCO     & --   & --   & --   & --   & --   & --   & 78.5\indom & 69.6\indom & 75.9\indom & 68.6\indom \\
+\multicolumn{15}{l}{\textit{Larger backbones}} \\
+SegLLM & 7B & - & - & MRSeg & 32.4 & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+PLUM (PARTONOMY-ft) & 13B & - & - & mixed + PARTONOMY & 41.6\indom & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+LISA & 7B & - & - & 10 datasets & -- & 21.2 & 13.8\indom & 29.9\indom & 43.3 & 57.6 & -- & -- & -- & -- \\
+LISA (GRES-ft) & 7B & - & - & 10 datasets + gRefCOCO & -- & -- & -- & -- & -- & -- & 66.3\indom & 58.8\indom & 50.0\indom & 51.9\indom \\
+VisionReasoner & 7B & 8.29B & - & 7K samples & -- & -- & 27.4 & 45.6 & 59.4 & -- & -- & -- & -- & -- \\
+GLaMM & 7B & 8.02B & 0.59B$^\ddagger$ & GranD (11M images) & -- & 16.5 & -- & -- & -- & 57.2 & -- & -- & -- & -- \\
+Sa2VA & 8B & 8.32B & 0.37B$^\ddagger$ & 1.1M samples & -- & 18.0 & -- & -- & -- & 56.3 & -- & -- & -- & -- \\
+SAMTok (GRES-ft) & 7B & 8.29B & - & 5M SFT + RL + gRefCOCO & -- & -- & -- & -- & -- & -- & 78.5\indom & 69.6\indom & 75.9\indom & 68.6\indom \\
 \midrule
 \rowcolor{oursrow}
-\ours{} (Ours) & Qwen3-VL-4B & 64.2M (LoRA r16 + heads) & PACO, Pascal-Part, gRefCOCO & \textbf{51.0} & 51.4 & \textbf{40.6}\indom & 50.7 & 68.2 & 70.0 & 72.3\indom & 65.2\indom & \textbf{89.6}\indom & \textbf{86.0}\indom \\
+\ours{} (Ours) & Qwen3-VL-4B & 5.36B & \textbf{64.2M} & PACO, Pascal-Part, gRefCOCO & \textbf{51.0} & 51.4 & \textbf{40.6}\indom & 50.7 & 68.2 & 70.0 & 72.3\indom & 65.2\indom & \textbf{89.6}\indom & \textbf{86.0}\indom \\
 \bottomrule
 \end{tabular}}
 \caption{\textbf{Comparison with published systems} on test splits (gIoU, \%; N-acc as in
 Tab.~\ref{tab:controlled}). Numbers as published under the same protocol; bold marks the best same-size result.
-``Trained'' and ``Training data'' as stated in each paper (only PANORAMA and ours give a parameter count;
-ours is counted from the model code); ``--'': not reported. $^\S$the method trains on this
+Parameters: total from the model cards (ours incl.\ the frozen SAM\,3); trainable as printed in the paper
+(OP-HRG trains the full MLLM; ours counted from the model code). $^\ddagger$measured by PANORAMA under each method's
+released recipe (its Tab.~17). ``-'' / ``--'': not reported. $^\S$the method trains on this
 benchmark's training split (in-domain); all other cells are zero-shot.}
 \label{tab:published}
 \end{table*}

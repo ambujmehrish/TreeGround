@@ -1,0 +1,36 @@
+{
+  "benchmark": "pascalpart",
+  "deviation": "D38",
+  "images": 851,
+  "label": "test",
+  "method": "grounded_sam2",
+  "protocol": "OP-HRG (arXiv 2607.15374)",
+  "results": {
+    "objects": {
+      "cIoU": 0.8020640262853853,
+      "gIoU": {
+        "ci95": [
+          0.7854629142000787,
+          0.8121814329356547
+        ],
+        "mean": 0.7985193275434932,
+        "n": 1077
+      },
+      "queries": 1077
+    },
+    "parts": {
+      "cIoU": 0.1402022541363736,
+      "gIoU": {
+        "ci95": [
+          0.17120654633115562,
+          0.18326022147638935
+        ],
+        "mean": 0.1772362561403448,
+        "n": 9552
+      },
+      "queries": 9552
+    },
+    "train_overlap_images": 0
+  },
+  "stage": "grounded_sam2"
+}

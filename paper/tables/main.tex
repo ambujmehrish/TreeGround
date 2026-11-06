@@ -9,7 +9,10 @@
 % VisionReasoner, computed by the OP-HRG authors, App. I; trains the full MLLM by GRPO on ~7K general + 1.2K
 % InstructPart images, App. D); PANORAMA 2609.19143 T9, T10 (GSEval rows marked there as from Hu et al. 2025 /
 % Yuan et al. 2026), T2 (957K-sample mixture incl. gRefCOCO, PACO, PASCAL-Part), T17 (trainable parameters of
-% PANORAMA-4B / SAMTok-4B / Sa2VA-4B under their training recipes); PARTONOMY 2505.20759 T2.
+% PANORAMA-4B etc. under PanoCaps fine-tuning, not used); PARTONOMY 2505.20759 T2. Trained / data columns: UniPixel
+% 2509.18094 S3.4 App.A; InstructSeg 2412.14006 S4 Suppl.A; SAMTok 2601.16093 App.B S3.1; Sa2VA 2501.04001 T5 S4;
+% SegLLM 2410.18923 S5.1; PLUM 2505.20759 App.A.1; LISA 2308.00692 S4.2 S5.1 (trains on PartImageNet, PASCAL-Part:
+% in-domain marks); VisionReasoner 2505.12081 S4.1; GLaMM 2311.03356 Suppl.A.2.
 \newcommand{\ours}{\textsc{TreeGround}}
 \newcommand{\indom}{$^\S$}
 \definecolor{oursrow}{gray}{0.92}
@@ -60,40 +63,41 @@ $^\S$our model is trained on this dataset's training split; all other columns ar
 \centering
 \setlength{\tabcolsep}{3.5pt}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{lllcccccccccc}
+\begin{tabular}{llllcccccccccc}
 \toprule
- & & & \multicolumn{5}{c}{Part grounding} & \multicolumn{3}{c}{Object and referring} & \multicolumn{2}{c}{Rejection} \\
-\cmidrule(lr){4-8}\cmidrule(lr){9-11}\cmidrule(lr){12-13}
- & & & PARTONOMY & GSEval & PascalPart & PartImage- & Instruct- & GSEval & \multicolumn{2}{c}{gRefCOCO} & \multicolumn{2}{c}{gRefCOCO N-acc} \\
-\cmidrule(lr){10-11}\cmidrule(lr){12-13}
-Method & Backbone & Trained params / data & macro & Part & -116 & Net & Part & All & testA & testB & testA & testB \\
+ & & & & \multicolumn{5}{c}{Part grounding} & \multicolumn{3}{c}{Object and referring} & \multicolumn{2}{c}{Rejection} \\
+\cmidrule(lr){5-9}\cmidrule(lr){10-12}\cmidrule(lr){13-14}
+ & & & & PARTONOMY & GSEval & PascalPart & PartImage- & Instruct- & GSEval & \multicolumn{2}{c}{gRefCOCO} & \multicolumn{2}{c}{gRefCOCO N-acc} \\
+\cmidrule(lr){11-12}\cmidrule(lr){13-14}
+Method & Backbone & Trained & Training data & macro & Part & -116 & Net & Part & All & testA & testB & testA & testB \\
 \midrule
-\multicolumn{13}{l}{\textit{Same size ($\le$4B)}} \\
-UniPixel           & 3B          & --                          & --   & --   & 30.6 & 46.2 & 59.7 & --   & --   & --   & --   & --   \\
-InstructSeg        & 3B          & --                          & --   & 24.2 & --   & --   & --   & 52.5 & --   & --   & --   & --   \\
-SAMTok             & 3B          & --                          & --   & 40.8 & --   & --   & --   & 67.8 & --   & --   & --   & --   \\
-SAMTok             & 4B          & 0.91B / --                  & --   & --   & --   & --   & --   & --   & 76.9\indom & 69.1\indom & 66.2\indom & 60.8\indom \\
-Sa2VA              & 4B          & 0.88B / --                  & --   & 17.4 & 14.7 & 38.1 & 50.2 & 58.5 & --   & --   & --   & --   \\
-OP-HRG             & Qwen3-VL-4B & full model (RL) / 8.2K pairs& --   & --   & 38.6 & \textbf{56.9} & \textbf{75.6}\indom & --   & --   & --   & --   & --   \\
-PANORAMA           & Qwen3-VL-4B & 1.32B / 957K samples        & --   & \textbf{53.5} & --   & --   & --   & \textbf{75.5} & \textbf{79.8}\indom & \textbf{74.5}\indom & 85.5\indom & 81.2\indom \\
+\multicolumn{14}{l}{\textit{Same size ($\le$4B)}} \\
+UniPixel       & 3B          & LoRA r128 + SAM\,2.1     & $\sim$2.9M samples, 3 stages & --   & --   & 30.6 & 46.2 & 59.7 & --   & --   & --   & --   & --   \\
+InstructSeg    & 3B          & LoRA r8 + Mask2Former    & RefCOCO/+/g, ReasonSeg, video & --   & 24.2 & --   & --   & --   & 52.5 & --   & --   & --   & --   \\
+SAMTok         & 3B          & full LLM                 & 5M SFT + RL                & --   & 40.8 & --   & --   & --   & 67.8 & --   & --   & --   & --   \\
+SAMTok         & Qwen3-VL-4B & full LLM                 & 5M SFT + RL                & --   & --   & --   & --   & --   & --   & 76.9\indom & 69.1\indom & 66.2\indom & 60.8\indom \\
+Sa2VA          & 4B          & LoRA r256 + SAM\,2 dec.  & 1.1M samples               & --   & 17.4 & 14.7 & 38.1 & 50.2 & 58.5 & --   & --   & --   & --   \\
+OP-HRG         & Qwen3-VL-4B & full MLLM (RL)           & 8.2K pairs                 & --   & --   & 38.6 & \textbf{56.9} & \textbf{75.6}\indom & --   & --   & --   & --   & --   \\
+PANORAMA       & Qwen3-VL-4B & 1.32B (LoRA r256 + bridge, fusion enc.) & 957K samples & --   & \textbf{53.5} & --   & --   & --   & \textbf{75.5} & \textbf{79.8}\indom & \textbf{74.5}\indom & 85.5\indom & 81.2\indom \\
 \midrule
-\multicolumn{13}{l}{\textit{Larger backbones}} \\
-SegLLM             & 7B          & --                          & 32.4 & --   & --   & --   & --   & --   & --   & --   & --   & --   \\
-PLUM (PARTONOMY-ft) & 13B        & --                          & 41.6\indom & --   & --   & --   & --   & --   & --   & --   & --   & --   \\
-LISA               & 7B          & --                          & --   & 21.2 & 13.8 & 29.9 & 43.3 & 57.6 & --   & --   & --   & --   \\
-LISA (GRES-ft)     & 7B          & --                          & --   & --   & --   & --   & --   & --   & 66.3\indom & 58.8\indom & 50.0\indom & 51.9\indom \\
-VisionReasoner     & 7B          & --                          & --   & --   & 27.4 & 45.6 & 59.4 & --   & --   & --   & --   & --   \\
-GLaMM              & 7B          & --                          & --   & 16.5 & --   & --   & --   & 57.2 & --   & --   & --   & --   \\
-Sa2VA              & 8B          & --                          & --   & 18.0 & --   & --   & --   & 56.3 & --   & --   & --   & --   \\
-SAMTok (GRES-ft)   & 7B          & --                          & --   & --   & --   & --   & --   & --   & 78.5\indom & 69.6\indom & 75.9\indom & 68.6\indom \\
+\multicolumn{14}{l}{\textit{Larger backbones}} \\
+SegLLM         & 7B          & full LLM                 & MRSeg                      & 32.4 & --   & --   & --   & --   & --   & --   & --   & --   & --   \\
+PLUM (PARTONOMY-ft) & 13B    & LoRA r8 + SAM dec.       & mixed + PARTONOMY          & 41.6\indom & --   & --   & --   & --   & --   & --   & --   & --   & --   \\
+LISA           & 7B          & LoRA + SAM dec.          & 10 datasets                & --   & 21.2 & 13.8\indom & 29.9\indom & 43.3 & 57.6 & --   & --   & --   & --   \\
+LISA (GRES-ft) & 7B          & LoRA + SAM dec.          & 10 datasets + gRefCOCO     & --   & --   & --   & --   & --   & --   & 66.3\indom & 58.8\indom & 50.0\indom & 51.9\indom \\
+VisionReasoner & 7B          & RL (GRPO)                & 7K samples                 & --   & --   & 27.4 & 45.6 & 59.4 & --   & --   & --   & --   & --   \\
+GLaMM          & 7B          & LoRA + pixel decoder     & GranD (11M images)         & --   & 16.5 & --   & --   & --   & 57.2 & --   & --   & --   & --   \\
+Sa2VA          & 8B          & LoRA r256 + SAM\,2 dec.  & 1.1M samples               & --   & 18.0 & --   & --   & --   & 56.3 & --   & --   & --   & --   \\
+SAMTok (GRES-ft) & 7B        & full LLM                 & 5M SFT + RL + gRefCOCO     & --   & --   & --   & --   & --   & --   & 78.5\indom & 69.6\indom & 75.9\indom & 68.6\indom \\
 \midrule
 \rowcolor{oursrow}
-\ours{} (Ours)     & Qwen3-VL-4B & 64.2M / 3 datasets          & \textbf{51.0} & 51.4 & \textbf{40.6}\indom & 50.7 & 68.2 & 70.0 & 72.3\indom & 65.2\indom & \textbf{89.6}\indom & \textbf{86.0}\indom \\
+\ours{} (Ours) & Qwen3-VL-4B & 64.2M (LoRA r16 + heads) & PACO, Pascal-Part, gRefCOCO & \textbf{51.0} & 51.4 & \textbf{40.6}\indom & 50.7 & 68.2 & 70.0 & 72.3\indom & 65.2\indom & \textbf{89.6}\indom & \textbf{86.0}\indom \\
 \bottomrule
 \end{tabular}}
 \caption{\textbf{Comparison with published systems} on test splits (gIoU, \%; N-acc as in
 Tab.~\ref{tab:controlled}). Numbers as published under the same protocol; bold marks the best same-size result.
-Trained parameters and data are taken from the papers (``--'': not reported). $^\S$the method trains on this
+``Trained'' and ``Training data'' as stated in each paper (only PANORAMA and ours give a parameter count;
+ours is counted from the model code); ``--'': not reported. $^\S$the method trains on this
 benchmark's training split (in-domain); all other cells are zero-shot.}
 \label{tab:published}
 \end{table*}

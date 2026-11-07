@@ -1,0 +1,106 @@
+{
+  "anchor": "none",
+  "bench": "instructpart",
+  "best_in_pool_source": {
+    "grid": 0.5233333333333333,
+    "object_r1": 0.011666666666666667,
+    "object_r2": 0.006666666666666667,
+    "object_r3": 0.015,
+    "part_r1": 0.36,
+    "part_r2": 0.05,
+    "part_r3": 0.03333333333333333
+  },
+  "containment": {
+    "flat_in_object_ge_0.8": 0.95,
+    "flat_in_object_mean": 0.9491512869957535,
+    "hard_fallback_rate": 0.0,
+    "hard_in_object_mean": 0.9794084020715627,
+    "hard_minus_flat_gIoU": -0.012807987589948003
+  },
+  "flat_pick": {
+    "grid": {
+      "gIoU": 0.6184814258595954,
+      "share": 0.28
+    },
+    "object_r1": {
+      "gIoU": 0.4468801967297016,
+      "share": 0.035
+    },
+    "object_r2": {
+      "gIoU": 0.6640747599406449,
+      "share": 0.015
+    },
+    "object_r3": {
+      "gIoU": 0.7165633419390283,
+      "share": 0.018333333333333333
+    },
+    "part_r1": {
+      "gIoU": 0.7780800809917098,
+      "share": 0.5116666666666667
+    },
+    "part_r2": {
+      "gIoU": 0.4939929846353922,
+      "share": 0.09666666666666666
+    },
+    "part_r3": {
+      "gIoU": 0.5610778739019601,
+      "share": 0.043333333333333335
+    }
+  },
+  "flat_vs_rank1": {
+    "flat_better_by_0.1": 0.11333333333333333,
+    "flat_picks_other_than_rank1_and_wins_0.1": 0.11333333333333333,
+    "rank1_better_by_0.1": 0.11833333333333333
+  },
+  "gIoU": {
+    "anchor_as_evaluated": 0.6820973932854826,
+    "best_in_pool": 0.800345500812599,
+    "flat": 0.6820973932854826,
+    "hard": 0.6692894056955345,
+    "rank1_part_instance": 0.6737114155767805
+  },
+  "hard_pick": {
+    "grid": {
+      "gIoU": 0.5856904572667677,
+      "share": 0.29333333333333333
+    },
+    "object_r1": {
+      "gIoU": 0.4597933339984933,
+      "share": 0.028333333333333332
+    },
+    "object_r2": {
+      "gIoU": 0.5761175732176094,
+      "share": 0.013333333333333334
+    },
+    "object_r3": {
+      "gIoU": 0.6991288804107049,
+      "share": 0.015
+    },
+    "part_r1": {
+      "gIoU": 0.7817004590995282,
+      "share": 0.5
+    },
+    "part_r2": {
+      "gIoU": 0.49120364095973224,
+      "share": 0.10666666666666667
+    },
+    "part_r3": {
+      "gIoU": 0.5318217307567953,
+      "share": 0.043333333333333335
+    }
+  },
+  "label": "test (read-only diagnostic)",
+  "object_pick_source": {
+    "grid": 0.4866666666666667,
+    "object_r1": 0.4583333333333333,
+    "object_r2": 0.018333333333333333,
+    "object_r3": 0.01,
+    "part_r1": 0.018333333333333333,
+    "part_r2": 0.006666666666666667,
+    "part_r3": 0.0016666666666666668
+  },
+  "pool_size_mean": 260.9,
+  "queries": 600,
+  "rank1_present": 1.0,
+  "stage": "ta_pool_soft_fam"
+}

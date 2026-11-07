@@ -5,3 +5,15 @@ You are using a model of type sam3_video to instantiate a model of type sam3_tra
 /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/image_processing_utils_fast.py:692: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
   image = torch.from_numpy(image).contiguous()
 [25] queries 144 346s
+[50] queries 402 716s
+[75] queries 575 1037s
+[100] queries 722 1341s
+[125] queries 918 1654s
+[150] queries 1125 2011s
+[175] queries 1353 2349s
+[200] queries 1573 2685s
+[225] queries 1722 2989s
+[250] queries 1940 3345s
+[275] queries 2199 3712s
+[300] queries 2423 4039s
+[325] queries 2632 4377s

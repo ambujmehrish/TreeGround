@@ -1,0 +1,8 @@
+{
+ "id": "2026-11-07a-diag-softfam-partonomy",
+ "what": "pool diagnostics (partonomy) on the main checkpoint pool_soft_fam (read-only, test)",
+ "script": "q_gpu.sbatch",
+ "env": {"TG_PY": "scripts/ta_pool_diag.py", "TG_ARGS": "--config configs/ta_test_pool_soft_fam.yaml --bench partonomy"},
+ "sbatch": {"time": "08:00:00"},
+ "collect": true
+}

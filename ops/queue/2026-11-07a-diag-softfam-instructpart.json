@@ -1,0 +1,8 @@
+{
+ "id": "2026-11-07a-diag-softfam-instructpart",
+ "what": "pool diagnostics (instructpart) on the main checkpoint pool_soft_fam (read-only, test)",
+ "script": "q_gpu.sbatch",
+ "env": {"TG_PY": "scripts/ta_pool_diag.py", "TG_ARGS": "--config configs/ta_test_pool_soft_fam.yaml --bench instructpart"},
+ "sbatch": {"time": "08:00:00"},
+ "collect": true
+}

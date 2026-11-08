@@ -1,8 +1,8 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 104,
-   "RUNNING": 7
+   "PENDING": 88,
+   "RUNNING": 6
   },
   "ended_24h": [
    {
@@ -382,6 +382,14 @@
     "state": "FAILED"
    },
    {
+    "elapsed": "12:03:29",
+    "end": "2026-11-08T03:08:59",
+    "exit": "0:0",
+    "jobid": "63652201",
+    "name": "q_2026-11-06b-free-train",
+    "state": "TIMEOUT"
+   },
+   {
     "elapsed": "04:47:49",
     "end": "2026-11-07T14:18:47",
     "exit": "0:0",
@@ -703,6 +711,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "63432991",
+    "name": "fact-eval-base",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "16:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "63430730",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -853,16 +871,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63432991",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "16:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63432936",
     "name": "fact-eval-base",
     "nodes": "1",
@@ -937,7 +945,7 @@
     "name": "hm_bc_s0_r4",
     "nodes": "1",
     "reason_or_nodelist": "(PartitionConfig)",
-    "start": "2026-11-08T03:03:50",
+    "start": "N/A",
     "state": "PENDING",
     "time_limit": "8:00:00"
    },
@@ -947,7 +955,7 @@
     "name": "hm_eval_llm_r4",
     "nodes": "1",
     "reason_or_nodelist": "(PartitionConfig)",
-    "start": "2026-11-08T03:03:50",
+    "start": "N/A",
     "state": "PENDING",
     "time_limit": "12:00:00"
    },
@@ -990,86 +998,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652740",
-    "name": "q_2026-11-06b-free-part-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652199",
-    "name": "q_2026-11-06a-8b-train",
-    "nodes": "1",
-    "reason_or_nodelist": "(PartitionConfig)",
-    "start": "2026-11-08T03:03:50",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652739",
-    "name": "q_2026-11-06b-free-paco-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652738",
-    "name": "q_2026-11-06b-free-oph-pascalpart-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652737",
-    "name": "q_2026-11-06b-free-oph-partimagenet-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652736",
-    "name": "q_2026-11-06b-free-oph-instructpart-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652735",
-    "name": "q_2026-11-06b-free-gseval-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652733",
-    "name": "q_2026-11-06b-free-gres-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
    },
    {
     "elapsed": "0:00",
@@ -1143,106 +1071,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63652448_[0-3]",
-    "name": "q_2026-11-06b-free-part",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "6:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652427_[0-3]",
-    "name": "q_2026-11-06a-8b-gres-testA",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "8:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652447_[0-7]",
-    "name": "q_2026-11-06b-free-paco",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652446_[0-3]",
-    "name": "q_2026-11-06b-free-oph-pascalpart",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652445_[0-3]",
-    "name": "q_2026-11-06b-free-oph-partimagenet",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652443_[0-3]",
-    "name": "q_2026-11-06b-free-oph-instructpart",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652442_[0-3]",
-    "name": "q_2026-11-06b-free-gseval",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "8:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652441_[0-3]",
-    "name": "q_2026-11-06b-free-gres-val",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "8:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652439_[0-3]",
-    "name": "q_2026-11-06b-free-gres-testB",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "8:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652438_[0-3]",
-    "name": "q_2026-11-06b-free-gres-testA",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "8:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63652437_[0-3]",
     "name": "q_2026-11-06a-8b-part",
     "nodes": "1",
@@ -1273,6 +1101,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "63652427_[0-3]",
+    "name": "q_2026-11-06a-8b-gres-testA",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "8:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "63652433_[0-3]",
     "name": "q_2026-11-06a-8b-oph-partimagenet",
     "nodes": "1",
@@ -1280,6 +1118,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63652428_[0-3]",
+    "name": "q_2026-11-06a-8b-gres-testB",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "8:00:00"
    },
    {
     "elapsed": "0:00",
@@ -1313,13 +1161,13 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63652428_[0-3]",
-    "name": "q_2026-11-06a-8b-gres-testB",
+    "jobid": "63652199",
+    "name": "q_2026-11-06a-8b-train",
     "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
+    "reason_or_nodelist": "(PartitionConfig)",
     "start": "N/A",
     "state": "PENDING",
-    "time_limit": "8:00:00"
+    "time_limit": "1-00:00:00"
    },
    {
     "elapsed": "0:00",
@@ -1357,7 +1205,7 @@
     "name": "edit_cocoedit_pool_judge_qwen_gedit_full",
     "nodes": "1",
     "reason_or_nodelist": "(PartitionConfig)",
-    "start": "2026-11-08T03:03:50",
+    "start": "N/A",
     "state": "PENDING",
     "time_limit": "10:00:00"
    },
@@ -1367,7 +1215,7 @@
     "name": "edit_cocoedit_pool_judge_flux_gedit_full",
     "nodes": "1",
     "reason_or_nodelist": "(PartitionConfig)",
-    "start": "2026-11-08T03:03:50",
+    "start": "N/A",
     "state": "PENDING",
     "time_limit": "10:00:00"
    },
@@ -1377,7 +1225,7 @@
     "name": "edit_cocoedit_pool_judge_qwen_imgedit_full",
     "nodes": "1",
     "reason_or_nodelist": "(PartitionConfig)",
-    "start": "2026-11-08T03:03:50",
+    "start": "N/A",
     "state": "PENDING",
     "time_limit": "10:00:00"
    },
@@ -1387,7 +1235,7 @@
     "name": "edit_cocoedit_pool_judge_flux_imgedit_full",
     "nodes": "1",
     "reason_or_nodelist": "(PartitionConfig)",
-    "start": "2026-11-08T03:03:50",
+    "start": "N/A",
     "state": "PENDING",
     "time_limit": "10:00:00"
    },
@@ -1472,17 +1320,7 @@
     "time_limit": "4:00:00"
    },
    {
-    "elapsed": "11:58:20",
-    "jobid": "63652201",
-    "name": "q_2026-11-06b-free-train",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3267",
-    "start": "2026-11-07T15:05:30",
-    "state": "RUNNING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "18:46:56",
+    "elapsed": "19:16:41",
     "jobid": "63430709",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -1492,7 +1330,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "3:43:43",
+    "elapsed": "4:13:28",
     "jobid": "63430715",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -1502,7 +1340,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "3:25:52",
+    "elapsed": "3:55:37",
     "jobid": "63766298",
     "name": "fg-node0",
     "nodes": "1",
@@ -1512,7 +1350,7 @@
     "time_limit": "12:00:00"
    },
    {
-    "elapsed": "3:25:52",
+    "elapsed": "3:55:37",
     "jobid": "63766299",
     "name": "fg-node1",
     "nodes": "1",
@@ -1522,7 +1360,7 @@
     "time_limit": "12:00:00"
    },
    {
-    "elapsed": "3:25:52",
+    "elapsed": "3:55:37",
     "jobid": "63766300",
     "name": "fg-node2",
     "nodes": "1",
@@ -1532,7 +1370,7 @@
     "time_limit": "12:00:00"
    },
    {
-    "elapsed": "3:25:52",
+    "elapsed": "3:55:37",
     "jobid": "63766301",
     "name": "fg-node3",
     "nodes": "1",
@@ -14639,255 +14477,255 @@
    "waiting_for": null
   },
   "2026-11-06b-free-gres-merge": {
-   "collected": null,
+   "collected": 1794103781.581833,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103781.5818324,
    "invalid": null,
    "jobid": "63652733",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957351.462867,
    "waiting_for": null
   },
   "2026-11-06b-free-gres-testA": {
-   "collected": null,
+   "collected": 1794103820.6947684,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103820.694766,
    "invalid": null,
    "jobid": "63652438",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957029.2694843,
    "waiting_for": null
   },
   "2026-11-06b-free-gres-testB": {
-   "collected": null,
+   "collected": 1794103820.709726,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103820.7097254,
    "invalid": null,
    "jobid": "63652439",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957029.5519288,
    "waiting_for": null
   },
   "2026-11-06b-free-gres-val": {
-   "collected": null,
+   "collected": 1794103820.7244754,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103820.7244747,
    "invalid": null,
    "jobid": "63652441",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957029.8342083,
    "waiting_for": null
   },
   "2026-11-06b-free-gseval": {
-   "collected": null,
+   "collected": 1794103820.7392683,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103820.7392676,
    "invalid": null,
    "jobid": "63652442",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957030.198821,
    "waiting_for": null
   },
   "2026-11-06b-free-gseval-merge": {
-   "collected": null,
+   "collected": 1794103820.754107,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103820.754106,
    "invalid": null,
    "jobid": "63652735",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957351.771142,
    "waiting_for": null
   },
   "2026-11-06b-free-oph-instructpart": {
-   "collected": null,
+   "collected": 1794103836.3117573,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103836.3117547,
    "invalid": null,
    "jobid": "63652443",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957030.49576,
    "waiting_for": null
   },
   "2026-11-06b-free-oph-instructpart-merge": {
-   "collected": null,
+   "collected": 1794103836.326693,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103836.326692,
    "invalid": null,
    "jobid": "63652736",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957352.1118295,
    "waiting_for": null
   },
   "2026-11-06b-free-oph-partimagenet": {
-   "collected": null,
+   "collected": 1794103852.265907,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103852.2659047,
    "invalid": null,
    "jobid": "63652445",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957030.7849073,
    "waiting_for": null
   },
   "2026-11-06b-free-oph-partimagenet-merge": {
-   "collected": null,
+   "collected": 1794103852.2806542,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103852.2806532,
    "invalid": null,
    "jobid": "63652737",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957352.4287844,
    "waiting_for": null
   },
   "2026-11-06b-free-oph-pascalpart": {
-   "collected": null,
+   "collected": 1794103867.5745847,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103867.5745826,
    "invalid": null,
    "jobid": "63652446",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957031.2563746,
    "waiting_for": null
   },
   "2026-11-06b-free-oph-pascalpart-merge": {
-   "collected": null,
+   "collected": 1794103867.5912464,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103867.5912454,
    "invalid": null,
    "jobid": "63652738",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957352.722031,
    "waiting_for": null
   },
   "2026-11-06b-free-paco": {
-   "collected": null,
+   "collected": 1794103884.3885388,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103884.3885367,
    "invalid": null,
    "jobid": "63652447",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957031.580505,
    "waiting_for": null
   },
   "2026-11-06b-free-paco-merge": {
-   "collected": null,
+   "collected": 1794103884.4036021,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103884.4036012,
    "invalid": null,
    "jobid": "63652739",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957353.1147323,
    "waiting_for": null
   },
   "2026-11-06b-free-part": {
-   "collected": null,
+   "collected": 1794103898.924528,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103898.9245253,
    "invalid": null,
    "jobid": "63652448",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957031.8630915,
    "waiting_for": null
   },
   "2026-11-06b-free-part-merge": {
-   "collected": null,
+   "collected": 1794103898.9396994,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103898.9396985,
    "invalid": null,
    "jobid": "63652740",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "CANCELLED"
    ],
    "submit_error": null,
    "submitted": 1793957353.8017442,
    "waiting_for": null
   },
   "2026-11-06b-free-train": {
-   "collected": null,
+   "collected": 1794103914.2772937,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794103914.2772908,
    "invalid": null,
    "jobid": "63652201",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "RUNNING"
+    "TIMEOUT"
    ],
    "submit_error": null,
    "submitted": 1793956713.1561828,
@@ -15179,5 +15017,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794103430.2812672
+ "updated": 1794105215.5969481
 }

@@ -2,7 +2,7 @@
  "cluster": {
   "counts": {
    "PENDING": 105,
-   "RUNNING": 9
+   "RUNNING": 5
   },
   "ended_24h": [
    {
@@ -10,14 +10,6 @@
     "end": "2026-11-08T08:20:28",
     "exit": "0:0",
     "jobid": "63430709",
-    "name": "fact-stage-a",
-    "state": "TIMEOUT"
-   },
-   {
-    "elapsed": "1-00:03:31",
-    "end": "2026-11-07T11:09:14",
-    "exit": "0:0",
-    "jobid": "63430714",
     "name": "fact-stage-a",
     "state": "TIMEOUT"
    },
@@ -414,6 +406,38 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "12:03:04",
+    "end": "2026-11-08T11:41:02",
+    "exit": "0:0",
+    "jobid": "63766298",
+    "name": "fg-node0",
+    "state": "TIMEOUT"
+   },
+   {
+    "elapsed": "12:03:04",
+    "end": "2026-11-08T11:41:02",
+    "exit": "0:0",
+    "jobid": "63766299",
+    "name": "fg-node1",
+    "state": "TIMEOUT"
+   },
+   {
+    "elapsed": "12:03:04",
+    "end": "2026-11-08T11:41:02",
+    "exit": "0:0",
+    "jobid": "63766300",
+    "name": "fg-node2",
+    "state": "TIMEOUT"
+   },
+   {
+    "elapsed": "12:03:04",
+    "end": "2026-11-08T11:41:02",
+    "exit": "0:0",
+    "jobid": "63766301",
+    "name": "fg-node3",
+    "state": "TIMEOUT"
+   },
+   {
     "elapsed": "00:02:05",
     "end": "2026-11-07T13:08:17",
     "exit": "1:0",
@@ -529,16 +553,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63857355",
-    "name": "q_2026-11-08b-flat-paco-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63857394_[0-7]",
     "name": "q_2026-11-08c-free-paco",
     "nodes": "1",
@@ -546,26 +560,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63857392_[0-3]",
-    "name": "q_2026-11-08c-free-oph-partimagenet",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63857391_[0-3]",
-    "name": "q_2026-11-08c-free-oph-instructpart",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "10:00:00"
    },
    {
     "elapsed": "0:00",
@@ -619,8 +613,38 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "63857355",
+    "name": "q_2026-11-08b-flat-paco-merge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "63857393_[0-3]",
     "name": "q_2026-11-08c-free-oph-pascalpart",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63857392_[0-3]",
+    "name": "q_2026-11-08c-free-oph-partimagenet",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63857391_[0-3]",
+    "name": "q_2026-11-08c-free-oph-instructpart",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
@@ -1159,16 +1183,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63652199",
-    "name": "q_2026-11-06a-8b-train",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63652732",
     "name": "q_2026-11-06a-8b-part-merge",
     "nodes": "1",
@@ -1326,6 +1340,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "8:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63652199",
+    "name": "q_2026-11-06a-8b-train",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1-00:00:00"
    },
    {
     "elapsed": "0:00",
@@ -1498,7 +1522,7 @@
     "time_limit": "4:00:00"
    },
    {
-    "elapsed": "11:42:39",
+    "elapsed": "12:48:29",
     "jobid": "63430715",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -1508,47 +1532,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "11:24:48",
-    "jobid": "63766298",
-    "name": "fg-node0",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2877",
-    "start": "2026-11-07T23:37:58",
-    "state": "RUNNING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "11:24:48",
-    "jobid": "63766299",
-    "name": "fg-node1",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2888",
-    "start": "2026-11-07T23:37:58",
-    "state": "RUNNING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "11:24:48",
-    "jobid": "63766300",
-    "name": "fg-node2",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2931",
-    "start": "2026-11-07T23:37:58",
-    "state": "RUNNING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "11:24:48",
-    "jobid": "63766301",
-    "name": "fg-node3",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2980",
-    "start": "2026-11-07T23:37:58",
-    "state": "RUNNING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "1:35:52",
+    "elapsed": "2:41:42",
     "jobid": "63857031",
     "name": "q_2026-11-08c-free-train",
     "nodes": "1",
@@ -1558,7 +1542,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "1:36:39",
+    "elapsed": "2:42:29",
     "jobid": "63857030_3",
     "name": "q_2026-11-08b-flat-pin-shard3",
     "nodes": "1",
@@ -1568,7 +1552,7 @@
     "time_limit": "10:00:00"
    },
    {
-    "elapsed": "1:36:39",
+    "elapsed": "2:42:29",
     "jobid": "63857029_2",
     "name": "q_2026-11-08b-flat-paco-shard2",
     "nodes": "1",
@@ -1578,7 +1562,7 @@
     "time_limit": "12:00:00"
    },
    {
-    "elapsed": "2:41:11",
+    "elapsed": "3:47:01",
     "jobid": "63430710",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -15561,5 +15545,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794132166.9822197
+ "updated": 1794136117.2205868
 }

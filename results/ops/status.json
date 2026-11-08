@@ -2,7 +2,7 @@
  "cluster": {
   "counts": {
    "PENDING": 103,
-   "RUNNING": 4
+   "RUNNING": 3
   },
   "ended_24h": [
    {
@@ -438,14 +438,6 @@
     "state": "TIMEOUT"
    },
    {
-    "elapsed": "00:02:05",
-    "end": "2026-11-07T13:08:17",
-    "exit": "1:0",
-    "jobid": "63770494",
-    "name": "sm2-cap",
-    "state": "FAILED"
-   },
-   {
     "elapsed": "00:03:07",
     "end": "2026-11-07T15:04:40",
     "exit": "1:0",
@@ -491,6 +483,14 @@
     "exit": "0:0",
     "jobid": "63857355",
     "name": "q_2026-11-08b-flat-paco-merge",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:04:13",
+    "end": "2026-11-08T12:59:55",
+    "exit": "0:0",
+    "jobid": "63857364",
+    "name": "q_2026-11-08b-flat-pin-merge",
     "state": "COMPLETED"
    },
    {
@@ -1289,16 +1289,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63652199",
-    "name": "q_2026-11-06a-8b-train",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63652437_[0-3]",
     "name": "q_2026-11-06a-8b-part",
     "nodes": "1",
@@ -1306,6 +1296,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "6:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63652199",
+    "name": "q_2026-11-06a-8b-train",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1-00:00:00"
    },
    {
     "elapsed": "0:00",
@@ -1558,7 +1558,7 @@
     "time_limit": "4:00:00"
    },
    {
-    "elapsed": "13:38:13",
+    "elapsed": "13:49:22",
     "jobid": "63430715",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -1568,7 +1568,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "3:31:26",
+    "elapsed": "3:42:35",
     "jobid": "63857031",
     "name": "q_2026-11-08c-free-train",
     "nodes": "1",
@@ -1578,7 +1578,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "4:36:45",
+    "elapsed": "4:47:54",
     "jobid": "63430710",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -1586,16 +1586,6 @@
     "start": "2026-11-08T08:21:35",
     "state": "RUNNING",
     "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "2:38",
-    "jobid": "63857364",
-    "name": "q_2026-11-08b-flat-pin-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0067",
-    "start": "2026-11-08T12:55:42",
-    "state": "RUNNING",
-    "time_limit": "2:00:00"
    }
   ]
  },
@@ -15286,15 +15276,15 @@
    "waiting_for": null
   },
   "2026-11-08b-flat-pin-merge": {
-   "collected": null,
+   "collected": 1794139415.8460245,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794139415.8460233,
    "invalid": null,
    "jobid": "63857364",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1794126644.908459,
@@ -15571,5 +15561,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794139100.3547428
+ "updated": 1794139769.977259
 }

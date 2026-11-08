@@ -1,6 +1,6 @@
 {
- "id": "2026-11-08a-free-gres-testB",
- "what": "pool_soft_fam_free test: gRefCOCO testB",
+ "id": "2026-11-08c-free-gres-testB",
+ "what": "pool_soft_fam_free test: gRefCOCO testB [AIFAC]",
  "script": "q_gpu.sbatch",
  "env": {
   "TG_PY": "scripts/ta_test_eval.py",
@@ -12,6 +12,6 @@
  },
  "collect": false,
  "after": [
-  "2026-11-08a-free-train"
+  "2026-11-08c-free-train"
  ]
 }

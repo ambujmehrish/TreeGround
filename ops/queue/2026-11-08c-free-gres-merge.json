@@ -1,6 +1,6 @@
 {
- "id": "2026-11-08a-free-gres-merge",
- "what": "pool_soft_fam_free test: gres merge",
+ "id": "2026-11-08c-free-gres-merge",
+ "what": "pool_soft_fam_free test: gres merge [AIFAC]",
  "script": "q_gpu.sbatch",
  "env": {
   "TG_PY": "scripts/ta_test_eval.py",
@@ -11,8 +11,8 @@
  },
  "collect": true,
  "after": [
-  "2026-11-08a-free-gres-val",
-  "2026-11-08a-free-gres-testA",
-  "2026-11-08a-free-gres-testB"
+  "2026-11-08c-free-gres-val",
+  "2026-11-08c-free-gres-testA",
+  "2026-11-08c-free-gres-testB"
  ]
 }

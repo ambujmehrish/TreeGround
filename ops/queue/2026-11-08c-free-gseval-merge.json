@@ -1,6 +1,6 @@
 {
- "id": "2026-11-08a-free-gseval-merge",
- "what": "pool_soft_fam_free test: gseval merge",
+ "id": "2026-11-08c-free-gseval-merge",
+ "what": "pool_soft_fam_free test: gseval merge [AIFAC]",
  "script": "q_gpu.sbatch",
  "env": {
   "TG_PY": "scripts/ta_test_eval.py",
@@ -11,7 +11,7 @@
  },
  "collect": true,
  "after": [
-  "2026-11-08a-free-gseval",
-  "2026-11-08a-free-gres-merge"
+  "2026-11-08c-free-gseval",
+  "2026-11-08c-free-gres-merge"
  ]
 }

@@ -1,6 +1,6 @@
 {
- "id": "2026-11-08a-free-paco-merge",
- "what": "pool_soft_fam_free test: paco merge",
+ "id": "2026-11-08c-free-paco-merge",
+ "what": "pool_soft_fam_free test: paco merge [AIFAC]",
  "script": "q_gpu.sbatch",
  "env": {
   "TG_PY": "scripts/ta_test_eval.py",
@@ -11,6 +11,6 @@
  },
  "collect": true,
  "after": [
-  "2026-11-08a-free-paco"
+  "2026-11-08c-free-paco"
  ]
 }

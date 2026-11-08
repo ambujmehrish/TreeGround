@@ -1,6 +1,6 @@
 {
- "id": "2026-11-08a-free-oph-partimagenet-merge",
- "what": "pool_soft_fam_free test: oph-partimagenet merge",
+ "id": "2026-11-08c-free-oph-partimagenet-merge",
+ "what": "pool_soft_fam_free test: oph-partimagenet merge [AIFAC]",
  "script": "q_gpu.sbatch",
  "env": {
   "TG_PY": "scripts/ta_test_eval.py",
@@ -11,6 +11,6 @@
  },
  "collect": true,
  "after": [
-  "2026-11-08a-free-oph-partimagenet"
+  "2026-11-08c-free-oph-partimagenet"
  ]
 }

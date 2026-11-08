@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-08a-free-oph-pascalpart-merge",
+ "what": "pool_soft_fam_free test: oph-pascalpart merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ta_test_eval.py",
+  "TG_ARGS": "--bench ophrg --benchmark pascalpart --config configs/ta_test_pool_soft_fam_free.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "collect": true,
+ "after": [
+  "2026-11-08a-free-oph-pascalpart"
+ ]
+}

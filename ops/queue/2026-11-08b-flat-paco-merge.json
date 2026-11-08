@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-08b-flat-paco-merge",
+ "what": "pool_flat PACO test merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ta_test_eval.py",
+  "TG_ARGS": "--bench paco --config configs/ta_test_pool_flat.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "collect": true,
+ "after": [
+  "2026-11-08b-flat-paco-shard2"
+ ]
+}

@@ -1,0 +1,14 @@
+{
+ "id": "2026-11-08b-flat-pin-shard3",
+ "what": "pool_flat PartImageNet shard 3 (rerun after GPU ECC error)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ta_test_eval.py",
+  "TG_ARGS": "--bench ophrg --config configs/ta_test_pool_flat.yaml --method ours --benchmark partimagenet"
+ },
+ "sbatch": {
+  "time": "10:00:00",
+  "array": "3"
+ },
+ "collect": false
+}

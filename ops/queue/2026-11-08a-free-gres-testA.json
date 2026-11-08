@@ -1,0 +1,17 @@
+{
+ "id": "2026-11-08a-free-gres-testA",
+ "what": "pool_soft_fam_free test: gRefCOCO testA",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ta_test_eval.py",
+  "TG_ARGS": "--bench gres --config configs/ta_test_pool_soft_fam_free.yaml --method ours --split testA"
+ },
+ "sbatch": {
+  "time": "08:00:00",
+  "array": "0-3"
+ },
+ "collect": false,
+ "after": [
+  "2026-11-08a-free-train"
+ ]
+}

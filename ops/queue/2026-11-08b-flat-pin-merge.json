@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-08b-flat-pin-merge",
+ "what": "pool_flat PartImageNet merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ta_test_eval.py",
+  "TG_ARGS": "--bench ophrg --config configs/ta_test_pool_flat.yaml --method ours --benchmark partimagenet --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "collect": true,
+ "after": [
+  "2026-11-08b-flat-pin-shard3"
+ ]
+}

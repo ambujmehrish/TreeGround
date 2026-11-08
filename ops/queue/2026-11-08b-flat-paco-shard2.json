@@ -1,0 +1,14 @@
+{
+ "id": "2026-11-08b-flat-paco-shard2",
+ "what": "pool_flat PACO test shard 2 (rerun after GPU ECC error)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ta_test_eval.py",
+  "TG_ARGS": "--bench paco --config configs/ta_test_pool_flat.yaml --method ours"
+ },
+ "sbatch": {
+  "time": "12:00:00",
+  "array": "2"
+ },
+ "collect": false
+}

@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-08a-free-oph-instructpart-merge",
+ "what": "pool_soft_fam_free test: oph-instructpart merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ta_test_eval.py",
+  "TG_ARGS": "--bench ophrg --benchmark instructpart --config configs/ta_test_pool_soft_fam_free.yaml --method ours --merge"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "collect": true,
+ "after": [
+  "2026-11-08a-free-oph-instructpart"
+ ]
+}

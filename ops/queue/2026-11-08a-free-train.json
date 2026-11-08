@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-08a-free-train",
+ "what": "restart free-attention training (24 h; the 12 h run timed out at step 9080)",
+ "script": "q_gpu4.sbatch",
+ "env": {
+  "TG_PY": "scripts/ta_train.py",
+  "TG_ARGS": "--config configs/ta_pool_soft_fam_free.yaml"
+ },
+ "sbatch": {
+  "time": "24:00:00"
+ },
+ "collect": true
+}

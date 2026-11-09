@@ -1,0 +1,24 @@
+{
+  "benchmark": "instructpart",
+  "deviation": "D38",
+  "images": 600,
+  "label": "test",
+  "method": "ours",
+  "protocol": "OP-HRG (arXiv 2607.15374)",
+  "results": {
+    "images_equal_to_manifest_train_images": 0,
+    "parts": {
+      "cIoU": 0.7085797225492381,
+      "gIoU": {
+        "ci95": [
+          0.6656614632300044,
+          0.7090934004498485
+        ],
+        "mean": 0.6881600740034753,
+        "n": 600
+      },
+      "queries": 600
+    }
+  },
+  "stage": "ta_pool_full_8b"
+}

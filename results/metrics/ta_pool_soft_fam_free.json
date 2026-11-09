@@ -1,0 +1,876 @@
+{
+  "accumulation": 1,
+  "anchor": "soft0.5",
+  "best_checkpoint": "best.pt",
+  "best_layer": 36,
+  "best_step": 11000,
+  "best_val_selector_success": 0.8501510574018127,
+  "deviations": [
+    "D10",
+    "D21",
+    "D41",
+    "D43",
+    "D44",
+    "D48"
+  ],
+  "eval_curve": [
+    {
+      "anchor": "hard",
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.00375,
+            "chain_part_hard": 0.006018054162487462,
+            "chain_part_none": 0.006018054162487462,
+            "chain_part_soft0.5": 0.006018054162487462,
+            "chain_part_soft1": 0.006018054162487462,
+            "chain_part_soft2": 0.006018054162487462,
+            "chain_part_soft4": 0.006018054162487462,
+            "object": 0.0060790273556231,
+            "part": 0.006018054162487462
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.006042296072507553
+        },
+        "24": {
+          "anchor": "hard",
+          "by_kind": {
+            "chain_object": 0.02,
+            "chain_part_hard": 0.013039117352056168,
+            "chain_part_none": 0.012036108324974924,
+            "chain_part_soft0.5": 0.012036108324974924,
+            "chain_part_soft1": 0.013039117352056168,
+            "chain_part_soft2": 0.013039117352056168,
+            "chain_part_soft4": 0.013039117352056168,
+            "object": 0.010638297872340425,
+            "part": 0.009027081243731194
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.009667673716012085
+        },
+        "36": {
+          "anchor": "hard",
+          "by_kind": {
+            "chain_object": 0.01625,
+            "chain_part_hard": 0.013039117352056168,
+            "chain_part_none": 0.011033099297893681,
+            "chain_part_soft0.5": 0.012036108324974924,
+            "chain_part_soft1": 0.013039117352056168,
+            "chain_part_soft2": 0.013039117352056168,
+            "chain_part_soft4": 0.013039117352056168,
+            "object": 0.0121580547112462,
+            "part": 0.012036108324974924
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.012084592145015106
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.012084592145015106,
+      "step": 0
+    },
+    {
+      "anchor": "soft0.5",
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.798125,
+            "chain_part_hard": 0.3460381143430291,
+            "chain_part_none": 0.35907723169508526,
+            "chain_part_soft0.5": 0.35907723169508526,
+            "chain_part_soft1": 0.3550651955867603,
+            "chain_part_soft2": 0.3460381143430291,
+            "chain_part_soft4": 0.3460381143430291,
+            "object": 0.7370820668693009,
+            "part": 0.35005015045135407
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.5039274924471299
+        },
+        "24": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.91875,
+            "chain_part_hard": 0.551654964894684,
+            "chain_part_none": 0.563691073219659,
+            "chain_part_soft0.5": 0.5616850551654965,
+            "chain_part_soft1": 0.5536609829488466,
+            "chain_part_soft2": 0.5526579739217653,
+            "chain_part_soft4": 0.551654964894684,
+            "object": 0.8541033434650456,
+            "part": 0.5205616850551655
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.6531722054380664
+        },
+        "36": {
+          "anchor": "soft0.5",
+          "by_kind": {
+            "chain_object": 0.91375,
+            "chain_part_hard": 0.5436308926780341,
+            "chain_part_none": 0.5576730190571715,
+            "chain_part_soft0.5": 0.5586760280842528,
+            "chain_part_soft1": 0.5476429287863591,
+            "chain_part_soft2": 0.5426278836509528,
+            "chain_part_soft4": 0.5436308926780341,
+            "object": 0.8738601823708206,
+            "part": 0.5095285857572718
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.654380664652568
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.654380664652568,
+      "step": 1000
+    },
+    {
+      "anchor": "soft0.5",
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.84,
+            "chain_part_hard": 0.4593781344032096,
+            "chain_part_none": 0.4724172517552658,
+            "chain_part_soft0.5": 0.4684052156469408,
+            "chain_part_soft1": 0.47141424272818455,
+            "chain_part_soft2": 0.46439317953861586,
+            "chain_part_soft4": 0.4593781344032096,
+            "object": 0.7993920972644377,
+            "part": 0.4674022066198596
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.5993957703927493
+        },
+        "24": {
+          "anchor": "soft0.5",
+          "by_kind": {
+            "chain_object": 0.94875,
+            "chain_part_hard": 0.6770310932798396,
+            "chain_part_none": 0.6980942828485457,
+            "chain_part_soft0.5": 0.7011033099297894,
+            "chain_part_soft1": 0.6930792377131394,
+            "chain_part_soft2": 0.6860581745235708,
+            "chain_part_soft4": 0.6780341023069207,
+            "object": 0.9316109422492401,
+            "part": 0.6870611835506519
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.7842900302114804
+        },
+        "36": {
+          "anchor": "soft0.5",
+          "by_kind": {
+            "chain_object": 0.950625,
+            "chain_part_hard": 0.6820461384152458,
+            "chain_part_none": 0.6990972918756269,
+            "chain_part_soft0.5": 0.7071213640922769,
+            "chain_part_soft1": 0.6980942828485457,
+            "chain_part_soft2": 0.6930792377131394,
+            "chain_part_soft4": 0.683049147442327,
+            "object": 0.9346504559270516,
+            "part": 0.6940822467402207
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.7897280966767372
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.7897280966767372,
+      "step": 2000
+    },
+    {
+      "anchor": "none",
+      "best_layer": 24,
+      "by_layer": {
+        "12": {
+          "anchor": "soft0.5",
+          "by_kind": {
+            "chain_object": 0.864375,
+            "chain_part_hard": 0.526579739217653,
+            "chain_part_none": 0.5406218655967904,
+            "chain_part_soft0.5": 0.5446339017051154,
+            "chain_part_soft1": 0.5446339017051154,
+            "chain_part_soft2": 0.5346038114343029,
+            "chain_part_soft4": 0.526579739217653,
+            "object": 0.8252279635258358,
+            "part": 0.5215646940822467
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.6422960725075528
+        },
+        "24": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.9625,
+            "chain_part_hard": 0.7111334002006018,
+            "chain_part_none": 0.7512537612838516,
+            "chain_part_soft0.5": 0.7472417251755266,
+            "chain_part_soft1": 0.7372116349047142,
+            "chain_part_soft2": 0.7362086258776329,
+            "chain_part_soft4": 0.7111334002006018,
+            "object": 0.9224924012158054,
+            "part": 0.7261785356068204
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8042296072507553
+        },
+        "36": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.961875,
+            "chain_part_hard": 0.7131394182547643,
+            "chain_part_none": 0.7552657973921765,
+            "chain_part_soft0.5": 0.7442326980942828,
+            "chain_part_soft1": 0.7412236710130391,
+            "chain_part_soft2": 0.7321965897693079,
+            "chain_part_soft4": 0.7141424272818455,
+            "object": 0.9164133738601824,
+            "part": 0.720160481444333
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.7981873111782477
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8042296072507553,
+      "step": 3000
+    },
+    {
+      "anchor": "soft1",
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "anchor": "soft0.5",
+          "by_kind": {
+            "chain_object": 0.87375,
+            "chain_part_hard": 0.5466399197592778,
+            "chain_part_none": 0.5616850551654965,
+            "chain_part_soft0.5": 0.567703109327984,
+            "chain_part_soft1": 0.5626880641925778,
+            "chain_part_soft2": 0.5566700100300903,
+            "chain_part_soft4": 0.5486459378134403,
+            "object": 0.8161094224924013,
+            "part": 0.563691073219659
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.66404833836858
+        },
+        "24": {
+          "anchor": "soft0.5",
+          "by_kind": {
+            "chain_object": 0.966875,
+            "chain_part_hard": 0.7271815446339017,
+            "chain_part_none": 0.7442326980942828,
+            "chain_part_soft0.5": 0.7492477432296891,
+            "chain_part_soft1": 0.7462387161484454,
+            "chain_part_soft2": 0.7462387161484454,
+            "chain_part_soft4": 0.7311935807422267,
+            "object": 0.9316109422492401,
+            "part": 0.7342026078234705
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8126888217522659
+        },
+        "36": {
+          "anchor": "soft1",
+          "by_kind": {
+            "chain_object": 0.9675,
+            "chain_part_hard": 0.7251755265797393,
+            "chain_part_none": 0.7402206619859579,
+            "chain_part_soft0.5": 0.7442326980942828,
+            "chain_part_soft1": 0.7462387161484454,
+            "chain_part_soft2": 0.7412236710130391,
+            "chain_part_soft4": 0.7271815446339017,
+            "object": 0.9331306990881459,
+            "part": 0.7382146439317954
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8157099697885196
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8157099697885196,
+      "step": 4000
+    },
+    {
+      "anchor": "none",
+      "best_layer": 24,
+      "by_layer": {
+        "12": {
+          "anchor": "soft0.5",
+          "by_kind": {
+            "chain_object": 0.90125,
+            "chain_part_hard": 0.5987963891675026,
+            "chain_part_none": 0.6108324974924775,
+            "chain_part_soft0.5": 0.6128385155466399,
+            "chain_part_soft1": 0.6108324974924775,
+            "chain_part_soft2": 0.6078234704112337,
+            "chain_part_soft4": 0.5997993981945837,
+            "object": 0.8753799392097265,
+            "part": 0.6148445336008024
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.718429003021148
+        },
+        "24": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.96375,
+            "chain_part_hard": 0.7121364092276831,
+            "chain_part_none": 0.7382146439317954,
+            "chain_part_soft0.5": 0.7382146439317954,
+            "chain_part_soft1": 0.7372116349047142,
+            "chain_part_soft2": 0.7311935807422267,
+            "chain_part_soft4": 0.7191574724172518,
+            "object": 0.9498480243161094,
+            "part": 0.7331995987963892
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8193353474320242
+        },
+        "36": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.963125,
+            "chain_part_hard": 0.724172517552658,
+            "chain_part_none": 0.7492477432296891,
+            "chain_part_soft0.5": 0.7472417251755266,
+            "chain_part_soft1": 0.7482447342026078,
+            "chain_part_soft2": 0.7472417251755266,
+            "chain_part_soft4": 0.7301905717151455,
+            "object": 0.9452887537993921,
+            "part": 0.7362086258776329
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8193353474320242
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8193353474320242,
+      "step": 5000
+    },
+    {
+      "anchor": "none",
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "anchor": "soft0.5",
+          "by_kind": {
+            "chain_object": 0.929375,
+            "chain_part_hard": 0.629889669007021,
+            "chain_part_none": 0.6399197592778335,
+            "chain_part_soft0.5": 0.6519558676028084,
+            "chain_part_soft1": 0.645937813440321,
+            "chain_part_soft2": 0.6379137412236711,
+            "chain_part_soft4": 0.6308926780341023,
+            "object": 0.9027355623100304,
+            "part": 0.6379137412236711
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.743202416918429
+        },
+        "24": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.9625,
+            "chain_part_hard": 0.7321965897693079,
+            "chain_part_none": 0.765295887662989,
+            "chain_part_soft0.5": 0.7612838515546639,
+            "chain_part_soft1": 0.7562688064192578,
+            "chain_part_soft2": 0.7482447342026078,
+            "chain_part_soft4": 0.7362086258776329,
+            "object": 0.9376899696048632,
+            "part": 0.7522567703109327
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8259818731117825
+        },
+        "36": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.965625,
+            "chain_part_hard": 0.7352056168505516,
+            "chain_part_none": 0.7632898696088265,
+            "chain_part_soft0.5": 0.7622868605817452,
+            "chain_part_soft1": 0.7562688064192578,
+            "chain_part_soft2": 0.7492477432296891,
+            "chain_part_soft4": 0.7392176529588766,
+            "object": 0.939209726443769,
+            "part": 0.753259779338014
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.827190332326284
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.827190332326284,
+      "step": 6000
+    },
+    {
+      "anchor": "none",
+      "best_layer": 24,
+      "by_layer": {
+        "12": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.91875,
+            "chain_part_hard": 0.6268806419257773,
+            "chain_part_none": 0.6449348044132397,
+            "chain_part_soft0.5": 0.6439317953861585,
+            "chain_part_soft1": 0.6439317953861585,
+            "chain_part_soft2": 0.6349047141424273,
+            "chain_part_soft4": 0.6288866599799399,
+            "object": 0.8890577507598785,
+            "part": 0.6439317953861585
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.7413897280966767
+        },
+        "24": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.96625,
+            "chain_part_hard": 0.7542627883650953,
+            "chain_part_none": 0.7863590772316951,
+            "chain_part_soft0.5": 0.7833500501504513,
+            "chain_part_soft1": 0.7783350050150452,
+            "chain_part_soft2": 0.7753259779338014,
+            "chain_part_soft4": 0.7622868605817452,
+            "object": 0.9376899696048632,
+            "part": 0.7823470411233701
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8441087613293051
+        },
+        "36": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.97,
+            "chain_part_hard": 0.7632898696088265,
+            "chain_part_none": 0.7903711133400201,
+            "chain_part_soft0.5": 0.7883650952858575,
+            "chain_part_soft1": 0.7873620862587764,
+            "chain_part_soft2": 0.7813440320962889,
+            "chain_part_soft4": 0.7703109327983951,
+            "object": 0.9331306990881459,
+            "part": 0.7813440320962889
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8416918429003021
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8441087613293051,
+      "step": 7000
+    },
+    {
+      "anchor": "soft0.5",
+      "best_layer": 24,
+      "by_layer": {
+        "12": {
+          "anchor": "soft1",
+          "by_kind": {
+            "chain_object": 0.9325,
+            "chain_part_hard": 0.6599799398194583,
+            "chain_part_none": 0.6680040120361084,
+            "chain_part_soft0.5": 0.6700100300902708,
+            "chain_part_soft1": 0.675025075225677,
+            "chain_part_soft2": 0.6740220661985958,
+            "chain_part_soft4": 0.6629889669007021,
+            "object": 0.898176291793313,
+            "part": 0.6760280842527583
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.7643504531722054
+        },
+        "24": {
+          "anchor": "soft0.5",
+          "by_kind": {
+            "chain_object": 0.9625,
+            "chain_part_hard": 0.753259779338014,
+            "chain_part_none": 0.7833500501504513,
+            "chain_part_soft0.5": 0.7863590772316951,
+            "chain_part_soft1": 0.7843530591775326,
+            "chain_part_soft2": 0.7783350050150452,
+            "chain_part_soft4": 0.7683049147442327,
+            "object": 0.9346504559270516,
+            "part": 0.7662988966900702
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8332326283987915
+        },
+        "36": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.965,
+            "chain_part_hard": 0.7512537612838516,
+            "chain_part_none": 0.7833500501504513,
+            "chain_part_soft0.5": 0.7823470411233701,
+            "chain_part_soft1": 0.7813440320962889,
+            "chain_part_soft2": 0.7733199598796389,
+            "chain_part_soft4": 0.7602808425275828,
+            "object": 0.9300911854103343,
+            "part": 0.7662988966900702
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8314199395770393
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8332326283987915,
+      "step": 8000
+    },
+    {
+      "anchor": "none",
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "anchor": "soft1",
+          "by_kind": {
+            "chain_object": 0.92625,
+            "chain_part_hard": 0.6629889669007021,
+            "chain_part_none": 0.6680040120361084,
+            "chain_part_soft0.5": 0.6700100300902708,
+            "chain_part_soft1": 0.675025075225677,
+            "chain_part_soft2": 0.6730190571715146,
+            "chain_part_soft4": 0.6639919759277834,
+            "object": 0.9012158054711246,
+            "part": 0.6820461384152458
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.7691842900302115
+        },
+        "24": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.96375,
+            "chain_part_hard": 0.7703109327983951,
+            "chain_part_none": 0.7973921765295887,
+            "chain_part_soft0.5": 0.7933801404212638,
+            "chain_part_soft1": 0.7933801404212638,
+            "chain_part_soft2": 0.7933801404212638,
+            "chain_part_soft4": 0.7863590772316951,
+            "object": 0.9422492401215805,
+            "part": 0.7853560682046138
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8477341389728097
+        },
+        "36": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.964375,
+            "chain_part_hard": 0.7723169508525577,
+            "chain_part_none": 0.7973921765295887,
+            "chain_part_soft0.5": 0.7953861584754263,
+            "chain_part_soft1": 0.7933801404212638,
+            "chain_part_soft2": 0.794383149448345,
+            "chain_part_soft4": 0.7823470411233701,
+            "object": 0.9437689969604863,
+            "part": 0.7863590772316951
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8489425981873112
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8489425981873112,
+      "step": 9000
+    },
+    {
+      "anchor": "none",
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "anchor": "soft1",
+          "by_kind": {
+            "chain_object": 0.93,
+            "chain_part_hard": 0.6800401203610833,
+            "chain_part_none": 0.6890672016048145,
+            "chain_part_soft0.5": 0.6930792377131394,
+            "chain_part_soft1": 0.7021063189568706,
+            "chain_part_soft2": 0.695085255767302,
+            "chain_part_soft4": 0.6840521564694082,
+            "object": 0.9057750759878419,
+            "part": 0.6960882647943831
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.7794561933534743
+        },
+        "24": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.964375,
+            "chain_part_hard": 0.7673019057171514,
+            "chain_part_none": 0.7923771313941825,
+            "chain_part_soft0.5": 0.7913741223671013,
+            "chain_part_soft1": 0.7913741223671013,
+            "chain_part_soft2": 0.7903711133400201,
+            "chain_part_soft4": 0.7823470411233701,
+            "object": 0.9452887537993921,
+            "part": 0.7843530591775326
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8483383685800604
+        },
+        "36": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.963125,
+            "chain_part_hard": 0.769307923771314,
+            "chain_part_none": 0.7923771313941825,
+            "chain_part_soft0.5": 0.7903711133400201,
+            "chain_part_soft1": 0.7913741223671013,
+            "chain_part_soft2": 0.7893681043129388,
+            "chain_part_soft4": 0.7813440320962889,
+            "object": 0.9422492401215805,
+            "part": 0.7873620862587764
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8489425981873112
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8489425981873112,
+      "step": 10000
+    },
+    {
+      "anchor": "soft0.5",
+      "best_layer": 36,
+      "by_layer": {
+        "12": {
+          "anchor": "soft1",
+          "by_kind": {
+            "chain_object": 0.936875,
+            "chain_part_hard": 0.6690070210631895,
+            "chain_part_none": 0.6850551654964895,
+            "chain_part_soft0.5": 0.6880641925777332,
+            "chain_part_soft1": 0.6920762286860582,
+            "chain_part_soft2": 0.6840521564694082,
+            "chain_part_soft4": 0.6720160481444333,
+            "object": 0.9057750759878419,
+            "part": 0.6990972918756269
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.7812688821752266
+        },
+        "24": {
+          "anchor": "none",
+          "by_kind": {
+            "chain_object": 0.963125,
+            "chain_part_hard": 0.7673019057171514,
+            "chain_part_none": 0.7923771313941825,
+            "chain_part_soft0.5": 0.7913741223671013,
+            "chain_part_soft1": 0.7923771313941825,
+            "chain_part_soft2": 0.7893681043129388,
+            "chain_part_soft4": 0.7833500501504513,
+            "object": 0.9422492401215805,
+            "part": 0.7873620862587764
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8489425981873112
+        },
+        "36": {
+          "anchor": "soft0.5",
+          "by_kind": {
+            "chain_object": 0.964375,
+            "chain_part_hard": 0.7703109327983951,
+            "chain_part_none": 0.794383149448345,
+            "chain_part_soft0.5": 0.7953861584754263,
+            "chain_part_soft1": 0.7933801404212638,
+            "chain_part_soft2": 0.7953861584754263,
+            "chain_part_soft4": 0.7833500501504513,
+            "object": 0.9407294832826748,
+            "part": 0.7903711133400201
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8501510574018127
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8501510574018127,
+      "step": 11000
+    },
+    {
+      "anchor": "soft0.5",
+      "best_layer": 24,
+      "by_layer": {
+        "12": {
+          "anchor": "soft1",
+          "by_kind": {
+            "chain_object": 0.936875,
+            "chain_part_hard": 0.6700100300902708,
+            "chain_part_none": 0.6860581745235708,
+            "chain_part_soft0.5": 0.6880641925777332,
+            "chain_part_soft1": 0.6930792377131394,
+            "chain_part_soft2": 0.6860581745235708,
+            "chain_part_soft4": 0.6740220661985958,
+            "object": 0.9057750759878419,
+            "part": 0.7011033099297894
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.7824773413897281
+        },
+        "24": {
+          "anchor": "soft0.5",
+          "by_kind": {
+            "chain_object": 0.964375,
+            "chain_part_hard": 0.7642928786359077,
+            "chain_part_none": 0.7883650952858575,
+            "chain_part_soft0.5": 0.7893681043129388,
+            "chain_part_soft1": 0.7893681043129388,
+            "chain_part_soft2": 0.7863590772316951,
+            "chain_part_soft4": 0.7813440320962889,
+            "object": 0.9422492401215805,
+            "part": 0.7883650952858575
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8495468277945619
+        },
+        "36": {
+          "anchor": "soft0.5",
+          "by_kind": {
+            "chain_object": 0.964375,
+            "chain_part_hard": 0.7622868605817452,
+            "chain_part_none": 0.7863590772316951,
+            "chain_part_soft0.5": 0.7883650952858575,
+            "chain_part_soft1": 0.7853560682046138,
+            "chain_part_soft2": 0.7873620862587764,
+            "chain_part_soft4": 0.7743229689067201,
+            "object": 0.9407294832826748,
+            "part": 0.7883650952858575
+          },
+          "chains": 1615,
+          "covered_queries": 1655,
+          "queries": 2288,
+          "selector_success": 0.8489425981873112
+        }
+      },
+      "conditioned_on": "a proposal with IoU >= 0.5 exists; argmax over C_single",
+      "selector_success": 0.8495468277945619,
+      "step": 12000
+    }
+  ],
+  "eval_images": 500,
+  "label": "dev",
+  "pool": true,
+  "selection": "PACO val fixed subset, single-step selector success, best over steps and read-out layers",
+  "smoke": false,
+  "sources": {
+    "grefcoco_train": 0.2,
+    "paco_train": 0.6,
+    "pascal_part_train": 0.2
+  },
+  "training_exclusions": {
+    "grefcoco_train_pool:absent": 17377,
+    "grefcoco_train_pool:instances": 221324,
+    "grefcoco_train_pool:proposal_failures": 1519,
+    "grefcoco_train_pool:queries": 170792,
+    "grefcoco_train_pool:training_items": 32728,
+    "paco_train_pool:instances": 73877,
+    "paco_train_pool:proposal_failures": 8606,
+    "paco_train_pool:queries": 35777,
+    "paco_train_pool:training_items": 6636,
+    "paco_train_pool:unreachable_chains": 8957,
+    "pascal_part_train_pool:instances": 82122,
+    "pascal_part_train_pool:proposal_failures": 8062,
+    "pascal_part_train_pool:queries": 42338,
+    "pascal_part_train_pool:training_items": 3809,
+    "pascal_part_train_pool:unreachable_chains": 8227,
+    "trees_built_for_no_target_items": 0
+  },
+  "training_items": 43173,
+  "v1_gate": {
+    "below_v1_gate": true,
+    "deviation": "D2",
+    "v1_feasible_path_coverage": 0.4982359858878871,
+    "v1_gate_passed": false,
+    "v1_part_recall": 0.40896114578797116,
+    "v1_run": "20261022T074517344153Z_43208246"
+  },
+  "variant": "pool_soft_fam_free",
+  "world_size": 4
+}

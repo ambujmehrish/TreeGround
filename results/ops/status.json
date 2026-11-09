@@ -1,8 +1,9 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 62,
-   "RUNNING": 2
+   "CONFIGURING": 1,
+   "PENDING": 59,
+   "RUNNING": 4
   },
   "ended_24h": [
    {
@@ -854,14 +855,6 @@
     "state": "COMPLETED"
    },
    {
-    "elapsed": "00:31:47",
-    "end": "2026-11-08T13:48:28",
-    "exit": "0:0",
-    "jobid": "63873607",
-    "name": "sm2-cap",
-    "state": "COMPLETED"
-   },
-   {
     "elapsed": "12:03:27",
     "end": "2026-11-09T06:17:26",
     "exit": "0:0",
@@ -896,38 +889,28 @@
   ],
   "squeue": [
    {
-    "elapsed": "0:00",
+    "elapsed": "0:01",
     "jobid": "63976693",
     "name": "fg-node3",
     "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63976692",
-    "name": "fg-node2",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63976691",
-    "name": "fg-node1",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
+    "reason_or_nodelist": "lrdn2953",
+    "start": "2026-11-09T14:50:30",
+    "state": "CONFIGURING",
     "time_limit": "12:00:00"
    },
    {
     "elapsed": "0:00",
     "jobid": "63430720",
+    "name": "fact-wavedec",
+    "nodes": "2",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63430718",
     "name": "fact-wavedec",
     "nodes": "2",
     "reason_or_nodelist": "(Priority)",
@@ -947,16 +930,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63430718",
-    "name": "fact-wavedec",
-    "nodes": "2",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63430721",
     "name": "fact-wavedec",
     "nodes": "2",
@@ -968,6 +941,16 @@
    {
     "elapsed": "0:00",
     "jobid": "63430722",
+    "name": "fact-wavedec",
+    "nodes": "2",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1-00:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "63430723",
     "name": "fact-wavedec",
     "nodes": "2",
     "reason_or_nodelist": "(Dependency)",
@@ -997,7 +980,7 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63430723",
+    "jobid": "63430724",
     "name": "fact-wavedec",
     "nodes": "2",
     "reason_or_nodelist": "(Dependency)",
@@ -1017,17 +1000,17 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63430724",
-    "name": "fact-wavedec",
-    "nodes": "2",
+    "jobid": "63430729",
+    "name": "fact-eval-base",
+    "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
     "state": "PENDING",
-    "time_limit": "1-00:00:00"
+    "time_limit": "12:00:00"
    },
    {
     "elapsed": "0:00",
-    "jobid": "63430729",
+    "jobid": "63430730",
     "name": "fact-eval-base",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
@@ -1044,16 +1027,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "5:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63430730",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
    },
    {
     "elapsed": "0:00",
@@ -1516,7 +1489,7 @@
     "time_limit": "4:00:00"
    },
    {
-    "elapsed": "9:26:26",
+    "elapsed": "10:31:04",
     "jobid": "63430716",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -1526,7 +1499,27 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "25:02",
+    "elapsed": "6:22",
+    "jobid": "63976692",
+    "name": "fg-node2",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn2909",
+    "start": "2026-11-09T14:44:09",
+    "state": "RUNNING",
+    "time_limit": "12:00:00"
+   },
+   {
+    "elapsed": "9:43",
+    "jobid": "63976691",
+    "name": "fg-node1",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn2893",
+    "start": "2026-11-09T14:40:48",
+    "state": "RUNNING",
+    "time_limit": "12:00:00"
+   },
+   {
+    "elapsed": "1:29:40",
     "jobid": "63976689",
     "name": "fg-node0",
     "nodes": "1",
@@ -15510,5 +15503,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794228353.4274457
+ "updated": 1794232231.5826628
 }

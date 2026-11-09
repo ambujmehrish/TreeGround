@@ -8,6 +8,7 @@
 % Our training data: PACO-LVIS, Pascal-Part, gRefCOCO train splits (12k steps x 32 queries). Trainable parameters of
 % Ours, counted from the model code: 64.2M = LoRA r16 on the 36 decoder layers 33.0M + three selection heads 17.3M +
 % mask-token embedding 13.8M (+ <SEL> row, 252 relation biases).
+% Table 1 8B row: pool_full_8b (D46), test splits; chosen on val 0.844. PartImageNet merge pending.
 % Table 1 (controlled): every row run by us with the same queries, the same scorer and Qwen3-VL-4B where an MLLM is
 % used; SAM 3 is the mask source of every row but Sa2VA (its own SAM-2 decoder).
 % Table 2 (published): sources: OP-HRG 2607.15374 T1 (all its T1 numbers, incl. UniPixel / Sa2VA-4B / LISA /
@@ -47,6 +48,7 @@ Qwen3-VL-4B box + SAM\,3         & 47.1 & 48.8 & 37.5 & 33.0 & 33.6 & 45.1 & 67.
 \midrule
 \multicolumn{15}{l}{\textit{Larger backbones}} \\
 Qwen3-VL-8B box + SAM\,3         & 46.5 & 48.2 & 26.3 & 33.2 & 32.8 & 47.0 & 69.0 & 75.8 & 80.1 & 69.7 & 50.2 & 47.4 & 24.4 & 29.3 \\
+\ours{} (Ours, Qwen3-VL-8B)$^\dagger$ & 50.0 & 51.3 & 50.8 & 47.4 & 39.6 & --   & 68.8 & 81.3 & 80.3 & 68.8 & 71.3 & 64.9 & 85.7 & 84.1 \\
 Qwen3-VL-32B box + SAM\,3        & 49.3 & 50.5 & --   & --   & --   & --   & --   & --   & --   & --   & 55.3 & 52.1 & 44.7 & 43.8 \\
 \midrule
 \rowcolor{oursrow}
@@ -58,7 +60,7 @@ $\Delta$ vs.\ best $\le$4B row    & \up{+2.3} & \up{+2.2} & \up{+13.9} & \up{+14
 is run by us with the same queries and scorer, the same Qwen3-VL-4B backbone where an MLLM is used, and SAM\,3 as mask
 source (Sa2VA: its own decoder; Grounded-SAM\,2: Grounding DINO boxes + SAM\,2). Larger backbones are listed for
 reference; $\Delta$ compares with the segmentation pipelines and the 4B MLLMs. The largest gains are on part queries and on rejecting absent targets.
-$^\S$our model is trained on this dataset's training split; all other columns are zero-shot for every row.}
+$^\dagger$our model on Qwen3-VL-8B (same pool and data, without the tree-relation bias and family loss; PartImageNet pending). $^\S$our model is trained on this dataset's training split; all other columns are zero-shot for every row.}
 \label{tab:controlled}
 \end{table*}
 

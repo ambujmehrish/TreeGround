@@ -4,7 +4,7 @@ answers part queries, multi-target expressions and no-target expressions.
 Every pixel shown is a real model output: results/figures/teaser_assets.json (scripts/teaser_assets.py, pool_soft_fam
 on test queries). Scores are the model's own: (a) softmax of s_v over the whole pool (the part decision is argmax);
 (b) sigmoid(s_v) against the gRefCOCO set threshold t chosen on val.
-usage: python paper/figures/make_teaser.py [--hero 0 --part 1 --multi 0 --none 0] [--png teaser.png]
+usage: python paper/figures/make_teaser.py --hero 5 --part 0 --multi 2 --none 6 --png   (the paper version)
 """
 import argparse
 import base64
@@ -300,20 +300,20 @@ def answer_panel(ex: dict, kind: str, x0: float, y0: float, pw: float, ph: float
     lg = np.asarray(ex["logits"])
     if kind == "part":
         m = pool[ex["pick"]]
-        focus = bbox(dec(ex["gt_object"]) | m)
+        focus, frac = bbox(m), 0.5
         arr = paint(img, [m], [PICK], dim=0.2)
         badge, bcol = f"argmax: 1 mask, IoU {ex['pick_iou']:.2f}", PICK
     elif kind == "multi":
         ms = [pool[i] for i in ex["chosen"]]
-        focus = bbox(np.logical_or.reduce(ms))
+        focus, frac = bbox(np.logical_or.reduce(ms)), 0.6
         arr = paint(img, ms, SET_COLORS * 4, dim=0.2)
         badge, bcol = f"σ ≥ {ex['t']:.2f}: {len(ms)} masks, IoU {ex['iou']:.2f}", SET_COLORS[1]
     else:
         best = int(np.argmax(lg))
-        focus = bbox(pool[best])
+        focus, frac = bbox(pool[best]), 1.0             # whole image: the scene shows why nothing matches
         arr = paint(img, [], [], dim=0.3, dashed=(pool[best], (40, 40, 40)))
         badge, bcol = f"best σ = {1 / (1 + np.exp(-lg[best])):.2f} < {ex['t']:.2f}: empty", (60, 60, 60)
-    box = crop_box(h, w, focus, pw / ph, margin=0.3, min_frac=0.6)
+    box = crop_box(h, w, focus, pw / ph, margin=0.3, min_frac=frac)
     out.append(image_tag(round(x0, 1), iy, round(pw, 1), ph, to_png(arr, box, (int(2 * pw), int(2 * ph))), 6))
     out.append(f'<rect x="{x0:.1f}" y="{iy}" width="{pw:.1f}" height="{ph}" rx="6" fill="none" stroke="{LINE}"/>')
     if kind == "none":

@@ -1,8 +1,8 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 62,
-   "RUNNING": 6
+   "PENDING": 60,
+   "RUNNING": 4
   },
   "ended_24h": [
    {
@@ -254,12 +254,28 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "03:35:46",
+    "end": "2026-11-09T11:32:17",
+    "exit": "0:0",
+    "jobid": "63652433_1",
+    "name": "q_2026-11-06a-8b-oph-partimagenet",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "01:56:57",
     "end": "2026-11-09T09:53:28",
     "exit": "1:0",
     "jobid": "63652433_2",
     "name": "q_2026-11-06a-8b-oph-partimagenet",
     "state": "FAILED"
+   },
+   {
+    "elapsed": "03:32:10",
+    "end": "2026-11-09T11:28:41",
+    "exit": "0:0",
+    "jobid": "63652433_3",
+    "name": "q_2026-11-06a-8b-oph-partimagenet",
+    "state": "COMPLETED"
    },
    {
     "elapsed": "00:53:55",
@@ -398,6 +414,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "00:02:27",
+    "end": "2026-11-09T11:26:24",
+    "exit": "0:0",
+    "jobid": "63652727",
+    "name": "q_2026-11-06a-8b-gseval-merge",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:03:02",
     "end": "2026-11-09T09:17:53",
     "exit": "0:0",
@@ -411,6 +435,14 @@
     "exit": "0:0",
     "jobid": "63652730",
     "name": "q_2026-11-06a-8b-oph-pascalpart-merge",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:02:27",
+    "end": "2026-11-09T11:26:24",
+    "exit": "0:0",
+    "jobid": "63652731",
+    "name": "q_2026-11-06a-8b-paco-merge",
     "state": "COMPLETED"
    },
    {
@@ -1363,26 +1395,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "63652731",
-    "name": "q_2026-11-06a-8b-paco-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63652727",
-    "name": "q_2026-11-06a-8b-gseval-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63652729",
     "name": "q_2026-11-06a-8b-oph-partimagenet-merge",
     "nodes": "1",
@@ -1572,7 +1584,7 @@
     "time_limit": "4:00:00"
    },
    {
-    "elapsed": "7:02:44",
+    "elapsed": "7:14:36",
     "jobid": "63430716",
     "name": "fact-stage-a",
     "nodes": "2",
@@ -1582,7 +1594,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "20:27:48",
+    "elapsed": "20:39:40",
     "jobid": "63430717",
     "name": "fact-wavedec",
     "nodes": "2",
@@ -1592,7 +1604,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "20:27:48",
+    "elapsed": "20:39:40",
     "jobid": "63430719",
     "name": "fact-wavedec",
     "nodes": "2",
@@ -1602,31 +1614,11 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "3:25:40",
+    "elapsed": "3:37:32",
     "jobid": "63652433_0",
     "name": "q_2026-11-06a-8b-oph-partimagenet",
     "nodes": "1",
     "reason_or_nodelist": "lrdn0488",
-    "start": "2026-11-09T07:56:31",
-    "state": "RUNNING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "3:25:40",
-    "jobid": "63652433_1",
-    "name": "q_2026-11-06a-8b-oph-partimagenet",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0044",
-    "start": "2026-11-09T07:56:31",
-    "state": "RUNNING",
-    "time_limit": "10:00:00"
-   },
-   {
-    "elapsed": "3:25:40",
-    "jobid": "63652433_3",
-    "name": "q_2026-11-06a-8b-oph-partimagenet",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0735",
     "start": "2026-11-09T07:56:31",
     "state": "RUNNING",
     "time_limit": "10:00:00"
@@ -14570,15 +14562,15 @@
    "waiting_for": null
   },
   "2026-11-06a-8b-gseval-merge": {
-   "collected": null,
+   "collected": 1794220051.835782,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794220051.8357806,
    "invalid": null,
    "jobid": "63652727",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1793957349.6557655,
@@ -14623,6 +14615,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
+    "COMPLETED",
     "FAILED",
     "RUNNING"
    ],
@@ -14691,15 +14684,15 @@
    "waiting_for": null
   },
   "2026-11-06a-8b-paco-merge": {
-   "collected": null,
+   "collected": 1794220099.2937474,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794220099.2937443,
    "invalid": null,
    "jobid": "63652731",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1793957350.8792446,
@@ -15606,5 +15599,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794219731.7822654
+ "updated": 1794220444.1250632
 }

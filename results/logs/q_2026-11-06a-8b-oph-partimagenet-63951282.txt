@@ -27,3 +27,48 @@ You are using a model of type sam3_video to instantiate a model of type sam3_tra
 [525/1147] queries 1451 6143s
 [550/1147] queries 1533 6392s
 [575/1147] queries 1620 6630s
+[W1109 09:52:40.414550717 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 15332278272 bytes (free: 13143375872, total: 68099571712).
+[W1109 09:52:48.677482254 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 15332278272 bytes (free: 11199315968, total: 68099571712).
+[W1109 09:52:48.759363424 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 15332278272 bytes (free: 11287396352, total: 68099571712).
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/qwen8.py", line 49, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/qwen8.py", line 45, in main
+    runpy.run_path(str(ROOT / target), run_name="__main__")
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 371, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 367, in main
+    module.main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ophrg_eval.py", line 350, in main
+    run_shard(cfg, args.method, args.benchmark, args.shard)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ophrg_eval.py", line 286, in run_shard
+    rows += predict(image, key, qs)
+            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 294, in __call__
+    pools, lgs = self.s.score(image, key, g.text.tolist(), queries)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 153, in score
+    pools = self.pools(image, texts)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 127, in pools
+    rles, parents = self.nodes(image)
+                    ^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 121, in nodes
+    rles = self.S2N.node_set(self.sam, self.sproc, self.cfg, image, self.cap)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s2_nodes.py", line 98, in node_set
+    out = P.generate(sam, sproc, image, pcfg)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/proposals.py", line 68, in generate
+    s = stability_scores(logits, cfg.mask_threshold, cfg.stability_offset)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/proposals.py", line 45, in stability_scores
+    hi = (logits > thr + offset).flatten(-2).sum(-1, dtype=torch.int64)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 14.28 GiB. GPU 0 has a total capacity of 63.42 GiB of which 10.51 GiB is free. Including non-PyTorch memory, this process has 52.90 GiB memory in use. Of the allocated memory 32.53 GiB is allocated by PyTorch, and 19.80 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)

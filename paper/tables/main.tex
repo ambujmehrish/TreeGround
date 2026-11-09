@@ -100,8 +100,8 @@ SAMTok (GRES-ft) & 7B & - & - & 5M SFT + RL + gRefCOCO & -- & -- & -- & -- & -- 
 \end{tabular}}
 \caption{\textbf{Comparison with published systems} on test splits (gIoU, \%; N-acc as in
 Tab.~\ref{tab:controlled}). Numbers as published under the same protocol; bold marks the best same-size result.
-Parameters: total from the model cards (ours incl.\ the frozen SAM\,3); trainable as printed in the paper
-(OP-HRG trains the full MLLM; ours counted from the model code). $^\ddagger$measured by PANORAMA under each method's
+Parameters: total at inference, including any frozen segmenter (model cards; ours: Qwen3-VL-4B + SAM\,3 + 64.2M
+trained); trainable as printed in the paper (OP-HRG trains the full MLLM; ours counted exactly from the model code). $^\ddagger$measured by PANORAMA under each method's
 released recipe (its Tab.~17). ``-'' / ``--'': not reported. $^\S$the method trains on this
 benchmark's training split (in-domain); all other cells are zero-shot.}
 \label{tab:published}

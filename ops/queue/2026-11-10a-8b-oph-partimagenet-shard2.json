@@ -1,0 +1,12 @@
+{
+ "id": "2026-11-10a-8b-oph-partimagenet-shard2",
+ "what": "pool_full_8b test: OP-HRG partimagenet shard 2 rerun (OOM on 2026-11-09; expandable allocator segments only, results unchanged)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qwen8.py",
+  "TG_ARGS": "scripts/ta_test_eval.py --bench ophrg --config configs/ta_test_pool_full_8b.yaml --method ours --benchmark partimagenet",
+  "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"
+ },
+ "sbatch": {"time": "06:00:00", "array": "2"},
+ "collect": false
+}

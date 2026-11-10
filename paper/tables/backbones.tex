@@ -21,8 +21,8 @@ Box + SAM\,3                     & 47.1 & 48.8 & 37.5 & 33.0 & 33.6 & 45.1 & 67.
 \multicolumn{15}{l}{\textit{MLLM backbone: Qwen3-VL-8B}} \\
 Box + SAM\,3                     & 46.5 & 48.2 & 26.3 & 33.2 & 32.8 & 47.0 & 69.0 & 75.8 & 80.1 & 69.7 & 50.2 & 47.4 & 24.4 & 29.3 \\
 \rowcolor{oursrow}
-\ours{} (Ours)$^\dagger$         & 50.0 & 51.3 & 50.8 & 47.4 & 39.6 & --   & 68.8 & 81.3 & 80.3 & 68.8 & 71.3 & 64.9 & 85.7 & 84.1 \\
-$\Delta$ vs.\ Box + SAM\,3       & \up{+3.5} & \up{+3.1} & \up{+24.5} & \up{+14.2} & \up{+6.8} & --   & \dn{$-$0.2} & \up{+5.5} & \up{+0.2} & \dn{$-$0.9} & \up{+21.1} & \up{+17.5} & \up{+61.3} & \up{+54.8} \\
+\ours{} (Ours)$^\dagger$         & 50.0 & 51.3 & 50.8 & 47.4 & 39.6 & 50.7 & 68.8 & 81.3 & 80.3 & 68.8 & 71.3 & 64.9 & 85.7 & 84.1 \\
+$\Delta$ vs.\ Box + SAM\,3       & \up{+3.5} & \up{+3.1} & \up{+24.5} & \up{+14.2} & \up{+6.8} & \up{+3.7} & \dn{$-$0.2} & \up{+5.5} & \up{+0.2} & \dn{$-$0.9} & \up{+21.1} & \up{+17.5} & \up{+61.3} & \up{+54.8} \\
 \midrule
 \multicolumn{15}{l}{\textit{MLLM backbone: Qwen3-VL-32B}} \\
 Box + SAM\,3                     & 49.3 & 50.5 & --   & --   & --   & --   & --   & --   & --   & --   & 55.3 & 52.1 & 44.7 & 43.8 \\
@@ -32,6 +32,6 @@ Box + SAM\,3                     & 49.3 & 50.5 & --   & --   & --   & --   & -- 
 accuracy on no-target expressions). $\Delta$: \ours{} minus Box + SAM\,3 with the same 8B backbone. With 8B, \ours{}
 keeps its margin over Box + SAM\,3; compared with the 4B model it is within 1.2 points on every grounding column and
 lower on rejection (N-acc $-$3.9 / $-$1.9). The 32B pipeline was run on PARTONOMY and gRefCOCO only. $^\dagger$same pool and data as the 4B model, without the tree-relation bias and family
-loss; PartImageNet pending. $^\S$\ours{} trains on this dataset's training split; all other columns are zero-shot.}
+loss. $^\S$\ours{} trains on this dataset's training split; all other columns are zero-shot.}
 \label{tab:backbones}
 \end{table*}

@@ -1,8 +1,7 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 21,
-   "RUNNING": 1
+   "PENDING": 21
   },
   "ended_24h": [
    {
@@ -598,6 +597,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "00:15:18",
+    "end": "2026-11-10T13:40:56",
+    "exit": "0:0",
+    "jobid": "64050608",
+    "name": "q_2026-11-10a-8b-oph-partimagenet-merge",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:02:08",
     "end": "2026-11-10T09:48:17",
     "exit": "0:0",
@@ -856,16 +863,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "14:28",
-    "jobid": "64050608",
-    "name": "q_2026-11-10a-8b-oph-partimagenet-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0415",
-    "start": "2026-11-10T13:25:38",
-    "state": "RUNNING",
-    "time_limit": "2:00:00"
    }
   ]
  },
@@ -14860,15 +14857,15 @@
    "waiting_for": null
   },
   "2026-11-10a-8b-oph-partimagenet-merge": {
-   "collected": null,
+   "collected": 1794314722.5527735,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794314722.5527723,
    "invalid": null,
    "jobid": "64050608",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1794300074.3576963,
@@ -14890,5 +14887,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794314407.117337
+ "updated": 1794316123.1009405
 }

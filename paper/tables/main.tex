@@ -50,20 +50,21 @@ Box + SAM\,3                     & 47.1 & 48.8 & 37.5 & 33.0 & 33.6 & 45.1 & 67.
 Box + SAM\,3                     & 46.5 & 48.2 & 26.3 & 33.2 & 32.8 & 47.0 & 69.0 & 75.8 & 80.1 & 69.7 & 50.2 & 47.4 & 24.4 & 29.3 \\
 \rowcolor{oursrow}
 \ours{} (Ours, Qwen3-VL-8B)$^\dagger$ & 50.0 & 51.3 & 50.8 & 47.4 & 39.6 & --   & 68.8 & 81.3 & 80.3 & 68.8 & 71.3 & 64.9 & 85.7 & 84.1 \\
-$\Delta$ vs.\ best 8B row        & \up{+3.5} & \up{+3.1} & \up{+20.1} & \up{+14.2} & \up{+6.8} & --   & \dn{$-$0.2} & \up{+5.5} & \up{+0.2} & \dn{$-$0.9} & \up{+21.1} & \up{+17.1} & \dn{$-$3.4} & \up{+1.2} \\
+$\Delta$ vs.\ 8B Box + SAM\,3   & \up{+3.5} & \up{+3.1} & \up{+24.5} & \up{+14.2} & \up{+6.8} & --   & \dn{$-$0.2} & \up{+5.5} & \up{+0.2} & \dn{$-$0.9} & \up{+21.1} & \up{+17.5} & \up{+61.3} & \up{+54.8} \\
 \midrule
 \multicolumn{15}{l}{\textit{MLLM backbone: Qwen3-VL-32B (reference)}} \\
 Box + SAM\,3                     & 49.3 & 50.5 & --   & --   & --   & --   & --   & --   & --   & --   & 55.3 & 52.1 & 44.7 & 43.8 \\
 \midrule
 \rowcolor{oursrow}
 \ours{} (Ours, Qwen3-VL-4B)      & \textbf{49.4} & \textbf{51.0} & \textbf{51.4} & \textbf{47.5} & \textbf{40.6} & \textbf{50.7} & \textbf{68.2} & \textbf{81.8} & \textbf{80.6} & 70.0 & \textbf{72.3} & \textbf{65.2} & \textbf{89.6} & \textbf{86.0} \\
-$\Delta$ vs.\ best $\le$4B row    & \up{+2.3} & \up{+2.2} & \up{+13.9} & \up{+14.5} & \up{+7.0} & \up{+5.6} & \up{+0.7} & \up{+5.4} & \up{+0.6} & \dn{$-$2.2} & \up{+20.8} & \up{+17.2} & \up{+0.5} & \up{+3.1} \\
+$\Delta$ vs.\ best $\le$4B row$^\ast$ & \up{+2.3} & \up{+2.2} & \up{+13.9} & \up{+14.5} & \up{+7.0} & \up{+5.6} & \up{+0.7} & \up{+5.4} & \up{+0.6} & \dn{$-$2.2} & \up{+20.8} & \up{+17.2} & \up{+0.5} & \up{+3.1} \\
 \bottomrule
 \end{tabular}}
 \caption{\textbf{Controlled comparison} on test splits (gIoU, \%; N-acc: accuracy on no-target expressions). Every row
 is run by us with the same queries and scorer and SAM\,3 as mask source (Sa2VA: its own decoder; Grounded-SAM\,2:
-Grounding DINO boxes + SAM\,2). Rows are grouped by MLLM backbone; 8B and 32B are references. $\Delta$: \ours{} minus
-the best row of the same backbone size or of the segmentation pipelines; bold: best with $\le$4B.
+Grounding DINO boxes + SAM\,2). Rows are grouped by MLLM backbone; 8B and 32B are references. $^\ast$per column, the best
+of all rows above with $\le$4B, segmentation pipelines included. 8B $\Delta$: difference to the 8B Box + SAM\,3 row
+above it. Bold: best with $\le$4B.
 $^\dagger$same pool and data, without the tree-relation bias and family loss; PartImageNet pending.
 $^\S$our model trains on this dataset's training split; all other columns are zero-shot for every row.}
 \label{tab:controlled}

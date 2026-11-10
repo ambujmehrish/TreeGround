@@ -15,7 +15,7 @@
 \cmidrule(lr){3-8}\cmidrule(lr){9-11}\cmidrule(lr){12-13}
  & & PARTONOMY & GSEval & PACO & PPS & PartImage- & Instruct- & GSEval & \multicolumn{2}{c}{gRefCOCO} & \multicolumn{2}{c}{gRefCOCO N-acc} \\
 \cmidrule(lr){10-11}\cmidrule(lr){12-13}
- & Candidates $\rightarrow$ selection & macro & Part & Part & -116 & Net & Part & All & testA & testB & testA & testB \\
+ & Candidates $\rightarrow$ selection & macro & Part & Part\indom & -116\indom & Net & Part & All & testA\indom & testB\indom & testA\indom & testB\indom \\
 \midrule
 (a) & SAM\,3 text only (its own ranking)                      & 31.7 & 30.7 & 25.8 & 30.0 & 24.3 & 66.5 & 42.4 & 42.2 & 47.8 & 89.1 & 82.9 \\
 (b) & grid pool (query-free) $\rightarrow$ mask tokens        & 44.8 & 48.5 & 35.9 & 29.4 & 43.9 & 61.1 & 59.2 & 69.6 & 61.7 & 85.6 & 82.0 \\
@@ -31,6 +31,6 @@
 selecting among candidates; (b)$\rightarrow$(f): query-conditioned candidates (coverage); (c)$\rightarrow$(f): candidates as
 mask tokens inside the LLM instead of pooled features; (d), (e): attention restricted to each candidate's region, and the
 real containment tree, replaced by free attention and by a shuffled tree. Rows (b)--(f) use the same data, schedule and
-backbone; checkpoint, layer and part-decision rule of each are chosen on validation.}
+backbone; checkpoint, layer and part-decision rule of each are chosen on validation. $^\S$in-domain for (b)--(f).}
 \label{tab:ablation}
 \end{table*}

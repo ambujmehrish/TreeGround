@@ -6,14 +6,6 @@
   },
   "ended_24h": [
    {
-    "elapsed": "20:03:27",
-    "end": "2026-11-10T00:22:54",
-    "exit": "0:0",
-    "jobid": "63430716",
-    "name": "fact-stage-a",
-    "state": "COMPLETED"
-   },
-   {
     "elapsed": "00:00:00",
     "end": "2026-11-10T09:40:38",
     "exit": "0:0",
@@ -28,14 +20,6 @@
     "jobid": "63430723",
     "name": "fact-wavedec",
     "state": "CANCELLED"
-   },
-   {
-    "elapsed": "00:09:35",
-    "end": "2026-11-10T00:33:32",
-    "exit": "0:0",
-    "jobid": "63430726",
-    "name": "fact-tripwires",
-    "state": "COMPLETED"
    },
    {
     "elapsed": "00:53:33",
@@ -302,30 +286,6 @@
     "state": "COMPLETED"
    },
    {
-    "elapsed": "00:46:13",
-    "end": "2026-11-09T23:43:36",
-    "exit": "0:0",
-    "jobid": "63995435",
-    "name": "sm2-dpo-train",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:31:43",
-    "end": "2026-11-10T00:17:54",
-    "exit": "0:0",
-    "jobid": "64013160",
-    "name": "sm2-cap",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:11:04",
-    "end": "2026-11-09T23:55:28",
-    "exit": "0:0",
-    "jobid": "64013161",
-    "name": "sm2-wild",
-    "state": "COMPLETED"
-   },
-   {
     "elapsed": "03:48:40",
     "end": "2026-11-10T13:25:04",
     "exit": "0:0",
@@ -441,7 +401,7 @@
     "name": "hm_bc_s0_r4",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
-    "start": "2026-11-10T23:35:40",
+    "start": "N/A",
     "state": "PENDING",
     "time_limit": "8:00:00"
    },
@@ -451,7 +411,7 @@
     "name": "hm_eval_llm_r4",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
-    "start": "2026-11-10T23:35:40",
+    "start": "N/A",
     "state": "PENDING",
     "time_limit": "12:00:00"
    },
@@ -467,16 +427,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62703290",
-    "name": "hm_train_C-edit_s0_r4",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63562996_[0-3]",
     "name": "edit_cocoedit_pool_judge_qwen_gedit_full",
     "nodes": "1",
@@ -487,8 +437,8 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62703291",
-    "name": "hm_train_GRPO_s0_r4",
+    "jobid": "62703290",
+    "name": "hm_train_C-edit_s0_r4",
     "nodes": "1",
     "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
@@ -504,6 +454,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62703291",
+    "name": "hm_train_GRPO_s0_r4",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1-00:00:00"
    },
    {
     "elapsed": "0:00",
@@ -527,16 +487,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62703294",
-    "name": "hm_eval_GRPO_s0_it029_r4",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63563066_[0-3]",
     "name": "edit_cocoedit_pool_judge_qwen_imgedit_full",
     "nodes": "1",
@@ -544,6 +494,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62703294",
+    "name": "hm_eval_GRPO_s0_it029_r4",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "12:00:00"
    },
    {
     "elapsed": "0:00",
@@ -646,7 +606,7 @@
     "time_limit": "4:00:00"
    },
    {
-    "elapsed": "5:37:43",
+    "elapsed": "6:40:23",
     "jobid": "64089815",
     "name": "paperA_refsample",
     "nodes": "1",
@@ -656,7 +616,7 @@
     "time_limit": "14:00:00"
    },
    {
-    "elapsed": "5:37:43",
+    "elapsed": "6:40:23",
     "jobid": "64089819",
     "name": "paperA_refsample",
     "nodes": "1",
@@ -14688,5 +14648,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794350140.3653893
+ "updated": 1794353900.6471002
 }

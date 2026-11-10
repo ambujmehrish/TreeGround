@@ -30,8 +30,8 @@ Box + SAM\,3                     & 49.3 & 50.5 & --   & --   & --   & --   & -- 
 \end{tabular}}
 \caption{\textbf{Larger MLLM backbones} under the protocol of Tab.~\ref{tab:controlled} (test splits; gIoU, \%; N-acc:
 accuracy on no-target expressions). $\Delta$: \ours{} minus Box + SAM\,3 with the same 8B backbone. With 8B, \ours{}
-keeps its margin over Box + SAM\,3 and stays within about two points of the 4B model; the 32B pipeline was run on
-PARTONOMY and gRefCOCO only. $^\dagger$same pool and data as the 4B model, without the tree-relation bias and family
+keeps its margin over Box + SAM\,3; compared with the 4B model it is within 1.2 points on every grounding column and
+lower on rejection (N-acc $-$3.9 / $-$1.9). The 32B pipeline was run on PARTONOMY and gRefCOCO only. $^\dagger$same pool and data as the 4B model, without the tree-relation bias and family
 loss; PartImageNet pending. $^\S$\ours{} trains on this dataset's training split; all other columns are zero-shot.}
 \label{tab:backbones}
 \end{table*}

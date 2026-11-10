@@ -1,0 +1,37 @@
+% Appendix: Table 1 protocol with larger MLLM backbones (test splits; every row run by us, same queries and scorer).
+% Ours 8B = pool_full_8b (D46; chosen on val 0.844): same pool and data as the 4B model, without the tree-relation bias
+% and family loss. Needs the macros of main.tex (\ours, \indom, oursrow, \up, \dn).
+\begin{table*}[t]
+\centering
+\setlength{\tabcolsep}{3.5pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l ccccccc ccccc cc}
+\toprule
+ & \multicolumn{7}{c}{Part grounding} & \multicolumn{5}{c}{Object and referring grounding} & \multicolumn{2}{c}{Rejection} \\
+\cmidrule(lr){2-8}\cmidrule(lr){9-13}\cmidrule(lr){14-15}
+ & \multicolumn{2}{c}{PARTONOMY} & GSEval & PACO & PPS & PartImage- & Instruct- & PACO & PPS & GSEval & \multicolumn{2}{c}{gRefCOCO} & \multicolumn{2}{c}{gRefCOCO N-acc} \\
+\cmidrule(lr){2-3}\cmidrule(lr){12-13}\cmidrule(lr){14-15}
+Method & micro & macro & Part & Part\indom & -116\indom & Net & Part & Object\indom & Object\indom & All & testA\indom & testB\indom & testA\indom & testB\indom \\
+\midrule
+\multicolumn{15}{l}{\textit{MLLM backbone: Qwen3-VL-4B (main paper, Tab.~\ref{tab:controlled})}} \\
+Box + SAM\,3                     & 47.1 & 48.8 & 37.5 & 33.0 & 33.6 & 45.1 & 67.5 & 76.4 & 80.0 & 72.2 & 50.7 & 48.0 & 27.7 & 32.4 \\
+\rowcolor{oursrow}
+\ours{} (Ours)                   & 49.4 & 51.0 & 51.4 & 47.5 & 40.6 & 50.7 & 68.2 & 81.8 & 80.6 & 70.0 & 72.3 & 65.2 & 89.6 & 86.0 \\
+\midrule
+\multicolumn{15}{l}{\textit{MLLM backbone: Qwen3-VL-8B}} \\
+Box + SAM\,3                     & 46.5 & 48.2 & 26.3 & 33.2 & 32.8 & 47.0 & 69.0 & 75.8 & 80.1 & 69.7 & 50.2 & 47.4 & 24.4 & 29.3 \\
+\rowcolor{oursrow}
+\ours{} (Ours)$^\dagger$         & 50.0 & 51.3 & 50.8 & 47.4 & 39.6 & --   & 68.8 & 81.3 & 80.3 & 68.8 & 71.3 & 64.9 & 85.7 & 84.1 \\
+$\Delta$ vs.\ Box + SAM\,3       & \up{+3.5} & \up{+3.1} & \up{+24.5} & \up{+14.2} & \up{+6.8} & --   & \dn{$-$0.2} & \up{+5.5} & \up{+0.2} & \dn{$-$0.9} & \up{+21.1} & \up{+17.5} & \up{+61.3} & \up{+54.8} \\
+\midrule
+\multicolumn{15}{l}{\textit{MLLM backbone: Qwen3-VL-32B}} \\
+Box + SAM\,3                     & 49.3 & 50.5 & --   & --   & --   & --   & --   & --   & --   & --   & 55.3 & 52.1 & 44.7 & 43.8 \\
+\bottomrule
+\end{tabular}}
+\caption{\textbf{Larger MLLM backbones} under the protocol of Tab.~\ref{tab:controlled} (test splits; gIoU, \%; N-acc:
+accuracy on no-target expressions). $\Delta$: \ours{} minus Box + SAM\,3 with the same 8B backbone. With 8B, \ours{}
+keeps its margin over Box + SAM\,3 and stays within about two points of the 4B model; the 32B pipeline was run on
+PARTONOMY and gRefCOCO only. $^\dagger$same pool and data as the 4B model, without the tree-relation bias and family
+loss; PartImageNet pending. $^\S$\ours{} trains on this dataset's training split; all other columns are zero-shot.}
+\label{tab:backbones}
+\end{table*}

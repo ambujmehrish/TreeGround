@@ -1,8 +1,8 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 23,
-   "RUNNING": 2
+   "PENDING": 21,
+   "RUNNING": 1
   },
   "ended_24h": [
    {
@@ -11,14 +11,6 @@
     "exit": "0:0",
     "jobid": "63430716",
     "name": "fact-stage-a",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "22:41:12",
-    "end": "2026-11-09T13:35:35",
-    "exit": "0:0",
-    "jobid": "63430717",
-    "name": "fact-wavedec",
     "state": "COMPLETED"
    },
    {
@@ -494,6 +486,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "05:13:46",
+    "end": "2026-11-10T13:06:59",
+    "exit": "0:0",
+    "jobid": "63991270",
+    "name": "paperA_wan",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:00:04",
     "end": "2026-11-09T16:22:31",
     "exit": "0:0",
@@ -506,6 +506,14 @@
     "end": "2026-11-10T10:53:44",
     "exit": "0:0",
     "jobid": "63991272",
+    "name": "paperA_barrier",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:00:02",
+    "end": "2026-11-10T13:07:29",
+    "exit": "0:0",
+    "jobid": "63991274",
     "name": "paperA_barrier",
     "state": "COMPLETED"
    },
@@ -582,6 +590,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "03:48:40",
+    "end": "2026-11-10T13:25:04",
+    "exit": "0:0",
+    "jobid": "64050274_2",
+    "name": "q_2026-11-10a-8b-oph-partimagenet-shard2",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:02:08",
     "end": "2026-11-10T09:48:17",
     "exit": "0:0",
@@ -631,26 +647,6 @@
    }
   ],
   "squeue": [
-   {
-    "elapsed": "0:00",
-    "jobid": "64050608",
-    "name": "q_2026-11-10a-8b-oph-partimagenet-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "63991274",
-    "name": "paperA_barrier",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "4:00:00"
-   },
    {
     "elapsed": "0:00",
     "jobid": "62703287",
@@ -723,16 +719,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62703293",
-    "name": "hm_eval_C-edit_s0_it029_r4",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63563037_[0-3]",
     "name": "edit_cocoedit_pool_judge_flux_gedit_full",
     "nodes": "1",
@@ -740,6 +726,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62703293",
+    "name": "hm_eval_C-edit_s0_it029_r4",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "12:00:00"
    },
    {
     "elapsed": "0:00",
@@ -862,24 +858,14 @@
     "time_limit": "4:00:00"
    },
    {
-    "elapsed": "5:08:40",
-    "jobid": "63991270",
-    "name": "paperA_wan",
+    "elapsed": "14:28",
+    "jobid": "64050608",
+    "name": "q_2026-11-10a-8b-oph-partimagenet-merge",
     "nodes": "1",
-    "reason_or_nodelist": "lrdn0311",
-    "start": "2026-11-10T07:53:13",
+    "reason_or_nodelist": "lrdn0415",
+    "start": "2026-11-10T13:25:38",
     "state": "RUNNING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "3:25:29",
-    "jobid": "64050274_2",
-    "name": "q_2026-11-10a-8b-oph-partimagenet-shard2",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0068",
-    "start": "2026-11-10T09:36:24",
-    "state": "RUNNING",
-    "time_limit": "6:00:00"
+    "time_limit": "2:00:00"
    }
   ]
  },
@@ -14882,27 +14868,27 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794300074.3576963,
    "waiting_for": null
   },
   "2026-11-10a-8b-oph-partimagenet-shard2": {
-   "collected": null,
+   "collected": 1794313769.047377,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794313769.0473757,
    "invalid": null,
    "jobid": "64050274",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1794299760.2233965,
    "waiting_for": null
   }
  },
- "updated": 1794312113.7576888
+ "updated": 1794314407.117337
 }

@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_eval.py", line 248, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_eval.py", line 240, in main
+    merge(cfg, args.method, args.benchmark)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_eval.py", line 221, in merge
+    "cIoU": float(df.inter.sum() / max(1, df.union.sum())), "empty_rate": float(df.empty.mean())}
+                                                                                ^^^^^^^^^^^^^
+AttributeError: 'bool' object has no attribute 'mean'

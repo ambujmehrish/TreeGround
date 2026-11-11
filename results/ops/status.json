@@ -2,7 +2,7 @@
  "cluster": {
   "counts": {
    "PENDING": 8,
-   "RUNNING": 8
+   "RUNNING": 2
   },
   "ended_24h": [
    {
@@ -534,6 +534,30 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "01:13:03",
+    "end": "2026-11-11T23:06:37",
+    "exit": "0:0",
+    "jobid": "64207376_1",
+    "name": "q_2026-11-11c-reason-instructpart-gpt-ours",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "01:10:30",
+    "end": "2026-11-11T23:04:04",
+    "exit": "0:0",
+    "jobid": "64207376_2",
+    "name": "q_2026-11-11c-reason-instructpart-gpt-ours",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "01:12:00",
+    "end": "2026-11-11T23:05:34",
+    "exit": "0:0",
+    "jobid": "64207376_3",
+    "name": "q_2026-11-11c-reason-instructpart-gpt-ours",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:09:09",
     "end": "2026-11-11T22:02:03",
     "exit": "0:0",
@@ -627,6 +651,30 @@
     "exit": "0:0",
     "jobid": "64207379_3",
     "name": "q_2026-11-11c-reason-instructpart-gpt-sam3text",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "01:13:24",
+    "end": "2026-11-11T23:05:37",
+    "exit": "0:0",
+    "jobid": "64207380_0",
+    "name": "q_2026-11-11c-reason-instructpart-human-ours",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "01:11:10",
+    "end": "2026-11-11T23:03:23",
+    "exit": "0:0",
+    "jobid": "64207380_2",
+    "name": "q_2026-11-11c-reason-instructpart-human-ours",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "01:13:51",
+    "end": "2026-11-11T23:06:04",
+    "exit": "0:0",
+    "jobid": "64207380_3",
+    "name": "q_2026-11-11c-reason-instructpart-human-ours",
     "state": "COMPLETED"
    },
    {
@@ -925,6 +973,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "64151965_[2-3]",
+    "name": "q_2026-11-11a-edit-pool-qwen-gedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "2026-11-11T23:07:29",
+    "state": "PENDING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "64152578",
     "name": "q_2026-11-11a-edit-pool-qwen-imgedit-eval",
     "nodes": "1",
@@ -932,6 +990,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "64151966_[2-3]",
+    "name": "q_2026-11-11a-edit-pool-qwen-imgedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "2026-11-11T23:07:29",
+    "state": "PENDING",
+    "time_limit": "1:30:00"
    },
    {
     "elapsed": "0:00",
@@ -964,37 +1032,7 @@
     "time_limit": "30:00"
    },
    {
-    "elapsed": "0:00",
-    "jobid": "64151966_[2-3]",
-    "name": "q_2026-11-11a-edit-pool-qwen-imgedit-judge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64151965_[2-3]",
-    "name": "q_2026-11-11a-edit-pool-qwen-gedit-judge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "53:13",
-    "jobid": "64207380_0",
-    "name": "q_2026-11-11c-reason-instructpart-human-ours",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0973",
-    "start": "2026-11-11T21:52:13",
-    "state": "RUNNING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "53:13",
+    "elapsed": "1:15:16",
     "jobid": "64207380_1",
     "name": "q_2026-11-11c-reason-instructpart-human-ours",
     "nodes": "1",
@@ -1004,57 +1042,7 @@
     "time_limit": "1:30:00"
    },
    {
-    "elapsed": "53:13",
-    "jobid": "64207380_2",
-    "name": "q_2026-11-11c-reason-instructpart-human-ours",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3407",
-    "start": "2026-11-11T21:52:13",
-    "state": "RUNNING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "53:13",
-    "jobid": "64207380_3",
-    "name": "q_2026-11-11c-reason-instructpart-human-ours",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3436",
-    "start": "2026-11-11T21:52:13",
-    "state": "RUNNING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "51:52",
-    "jobid": "64207376_1",
-    "name": "q_2026-11-11c-reason-instructpart-gpt-ours",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0022",
-    "start": "2026-11-11T21:53:34",
-    "state": "RUNNING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "51:52",
-    "jobid": "64207376_2",
-    "name": "q_2026-11-11c-reason-instructpart-gpt-ours",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0795",
-    "start": "2026-11-11T21:53:34",
-    "state": "RUNNING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "51:52",
-    "jobid": "64207376_3",
-    "name": "q_2026-11-11c-reason-instructpart-gpt-ours",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0083",
-    "start": "2026-11-11T21:53:34",
-    "state": "RUNNING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "52:32",
+    "elapsed": "1:14:35",
     "jobid": "64207376_0",
     "name": "q_2026-11-11c-reason-instructpart-gpt-ours",
     "nodes": "1",
@@ -15520,6 +15508,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
+    "COMPLETED",
     "RUNNING"
    ],
    "submit_error": null,
@@ -15640,6 +15629,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
+    "COMPLETED",
     "RUNNING"
    ],
    "submit_error": null,
@@ -15872,5 +15862,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794433527.1147125
+ "updated": 1794434849.8255723
 }

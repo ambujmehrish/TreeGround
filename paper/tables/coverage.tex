@@ -1,0 +1,33 @@
+% Table 4: selection vs coverage on the part benchmarks (test splits; read-only diagnostics of the 4B model, no tuning):
+% results/metrics/ta_pool_diag_ta_pool_soft_fam_{partonomy,instructpart}.json (gIoU.rank1_part_instance / flat /
+% best_in_pool; flat_pick.*.share; best_in_pool_source.*; flat_vs_rank1.*). PARTONOMY: macro gIoU as Tab. 1.
+% Needs the macros of main.tex (\ours).
+\begin{table}[t]
+\centering
+\setlength{\tabcolsep}{4pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l ccc c cc}
+\toprule
+ & \multicolumn{3}{c}{gIoU} & Gap & \multicolumn{2}{c}{Pick vs.\ SAM\,3 top-1} \\
+\cmidrule(lr){2-4}\cmidrule(lr){6-7}
+ & SAM\,3 top-1 & \ours{} pick & Best in pool & closed & \ours{} better & SAM\,3 better \\
+\midrule
+PARTONOMY    & 42.0 & \textbf{49.4} & 71.0 & 26\% & \textbf{25.9\%} & 11.5\% \\
+InstructPart & 67.4 & \textbf{68.2} & 80.0 & \phantom{0}6\% & 11.3\% & \textbf{11.8\%} \\
+\midrule
+ & \multicolumn{3}{c}{Source of \ours{}'s pick} & & \multicolumn{2}{c}{Source of the best mask} \\
+\cmidrule(lr){2-4}\cmidrule(lr){6-7}
+ & point grid & SAM\,3 part & SAM\,3 object & & point grid & SAM\,3 text \\
+\midrule
+PARTONOMY    & 35.3\% & 57.7\% & 7.0\% & & 58.8\% & 41.2\% \\
+InstructPart & 28.0\% & 65.2\% & 6.8\% & & 52.3\% & 47.7\% \\
+\bottomrule
+\end{tabular}}
+\caption{\textbf{Selection versus coverage} on part queries (test splits). \emph{Best in pool}: an oracle that picks the
+candidate with the highest IoU. \emph{Gap closed}: share of the distance from SAM\,3's own top instance to the oracle
+that \ours{}'s selection recovers. \emph{Better}: queries where one pick beats the other by at least 0.1 IoU. The
+candidate pool contains a much better mask than either pick (71.0 vs.\ 49.4 on PARTONOMY), so the remaining errors are
+selection errors; most of the best masks come from the query-free point grid, which SAM\,3's text instances alone
+would miss.}
+\label{tab:coverage}
+\end{table}

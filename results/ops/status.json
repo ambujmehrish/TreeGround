@@ -1,8 +1,7 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 21,
-   "RUNNING": 1
+   "PENDING": 21
   },
   "ended_24h": [
    {
@@ -350,6 +349,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "01:19:06",
+    "end": "2026-11-11T04:50:22",
+    "exit": "0:0",
+    "jobid": "64090484",
+    "name": "paperA_refeval",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:00:59",
     "end": "2026-11-10T18:11:57",
     "exit": "0:0",
@@ -439,16 +446,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "62703292",
-    "name": "hm_train_Ours_s0_r4",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "63563066_[0-3]",
     "name": "edit_cocoedit_pool_judge_qwen_imgedit_full",
     "nodes": "1",
@@ -456,6 +453,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "10:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "62703292",
+    "name": "hm_train_Ours_s0_r4",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1-00:00:00"
    },
    {
     "elapsed": "0:00",
@@ -576,16 +583,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "1:16:56",
-    "jobid": "64090484",
-    "name": "paperA_refeval",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0586",
-    "start": "2026-11-11T03:31:16",
-    "state": "RUNNING",
-    "time_limit": "12:00:00"
    }
   ]
  },
@@ -14610,5 +14607,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794368892.3968394
+ "updated": 1794372608.2876408
 }

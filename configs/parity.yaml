@@ -8,3 +8,4 @@ parity:
   sa2va_p: {}
   qwenbox_ft: {run: latest, checkpoint: best.pt}           # Group A (scripts/qwenbox_train.py); resolved run in the identity
 paco_test: {num_shards: 32}                                # as configs/pacotest_baselines.yaml
+gseval_eval: {num_shards: 8}                               # as configs/gseval_baselines.yaml

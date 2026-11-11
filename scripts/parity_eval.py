@@ -22,13 +22,15 @@ from treeground.run import ProtocolError, load_config, require_approved, start_r
 #                  official threshold) and, exactly as for ours, 'set' and 'top1' with t chosen by 2-fold image CV
 #                  on val and the all-val t frozen for testA / testB
 #   partonomy_eval the official union, query 'the {part} of the {object}' as for every method in D32
+#   gseval_eval    the official union of the expression verbatim (SAM 3 text clipped to 32 tokens as D27), scored as
+#                  the D45 baseline rows ('official': every returned mask)
 #   paco_test_eval the official union, the D35 phrase (single-target queries; the D13 / D31 rows are unchanged)
 #   ophrg_eval     the official union and OP-HRG's own query strings (benchmark_datasets.py): InstructPart and
 #                  PascalPart parts "{object}'s {part}", PascalPart objects "{object}", PartImageNet "{word0}'s
 #                  {rest}" of the category name, lower-cased
 # Usage: python scripts/parity_eval.py <evaluator> --config configs/parity.yaml --method <parity method> [...]
 
-EVALUATORS = ("gres_eval", "partonomy_eval", "ophrg_eval", "paco_test_eval")
+EVALUATORS = ("gres_eval", "partonomy_eval", "ophrg_eval", "paco_test_eval", "gseval_eval")
 
 
 def ophrg_query(key: str, kind: str, obj: str, part: str | None) -> str:
@@ -75,6 +77,18 @@ def install(mod, name: str, cfg: dict, method: str) -> None:
                 return [{"pred": BP.official_union(self.cfg, self.method, c, image.shape[:2])} for c in res]
         mod.Baseline = Baseline
 
+    elif name == "gseval_eval":
+        class Baseline:
+            def __init__(self, cfg, method):
+                self.cfg, self.method, self.pred = cfg, method, BP.PARITY[method](cfg)
+
+            def __call__(self, image, texts):
+                out = []
+                for c in self.pred.instances(image, texts):
+                    m = BP.official_union(self.cfg, self.method, c, image.shape[:2])
+                    out.append({"pred": [(1.0, M.encode(m)[0])] if m is not None and m.any() else []})
+                return out
+        mod.Baseline = Baseline
     elif name == "paco_test_eval":
         import b_baselines as B
 

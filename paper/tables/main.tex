@@ -47,13 +47,15 @@ Sa2VA                            & 41.0 & 43.0 & 21.1 & 19.7 & 19.9 & 40.1 & 56.
 Box + SAM\,3                     & 47.1 & 48.8 & 37.5 & 33.0 & 33.6 & 45.1 & 67.5 & 76.4 & 80.0 & \textbf{72.2} & 50.7 & 48.0 & 27.7 & 32.4 \\
 \midrule
 \rowcolor{oursrow}
-\ours{} (Ours)                   & \textbf{49.4} & \textbf{51.0} & \textbf{51.4} & \textbf{47.5} & \textbf{40.6} & \textbf{50.7} & \textbf{68.2} & \textbf{81.8} & \textbf{80.6} & 70.0 & \textbf{72.3} & \textbf{65.2} & \textbf{89.6} & \textbf{86.0} \\
-$\Delta$ vs.\ best row above    & \up{+2.3} & \up{+2.2} & \up{+13.9} & \up{+14.5} & \up{+7.0} & \up{+5.6} & \up{+0.7} & \up{+5.4} & \up{+0.6} & \dn{$-$2.2} & \up{+20.8} & \up{+17.2} & \up{+0.5} & \up{+3.1} \\
+\ours{} (Ours)                   & \textbf{49.4} & \textbf{51.0} & \textbf{51.4} & \textbf{47.5} & \textbf{40.6} & \textbf{50.7} & \textbf{68.2} & \textbf{81.8} & \textbf{80.6} & 70.0 & \textbf{59.5} & \textbf{55.9} & \textbf{94.0} & \textbf{90.9} \\
+$\Delta$ vs.\ best row above    & \up{+2.3} & \up{+2.2} & \up{+13.9} & \up{+14.5} & \up{+7.0} & \up{+5.6} & \up{+0.7} & \up{+5.4} & \up{+0.6} & \dn{$-$2.2} & \up{+8.0} & \up{+7.9} & \up{+4.9} & \up{+8.0} \\
 \bottomrule
 \end{tabular}}
 \caption{\textbf{Controlled comparison} on test splits (gIoU, \%; N-acc: accuracy on no-target expressions). Every row
 is run by us with the same queries and scorer, Qwen3-VL-4B wherever an MLLM is used, and SAM\,3 as mask source
-(Sa2VA: its own decoder; Grounded-SAM\,2: Grounding DINO boxes + SAM\,2). $\Delta$: per column, \ours{} minus the best row above; bold: best.
+(Sa2VA: its own decoder; Grounded-SAM\,2: Grounding DINO boxes + SAM\,2). Every method outputs at most one mask per
+query: its top-scoring instance, or none below its threshold (\ours{} on gRefCOCO: threshold chosen on val). With all
+instances merged, SAM\,3 reaches 53.9 on PartImageNet (as reported by OP-HRG). $\Delta$: per column, \ours{} minus the best row above; bold: best.
 Results with 8B and 32B backbones are in the appendix (Tab.~\ref{tab:backbones}).
 $^\S$our model trains on this dataset's training split; all other columns are zero-shot for every row.}
 \label{tab:controlled}

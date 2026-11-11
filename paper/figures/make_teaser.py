@@ -32,7 +32,7 @@ PICK = (176, 48, 111)                                  # the selected mask (as i
 GRID, TEXT = (59, 111, 182), (217, 130, 43)            # candidate provenance: point grid / SAM 3 text
 SET_COLORS = [PICK, (24, 128, 120), (203, 140, 20), (96, 76, 170)]
 # test-split results of the 4B model, Tab. 1: gains over the best <=4B baseline (PACO part, gRefCOCO testA), N-acc testA
-STATS = {"part": "PACO +14.5", "multi": "gRefCOCO +20.8", "none": "N-acc 89.6%"}
+STATS = {"part": "PACO +14.5", "multi": "gRefCOCO +8.0", "none": "N-acc 94.0%"}
 
 
 def hexc(c) -> str:

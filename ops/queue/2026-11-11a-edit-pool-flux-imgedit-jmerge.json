@@ -1,0 +1,15 @@
+{
+ "id": "2026-11-11a-edit-pool-flux-imgedit-jmerge",
+ "what": "D47 CoCoEdit pool: judge merge, flux_fill imgedit_full",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit_judge.py",
+  "TG_ARGS": "--config configs/edit_cocoedit_pool.yaml --editor flux_fill --dataset imgedit_full --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-11-11a-edit-pool-flux-imgedit-judge"
+ ]
+}

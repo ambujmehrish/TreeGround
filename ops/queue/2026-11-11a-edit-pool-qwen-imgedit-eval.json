@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-11a-edit-pool-qwen-imgedit-eval",
+ "what": "D47 CoCoEdit pool: evaluation, qwen_image_edit imgedit_full",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit_eval.py",
+  "TG_ARGS": "--config configs/edit_cocoedit_pool.yaml --editor qwen_image_edit --dataset imgedit_full"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "after": [
+  "2026-11-11a-edit-pool-qwen-imgedit-jmerge"
+ ],
+ "collect": true
+}

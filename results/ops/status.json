@@ -1,7 +1,8 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 12
+   "PENDING": 11,
+   "RUNNING": 8
   },
   "ended_24h": [
    {
@@ -53,14 +54,6 @@
     "state": "CANCELLED"
    },
    {
-    "elapsed": "00:01:16",
-    "end": "2026-11-10T16:24:53",
-    "exit": "0:0",
-    "jobid": "64081985",
-    "name": "paperA_qual",
-    "state": "COMPLETED"
-   },
-   {
     "elapsed": "09:33:07",
     "end": "2026-11-11T03:31:04",
     "exit": "0:0",
@@ -107,6 +100,14 @@
     "jobid": "64095839",
     "name": "paperA_nclips",
     "state": "FAILED"
+   },
+   {
+    "elapsed": "00:43:29",
+    "end": "2026-11-11T17:26:06",
+    "exit": "0:0",
+    "jobid": "64151963_0",
+    "name": "q_2026-11-11a-edit-pool-flux-gedit-judge",
+    "state": "COMPLETED"
    }
   ],
   "squeue": [
@@ -122,16 +123,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "64151966_[0-3]",
-    "name": "q_2026-11-11a-edit-pool-qwen-imgedit-judge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "64152577",
     "name": "q_2026-11-11a-edit-pool-qwen-gedit-eval",
     "nodes": "1",
@@ -139,36 +130,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64151965_[0-3]",
-    "name": "q_2026-11-11a-edit-pool-qwen-gedit-judge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64151964_[0-3]",
-    "name": "q_2026-11-11a-edit-pool-flux-imgedit-judge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64151963_[0-3]",
-    "name": "q_2026-11-11a-edit-pool-flux-gedit-judge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:30:00"
    },
    {
     "elapsed": "0:00",
@@ -212,6 +173,26 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "64151966_[1-3]",
+    "name": "q_2026-11-11a-edit-pool-qwen-imgedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "64151963_3",
+    "name": "q_2026-11-11a-edit-pool-flux-gedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "64152245",
     "name": "q_2026-11-11a-edit-pool-flux-imgedit-jmerge",
     "nodes": "1",
@@ -222,6 +203,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "64151965_[1-3]",
+    "name": "q_2026-11-11a-edit-pool-qwen-gedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "64152244",
     "name": "q_2026-11-11a-edit-pool-flux-gedit-jmerge",
     "nodes": "1",
@@ -229,6 +220,86 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "30:00"
+   },
+   {
+    "elapsed": "11:12",
+    "jobid": "64151964_3",
+    "name": "q_2026-11-11a-edit-pool-flux-imgedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3313",
+    "start": "2026-11-11T17:16:45",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "11:50",
+    "jobid": "64151964_2",
+    "name": "q_2026-11-11a-edit-pool-flux-imgedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn2190",
+    "start": "2026-11-11T17:16:07",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "13:08",
+    "jobid": "64151964_1",
+    "name": "q_2026-11-11a-edit-pool-flux-imgedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn2457",
+    "start": "2026-11-11T17:14:49",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "19:26",
+    "jobid": "64151966_0",
+    "name": "q_2026-11-11a-edit-pool-qwen-imgedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3342",
+    "start": "2026-11-11T17:08:31",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "23:18",
+    "jobid": "64151965_0",
+    "name": "q_2026-11-11a-edit-pool-qwen-gedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0476",
+    "start": "2026-11-11T17:04:39",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "33:25",
+    "jobid": "64151964_0",
+    "name": "q_2026-11-11a-edit-pool-flux-imgedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3315",
+    "start": "2026-11-11T16:54:32",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "40:24",
+    "jobid": "64151963_2",
+    "name": "q_2026-11-11a-edit-pool-flux-gedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0635",
+    "start": "2026-11-11T16:47:33",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "41:01",
+    "jobid": "64151963_1",
+    "name": "q_2026-11-11a-edit-pool-flux-gedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn2414",
+    "start": "2026-11-11T16:46:56",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
    }
   ]
  },
@@ -14303,7 +14374,9 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "COMPLETED",
+    "PENDING",
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794379994.9178371,
@@ -14348,7 +14421,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794379995.2046874,
@@ -14393,7 +14466,8 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "PENDING",
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794379995.5060124,
@@ -14438,12 +14512,13 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "PENDING",
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794379995.7874417,
    "waiting_for": null
   }
  },
- "updated": 1794410609.9597065
+ "updated": 1794414477.3191743
 }

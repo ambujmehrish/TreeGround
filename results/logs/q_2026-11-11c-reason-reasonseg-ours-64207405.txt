@@ -6,3 +6,38 @@ You are using a model of type sam3_video to instantiate a model of type sam3_tra
   image = torch.from_numpy(image).contiguous()
 [W1111 22:00:35.028812652 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 18433966080 bytes (free: 13187416064, total: 68099571712).
 Token indices sequence length is longer than the specified maximum sequence length for this model (40 > 32). Running this sequence through the model will result in indexing errors
+[W1111 22:07:21.433126207 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 24461180928 bytes (free: 6132596736, total: 68099571712).
+[W1111 22:07:22.699224113 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 24461180928 bytes (free: 12788957184, total: 68099571712).
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_eval.py", line 248, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_eval.py", line 244, in main
+    run_shard(cfg, args.method, args.benchmark, args.shard)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_eval.py", line 194, in run_shard
+    pred = predict(image, key, text)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_eval.py", line 100, in __call__
+    pools, lgs = self.s.score(image, key, [f"{text} {mllm.SEL}"], [q])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 153, in score
+    pools = self.pools(image, texts)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 127, in pools
+    rles, parents = self.nodes(image)
+                    ^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 121, in nodes
+    rles = self.S2N.node_set(self.sam, self.sproc, self.cfg, image, self.cap)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s2_nodes.py", line 98, in node_set
+    out = P.generate(sam, sproc, image, pcfg)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/proposals.py", line 68, in generate
+    s = stability_scores(logits, cfg.mask_threshold, cfg.stability_offset)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/proposals.py", line 45, in stability_scores
+    hi = (logits > thr + offset).flatten(-2).sum(-1, dtype=torch.int64)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 22.78 GiB. GPU 0 has a total capacity of 63.42 GiB of which 11.91 GiB is free. Including non-PyTorch memory, this process has 51.50 GiB memory in use. Of the allocated memory 30.74 GiB is allocated by PyTorch, and 20.20 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)

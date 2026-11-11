@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-11c-reason-instructpart-gpt-sam3text",
+ "what": "D50 reasoning: instructpart_gpt, sam3_text (4 shards, one mask per query)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_eval.py",
+  "TG_ARGS": "--config configs/reason_baselines.yaml --method sam3_text --benchmark instructpart_gpt"
+ },
+ "sbatch": {
+  "time": "01:00:00",
+  "array": "0-3"
+ }
+}

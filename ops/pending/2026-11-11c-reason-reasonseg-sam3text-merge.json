@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-11c-reason-reasonseg-sam3text-merge",
+ "what": "D50 reasoning: reasonseg, sam3_text merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_eval.py",
+  "TG_ARGS": "--config configs/reason_baselines.yaml --method sam3_text --benchmark reasonseg --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-11-11c-reason-reasonseg-sam3text"
+ ],
+ "collect": true
+}

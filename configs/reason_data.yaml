@@ -1,0 +1,9 @@
+# D50 data (scripts/reason_eval.py); fetch ReasonSeg on the login node:
+#   python scripts/fetch_models.py --config configs/reason_baselines.yaml --datasets --only reasonseg
+data:
+  instructpart: ${TG_DATA}/instructpart          # official release: test/{images,masks,data_test.json}
+  reasonseg: ${TG_DATA}/reasonseg                # data/test-0000{0..3}-of-00004.parquet
+datasets:
+  reasonseg: {repo: Ricky06662/ReasonSeg_test, revision: 51536947c13888c9790d9197c6fa30f5d57f3ab6,
+              dir: "${TG_DATA}/reasonseg", allow_patterns: ["data/test-*.parquet", "README.md"]}
+reason_eval: {num_shards: 4}

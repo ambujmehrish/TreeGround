@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-11c-reason-instructpart-gpt-ours",
+ "what": "D50 reasoning: instructpart_gpt, ours (4 shards, one mask per query)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_eval.py",
+  "TG_ARGS": "--config configs/reason_ours.yaml --method ours --benchmark instructpart_gpt"
+ },
+ "sbatch": {
+  "time": "01:30:00",
+  "array": "0-3"
+ }
+}

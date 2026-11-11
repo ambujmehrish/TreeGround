@@ -1044,6 +1044,19 @@ PROPOSED_DEVIATIONS = [
                   "whole image (RAS); the claim needs its own controlled ablation on the test splits",
         "expected_impact": "one new training run and its test rows; no existing run or result changes",
     },
+    {
+        "id": "D50",
+        "spec_section": "supplementary evaluation: reasoning queries",
+        "change": "scripts/reason_eval.py: InstructPart test with its task instructions (Task Reasoning Part "
+                  "Segmentation of Wan et al. 2025; human-written and GPT-4-rewritten, test/data_test.json, the D38 "
+                  "images and masks) and ReasonSeg test (Ricky06662/ReasonSeg_test, pinned, 779 queries). Every "
+                  "method answers each query with one mask: ours the top-1 candidate of its pool for the query as "
+                  "free text (as on gRefCOCO), the D13 / D31 baselines their single mask for the same text (SAM 3 "
+                  "text clipped to 32 tokens, D27). gIoU / cIoU; test only, nothing tuned",
+        "reason": "reasoning to a part without naming it (InstructPart instructions) and the standard reasoning "
+                  "benchmark reported by OP-HRG and PARTONOMY (ReasonSeg)",
+        "expected_impact": "new supplementary rows only; no existing run or result changes",
+    },
 ]
 
 

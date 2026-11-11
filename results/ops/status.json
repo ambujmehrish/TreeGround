@@ -1,7 +1,8 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 16
+   "PENDING": 8,
+   "RUNNING": 26
   },
   "ended_24h": [
    {
@@ -211,18 +212,124 @@
     "jobid": "64152575",
     "name": "q_2026-11-11a-edit-pool-flux-imgedit-eval",
     "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:09:51",
+    "end": "2026-11-11T19:48:01",
+    "exit": "0:0",
+    "jobid": "64198031_0",
+    "name": "q_2026-11-11b-mt-gres-sam3-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:09:37",
+    "end": "2026-11-11T19:47:47",
+    "exit": "0:0",
+    "jobid": "64198031_1",
+    "name": "q_2026-11-11b-mt-gres-sam3-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:09:44",
+    "end": "2026-11-11T19:47:54",
+    "exit": "0:0",
+    "jobid": "64198031_2",
+    "name": "q_2026-11-11b-mt-gres-sam3-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:09:44",
+    "end": "2026-11-11T19:47:54",
+    "exit": "0:0",
+    "jobid": "64198031_3",
+    "name": "q_2026-11-11b-mt-gres-sam3-testA",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:09:15",
+    "end": "2026-11-11T19:47:25",
+    "exit": "0:0",
+    "jobid": "64198032_0",
+    "name": "q_2026-11-11b-mt-gres-sam3-testB",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:09:08",
+    "end": "2026-11-11T19:47:18",
+    "exit": "0:0",
+    "jobid": "64198032_1",
+    "name": "q_2026-11-11b-mt-gres-sam3-testB",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:09:10",
+    "end": "2026-11-11T19:47:20",
+    "exit": "0:0",
+    "jobid": "64198032_2",
+    "name": "q_2026-11-11b-mt-gres-sam3-testB",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:09:08",
+    "end": "2026-11-11T19:47:18",
+    "exit": "0:0",
+    "jobid": "64198032_3",
+    "name": "q_2026-11-11b-mt-gres-sam3-testB",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:09:40",
+    "end": "2026-11-11T19:47:50",
+    "exit": "0:0",
+    "jobid": "64198033_0",
+    "name": "q_2026-11-11b-mt-gres-sam3-val",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:09:44",
+    "end": "2026-11-11T19:47:54",
+    "exit": "0:0",
+    "jobid": "64198033_1",
+    "name": "q_2026-11-11b-mt-gres-sam3-val",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:09:40",
+    "end": "2026-11-11T19:47:50",
+    "exit": "0:0",
+    "jobid": "64198033_2",
+    "name": "q_2026-11-11b-mt-gres-sam3-val",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:09:34",
+    "end": "2026-11-11T19:47:44",
+    "exit": "0:0",
+    "jobid": "64198033_3",
+    "name": "q_2026-11-11b-mt-gres-sam3-val",
+    "state": "COMPLETED"
    }
   ],
   "squeue": [
    {
     "elapsed": "0:00",
-    "jobid": "64151965_[2-3]",
-    "name": "q_2026-11-11a-edit-pool-qwen-gedit-judge",
+    "jobid": "64198328",
+    "name": "q_2026-11-11b-mt-gres-qwen-merge",
     "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
+    "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
     "state": "PENDING",
-    "time_limit": "1:30:00"
+    "time_limit": "1:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "64198327",
+    "name": "q_2026-11-11b-mt-gres-gsam2-merge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "1:00:00"
    },
    {
     "elapsed": "0:00",
@@ -230,7 +337,17 @@
     "name": "q_2026-11-11a-edit-pool-qwen-imgedit-judge",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
+    "start": "2026-11-11T19:49:10",
+    "state": "PENDING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "64151965_[2-3]",
+    "name": "q_2026-11-11a-edit-pool-qwen-gedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "2026-11-11T19:49:10",
     "state": "PENDING",
     "time_limit": "1:30:00"
    },
@@ -275,104 +392,264 @@
     "time_limit": "30:00"
    },
    {
-    "elapsed": "0:00",
-    "jobid": "64198033_[0-3]",
-    "name": "q_2026-11-11b-mt-gres-sam3-val",
-    "nodes": "1",
-    "reason_or_nodelist": "(None)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "45:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64198032_[0-3]",
-    "name": "q_2026-11-11b-mt-gres-sam3-testB",
-    "nodes": "1",
-    "reason_or_nodelist": "(None)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "45:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64198031_[0-3]",
-    "name": "q_2026-11-11b-mt-gres-sam3-testA",
-    "nodes": "1",
-    "reason_or_nodelist": "(None)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "45:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64198027_[0-3]",
-    "name": "q_2026-11-11b-mt-gres-gsam2-val",
-    "nodes": "1",
-    "reason_or_nodelist": "(None)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64198025_[0-3]",
-    "name": "q_2026-11-11b-mt-gres-gsam2-testB",
-    "nodes": "1",
-    "reason_or_nodelist": "(None)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64198024_[0-3]",
-    "name": "q_2026-11-11b-mt-gres-gsam2-testA",
-    "nodes": "1",
-    "reason_or_nodelist": "(None)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64198030_[0-3]",
+    "elapsed": "10:23",
+    "jobid": "64198030_0",
     "name": "q_2026-11-11b-mt-gres-qwen-val",
     "nodes": "1",
-    "reason_or_nodelist": "(None)",
-    "start": "N/A",
-    "state": "PENDING",
+    "reason_or_nodelist": "lrdn0152",
+    "start": "2026-11-11T19:38:47",
+    "state": "RUNNING",
     "time_limit": "2:00:00"
    },
    {
-    "elapsed": "0:00",
-    "jobid": "64198029_[0-3]",
+    "elapsed": "10:23",
+    "jobid": "64198030_1",
+    "name": "q_2026-11-11b-mt-gres-qwen-val",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3361",
+    "start": "2026-11-11T19:38:47",
+    "state": "RUNNING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "10:23",
+    "jobid": "64198030_2",
+    "name": "q_2026-11-11b-mt-gres-qwen-val",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0978",
+    "start": "2026-11-11T19:38:47",
+    "state": "RUNNING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "10:23",
+    "jobid": "64198030_3",
+    "name": "q_2026-11-11b-mt-gres-qwen-val",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0064",
+    "start": "2026-11-11T19:38:47",
+    "state": "RUNNING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "10:23",
+    "jobid": "64198029_0",
     "name": "q_2026-11-11b-mt-gres-qwen-testB",
     "nodes": "1",
-    "reason_or_nodelist": "(None)",
-    "start": "N/A",
-    "state": "PENDING",
+    "reason_or_nodelist": "lrdn0069",
+    "start": "2026-11-11T19:38:47",
+    "state": "RUNNING",
     "time_limit": "2:00:00"
    },
    {
-    "elapsed": "0:00",
-    "jobid": "64198028_[0-3]",
+    "elapsed": "10:23",
+    "jobid": "64198029_1",
+    "name": "q_2026-11-11b-mt-gres-qwen-testB",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0105",
+    "start": "2026-11-11T19:38:47",
+    "state": "RUNNING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "10:23",
+    "jobid": "64198029_2",
+    "name": "q_2026-11-11b-mt-gres-qwen-testB",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0127",
+    "start": "2026-11-11T19:38:47",
+    "state": "RUNNING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "10:23",
+    "jobid": "64198029_3",
+    "name": "q_2026-11-11b-mt-gres-qwen-testB",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0143",
+    "start": "2026-11-11T19:38:47",
+    "state": "RUNNING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "10:23",
+    "jobid": "64198028_0",
     "name": "q_2026-11-11b-mt-gres-qwen-testA",
     "nodes": "1",
-    "reason_or_nodelist": "(None)",
-    "start": "N/A",
-    "state": "PENDING",
+    "reason_or_nodelist": "lrdn0166",
+    "start": "2026-11-11T19:38:47",
+    "state": "RUNNING",
     "time_limit": "2:00:00"
    },
    {
-    "elapsed": "0:00",
+    "elapsed": "10:23",
+    "jobid": "64198028_1",
+    "name": "q_2026-11-11b-mt-gres-qwen-testA",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0234",
+    "start": "2026-11-11T19:38:47",
+    "state": "RUNNING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "10:23",
+    "jobid": "64198028_2",
+    "name": "q_2026-11-11b-mt-gres-qwen-testA",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0242",
+    "start": "2026-11-11T19:38:47",
+    "state": "RUNNING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "10:23",
+    "jobid": "64198028_3",
+    "name": "q_2026-11-11b-mt-gres-qwen-testA",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0328",
+    "start": "2026-11-11T19:38:47",
+    "state": "RUNNING",
+    "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "10:22",
+    "jobid": "64198027_0",
+    "name": "q_2026-11-11b-mt-gres-gsam2-val",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0328",
+    "start": "2026-11-11T19:38:48",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "10:22",
+    "jobid": "64198027_1",
+    "name": "q_2026-11-11b-mt-gres-gsam2-val",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0390",
+    "start": "2026-11-11T19:38:48",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "10:22",
+    "jobid": "64198027_2",
+    "name": "q_2026-11-11b-mt-gres-gsam2-val",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0824",
+    "start": "2026-11-11T19:38:48",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "10:22",
+    "jobid": "64198027_3",
+    "name": "q_2026-11-11b-mt-gres-gsam2-val",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0980",
+    "start": "2026-11-11T19:38:48",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "10:22",
+    "jobid": "64198025_0",
+    "name": "q_2026-11-11b-mt-gres-gsam2-testB",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn1142",
+    "start": "2026-11-11T19:38:48",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "10:22",
+    "jobid": "64198025_1",
+    "name": "q_2026-11-11b-mt-gres-gsam2-testB",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn1601",
+    "start": "2026-11-11T19:38:48",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "10:22",
+    "jobid": "64198025_2",
+    "name": "q_2026-11-11b-mt-gres-gsam2-testB",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn2308",
+    "start": "2026-11-11T19:38:48",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "10:22",
+    "jobid": "64198025_3",
+    "name": "q_2026-11-11b-mt-gres-gsam2-testB",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn2352",
+    "start": "2026-11-11T19:38:48",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "9:45",
+    "jobid": "64198024_3",
+    "name": "q_2026-11-11b-mt-gres-gsam2-testA",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3280",
+    "start": "2026-11-11T19:39:25",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "9:45",
     "jobid": "64198023",
     "name": "q_2026-11-11b-failure-assets",
     "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
+    "reason_or_nodelist": "lrdn3306",
+    "start": "2026-11-11T19:39:25",
+    "state": "RUNNING",
     "time_limit": "2:00:00"
+   },
+   {
+    "elapsed": "0:47",
+    "jobid": "64198329",
+    "name": "q_2026-11-11b-mt-gres-sam3-merge",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn0152",
+    "start": "2026-11-11T19:48:23",
+    "state": "RUNNING",
+    "time_limit": "1:00:00"
+   },
+   {
+    "elapsed": "11:00",
+    "jobid": "64198024_0",
+    "name": "q_2026-11-11b-mt-gres-gsam2-testA",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3361",
+    "start": "2026-11-11T19:38:10",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "11:00",
+    "jobid": "64198024_1",
+    "name": "q_2026-11-11b-mt-gres-gsam2-testA",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3409",
+    "start": "2026-11-11T19:38:10",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "11:00",
+    "jobid": "64198024_2",
+    "name": "q_2026-11-11b-mt-gres-gsam2-testA",
+    "nodes": "1",
+    "reason_or_nodelist": "lrdn3409",
+    "start": "2026-11-11T19:38:10",
+    "state": "RUNNING",
+    "time_limit": "1:30:00"
    }
   ]
  },
@@ -14612,7 +14889,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794422260.9707932,
@@ -14623,17 +14900,15 @@
    "dependency_failed": null,
    "finished": null,
    "invalid": null,
-   "jobid": null,
+   "jobid": "64198327",
    "post_error": null,
    "post_output_tail": null,
-   "states": null,
+   "states": [
+    "PENDING"
+   ],
    "submit_error": null,
-   "submitted": null,
-   "waiting_for": [
-    "2026-11-11b-mt-gres-gsam2-val",
-    "2026-11-11b-mt-gres-gsam2-testA",
-    "2026-11-11b-mt-gres-gsam2-testB"
-   ]
+   "submitted": 1794422630.6989694,
+   "waiting_for": null
   },
   "2026-11-11b-mt-gres-gsam2-testA": {
    "collected": null,
@@ -14644,7 +14919,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794422261.4930115,
@@ -14659,7 +14934,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794422261.918799,
@@ -14674,7 +14949,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794422262.2448046,
@@ -14685,17 +14960,15 @@
    "dependency_failed": null,
    "finished": null,
    "invalid": null,
-   "jobid": null,
+   "jobid": "64198328",
    "post_error": null,
    "post_output_tail": null,
-   "states": null,
+   "states": [
+    "PENDING"
+   ],
    "submit_error": null,
-   "submitted": null,
-   "waiting_for": [
-    "2026-11-11b-mt-gres-qwen-val",
-    "2026-11-11b-mt-gres-qwen-testA",
-    "2026-11-11b-mt-gres-qwen-testB"
-   ]
+   "submitted": 1794422631.0904808,
+   "waiting_for": null
   },
   "2026-11-11b-mt-gres-qwen-testA": {
    "collected": null,
@@ -14706,7 +14979,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794422262.5500083,
@@ -14721,7 +14994,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794422262.8534417,
@@ -14736,7 +15009,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794422263.1626897,
@@ -14747,63 +15020,61 @@
    "dependency_failed": null,
    "finished": null,
    "invalid": null,
-   "jobid": null,
+   "jobid": "64198329",
    "post_error": null,
    "post_output_tail": null,
-   "states": null,
+   "states": [
+    "RUNNING"
+   ],
    "submit_error": null,
-   "submitted": null,
-   "waiting_for": [
-    "2026-11-11b-mt-gres-sam3-val",
-    "2026-11-11b-mt-gres-sam3-testA",
-    "2026-11-11b-mt-gres-sam3-testB"
-   ]
+   "submitted": 1794422631.3996015,
+   "waiting_for": null
   },
   "2026-11-11b-mt-gres-sam3-testA": {
-   "collected": null,
+   "collected": 1794422950.180691,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794422950.1806898,
    "invalid": null,
    "jobid": "64198031",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1794422263.4737098,
    "waiting_for": null
   },
   "2026-11-11b-mt-gres-sam3-testB": {
-   "collected": null,
+   "collected": 1794422950.2017934,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794422950.2017915,
    "invalid": null,
    "jobid": "64198032",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1794422263.8006992,
    "waiting_for": null
   },
   "2026-11-11b-mt-gres-sam3-val": {
-   "collected": null,
+   "collected": 1794422950.2191925,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794422950.219191,
    "invalid": null,
    "jobid": "64198033",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1794422264.1894236,
    "waiting_for": null
   }
  },
- "updated": 1794422265.048565
+ "updated": 1794422950.7793443
 }

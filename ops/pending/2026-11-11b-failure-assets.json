@@ -1,0 +1,8 @@
+{
+ "id": "2026-11-11b-failure-assets",
+ "what": "qualitative figure: wrong decisions of pool_soft_fam on the teaser's seeded test sample (read-only, JSON under results/figures)",
+ "script": "q_gpu.sbatch",
+ "env": {"TG_PY": "scripts/teaser_assets.py", "TG_ARGS": "--config configs/ta_test_pool_soft_fam.yaml --failures"},
+ "sbatch": {"time": "02:00:00"},
+ "collect": true
+}

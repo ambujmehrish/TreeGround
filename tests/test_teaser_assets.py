@@ -64,3 +64,19 @@ def test_no_target_correct_only_when_set_is_empty(monkeypatch):
     assert abs(r["max_sigmoid"] - 1 / (1 + np.exp(-1.0))) < 1e-9
     out = run(monkeypatch, [4.0, 0.5, -2.0], [], True)
     assert out["no_target"][0]["chosen"] == [0] and out["no_target"][0]["iou"] == 0.0
+
+
+def test_selection_rules_split_correct_and_failed_decisions():
+    ta = load_script("teaser_assets")
+    p = lambda pick, best, s3=0.0, area=0.05: {"pick_iou": pick, "best_iou": best, "sam3_top1_iou": s3, "area": area}
+    parts = [p(0.9, 0.9, 0.1), p(0.7, 0.7, 0.8), p(0.1, 0.8), p(0.2, 0.6), p(0.1, 0.2), p(0.05, 0.9, area=0.001)]
+    g = lambda iou, sig=0.5: {"iou": iou, "max_sigmoid": sig, "pool": []}
+    gres = {"multi": [g(0.9), g(0.2), g(0.5)], "no_target": [g(1.0, 0.8), g(0.0, 0.95), g(0.0, 0.97), {"iou": 1.0}]}
+    ok = ta.select_correct(parts, gres)
+    assert [r["pick_iou"] for r in ok["part"]] == [0.9, 0.7]          # SAM 3 top-1 missing first
+    assert [r["iou"] for r in ok["multi"]] == [0.9] and len(ok["no_target"]) == 1
+    bad = ta.select_failures(parts, gres)
+    assert [(r["pick_iou"], r["best_iou"]) for r in bad["part"]] == [(0.1, 0.8), (0.2, 0.6)]   # largest miss first
+    assert [r["best_iou"] for r in bad["part_coverage"]] == [0.2]     # tiny part (area < 1%) left out
+    assert [r["iou"] for r in bad["multi"]] == [0.2]
+    assert [r["max_sigmoid"] for r in bad["no_target"]] == [0.97, 0.95]

@@ -1,0 +1,18 @@
+{
+ "id": "2026-11-11b-mt-gres-gsam2-merge",
+ "what": "supplementary multi-target: gRefCOCO merge, gsam2_all (official union + set/top1 with t from val)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "gres_eval --config configs/parity_small.yaml --method gsam2_all --merge"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-11-11b-mt-gres-gsam2-val",
+  "2026-11-11b-mt-gres-gsam2-testA",
+  "2026-11-11b-mt-gres-gsam2-testB"
+ ],
+ "collect": true
+}

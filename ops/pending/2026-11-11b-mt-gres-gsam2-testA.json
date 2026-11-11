@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-11b-mt-gres-gsam2-testA",
+ "what": "supplementary multi-target: gRefCOCO testA, gsam2_all (every instance, D40), 4 shards",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "gres_eval --config configs/parity_small.yaml --method gsam2_all --split testA"
+ },
+ "sbatch": {
+  "time": "01:30:00",
+  "array": "0-3"
+ }
+}

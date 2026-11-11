@@ -97,6 +97,29 @@ def gres_examples(cfg: dict, scorer, n: int, t: float, rng) -> dict[str, list[di
     return out
 
 
+def select_correct(parts: list, gres: dict) -> dict:
+    # parts that are visible (>= 1% of the image) and where SAM 3's own top-1 misses first
+    return {"part": sorted([r for r in parts if r["pick_iou"] >= 0.6 and r["area"] >= 0.01],
+                           key=lambda r: ((r["sam3_top1_iou"] or 0.0) >= 0.5, -r["pick_iou"])),
+            "multi": sorted([r for r in gres["multi"] if r["iou"] >= 0.6], key=lambda r: -r["iou"]),
+            # near misses first: the closest candidate scored high but below t
+            "no_target": sorted([r for r in gres["no_target"] if r["iou"] == 1.0 and "pool" in r],
+                                key=lambda r: -(r["max_sigmoid"] or 0.0))}
+
+
+def select_failures(parts: list, gres: dict) -> dict:
+    # wrong decisions on the same sample. Parts: a selection error (the pool held the part, IoU >= 0.5, the pick
+    # missed it) or a coverage error (no candidate reaches 0.3); largest miss first. gRefCOCO: targets answered with
+    # IoU < 0.4, and no-target expressions answered with a mask (most confident first).
+    vis = [r for r in parts if r["area"] >= 0.01]
+    return {"part": sorted([r for r in vis if r["pick_iou"] < 0.3 and r["best_iou"] >= 0.5],
+                           key=lambda r: -(r["best_iou"] - r["pick_iou"])),
+            "part_coverage": sorted([r for r in vis if r["best_iou"] < 0.3], key=lambda r: r["best_iou"]),
+            "multi": sorted([r for r in gres["multi"] if r["iou"] < 0.4 and "pool" in r], key=lambda r: r["iou"]),
+            "no_target": sorted([r for r in gres["no_target"] if r["iou"] == 0.0 and "pool" in r],
+                                key=lambda r: -(r["max_sigmoid"] or 0.0))}
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/ta_test_pool_soft_fam.yaml")
@@ -104,6 +127,7 @@ def main() -> None:
     ap.add_argument("--n_gres", type=int, default=80)
     ap.add_argument("--keep", type=int, default=8)   # 3 x 8 examples stay under the collector's 20MB
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--failures", action="store_true", help="keep wrong decisions (teaser_assets_failures.json)")
     args = ap.parse_args()
     import ta_test_eval as TTE
     cfg = load_config(ROOT / args.config)
@@ -114,20 +138,15 @@ def main() -> None:
     parts = part_examples(cfg, scorer, args.n_part, rng)
     gres = gres_examples(cfg, scorer, args.n_gres, t, rng)
     examined = {"part": len(parts), "multi": len(gres["multi"]), "no_target": len(gres["no_target"])}
-    # correct decisions only; parts that are visible (>= 1% of the image) and where SAM 3's own top-1 misses first
-    parts = sorted([r for r in parts if r["pick_iou"] >= 0.6 and r["area"] >= 0.01],
-                   key=lambda r: ((r["sam3_top1_iou"] or 0.0) >= 0.5, -r["pick_iou"]))
-    multi = sorted([r for r in gres["multi"] if r["iou"] >= 0.6], key=lambda r: -r["iou"])
-    # near misses first: the closest candidate scored high but below t
-    nt = sorted([r for r in gres["no_target"] if r["iou"] == 1.0 and "pool" in r], key=lambda r: -(r["max_sigmoid"] or 0.0))
+    sel = (select_failures if args.failures else select_correct)(parts, gres)
+    keep = max(2, args.keep // 2) if args.failures else args.keep   # 4 kinds x 4 failures stay under 20MB
     dest = Path(os.environ["TG_ROOT"]) / "results" / "figures"
     dest.mkdir(parents=True, exist_ok=True)
-    path = dest / "teaser_assets.json"
+    path = dest / ("teaser_assets_failures.json" if args.failures else "teaser_assets.json")
     path.write_text(json.dumps({
-        "config": args.config, "seed": args.seed, "t": t,
-        "examined": examined,
-        "correct": {"part": len(parts), "multi": len(multi), "no_target": len(nt)},
-        "part": parts[:args.keep], "multi": multi[:args.keep], "no_target": nt[:args.keep]}))
+        "config": args.config, "seed": args.seed, "t": t, "examined": examined,
+        ("failed" if args.failures else "correct"): {k: len(v) for k, v in sel.items()},
+        **{k: v[:keep] for k, v in sel.items()}}))
     print(path)
 
 

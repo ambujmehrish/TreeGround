@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-11b-mt-gres-qwen-val",
+ "what": "supplementary multi-target: gRefCOCO val, qwen_box_all (every instance, D40), 4 shards",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/parity_eval.py",
+  "TG_ARGS": "gres_eval --config configs/parity_small.yaml --method qwen_box_all --split val"
+ },
+ "sbatch": {
+  "time": "02:00:00",
+  "array": "0-3"
+ }
+}

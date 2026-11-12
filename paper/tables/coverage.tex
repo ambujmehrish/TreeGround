@@ -1,6 +1,6 @@
 % Table 4: selection vs coverage on the part benchmarks (test splits; read-only diagnostics of the 4B model, no tuning):
 % results/metrics/ta_pool_diag_ta_pool_soft_fam_{partonomy,instructpart}.json (gIoU.rank1_part_instance / flat /
-% best_in_pool; flat_pick.*.share; best_in_pool_source.*; flat_vs_rank1.*). PARTONOMY: macro gIoU as Tab. 1.
+% best_in_pool; flat_pick.*.share; best_in_pool_source.*; flat_vs_rank1.*). PARTONOMY: the diagnostic's flat-pick gIoU over its 3,539 part queries (49.4; Tab. 1 micro is 49.4 over 3,542 parts). Gap closed from unrounded values.
 % Needs the macros of main.tex (\ours).
 \begin{table}[t]
 \centering
@@ -13,7 +13,7 @@
  & SAM\,3 top-1 & \ours{} pick & Best in pool & closed & \ours{} better & SAM\,3 better \\
 \midrule
 PARTONOMY    & 42.0 & \textbf{49.4} & 71.0 & 26\% & \textbf{25.9\%} & 11.5\% \\
-InstructPart & 67.4 & \textbf{68.2} & 80.0 & \phantom{0}6\% & 11.3\% & \textbf{11.8\%} \\
+InstructPart & 67.4 & \textbf{68.2} & 80.0 & \phantom{0}7\% & 11.3\% & \textbf{11.8\%} \\
 \midrule
  & \multicolumn{3}{c}{Source of \ours{}'s pick} & & \multicolumn{2}{c}{Source of the best mask} \\
 \cmidrule(lr){2-4}\cmidrule(lr){6-7}

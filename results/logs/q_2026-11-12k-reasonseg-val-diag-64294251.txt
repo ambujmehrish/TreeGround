@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_diag.py", line 205, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_diag.py", line 201, in main
+    merge(cfg) if args.merge else run_shard(cfg, args.shard)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_diag.py", line 137, in run_shard
+    recs = val_records(cfg)[shard::n]
+           ^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_diag.py", line 39, in val_records
+    return RE.reasonseg_records({**cfg, "data": {**cfg["data"], "reasonseg": cfg["data"]["reasonseg_val"]}})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_eval.py", line 66, in reasonseg_records
+    files = sorted((assert_real_path(cfg["data"]["reasonseg"]) / "data").glob("test-*.parquet"))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/treeground/run.py", line 182, in assert_real_path
+    raise ProtocolError(f"missing required input: {p}")
+treeground.run.ProtocolError: missing required input: /leonardo_scratch/large/userexternal/amehrish/treeground/data/reasonseg_val

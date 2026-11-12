@@ -39,6 +39,11 @@
 Method & micro & macro & Part & Part\indom & -116\indom & Net & Part & Object\indom & Object\indom & All & testA\indom & testB\indom & testA\indom & testB\indom \\
 \midrule
 \multicolumn{15}{l}{\textit{Segmentation pipelines (no MLLM)}} \\
+% TODO (agreed 2026-11-12, write when the caption is finalised): pipelines run at their released thresholds (SAM 3
+% score 0.5, Grounded-SAM 2 box threshold), so they may abstain; this is by design under the one-mask rule. Disclose in
+% the caption: without SAM 3's score threshold its PACO part gIoU is 41.9 (object 82.1; ours 47.5 / 81.8), source
+% results/metrics/pacotest_sam3_text.json gIoU_without_score_threshold. Keeps the reasoning table (sam3_text_na)
+% consistent; teaser 'PACO +14.5' rests on the thresholded row.
 SAM\,3 (text)                    & 30.5 & 31.7 & 30.7 & 25.8 & 30.0 & 24.3 & 66.5 & 75.1 & 77.5 & 42.4 & 42.2 & 47.8 & 89.1 & 82.9 \\
 Grounded-SAM\,2                  & 25.9 & 29.0 & 28.0 & 27.2 & 17.7 & 37.2 & 40.4 & 64.2 & 79.9 & 62.9 & 48.0 & 42.3 & 21.4 & 19.1 \\
 \midrule

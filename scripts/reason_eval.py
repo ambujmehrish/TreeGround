@@ -105,9 +105,16 @@ class Ours:
         return M.decode(pools[0].rles[int(np.argmax(lgs[0][0]))])
 
 
+# '_na' (no-abstain): the same predictor, but its top mask is kept when the score is below the official threshold,
+# as ours and Sa2VA always answer and every reasoning query has a target (as b_parity's sam3_union_na)
+NO_ABSTAIN = "_na"
+
+
 class Baseline:
     def __init__(self, cfg: dict, method: str):
         import b_baselines as B
+        self.abstain = not method.endswith(NO_ABSTAIN)
+        method = method.removesuffix(NO_ABSTAIN)
         if method not in B.PREDICTORS:
             import b_baselines2  # noqa: F401  (registers the D31 predictors)
         self.pred = B.PREDICTORS[method](cfg)
@@ -133,7 +140,7 @@ class Baseline:
 
     def __call__(self, image: np.ndarray, key: str, text: str) -> np.ndarray | None:
         mask, _, _, acc = self.pred(image, [self.clip(text)])[0]
-        return mask.astype(bool) if (acc and mask is not None) else None
+        return mask.astype(bool) if (mask is not None and (acc or not self.abstain)) else None
 
 
 # ---- bookkeeping ----

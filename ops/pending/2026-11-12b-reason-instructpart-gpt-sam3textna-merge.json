@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-12b-reason-instructpart-gpt-sam3textna-merge",
+ "what": "D50 reasoning: instructpart_gpt, sam3_text_na (SAM 3 text, no abstention: top mask always kept) merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_eval.py",
+  "TG_ARGS": "--config configs/reason_baselines.yaml --method sam3_text_na --benchmark instructpart_gpt --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-11-12b-reason-instructpart-gpt-sam3textna"
+ ],
+ "collect": true
+}

@@ -77,10 +77,20 @@ def test_baseline_clips_sam3_text_and_returns_none_on_abstention():
     def pred(image, phrases):
         seen.append(phrases)
         return [(m, 0.9, "", True)] if len(seen) == 1 else [(m, 0.2, "", False)]
-    b.pred, b.clip = pred, re.Baseline._clipper(tok, lambda p: p)
+    b.pred, b.clip, b.abstain = pred, re.Baseline._clipper(tok, lambda p: p), True
     assert b(None, "k", "one two three four five six seven").all()
     assert seen[0] == ["one two three four"]                 # 4 words + 2 = 6 tokens
     assert b(None, "k", "short") is None
+    b.abstain = False                                        # sam3_text_na: below-threshold top mask is kept
+    assert b(None, "k", "short").all()
+
+
+def test_no_abstain_method_uses_the_same_predictor(monkeypatch):
+    re = load_script("reason_eval")
+    import b_baselines as B
+    monkeypatch.setitem(B.PREDICTORS, "sam3_text", lambda cfg: SimpleNamespace())
+    b = re.Baseline({}, "sam3_text_na")
+    assert b.abstain is False and re.Baseline({}, "sam3_text").abstain is True
 
 
 def test_ours_answers_with_the_top_candidate():

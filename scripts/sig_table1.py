@@ -93,7 +93,7 @@ def paco(cfg: dict, stage: str, kind: str) -> dict:
     run = latest(cfg, f"pacotest_{stage}")
     df = pd.read_csv(run / "eval_queries.csv")
     df = df[df.kind == kind]
-    out["ours"] = (units(df, "qid", df.sel_iou), reported(run, "by_kind", kind, "gIoU"))
+    out["ours"] = (units(df, "qid", df.sel_iou), reported(run, "by_kind", kind))   # summarize_ours: no 'gIoU' level
     for b in BASELINES:
         run = latest(cfg, f"pacotest_{b}")
         df = pd.read_csv(run / "eval_queries.csv")

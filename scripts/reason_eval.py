@@ -93,13 +93,64 @@ def records(cfg: dict, bench: str) -> list[tuple]:
 
 # ---- predictors: image, key, text -> bool mask or None ----
 
-class Ours:
+# D51 (frozen on ReasonSeg VAL by scripts/reason_diag.py before any test run): for a reasoning query the pool's SAM 3
+# phrase is the target the base Qwen3-VL-4B (the backbone of ours and of Box + SAM 3) names from the question on the
+# image ours sees; our model still reads the original question. An empty answer keeps the s3_pool phrase.
+REWRITE_PROMPT = ("Read the request about this image and name the one object or object part it refers to. "
+                  "Answer with a short noun phrase only, such as 'the red cup' or 'the handle of the door'.\n"
+                  "Request: {text}")
+REWRITE_TOKENS = 24
+
+
+def noun_phrase(raw: str) -> str:
+    # the model's first line, without quotes, a trailing period or a leading 'Answer:'
+    s = raw.strip().splitlines()[0] if raw.strip() else ""
+    s = s.split(":", 1)[1] if s.lower().startswith("answer:") else s
+    return s.strip().strip("\"'`").rstrip(".").strip()
+
+
+class Rewriter:
     def __init__(self, cfg: dict):
+        from treeground import mllm
+        q = cfg["models"]["qwen"]
+        self.device = cfg["device"]
+        self.qwen, self.proc = mllm.load_qwen(q["repo"], q["revision"], self.device, cfg["features"]["dtype"],
+                                              cfg.get("hf_home"))
+
+    def __call__(self, image: np.ndarray, text: str) -> tuple[str, str]:
+        import torch
+        msgs = [{"role": "user", "content": [{"type": "image"},
+                                             {"type": "text", "text": REWRITE_PROMPT.format(text=text)}]}]
+        chat = self.proc.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
+        inp = self.proc(text=[chat], images=[Image.fromarray(image)], return_tensors="pt").to(self.device)
+        with torch.no_grad():
+            gen = self.qwen.generate(**inp, max_new_tokens=REWRITE_TOKENS, do_sample=False)
+        raw = self.proc.batch_decode(gen[:, inp.input_ids.shape[1]:], skip_special_tokens=True)[0]
+        return noun_phrase(raw), raw
+
+
+def phrase_pool(s, image: np.ndarray, phrases: list[str]):
+    # ta_test_eval.Scorer.pools for one query whose SAM 3 phrases are given explicitly
+    import ta_test_eval as TTE
+    from treeground import tree as T
+    from treeground import tree_attn as TA
+    rles, _ = s.nodes(image)
+    inst = s.text(image, phrases, s.ps["instances_per_phrase"])
+    pool, imeta = s.S3P.augment(rles, inst, s.ps["max_instances"], s.ps["dup_iou"])
+    return TTE.Pool(pool, T.build_tree(pool, s.device).parent if pool else None, len(rles),
+                    TA.pool_features(len(rles), imeta))
+
+
+class Ours:
+    def __init__(self, cfg: dict, rewrite: bool = False):
         import ta_test_eval as TTE
         self.TTE, self.s = TTE, TTE.Scorer(cfg)
         self.max_side = cfg["reason_eval"]["ours_max_side"]
         if self.s.pool:
             self.s.text.clip = safe_text_clip(self.s.text.tok)
+        if rewrite and not self.s.pool:
+            raise ProtocolError("D51 rewriting needs a pool checkpoint")
+        self.rw = Rewriter(cfg) if rewrite else None
 
     def __call__(self, image: np.ndarray, key: str, text: str) -> np.ndarray | None:
         h, w = image.shape[:2]
@@ -116,10 +167,16 @@ class Ours:
         from treeground import s2 as S2
         T = self.TTE
         q = T.S2T.Query("q0", "object", S2.user_text(f"{text} {mllm.SEL}"), f"{S2.user_text(text)} {mllm.SEL}", [])
-        pools, lgs = self.s.score(image, key, [f"{text} {mllm.SEL}"], [q])
-        if not pools[0].n:
+        if self.rw is None:
+            pools, lgs = self.s.score(image, key, [f"{text} {mllm.SEL}"], [q])
+            pool, lg = pools[0], lgs[0]
+        else:
+            phrase, _ = self.rw(image, text)
+            pool = phrase_pool(self.s, image, [phrase] if phrase else self.s.S3P.phrases(f"{text} {mllm.SEL}"))
+            lg = self.s.logits(image, key, pool, [q])[0]
+        if not pool.n:
             return None
-        return M.decode(pools[0].rles[int(np.argmax(lgs[0][0]))])
+        return M.decode(pool.rles[int(np.argmax(lg[0]))])
 
 
 # '_na' (no-abstain): the same predictor, but its top mask is kept when the score is below the official threshold,
@@ -187,15 +244,18 @@ class Baseline:
 
 # ---- bookkeeping ----
 
+OURS = ("ours", "ours_rw")   # ours_rw: D51 query rewriting for the pool's SAM 3 phrase
+
+
 def is_ours(method: str) -> bool:
-    return method == "ours"
+    return method in OURS
 
 
 def stage_name(cfg: dict, method: str) -> str:
     if not is_ours(method):
         return method
     import ta_test_eval as TTE
-    return TTE.TAT.stage(cfg)
+    return TTE.TAT.stage(cfg) + ("_rw" if method == "ours_rw" else "")
 
 
 def identity(cfg: dict, method: str, bench: str) -> dict:
@@ -211,6 +271,8 @@ def identity(cfg: dict, method: str, bench: str) -> dict:
         ident.update(run=run.name, checkpoint=cfg["ta_eval"]["checkpoint"], step=ckpt["meta"]["step"],
                      layer=ckpt["meta"]["layer"], pool_settings=ckpt["meta"].get("pool_settings"),
                      sam3_text=cfg["baselines"]["sam3_text"], max_side=cfg["reason_eval"]["ours_max_side"])
+        if method == "ours_rw":
+            ident["rewrite"] = {"prompt": REWRITE_PROMPT, "max_new_tokens": REWRITE_TOKENS, "qwen": cfg["models"]["qwen"]}
     else:
         ident.update(models=cfg["models"], baselines=cfg["baselines"], reason_prompts=cfg.get("reason_prompts", {}))
     return ident
@@ -219,7 +281,7 @@ def identity(cfg: dict, method: str, bench: str) -> dict:
 def approvals(cfg: dict, method: str) -> list[str]:
     if is_ours(method):
         import ta_test_eval as TTE
-        return ["D50"] + TTE.TAT.run_deviations(cfg["ta"])
+        return ["D50"] + (["D51"] if method == "ours_rw" else []) + TTE.TAT.run_deviations(cfg["ta"])
     return ["D50", "D13", "D31"]
 
 
@@ -242,7 +304,7 @@ def run_shard(cfg: dict, method: str, bench: str, shard: int) -> None:
         return
     run = start_run(f"reason_{bench}_{stage_name(cfg, method)}_shard", cfg, False, {"shard": shard, "cache": str(d)})
     recs = records(cfg, bench)[shard::n]
-    predict = Ours(cfg) if is_ours(method) else Baseline(cfg, method)
+    predict = Ours(cfg, rewrite=method == "ours_rw") if is_ours(method) else Baseline(cfg, method)
     rows, t0 = [], time.time()
     for i, (qid, key, text, load_image, load_gt) in enumerate(recs, 1):
         image, gt = load_image(), load_gt()

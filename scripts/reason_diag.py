@@ -7,7 +7,6 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-import torch
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +14,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from treeground import masks as M  # noqa: E402
+from reason_eval import REWRITE_PROMPT, Rewriter, phrase_pool  # noqa: E402  (D51 frozen from this run)
 from treeground.run import ProtocolError, load_config, start_run, write_json  # noqa: E402
 
 # ReasonSeg VAL diagnosis (development only: nothing here is reported as a result, nothing touches a test split).
@@ -28,22 +28,12 @@ from treeground.run import ProtocolError, load_config, start_run, write_json  # 
 # Shards over the val queries; --merge writes the per-setting summary (by target size) to a 'val' metrics run.
 
 SETTINGS = ("cap1536", "full", "rewrite")
-REWRITE_PROMPT = ("Read the request about this image and name the one object or object part it refers to. "
-                  "Answer with a short noun phrase only, such as 'the red cup' or 'the handle of the door'.\n"
-                  "Request: {text}")
 SIZE_BINS = (0.0, 0.05, 0.2, 0.5, 1.0001)
 
 
 def val_records(cfg: dict) -> list[tuple]:
     import reason_eval as RE
     return RE.reasonseg_records({**cfg, "data": {**cfg["data"], "reasonseg": cfg["data"]["reasonseg_val"]}})
-
-
-def noun_phrase(raw: str) -> str:
-    # the model's first line, without quotes, a trailing period or a leading 'Answer:'
-    s = raw.strip().splitlines()[0] if raw.strip() else ""
-    s = s.split(":", 1)[1] if s.lower().startswith("answer:") else s
-    return s.strip().strip("\"'`").rstrip(".").strip()
 
 
 def downsize(image: np.ndarray, side: int | None) -> tuple[np.ndarray, float]:
@@ -65,25 +55,6 @@ def iou(a: np.ndarray, b: np.ndarray) -> float:
     return float((a & b).sum() / u) if u else 0.0
 
 
-class Rewriter:
-    def __init__(self, cfg: dict):
-        from treeground import mllm
-        q = cfg["models"]["qwen"]
-        self.device = cfg["device"]
-        self.qwen, self.proc = mllm.load_qwen(q["repo"], q["revision"], self.device, cfg["features"]["dtype"],
-                                              cfg.get("hf_home"))
-
-    @torch.no_grad()
-    def __call__(self, image: np.ndarray, text: str) -> tuple[str, str]:
-        msgs = [{"role": "user", "content": [{"type": "image"},
-                                             {"type": "text", "text": REWRITE_PROMPT.format(text=text)}]}]
-        chat = self.proc.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
-        inp = self.proc(text=[chat], images=[Image.fromarray(image)], return_tensors="pt").to(self.device)
-        gen = self.qwen.generate(**inp, max_new_tokens=24, do_sample=False)
-        raw = self.proc.batch_decode(gen[:, inp.input_ids.shape[1]:], skip_special_tokens=True)[0]
-        return noun_phrase(raw), raw
-
-
 class Diag:
     # reason_eval.Ours' query and pick, with the pool kept so its coverage can be measured
     def __init__(self, cfg: dict):
@@ -98,13 +69,7 @@ class Diag:
         self.s.text.clip = RE.safe_text_clip(self.s.text.tok)
 
     def pool(self, image: np.ndarray, phrases: list[str]):
-        # ta_test_eval.Scorer.pools for one query with its SAM 3 phrases given explicitly
-        s = self.s
-        rles, _ = s.nodes(image)
-        inst = s.text(image, phrases, s.ps["instances_per_phrase"])
-        pool, imeta = s.S3P.augment(rles, inst, s.ps["max_instances"], s.ps["dup_iou"])
-        return self.TTE.Pool(pool, self.T.build_tree(pool, s.device).parent if pool else None, len(rles),
-                             self.TA.pool_features(len(rles), imeta))
+        return phrase_pool(self.s, image, phrases)   # the D51 pool
 
     def __call__(self, image: np.ndarray, gt: np.ndarray, key: str, text: str, phrases: list[str]) -> dict:
         from treeground import mllm

@@ -1062,6 +1062,18 @@ PROPOSED_DEVIATIONS = [
                   "benchmark reported by OP-HRG and PARTONOMY (ReasonSeg)",
         "expected_impact": "new supplementary rows only; no existing run or result changes",
     },
+    {
+        "id": "D51",
+        "spec_section": "supplementary evaluation: reasoning queries",
+        "change": "scripts/reason_eval.py method ours_rw: for a D50 reasoning query the pool's SAM 3 phrase is the "
+                  "target named by the base Qwen3-VL-4B (the backbone of ours and of Box + SAM 3) from the question on "
+                  "the image ours sees (REWRITE_PROMPT, greedy, 24 tokens; empty answer -> the s3_pool phrase); our "
+                  "model still reads the original question. Frozen on ReasonSeg VAL (scripts/reason_diag.py: pick "
+                  "gIoU 57.9 -> 63.7, coverage unchanged) before any test run; run once on the D50 test sets",
+        "reason": "the s3_pool phrase rule passes a whole question to SAM 3; on val the right candidate was in the "
+                  "pool for 83.5% of queries but picked for 72.5% of them",
+        "expected_impact": "one new supplementary row (ours + query rewriting); the D50 rows stay as they are",
+    },
 ]
 
 

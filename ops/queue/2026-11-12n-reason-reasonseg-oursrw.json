@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-12n-reason-reasonseg-oursrw",
+ "what": "D51 reasoning: reasonseg, ours + query rewriting by the same 4B backbone (rule frozen on ReasonSeg val), 8 shards",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_eval.py",
+  "TG_ARGS": "--config configs/reason_ours.yaml --method ours_rw --benchmark reasonseg"
+ },
+ "sbatch": {
+  "time": "02:00:00",
+  "array": "0-7"
+ }
+}

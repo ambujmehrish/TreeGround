@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-12n-reason-reasonseg-oursrw-merge",
+ "what": "D51 reasoning: reasonseg, ours + query rewriting by the same 4B backbone (rule frozen on ReasonSeg val), 8 shards merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_eval.py",
+  "TG_ARGS": "--config configs/reason_ours.yaml --method ours_rw --benchmark reasonseg --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-11-12n-reason-reasonseg-oursrw"
+ ],
+ "collect": true
+}

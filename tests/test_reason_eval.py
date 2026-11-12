@@ -104,7 +104,7 @@ def test_ours_answers_with_the_top_candidate():
         def score(self, image, key, texts, queries):
             assert texts == ["Add some water. <SEL>"] and queries[0].kind == "object"
             return [SimpleNamespace(n=2, rles=rles)], [np.array([[0.1, 2.0]])]
-    o.TTE, o.s, o.max_side = TTE, S(), 10 ** 6
+    o.TTE, o.s, o.max_side, o.rw = TTE, S(), 10 ** 6, None
     assert o(np.zeros((H, W, 3), np.uint8), "k", "Add some water.").all()
 
 
@@ -203,3 +203,46 @@ def test_ours_text_clip_matches_the_word_rule_and_cuts_a_single_long_word():
     for p in ("the ab cd ef", "ab c", "the mug"):
         assert clip(p) == ti.clip(p)                                  # unchanged where the word rule works
     assert clip("abcdefghij") == "xxxxx" and len(ti.clip("abcdefghij")) == 10   # old rule passes 10 tokens on
+
+
+def test_d51_rewrite_reads_the_question_and_pools_the_named_phrase(monkeypatch):
+    re = load_script("reason_eval")
+    rd = load_script("reason_diag")
+    import json
+    from pathlib import Path
+    val = Path(__file__).resolve().parents[1] / "results" / "metrics" / "reason_diag_val.json"
+    assert re.REWRITE_PROMPT == rd.REWRITE_PROMPT == json.loads(val.read_text())["rewrite_prompt"]   # frozen on val
+    o = object.__new__(re.Ours)
+    import ta_test_eval as TTE
+    from treeground import masks as M
+    seen = {}
+    named = np.zeros((H, W), bool)
+    named[2:6, 3:9] = True
+
+    class S:
+        pool, ps, device = True, {"instances_per_phrase": 3, "max_instances": 160, "dup_iou": 0.95}, "cpu"
+        import s3_pool as S3P
+
+        def nodes(self, image):
+            return M.encode(np.ones((1, H, W), bool)), None
+
+        def text(self, image, phrases, k):
+            seen["phrases"] = phrases
+            return [[(named, 0.9)] for _ in phrases]
+
+        def logits(self, image, key, pool, queries):
+            seen["query"] = queries[0].user
+            return [np.arange(pool.n, dtype=float)[None]]
+    o.TTE, o.s, o.max_side = TTE, S(), 10 ** 6
+    o.rw = lambda image, text: ("the kettle handle", "The kettle handle.")
+    out = o(np.zeros((H, W, 3), np.uint8), "k", "What do I hold to pour?")
+    assert seen["phrases"] == ["the kettle handle"] and "What do I hold to pour?" in str(seen["query"])
+    assert (out == named).all()
+    o.rw = lambda image, text: ("", "")
+    o(np.zeros((H, W, 3), np.uint8), "k", "What do I hold to pour?")
+    assert seen["phrases"] == ["What do I hold to pour?"]          # empty answer: the s3_pool phrase
+
+
+def test_d51_method_has_its_own_stage_identity_and_approval():
+    re = load_script("reason_eval")
+    assert re.is_ours("ours_rw") and not re.is_ours("qwen_box_sam")

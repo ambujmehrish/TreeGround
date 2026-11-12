@@ -1,7 +1,8 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 6
+   "PENDING": 4,
+   "RUNNING": 2
   },
   "ended_24h": [
    {
@@ -165,6 +166,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "00:42:36",
+    "end": "2026-11-12T02:41:40",
+    "exit": "0:0",
+    "jobid": "64151965_2",
+    "name": "q_2026-11-11a-edit-pool-qwen-gedit-judge",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:35:26",
     "end": "2026-11-11T17:43:57",
     "exit": "0:0",
@@ -177,6 +186,14 @@
     "end": "2026-11-11T18:46:51",
     "exit": "0:0",
     "jobid": "64151966_1",
+    "name": "q_2026-11-11a-edit-pool-qwen-imgedit-judge",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:34:26",
+    "end": "2026-11-12T02:37:34",
+    "exit": "0:0",
+    "jobid": "64151966_2",
     "name": "q_2026-11-11a-edit-pool-qwen-imgedit-judge",
     "state": "COMPLETED"
    },
@@ -1023,23 +1040,23 @@
     "time_limit": "30:00"
    },
    {
-    "elapsed": "0:00",
-    "jobid": "64151966_[2-3]",
+    "elapsed": "32:16",
+    "jobid": "64151966_3",
     "name": "q_2026-11-11a-edit-pool-qwen-imgedit-judge",
     "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
+    "reason_or_nodelist": "lrdn3224",
+    "start": "2026-11-12T02:29:51",
+    "state": "RUNNING",
     "time_limit": "1:30:00"
    },
    {
-    "elapsed": "0:00",
-    "jobid": "64151965_[2-3]",
+    "elapsed": "32:16",
+    "jobid": "64151965_3",
     "name": "q_2026-11-11a-edit-pool-qwen-gedit-judge",
     "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
+    "reason_or_nodelist": "lrdn3365",
+    "start": "2026-11-12T02:29:51",
+    "state": "RUNNING",
     "time_limit": "1:30:00"
    }
   ]
@@ -15243,7 +15260,7 @@
    "post_output_tail": null,
    "states": [
     "COMPLETED",
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794379995.5060124,
@@ -15289,7 +15306,7 @@
    "post_output_tail": null,
    "states": [
     "COMPLETED",
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794379995.7874417,
@@ -15851,5 +15868,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794445111.8521223
+ "updated": 1794448927.961659
 }

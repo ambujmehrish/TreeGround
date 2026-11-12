@@ -1,7 +1,7 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 14,
+   "PENDING": 13,
    "RUNNING": 1
   },
   "ended_24h": [
@@ -2356,6 +2356,14 @@
     "jobid": "64277547",
     "name": "q_2026-11-12e-qual-part",
     "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:03:15",
+    "end": "2026-11-12T15:23:06",
+    "exit": "1:0",
+    "jobid": "64280823",
+    "name": "q_2026-11-12h-sig-table1",
+    "state": "FAILED"
    }
   ],
   "squeue": [
@@ -2371,16 +2379,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "64276332_[0-3]",
-    "name": "q_2026-11-12f-edit-softfam-flux-gedit-judge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "2026-11-12T15:19:17",
-    "state": "PENDING",
-    "time_limit": "1:30:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "64277167",
     "name": "q_2026-11-12f-edit-softfam-qwen-imgedit-eval",
     "nodes": "1",
@@ -2391,21 +2389,41 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "64276334_[0-3]",
-    "name": "q_2026-11-12f-edit-softfam-qwen-gedit-judge",
+    "jobid": "64276335_[0-3]",
+    "name": "q_2026-11-12f-edit-softfam-qwen-imgedit-judge",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
-    "start": "2026-11-12T15:19:17",
+    "start": "2026-11-12T15:31:30",
     "state": "PENDING",
     "time_limit": "1:30:00"
    },
    {
     "elapsed": "0:00",
-    "jobid": "64276335_[0-3]",
-    "name": "q_2026-11-12f-edit-softfam-qwen-imgedit-judge",
+    "jobid": "64276334_[0-3]",
+    "name": "q_2026-11-12f-edit-softfam-qwen-gedit-judge",
     "nodes": "1",
     "reason_or_nodelist": "(Priority)",
-    "start": "2026-11-12T15:19:17",
+    "start": "2026-11-12T15:31:30",
+    "state": "PENDING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "64276332_[0-3]",
+    "name": "q_2026-11-12f-edit-softfam-flux-gedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "2026-11-12T15:31:30",
+    "state": "PENDING",
+    "time_limit": "1:30:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "64276333_[0-3]",
+    "name": "q_2026-11-12f-edit-softfam-flux-imgedit-judge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "2026-11-12T15:31:30",
     "state": "PENDING",
     "time_limit": "1:30:00"
    },
@@ -2418,16 +2436,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64276333_[0-3]",
-    "name": "q_2026-11-12f-edit-softfam-flux-imgedit-judge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "2026-11-12T15:19:17",
-    "state": "PENDING",
-    "time_limit": "1:30:00"
    },
    {
     "elapsed": "0:00",
@@ -2490,17 +2498,7 @@
     "time_limit": "30:00"
    },
    {
-    "elapsed": "0:00",
-    "jobid": "64280823",
-    "name": "q_2026-11-12h-sig-table1",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:00:00"
-   },
-   {
-    "elapsed": "7:07",
+    "elapsed": "19:20",
     "jobid": "64277168",
     "name": "q_2026-11-12g-qual-reason",
     "nodes": "1",
@@ -18470,20 +18468,20 @@
    "waiting_for": null
   },
   "2026-11-12h-sig-table1": {
-   "collected": null,
+   "collected": 1794493480.2781043,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794493480.2781034,
    "invalid": null,
    "jobid": "64280823",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "FAILED"
    ],
    "submit_error": null,
    "submitted": 1794493156.803378,
    "waiting_for": null
   }
  },
- "updated": 1794493157.8414059
+ "updated": 1794493891.8660424
 }

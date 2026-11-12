@@ -53,7 +53,7 @@ def test_instructpart_records_pick_the_instruction_and_its_mask(tmp_path):
     assert [r[2] for r in human] == ["Add some water.", "Open it."]
     assert [r[2] for r in gpt] == ["Lift it to pour.", "Remove the top."]
     qid, key, _, load_image, load_gt = human[0]
-    assert qid == key == "instructpart:kettle_001-kettle-handle"
+    assert qid == "instructpart:kettle_001-kettle-handle" and key == "instructpart:kettle_001"   # key = the photo
     assert load_image().shape == (H, W, 3) and load_gt().sum() == 4 * 6 and load_gt().dtype == bool
 
 

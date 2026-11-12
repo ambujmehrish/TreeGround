@@ -84,6 +84,8 @@ def ophrg(cfg: dict, stage: str, bench: str, kind: str) -> dict:
         run = latest(cfg, f"ophrg_{bench}_{st}")
         df = pd.read_csv(run / "eval_queries.csv")
         df = df[df.kind == kind]
+        if bench == "instructpart":   # one image file per (photo, object, part): cluster on the photo
+            df = df.assign(image=df.image.str.rsplit("-", n=2).str[0])
         out[m] = (units(df, "qid", iou_of(df)), reported(run, "results", key, "gIoU"))
     return out
 

@@ -17,8 +17,8 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from treeground.metrics import mean_ci  # noqa: E402
-from treeground.run import (ProtocolError, canonical_hash, load_config, require_approved, start_run,  # noqa: E402
-                            write_json)
+from treeground.run import (ProtocolError, assert_real_path, canonical_hash, load_config, require_approved,  # noqa: E402
+                            start_run, write_json)
 
 # Deviation D50 (supplementary): reasoning queries, test splits only, nothing tuned.
 #   instructpart_human / instructpart_gpt  InstructPart test (Wan et al. 2025, Task Reasoning Part Segmentation):
@@ -33,21 +33,24 @@ from treeground.run import (ProtocolError, canonical_hash, load_config, require_
 # pool took ~150 s per query); its chosen mask is resized back to the image (bilinear, >= 0.5) before scoring.
 
 BENCHMARKS = ("instructpart_human", "instructpart_gpt", "reasonseg")
-FILES = ("scripts/reason_eval.py", "scripts/ta_test_eval.py", "scripts/s3_pool.py", "scripts/b_baselines.py",
-         "scripts/b_baselines2.py")
+FILES = ("scripts/reason_eval.py", "scripts/ta_test_eval.py", "scripts/ta_eval.py", "scripts/ta_train.py",
+         "scripts/s3_pool.py", "scripts/s2_nodes.py", "scripts/s2_train.py", "scripts/v4_tree_value.py",
+         "scripts/b_baselines.py", "scripts/b_baselines2.py", "treeground/tree_attn.py", "treeground/proposals.py",
+         "treeground/masks.py", "treeground/s2.py", "treeground/mllm.py", "treeground/tree.py")   # every module ours runs
 
 
 # ---- records: (qid, image key, text, image loader, GT loader) ----
 
 def instructpart_records(cfg: dict, which: int) -> list[tuple]:
-    d = Path(cfg["data"]["instructpart"]) / "test"
+    d = assert_real_path(Path(cfg["data"]["instructpart"]) / "test")
     out = []
     for entry in json.loads((d / "data_test.json").read_text()):
         base = os.path.splitext(entry["image_path"])[0]
         for item in entry["part_list"]:
             name = f"{base}-{item['object'].replace(' ', '_')}-{item['part'].replace(' ', '_')}"
             img, gt = d / "images" / f"{name}.jpg", d / "masks" / f"{name}.png"
-            out.append((f"instructpart:{name}", f"instructpart:{name}", item["instruction"][which],
+            # image key = the photo (several parts of one photo share it; bootstrap CIs cluster on it)
+            out.append((f"instructpart:{name}", f"instructpart:{base}", item["instruction"][which],
                         lambda p=img: np.asarray(Image.open(p).convert("RGB")),
                         lambda p=gt: (lambda a: a if a.ndim == 2 else a.any(-1))(np.asarray(Image.open(p)) > 0)))
     return out
@@ -60,7 +63,7 @@ def parquet_file(path: str) -> pd.DataFrame:
 
 
 def reasonseg_records(cfg: dict) -> list[tuple]:
-    files = sorted((Path(cfg["data"]["reasonseg"]) / "data").glob("test-*.parquet"))
+    files = sorted((assert_real_path(cfg["data"]["reasonseg"]) / "data").glob("test-*.parquet"))
     if not files:
         raise ProtocolError(f"no ReasonSeg test parquet under {cfg['data']['reasonseg']}/data")
     parts = []

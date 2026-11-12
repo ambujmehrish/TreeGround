@@ -2,8 +2,9 @@
 
 Every mask is a stored model output on a test query; the samples are the asset job's seeded random picks and its
 largest-margin picks (ours vs Box + SAM 3), labelled as such. Rows = queries, columns = methods; the ground truth is
-drawn as a dashed outline on every prediction cell, the IoU under each cell is the one stored with the sample (the
-table's own value; SAM 3 at its released threshold, as in Tab. 1).
+drawn as a dashed outline on every prediction cell, the IoU under each cell is the asset job's recomputation of that
+mask (checked there against the table's run: equal for ours, within 0.01 for the baselines; SAM 3 at its released
+threshold, as in Tab. 1).
 usage: python paper/figures/make_qual.py part [--rows instructpart:ours_better:0,...] [--name qual_part_main] [--png]
 """
 import argparse

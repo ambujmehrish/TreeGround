@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-12l-sig-table1",
+ "what": "Table 1 margins: paired image-level bootstrap vs the best baseline per column (read-only, CPU; re-run: InstructPart clustered on the photo)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/sig_table1.py",
+  "TG_ARGS": "--config configs/ta_test_pool_soft_fam.yaml"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "collect": true
+}

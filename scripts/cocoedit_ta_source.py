@@ -19,7 +19,9 @@ from treeground.run import load_config  # noqa: E402
 # spec['config'] names the checkpoint's ta_test_<variant>.yaml.
 
 CODE = ("scripts/cocoedit_ta_source.py", "scripts/ta_test_eval.py", "scripts/ta_eval.py", "scripts/ta_train.py",
-        "treeground/tree_attn.py", "scripts/s3_pool.py", "scripts/b_baselines.py")
+        "treeground/tree_attn.py", "scripts/s3_pool.py", "scripts/b_baselines.py", "scripts/s2_nodes.py",
+        "scripts/s2_train.py", "scripts/v4_tree_value.py", "treeground/proposals.py", "treeground/masks.py",
+        "treeground/s2.py", "treeground/mllm.py", "treeground/tree.py")
 
 
 class TASelect:

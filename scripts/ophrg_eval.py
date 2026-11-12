@@ -20,8 +20,8 @@ from treeground import masks as M  # noqa: E402
 from treeground.data.ophrg_sets import partimagenet_ood_test, pascal_ids  # noqa: E402
 from treeground.data.paco import OBJECT_TEMPLATE, PART_TEMPLATE  # noqa: E402
 from treeground.metrics import mean_ci  # noqa: E402
-from treeground.run import (ProtocolError, canonical_hash, load_config, require_approved, start_run,  # noqa: E402
-                            write_json)
+from treeground.run import (ProtocolError, assert_real_path, canonical_hash, load_config, require_approved,  # noqa: E402
+                            start_run, write_json)
 
 # Deviation D38: the part-grounding protocol of OP-HRG (Mehrab et al., ECCV 2026, arXiv 2607.15374; benchmark loaders
 # of github.com/sajeedmehrab/op-hrg, MIT licence, ported here line for line) so its Table 1 can be cited unchanged:
@@ -68,7 +68,7 @@ READABLE = {
 # ---- benchmark records: (image key, image path, list of (qid, kind, object, part, gt bool mask)) ----
 
 def instructpart_images(cfg: dict) -> list[tuple]:
-    d = Path(cfg["data"]["instructpart"]) / "test"
+    d = assert_real_path(Path(cfg["data"]["instructpart"]) / "test")
     out = []
     for name in sorted(os.listdir(d / "images")):
         base = os.path.splitext(name)[0]

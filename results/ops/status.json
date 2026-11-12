@@ -1,7 +1,6 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 3,
    "RUNNING": 1
   },
   "ended_24h": [
@@ -67,14 +66,6 @@
     "exit": "0:0",
     "jobid": "64151965_3",
     "name": "q_2026-11-11a-edit-pool-qwen-gedit-judge",
-    "state": "COMPLETED"
-   },
-   {
-    "elapsed": "00:35:26",
-    "end": "2026-11-11T17:43:57",
-    "exit": "0:0",
-    "jobid": "64151966_0",
-    "name": "q_2026-11-11a-edit-pool-qwen-imgedit-judge",
     "state": "COMPLETED"
    },
    {
@@ -2582,6 +2573,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "00:49:02",
+    "end": "2026-11-12T17:41:01",
+    "exit": "0:0",
+    "jobid": "64287359_4",
+    "name": "q_2026-11-12j-reason-instructpart-gpt-ours",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:35:27",
     "end": "2026-11-12T17:27:26",
     "exit": "0:0",
@@ -2670,54 +2669,40 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "00:02:02",
+    "end": "2026-11-12T17:43:30",
+    "exit": "0:0",
+    "jobid": "64287964",
+    "name": "q_2026-11-12j-reason-instructpart-gpt-ours-merge",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:02:12",
     "end": "2026-11-12T17:30:01",
     "exit": "0:0",
     "jobid": "64287984",
     "name": "q_2026-11-12j-reason-instructpart-human-ours-merge",
     "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:01:28",
+    "end": "2026-11-12T17:45:12",
+    "exit": "0:0",
+    "jobid": "64288460",
+    "name": "q_2026-11-12j-reason-breakdown",
+    "state": "COMPLETED"
    }
   ],
   "squeue": [
    {
-    "elapsed": "0:00",
-    "jobid": "64288460",
-    "name": "q_2026-11-12j-reason-breakdown",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:00:00"
-   },
-   {
-    "elapsed": "0:00",
+    "elapsed": "2:08",
     "jobid": "64288459",
     "name": "q_2026-11-12j-qual-reason",
     "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64287964",
-    "name": "q_2026-11-12j-reason-instructpart-gpt-ours-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "30:00"
-   },
-   {
-    "elapsed": "47:28",
-    "jobid": "64287359_4",
-    "name": "q_2026-11-12j-reason-instructpart-gpt-ours",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3353",
-    "start": "2026-11-12T16:51:59",
+    "reason_or_nodelist": "lrdn0015",
+    "start": "2026-11-12T17:43:44",
     "state": "RUNNING",
-    "time_limit": "1:30:00"
+    "time_limit": "2:00:00"
    }
   ]
  },
@@ -18725,7 +18710,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794499205.034265,
@@ -18740,38 +18725,37 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794499205.7069147,
    "waiting_for": null
   },
   "2026-11-12j-reason-instructpart-gpt-ours": {
-   "collected": null,
+   "collected": 1794501893.8158386,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794501893.8158376,
    "invalid": null,
    "jobid": "64287359",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "COMPLETED",
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1794498337.260898,
    "waiting_for": null
   },
   "2026-11-12j-reason-instructpart-gpt-ours-merge": {
-   "collected": null,
+   "collected": 1794501893.8570843,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794501893.8570821,
    "invalid": null,
    "jobid": "64287964",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1794498798.052427,
@@ -18808,5 +18792,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794501568.2545397
+ "updated": 1794501952.9296021
 }

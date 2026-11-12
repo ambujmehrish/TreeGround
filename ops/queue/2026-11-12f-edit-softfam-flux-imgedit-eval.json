@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-12f-edit-softfam-flux-imgedit-eval",
+ "what": "D47 CoCoEdit pool_soft_fam: evaluation flux_fill imgedit_full",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit_eval.py",
+  "TG_ARGS": "--config configs/edit_cocoedit_softfam.yaml --editor flux_fill --dataset imgedit_full"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "after": [
+  "2026-11-12f-edit-softfam-flux-imgedit-jmerge"
+ ],
+ "collect": true
+}

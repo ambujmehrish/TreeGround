@@ -1,13 +1,19 @@
 {
  "id": "2026-11-12e-qual-edit",
- "what": "qualitative figure: editing (GEdit / ImgEdit), stored masks and edits of GT, ours (pool), Box + SAM 3, SAM 3 text with Qwen-Image-Edit and FLUX Fill (read-only, JSON under results/figures)",
+ "what": "qualitative figure: editing (GEdit / ImgEdit), stored masks and edits of GT, ours (pool_soft_fam, the Tab. 1 model), Box + SAM 3, SAM 3 text with Qwen-Image-Edit and FLUX Fill (read-only, JSON under results/figures)",
  "script": "q_gpu.sbatch",
  "env": {
   "TG_PY": "scripts/qual_assets.py",
-  "TG_ARGS": "edit --config configs/edit_cocoedit_pool.yaml"
+  "TG_ARGS": "edit --config configs/edit_cocoedit_softfam.yaml"
  },
  "sbatch": {
   "time": "01:00:00"
  },
- "collect": true
+ "collect": true,
+ "after": [
+  "2026-11-12f-edit-softfam-qwen-gedit-eval",
+  "2026-11-12f-edit-softfam-qwen-imgedit-eval",
+  "2026-11-12f-edit-softfam-flux-gedit-eval",
+  "2026-11-12f-edit-softfam-flux-imgedit-eval"
+ ]
 }

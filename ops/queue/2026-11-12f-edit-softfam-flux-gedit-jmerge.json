@@ -1,0 +1,15 @@
+{
+ "id": "2026-11-12f-edit-softfam-flux-gedit-jmerge",
+ "what": "D47 CoCoEdit pool_soft_fam: judge merge flux_fill gedit_full",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit_judge.py",
+  "TG_ARGS": "--config configs/edit_cocoedit_softfam.yaml --editor flux_fill --dataset gedit_full --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-11-12f-edit-softfam-flux-gedit-judge"
+ ]
+}

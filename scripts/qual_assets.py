@@ -34,9 +34,9 @@ PART_BENCHES = ("instructpart", "partimagenet", "pascalpart")
 REASON_BENCHES = ("instructpart_human", "reasonseg")
 PART_BASELINES = ("qwen_box_sam", "sam3_text", "sa2va")
 REASON_BASELINES = ("qwen_box_sam", "sa2va", "sam3_text_na")
-EDIT_CONDITIONS = {"qwen_image_edit": ("free", "gt_blend", "ours_pool_blend", "qwen_box_sam_blend", "sam3text_blend"),
-                   "flux_fill": ("gt_fill", "ours_pool_fill", "qwen_box_sam_fill", "sam3text_fill")}
-EDIT_SOURCES = ("ours_pool", "qwen_box_sam", "sam3text")
+EDIT_CONDITIONS = {"qwen_image_edit": ("free", "gt_blend", "ours_softfam_blend", "qwen_box_sam_blend", "sam3text_blend"),
+                   "flux_fill": ("gt_fill", "ours_softfam_fill", "qwen_box_sam_fill", "sam3text_fill")}
+EDIT_SOURCES = ("ours_softfam", "qwen_box_sam", "sam3text")   # ours = the Tab. 1 checkpoint (edit_cocoedit_softfam)
 
 
 # ---- selection ----
@@ -238,7 +238,7 @@ def edit_family(cfg: dict, k: int, rng) -> list[dict]:
         sel = {src: select_rows(dirs["qwen_image_edit"]["select"][src]) for src in EDIT_SOURCES}
         ids = sorted(items)
         ious = {src: pd.DataFrame({"qid": ids, "iou": sel[src].loc[ids, "iou"].to_numpy()}) for src in EDIT_SOURCES}
-        for c in choose(ious["ours_pool"], ious["qwen_box_sam"], k, rng):
+        for c in choose(ious["ours_softfam"], ious["qwen_box_sam"], k, rng):
             s = items[c["qid"]]
             image, gt = s.load()
             hw = small(image).shape[:2]

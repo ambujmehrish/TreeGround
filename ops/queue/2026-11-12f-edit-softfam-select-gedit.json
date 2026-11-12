@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-12f-edit-softfam-select-gedit",
+ "what": "D47 CoCoEdit, pool_soft_fam (Tab. 1 model): mask selection gedit_full (8 shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit.py",
+  "TG_ARGS": "--config configs/edit_cocoedit_softfam.yaml --editor qwen_image_edit --dataset gedit_full --select-only"
+ },
+ "sbatch": {
+  "time": "02:00:00",
+  "array": "0-7"
+ }
+}

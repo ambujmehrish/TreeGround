@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-12f-edit-softfam-flux-imgedit-judge",
+ "what": "D47 CoCoEdit pool_soft_fam: 72B judge flux_fill imgedit_full (4 shards)",
+ "script": "q_gpu4py.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit_judge.py",
+  "TG_ARGS": "--config configs/edit_cocoedit_softfam.yaml --editor flux_fill --dataset imgedit_full"
+ },
+ "sbatch": {
+  "time": "01:30:00",
+  "array": "0-3"
+ },
+ "after": [
+  "2026-11-12f-edit-softfam-flux-imgedit-merge"
+ ]
+}

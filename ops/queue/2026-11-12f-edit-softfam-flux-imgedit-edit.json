@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-12f-edit-softfam-flux-imgedit-edit",
+ "what": "D47 CoCoEdit pool_soft_fam: flux_fill edits imgedit_full (8 shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/e_cocoedit.py",
+  "TG_ARGS": "--config configs/edit_cocoedit_softfam.yaml --editor flux_fill --dataset imgedit_full"
+ },
+ "sbatch": {
+  "time": "03:00:00",
+  "array": "0-7"
+ },
+ "after": [
+  "2026-11-12f-edit-softfam-select-imgedit"
+ ]
+}

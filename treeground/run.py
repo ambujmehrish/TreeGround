@@ -1052,7 +1052,9 @@ PROPOSED_DEVIATIONS = [
                   "images and masks) and ReasonSeg test (Ricky06662/ReasonSeg_test, pinned, 779 queries). Every "
                   "method answers each query with one mask: ours the top-1 candidate of its pool for the query as "
                   "free text (as on gRefCOCO), the D13 / D31 baselines their single mask for the same text (SAM 3 "
-                  "text clipped to 32 tokens, D27; sam3_text_na also keeps its top mask below the score threshold). Ours sees "
+                  "text clipped to 32 tokens, D27; sam3_text_na also keeps its top mask below the score threshold; a query ending in '?', '.' or '!' gets "
+                  "the model's sentence prompt, reason_prompts: Sa2VA's own question prompt, Qwen3-VL asked for the "
+                  "region the request refers to). Ours sees "
                   "images resized to a 1536-pixel long side (ReasonSeg's 4K photos took ~150 s per query at full "
                   "resolution) and its mask is resized back before scoring. gIoU / cIoU; test only, nothing tuned",
         "reason": "reasoning to a part without naming it (InstructPart instructions) and the standard reasoning "

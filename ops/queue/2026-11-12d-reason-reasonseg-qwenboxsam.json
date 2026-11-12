@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-12d-reason-reasonseg-qwenboxsam",
+ "what": "D50 reasoning: reasonseg, qwen_box_sam with its sentence prompt for sentence / instruction queries (4 shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_eval.py",
+  "TG_ARGS": "--config configs/reason_baselines.yaml --method qwen_box_sam --benchmark reasonseg"
+ },
+ "sbatch": {
+  "time": "01:30:00",
+  "array": "0-3"
+ }
+}

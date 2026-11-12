@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-12d-reason-instructpart-human-qwenboxsam-merge",
+ "what": "D50 reasoning: instructpart_human, qwen_box_sam with its sentence prompt for sentence / instruction queries (4 shards) merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_eval.py",
+  "TG_ARGS": "--config configs/reason_baselines.yaml --method qwen_box_sam --benchmark instructpart_human --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-11-12d-reason-instructpart-human-qwenboxsam"
+ ],
+ "collect": true
+}

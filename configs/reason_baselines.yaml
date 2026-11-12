@@ -1,1 +1,7 @@
 include: [baselines2.yaml, reason_data.yaml]              # D50: D13 / D31 single-mask baselines on reasoning queries
+# sentence / instruction queries (D50): Sa2VA's question prompt from its own evaluation code
+# (projects/sa2va/evaluation/dataset/refVOS.py, SEG_PROMPT_QUESTION); Qwen3-VL asked for the region the request
+# refers to, same JSON box output as the phrase prompt. Phrases keep the D13 / D31 prompts.
+reason_prompts:
+  sa2va: "<image>\n {phrase} Please respond with a segmentation mask."
+  qwen_box_sam: "{phrase}\nLocate the region in this image that this refers to and output its bbox coordinates in JSON format."

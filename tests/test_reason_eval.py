@@ -77,7 +77,7 @@ def test_baseline_clips_sam3_text_and_returns_none_on_abstention():
     def pred(image, phrases):
         seen.append(phrases)
         return [(m, 0.9, "", True)] if len(seen) == 1 else [(m, 0.2, "", False)]
-    b.pred, b.clip, b.abstain = pred, re.Baseline._clipper(tok, lambda p: p), True
+    b.pred, b.clip, b.abstain, b.prompts = pred, re.Baseline._clipper(tok, lambda p: p), True, None
     assert b(None, "k", "one two three four five six seven").all()
     assert seen[0] == ["one two three four"]                 # 4 words + 2 = 6 tokens
     assert b(None, "k", "short") is None
@@ -160,3 +160,25 @@ def test_ours_runs_large_images_downscaled_and_returns_a_full_size_mask():
     assert seen[-1] == (6, 8, 3) and out.shape == (H, W) and out[:, :8].all() and not out[:, 8:].any()
     o.max_side = 64
     assert o(np.zeros((H, W, 3), np.uint8), "k", "q").shape == (H, W) and seen[-1] == (H, W, 3)
+
+
+def test_sentences_get_the_sentence_prompt_and_phrases_keep_the_phrase_prompt(monkeypatch):
+    re = load_script("reason_eval")
+    import b_baselines as B
+    used = []
+
+    class P:
+        s = {"prompt": "Please segment {phrase} in this image."}
+
+        def __init__(self, cfg):
+            pass
+
+        def __call__(self, image, phrases):
+            used.append(self.s["prompt"].format(phrase=phrases[0]))
+            return [(np.ones((H, W), bool), float("nan"), "", True)]
+    monkeypatch.setitem(B.PREDICTORS, "sa2va", P)
+    b = re.Baseline({"reason_prompts": {"sa2va": "{phrase} Please respond with a segmentation mask."}}, "sa2va")
+    b(None, "k", "What can hold water?"), b(None, "k", "Lift it to pour."), b(None, "k", "the kettle handle")
+    assert used == ["What can hold water? Please respond with a segmentation mask.",
+                    "Lift it to pour. Please respond with a segmentation mask.",
+                    "Please segment the kettle handle in this image."]

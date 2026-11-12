@@ -122,6 +122,11 @@ class Ours:
 NO_ABSTAIN = "_na"
 
 
+def is_sentence(text: str) -> bool:
+    # Sa2VA's own evaluation switches to its question prompt on '?'; instructions end with '.' or '!'
+    return text.rstrip().endswith(("?", ".", "!"))
+
+
 def upsample(mask: np.ndarray, h: int, w: int) -> np.ndarray:
     m = Image.fromarray(mask.astype(np.float32)).resize((w, h), Image.BILINEAR)
     return np.asarray(m) >= 0.5
@@ -135,6 +140,10 @@ class Baseline:
         if method not in B.PREDICTORS:
             import b_baselines2  # noqa: F401  (registers the D31 predictors)
         self.pred = B.PREDICTORS[method](cfg)
+        # reasoning queries are sentences or instructions; the phrase prompt ("Please segment {phrase} in this
+        # image.") would garble them, so a sentence gets the model's own sentence prompt (reason_prompts)
+        sent = cfg.get("reason_prompts", {}).get(method)
+        self.prompts = None if sent is None else {False: self.pred.s["prompt"], True: sent}
         tok = getattr(getattr(self.pred, "proc", None), "tokenizer", None) if method.startswith("sam3") else None
         self.clip = (lambda p: p) if tok is None else self._clipper(tok, B.concept)
 
@@ -156,6 +165,8 @@ class Baseline:
         return clip
 
     def __call__(self, image: np.ndarray, key: str, text: str) -> np.ndarray | None:
+        if self.prompts is not None:
+            self.pred.s = {**self.pred.s, "prompt": self.prompts[is_sentence(text)]}
         mask, _, _, acc = self.pred(image, [self.clip(text)])[0]
         return mask.astype(bool) if (mask is not None and (acc or not self.abstain)) else None
 
@@ -187,7 +198,7 @@ def identity(cfg: dict, method: str, bench: str) -> dict:
                      layer=ckpt["meta"]["layer"], pool_settings=ckpt["meta"].get("pool_settings"),
                      sam3_text=cfg["baselines"]["sam3_text"], max_side=cfg["reason_eval"]["ours_max_side"])
     else:
-        ident.update(models=cfg["models"], baselines=cfg["baselines"])
+        ident.update(models=cfg["models"], baselines=cfg["baselines"], reason_prompts=cfg.get("reason_prompts", {}))
     return ident
 
 

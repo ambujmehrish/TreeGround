@@ -3,18 +3,18 @@
     "combine_tags": [
       "",
       "_s2long",
-      "_pool"
+      "_softfam"
     ],
     "editors": {
       "flux_fill": {
         "conditions": [
-          "ours_pool_fill"
+          "ours_softfam_fill"
         ],
         "free_type_region": "whole"
       },
       "qwen_image_edit": {
         "conditions": [
-          "ours_pool_blend"
+          "ours_softfam_blend"
         ]
       }
     },
@@ -49,7 +49,7 @@
       "gedit_full": 8,
       "imgedit_full": 8
     },
-    "run_tag": "_pool",
+    "run_tag": "_softfam",
     "seed": 0,
     "smoke_per_category": 1,
     "sources": {
@@ -57,15 +57,15 @@
         "kind": "selector",
         "stage": "v2"
       },
-      "ours_pool": {
-        "attr": "TASelect",
-        "config": "configs/ta_test_pool_full.yaml",
-        "kind": "script",
-        "script": "cocoedit_ta_source"
-      },
       "ours_s1": {
         "kind": "selector",
         "stage": "s1"
+      },
+      "ours_softfam": {
+        "attr": "TASelect",
+        "config": "configs/ta_test_pool_soft_fam.yaml",
+        "kind": "script",
+        "script": "cocoedit_ta_source"
       },
       "qwen_box_sam": {
         "kind": "qwen_box_sam"
@@ -79,14 +79,14 @@
   "deviation": "D25",
   "editor": "flux_fill",
   "images_dirs": {
-    "ours_pool_fill": "$TG_CACHE/full/cocoedit/edit/flux_fill/gedit_full/ours_pool_fill/8d48eb3394798ecd/images"
+    "ours_softfam_fill": "$TG_CACHE/full/cocoedit/edit/flux_fill/gedit_full/ours_softfam_fill/eb2ba89c300c9b81/images"
   },
   "localization": {
-    "ours_pool": {
+    "ours_softfam": {
       "empty_rate": 0.0,
-      "mask_iou": 0.5127986300324784,
+      "mask_iou": 0.5359217829609603,
       "n": 446,
-      "success@0.5": 0.5269058295964125
+      "success@0.5": 0.5493273542600897
     }
   },
   "mllm": 506,
@@ -99,7 +99,7 @@
     "revision": "358293da0354175698b67ec8299acf928313a78a"
   },
   "modes": {
-    "ours_pool_fill": {
+    "ours_softfam_fill": {
       "fill": 446,
       "raw": 160
     }
@@ -108,7 +108,7 @@
   "samples": 606,
   "scored": 446,
   "select_dirs": {
-    "ours_pool": "$TG_CACHE/full/cocoedit/select/ours_pool/gedit_full/7cb03b1f0a2d5283"
+    "ours_softfam": "$TG_CACHE/full/cocoedit/select/ours_softfam/gedit_full/bdc8cec5b9c7b5c3"
   },
   "settings": {
     "conditions": [

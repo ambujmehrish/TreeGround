@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-12c-reason-reasonseg-ours",
+ "what": "D50 reasoning: reasonseg, ours at a 1536-pixel long side (8 shards; the full-resolution run timed out)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_eval.py",
+  "TG_ARGS": "--config configs/reason_ours.yaml --method ours --benchmark reasonseg"
+ },
+ "sbatch": {
+  "time": "02:30:00",
+  "array": "0-7"
+ }
+}

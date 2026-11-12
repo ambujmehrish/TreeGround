@@ -104,8 +104,8 @@ def test_ours_answers_with_the_top_candidate():
         def score(self, image, key, texts, queries):
             assert texts == ["Add some water. <SEL>"] and queries[0].kind == "object"
             return [SimpleNamespace(n=2, rles=rles)], [np.array([[0.1, 2.0]])]
-    o.TTE, o.s = TTE, S()
-    assert o(None, "k", "Add some water.").all()
+    o.TTE, o.s, o.max_side = TTE, S(), 10 ** 6
+    assert o(np.zeros((H, W, 3), np.uint8), "k", "Add some water.").all()
 
 
 def test_reasonseg_images_are_upright_by_exif(tmp_path):
@@ -143,3 +143,20 @@ def test_clip_cuts_a_single_overlong_word_at_the_token_level():
 def test_empty_rate_reads_the_column_not_the_dataframe_property():
     df = pd.DataFrame({"empty": [True, False, False, False]})
     assert float(df["empty"].mean()) == 0.25 and df.empty is False
+
+
+def test_ours_runs_large_images_downscaled_and_returns_a_full_size_mask():
+    re = load_script("reason_eval")
+    o = object.__new__(re.Ours)
+    o.max_side, seen = 8, []
+
+    def select(image, key, text):
+        seen.append(image.shape)
+        m = np.zeros(image.shape[:2], bool)
+        m[:, : image.shape[1] // 2] = True
+        return m
+    o.select = select
+    out = o(np.zeros((H, W, 3), np.uint8), "k", "q")                # 12 x 16 -> 6 x 8
+    assert seen[-1] == (6, 8, 3) and out.shape == (H, W) and out[:, :8].all() and not out[:, 8:].any()
+    o.max_side = 64
+    assert o(np.zeros((H, W, 3), np.uint8), "k", "q").shape == (H, W) and seen[-1] == (H, W, 3)

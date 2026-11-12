@@ -1,2 +1,3 @@
 include: [ta_test_pool_soft_fam.yaml, reason_data.yaml]   # D50: the 4B model of Tab. 1 on reasoning queries
 proposals: {points_per_batch: 16}   # same proposals in smaller batches (not in any cache identity): ReasonSeg images up to 4K
+reason_eval: {num_shards: 8, ours_max_side: 1536}   # 8 shards x ~1 h on ReasonSeg; long side of the image ours sees (D50); its mask is resized back for scoring

@@ -29,6 +29,8 @@ from treeground.run import (ProtocolError, canonical_hash, load_config, require_
 # Every method answers each query with one mask: ours the top-1 candidate of its pool for the query given as free
 # text (as ta_test_eval.GresOurs on gRefCOCO); baselines the D13 / D31 single-mask predictors with the same text
 # (SAM 3 text clipped to its 32-token encoder, the D27 rule). gIoU = mean per-query IoU, cIoU = sum I / sum U.
+# Ours sees images resized to a long side of reason_eval.ours_max_side (ReasonSeg has 4K photos; the full-resolution
+# pool took ~150 s per query); its chosen mask is resized back to the image (bilinear, >= 0.5) before scoring.
 
 BENCHMARKS = ("instructpart_human", "instructpart_gpt", "reasonseg")
 FILES = ("scripts/reason_eval.py", "scripts/ta_test_eval.py", "scripts/s3_pool.py", "scripts/b_baselines.py",
@@ -92,8 +94,18 @@ class Ours:
     def __init__(self, cfg: dict):
         import ta_test_eval as TTE
         self.TTE, self.s = TTE, TTE.Scorer(cfg)
+        self.max_side = cfg["reason_eval"]["ours_max_side"]
 
     def __call__(self, image: np.ndarray, key: str, text: str) -> np.ndarray | None:
+        h, w = image.shape[:2]
+        f = self.max_side / max(h, w)
+        if f >= 1:
+            return self.select(image, key, text)
+        small = np.asarray(Image.fromarray(image).resize((round(w * f), round(h * f)), Image.BILINEAR))
+        m = self.select(small, key, text)
+        return None if m is None else upsample(m, h, w)
+
+    def select(self, image: np.ndarray, key: str, text: str) -> np.ndarray | None:
         from treeground import masks as M
         from treeground import mllm
         from treeground import s2 as S2
@@ -108,6 +120,11 @@ class Ours:
 # '_na' (no-abstain): the same predictor, but its top mask is kept when the score is below the official threshold,
 # as ours and Sa2VA always answer and every reasoning query has a target (as b_parity's sam3_union_na)
 NO_ABSTAIN = "_na"
+
+
+def upsample(mask: np.ndarray, h: int, w: int) -> np.ndarray:
+    m = Image.fromarray(mask.astype(np.float32)).resize((w, h), Image.BILINEAR)
+    return np.asarray(m) >= 0.5
 
 
 class Baseline:
@@ -168,7 +185,7 @@ def identity(cfg: dict, method: str, bench: str) -> dict:
         ckpt, run = TTE.TAE.load_checkpoint(cfg, False)
         ident.update(run=run.name, checkpoint=cfg["ta_eval"]["checkpoint"], step=ckpt["meta"]["step"],
                      layer=ckpt["meta"]["layer"], pool_settings=ckpt["meta"].get("pool_settings"),
-                     sam3_text=cfg["baselines"]["sam3_text"])
+                     sam3_text=cfg["baselines"]["sam3_text"], max_side=cfg["reason_eval"]["ours_max_side"])
     else:
         ident.update(models=cfg["models"], baselines=cfg["baselines"])
     return ident

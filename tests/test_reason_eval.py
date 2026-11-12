@@ -182,3 +182,24 @@ def test_sentences_get_the_sentence_prompt_and_phrases_keep_the_phrase_prompt(mo
     assert used == ["What can hold water? Please respond with a segmentation mask.",
                     "Lift it to pour. Please respond with a segmentation mask.",
                     "Please segment the kettle handle in this image."]
+
+
+def test_ours_text_clip_matches_the_word_rule_and_cuts_a_single_long_word():
+    re = load_script("reason_eval")
+    s3p = load_script("s3_pool")
+
+    class Tok:
+        model_max_length = 5
+
+        def __call__(self, s, truncation=False, max_length=None):
+            ids = list(range(len(s.replace(" ", ""))))              # one token per non-space character
+            return SimpleNamespace(input_ids=ids[:max_length] if truncation else ids)
+
+        def decode(self, ids, skip_special_tokens=True):
+            return "x" * len(ids)
+    ti = object.__new__(s3p.TextInstances)
+    ti.tok, ti.limit = Tok(), 5
+    clip = re.safe_text_clip(Tok())
+    for p in ("the ab cd ef", "ab c", "the mug"):
+        assert clip(p) == ti.clip(p)                                  # unchanged where the word rule works
+    assert clip("abcdefghij") == "xxxxx" and len(ti.clip("abcdefghij")) == 10   # old rule passes 10 tokens on

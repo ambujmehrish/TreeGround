@@ -1056,7 +1056,8 @@ PROPOSED_DEVIATIONS = [
                   "the model's sentence prompt, reason_prompts: Sa2VA's own question prompt, Qwen3-VL asked for the "
                   "region the request refers to). Ours sees "
                   "images resized to a 1536-pixel long side (ReasonSeg's 4K photos took ~150 s per query at full "
-                  "resolution) and its mask is resized back before scoring. gIoU / cIoU; test only, nothing tuned",
+                  "resolution) and its mask is resized back before scoring; its pool's SAM 3 text phrases get the baselines' "
+                  "token-level 32-token cut when one word alone exceeds it. gIoU / cIoU; test only, nothing tuned",
         "reason": "reasoning to a part without naming it (InstructPart instructions) and the standard reasoning "
                   "benchmark reported by OP-HRG and PARTONOMY (ReasonSeg)",
         "expected_impact": "new supplementary rows only; no existing run or result changes",

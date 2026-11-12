@@ -95,6 +95,8 @@ class Ours:
         import ta_test_eval as TTE
         self.TTE, self.s = TTE, TTE.Scorer(cfg)
         self.max_side = cfg["reason_eval"]["ours_max_side"]
+        if self.s.pool:
+            self.s.text.clip = safe_text_clip(self.s.text.tok)
 
     def __call__(self, image: np.ndarray, key: str, text: str) -> np.ndarray | None:
         h, w = image.shape[:2]
@@ -120,6 +122,15 @@ class Ours:
 # '_na' (no-abstain): the same predictor, but its top mask is kept when the score is below the official threshold,
 # as ours and Sa2VA always answer and every reasoning query has a target (as b_parity's sam3_union_na)
 NO_ABSTAIN = "_na"
+
+
+def safe_text_clip(tok):
+    # s3_pool.TextInstances.clip (SAM 3's 32-token text encoder) drops trailing words only, so a single word longer
+    # than the limit reaches the encoder and fails (one ReasonSeg query); the baselines' rule adds the token-level
+    # cut. Identical output whenever the word rule suffices.
+    import b_baselines as B
+    clip = Baseline._clipper(tok, lambda s: s)
+    return lambda p: clip(B.concept(p))
 
 
 def is_sentence(text: str) -> bool:

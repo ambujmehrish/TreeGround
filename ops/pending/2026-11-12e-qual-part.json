@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-12e-qual-part",
+ "what": "qualitative figure: part grounding (OP-HRG InstructPart / PartImageNet / PascalPart-116 test parts), ours vs Box + SAM 3, SAM 3 text, Sa2VA on seeded random / largest-margin queries (read-only, JSON under results/figures)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qual_assets.py",
+  "TG_ARGS": "part --config configs/ta_test_pool_soft_fam.yaml --baseline_config configs/ophrg_baselines.yaml"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "collect": true
+}

@@ -96,3 +96,40 @@ def test_ours_answers_with_the_top_candidate():
             return [SimpleNamespace(n=2, rles=rles)], [np.array([[0.1, 2.0]])]
     o.TTE, o.s = TTE, S()
     assert o(None, "k", "Add some water.").all()
+
+
+def test_reasonseg_images_are_upright_by_exif(tmp_path):
+    re = load_script("reason_eval")
+    d = tmp_path / "reasonseg" / "data"
+    d.mkdir(parents=True)
+    img = Image.fromarray(np.zeros((W, H, 3), np.uint8))           # stored sideways (W x H)
+    exif = img.getexif()
+    exif[0x0112] = 6                                                # rotate 90 CW on display -> H x W
+    b = io.BytesIO()
+    img.save(b, format="JPEG", exif=exif)
+    mask = np.zeros((H, W), bool)
+    pd.DataFrame([{"image": {"bytes": b.getvalue(), "path": None}, "text": "q", "mask": [list(r) for r in mask],
+                   "image_id": "i", "ann_id": "a", "img_height": H, "img_width": W}]).to_parquet(d / "test-00000-of-00001.parquet")
+    (rec,) = re.records({"data": {"reasonseg": str(tmp_path / "reasonseg")}}, "reasonseg")
+    assert rec[3]().shape[:2] == rec[4]().shape == (H, W)
+
+
+def test_clip_cuts_a_single_overlong_word_at_the_token_level():
+    re = load_script("reason_eval")
+
+    class Tok:
+        model_max_length = 5
+
+        def __call__(self, s, truncation=False, max_length=None):
+            ids = list(range(len(s)))                               # one token per character
+            return SimpleNamespace(input_ids=ids[:max_length] if truncation else ids)
+
+        def decode(self, ids, skip_special_tokens=True):
+            return "x" * len(ids)
+    clip = re.Baseline._clipper(Tok(), lambda p: p)
+    assert clip("abcdefghij") == "xxxxx" and clip("ab cd ef") == "ab cd"
+
+
+def test_empty_rate_reads_the_column_not_the_dataframe_property():
+    df = pd.DataFrame({"empty": [True, False, False, False]})
+    assert float(df["empty"].mean()) == 0.25 and df.empty is False

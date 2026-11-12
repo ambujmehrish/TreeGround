@@ -10,7 +10,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from PIL import Image
+from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -73,7 +73,9 @@ def reasonseg_records(cfg: dict) -> list[tuple]:
     out = []
     for m in meta.itertuples():
         out.append((f"reasonseg:{m.image_id}:{m.ann_id}", f"reasonseg:{m.image_id}", m.text,
-                    lambda f=m.file, r=m.row: np.asarray(Image.open(io.BytesIO(row(f, r)["image"]["bytes"])).convert("RGB")),
+                    # the JPEGs carry EXIF orientation; the masks are drawn on the upright image
+                    lambda f=m.file, r=m.row: np.asarray(
+                        ImageOps.exif_transpose(Image.open(io.BytesIO(row(f, r)["image"]["bytes"]))).convert("RGB")),
                     lambda f=m.file, r=m.row: np.asarray([np.asarray(x, bool) for x in row(f, r)["mask"]])))
     return out
 
@@ -116,11 +118,17 @@ class Baseline:
     def _clipper(tok, concept):
         limit = min(tok.model_max_length, 32)
 
+        def n(s: str) -> int:
+            return len(tok(concept(s)).input_ids)
+
         def clip(p: str) -> str:
             words = p.split()
-            while len(words) > 1 and len(tok(concept(" ".join(words))).input_ids) > limit:
+            while len(words) > 1 and n(" ".join(words)) > limit:
                 words.pop()
-            return " ".join(words)
+            s = " ".join(words)
+            if n(s) > limit:   # a single over-long word: keep its leading tokens
+                s = tok.decode(tok(concept(s), truncation=True, max_length=limit).input_ids, skip_special_tokens=True)
+            return s
         return clip
 
     def __call__(self, image: np.ndarray, key: str, text: str) -> np.ndarray | None:
@@ -218,7 +226,7 @@ def merge(cfg: dict, method: str, bench: str) -> None:
     df.to_csv(run / "eval_queries.csv", index=False)
     iou = np.where(df.union > 0, df.inter / df.union.clip(lower=1), 0.0)
     res = {"queries": int(len(df)), "gIoU": mean_ci(iou, df.image.to_numpy(), bs["n"], bs["seed"]),
-           "cIoU": float(df.inter.sum() / max(1, df.union.sum())), "empty_rate": float(df.empty.mean())}
+           "cIoU": float(df.inter.sum() / max(1, df.union.sum())), "empty_rate": float(df["empty"].mean())}
     write_json(run / "metrics.json", {"label": "test", "deviation": "D50", "benchmark": bench, "method": method,
                                       "stage": stage_name(cfg, method), "results": res})
     print(json.dumps({"gIoU": round(res["gIoU"]["mean"] * 100, 2), "cIoU": round(res["cIoU"] * 100, 2),

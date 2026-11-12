@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-12a-reason-instructpart-gpt-sa2va-merge",
+ "what": "D50 reasoning: instructpart_gpt, sa2va merge (re-run: merge column fix, ReasonSeg EXIF orientation, low-memory proposals, safe SAM 3 clipping)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_eval.py",
+  "TG_ARGS": "--config configs/reason_baselines.yaml --method sa2va --benchmark instructpart_gpt --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-11-12a-reason-instructpart-gpt-sa2va"
+ ],
+ "collect": true
+}

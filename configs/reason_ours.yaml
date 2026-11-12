@@ -1,1 +1,2 @@
 include: [ta_test_pool_soft_fam.yaml, reason_data.yaml]   # D50: the 4B model of Tab. 1 on reasoning queries
+proposals: {points_per_batch: 16}   # same proposals in smaller batches (not in any cache identity): ReasonSeg images up to 4K

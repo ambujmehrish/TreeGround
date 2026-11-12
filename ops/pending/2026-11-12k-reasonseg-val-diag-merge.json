@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-12k-reasonseg-val-diag-merge",
+ "what": "ReasonSeg VAL diagnosis merge (development only, label val)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_diag.py",
+  "TG_ARGS": "--config configs/reason_diag.yaml --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-11-12k-reasonseg-val-diag"
+ ],
+ "collect": true
+}

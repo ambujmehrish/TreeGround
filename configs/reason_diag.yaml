@@ -1,0 +1,8 @@
+include: [reason_ours.yaml]   # ReasonSeg VAL diagnosis (scripts/reason_diag.py; development only, no reported result)
+# fetch on the login node: python scripts/fetch_models.py --config configs/reason_diag.yaml --datasets --only reasonseg_val
+data:
+  reasonseg_val: ${TG_DATA}/reasonseg_val       # data/test-00000-of-00001.parquet (the release names its one file 'test')
+datasets:
+  reasonseg_val: {repo: Ricky06662/ReasonSeg_val, revision: f96ae9cafc5747620edff7c52812595582e6eb29,
+                  dir: "${TG_DATA}/reasonseg_val", allow_patterns: ["data/test-*.parquet", "README.md"]}
+reason_diag: {num_shards: 8, tag: v1}

@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-12k-reasonseg-val-diag",
+ "what": "ReasonSeg VAL diagnosis (development only): ours at 1536 px, full resolution, and with a backbone-named SAM 3 phrase; pick vs best-in-pool IoU (8 shards)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_diag.py",
+  "TG_ARGS": "--config configs/reason_diag.yaml"
+ },
+ "sbatch": {
+  "time": "03:00:00",
+  "array": "0-7"
+ }
+}

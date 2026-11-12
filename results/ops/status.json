@@ -1,7 +1,7 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 4,
+   "PENDING": 2,
    "RUNNING": 2
   },
   "ended_24h": [
@@ -198,6 +198,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "00:33:49",
+    "end": "2026-11-12T03:03:40",
+    "exit": "0:0",
+    "jobid": "64151966_3",
+    "name": "q_2026-11-11a-edit-pool-qwen-imgedit-judge",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:01:26",
     "end": "2026-11-11T18:14:13",
     "exit": "0:0",
@@ -211,6 +219,14 @@
     "exit": "0:0",
     "jobid": "64152245",
     "name": "q_2026-11-11a-edit-pool-flux-imgedit-jmerge",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:01:30",
+    "end": "2026-11-12T03:05:49",
+    "exit": "0:0",
+    "jobid": "64152252",
+    "name": "q_2026-11-11a-edit-pool-qwen-imgedit-jmerge",
     "state": "COMPLETED"
    },
    {
@@ -1001,16 +1017,6 @@
   "squeue": [
    {
     "elapsed": "0:00",
-    "jobid": "64152578",
-    "name": "q_2026-11-11a-edit-pool-qwen-imgedit-eval",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "64152577",
     "name": "q_2026-11-11a-edit-pool-qwen-gedit-eval",
     "nodes": "1",
@@ -1018,16 +1024,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64152252",
-    "name": "q_2026-11-11a-edit-pool-qwen-imgedit-jmerge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "30:00"
    },
    {
     "elapsed": "0:00",
@@ -1040,17 +1036,17 @@
     "time_limit": "30:00"
    },
    {
-    "elapsed": "32:16",
-    "jobid": "64151966_3",
-    "name": "q_2026-11-11a-edit-pool-qwen-imgedit-judge",
+    "elapsed": "1:43",
+    "jobid": "64152578",
+    "name": "q_2026-11-11a-edit-pool-qwen-imgedit-eval",
     "nodes": "1",
-    "reason_or_nodelist": "lrdn3224",
-    "start": "2026-11-12T02:29:51",
+    "reason_or_nodelist": "lrdn0015",
+    "start": "2026-11-12T03:06:12",
     "state": "RUNNING",
-    "time_limit": "1:30:00"
+    "time_limit": "2:00:00"
    },
    {
-    "elapsed": "32:16",
+    "elapsed": "38:04",
     "jobid": "64151965_3",
     "name": "q_2026-11-11a-edit-pool-qwen-gedit-judge",
     "nodes": "1",
@@ -15275,38 +15271,37 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794380656.1716592,
    "waiting_for": null
   },
   "2026-11-11a-edit-pool-qwen-imgedit-jmerge": {
-   "collected": null,
+   "collected": 1794449275.1603277,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794449275.1603265,
    "invalid": null,
    "jobid": "64152252",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1794380345.7444603,
    "waiting_for": null
   },
   "2026-11-11a-edit-pool-qwen-imgedit-judge": {
-   "collected": null,
+   "collected": 1794449275.177365,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794449275.177363,
    "invalid": null,
    "jobid": "64151966",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "COMPLETED",
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1794379995.7874417,
@@ -15868,5 +15863,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794448927.961659
+ "updated": 1794449275.7299836
 }

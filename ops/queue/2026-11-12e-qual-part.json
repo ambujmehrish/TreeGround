@@ -1,6 +1,6 @@
 {
  "id": "2026-11-12e-qual-part",
- "what": "qualitative figure: part grounding (OP-HRG InstructPart / PartImageNet / PascalPart-116 test parts), ours vs Box + SAM 3, SAM 3 text, Sa2VA on seeded random / largest-margin queries (read-only, JSON under results/figures)",
+ "what": "qualitative figure: part grounding (OP-HRG test parts), ours vs Box + SAM 3, SAM 3 text, Sa2VA; seeded random / largest-margin picks (read-only, JSON under results/figures)",
  "script": "q_gpu.sbatch",
  "env": {
   "TG_PY": "scripts/qual_assets.py",

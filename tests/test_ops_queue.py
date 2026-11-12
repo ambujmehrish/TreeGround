@@ -1,4 +1,5 @@
 import json
+import json
 import sys
 from pathlib import Path
 
@@ -262,6 +263,14 @@ def test_repo_queue_is_valid():
     root = Path(__file__).resolve().parents[1]
     valid, invalid = Q.load_requests(root)
     assert not invalid, invalid
+
+
+def test_parked_requests_are_valid_before_release():
+    # a parked request moves to ops/queue unchanged, so it must already pass the runner's checks
+    root = Path(__file__).resolve().parents[1]
+    bad = {f.name: e for f in sorted((root / "ops" / "pending").glob("*.json"))
+           if (e := Q.validate(json.loads(f.read_text()), f.stem, root))}
+    assert not bad, bad
 
 
 def test_finished_parent_resolved_without_afterok(repo, tmp_path):

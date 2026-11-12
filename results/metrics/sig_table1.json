@@ -1,0 +1,193 @@
+{
+  "bootstrap": {
+    "n": 10000,
+    "seed": 0
+  },
+  "label": "test",
+  "results": {
+    "GSEval All": {
+      "baseline": 0.7222558212917701,
+      "best_baseline": "qwen_box_sam",
+      "ci95": [
+        -0.033847992710259664,
+        -0.011799594146468063
+      ],
+      "delta": -0.022753641000953007,
+      "images": 2727,
+      "ours": 0.699502180290817,
+      "p_two_sided": 0.0001,
+      "units": 3715
+    },
+    "GSEval Part": {
+      "baseline": 0.37469281604633364,
+      "best_baseline": "qwen_box_sam",
+      "ci95": [
+        0.10009876021732962,
+        0.1787501355681828
+      ],
+      "delta": 0.13915379828330038,
+      "images": 372,
+      "ours": 0.513846614329634,
+      "p_two_sided": 0.0001,
+      "units": 455
+    },
+    "InstructPart": {
+      "baseline": 0.6745858530290112,
+      "best_baseline": "qwen_box_sam",
+      "ci95": [
+        -0.009053187165125756,
+        0.02447970998130453
+      ],
+      "delta": 0.007888602340088847,
+      "images": 600,
+      "ours": 0.6824744553691,
+      "p_two_sided": 0.3586,
+      "units": 600
+    },
+    "PACO Object": {
+      "baseline": 0.7636501805237913,
+      "best_baseline": "qwen_box_sam",
+      "ci95": [
+        0.04997161340103978,
+        0.0590437342440903
+      ],
+      "delta": 0.05449584493505015,
+      "images": 6374,
+      "ours": 0.8181460254588415,
+      "p_two_sided": 0.0001,
+      "units": 8660
+    },
+    "PACO Part": {
+      "baseline": 0.3295692863422127,
+      "best_baseline": "qwen_box_sam",
+      "ci95": [
+        0.14122137448165734,
+        0.1489527969604333
+      ],
+      "delta": 0.14503268012408863,
+      "images": 5728,
+      "ours": 0.47460196646630143,
+      "p_two_sided": 0.0001,
+      "units": 20960
+    },
+    "PARTONOMY macro": {
+      "baseline": 0.4878143038354549,
+      "best_baseline": "qwen_box_sam",
+      "ci95": [
+        0.011488577051273128,
+        0.03260315875901465
+      ],
+      "delta": 0.021816760151611644,
+      "images": 1065,
+      "ours": 0.5096310639870666,
+      "p_two_sided": 0.0001,
+      "units": 1068
+    },
+    "PARTONOMY micro": {
+      "baseline": 0.47109102472618075,
+      "best_baseline": "qwen_box_sam",
+      "ci95": [
+        0.014400221891675299,
+        0.032501068709234415
+      ],
+      "delta": 0.023332641428251987,
+      "images": 1065,
+      "ours": 0.4944236661544327,
+      "p_two_sided": 0.0001,
+      "units": 3542
+    },
+    "PPS-116 Object": {
+      "baseline": 0.7995595342217244,
+      "best_baseline": "qwen_box_sam",
+      "ci95": [
+        0.0006710655936099654,
+        0.012787201947270151
+      ],
+      "delta": 0.0066868601538542715,
+      "images": 851,
+      "ours": 0.8062463943755787,
+      "p_two_sided": 0.0296,
+      "units": 1077
+    },
+    "PPS-116 Part": {
+      "baseline": 0.33567193665728623,
+      "best_baseline": "qwen_box_sam",
+      "ci95": [
+        0.06378022711549954,
+        0.07710944577802259
+      ],
+      "delta": 0.07050228181558676,
+      "images": 851,
+      "ours": 0.406174218472873,
+      "p_two_sided": 0.0001,
+      "units": 9552
+    },
+    "PartImageNet": {
+      "baseline": 0.45101262604626696,
+      "best_baseline": "qwen_box_sam",
+      "ci95": [
+        0.0521403375747852,
+        0.06085717550472632
+      ],
+      "delta": 0.05647791017386084,
+      "images": 4589,
+      "ours": 0.5074905362201277,
+      "p_two_sided": 0.0001,
+      "units": 14251
+    },
+    "gRefCOCO N-acc testA": {
+      "baseline": 0.8914118705035972,
+      "best_baseline": "sam3_text",
+      "ci95": [
+        0.03827099266783519,
+        0.059033252482082535
+      ],
+      "delta": 0.048561151079136694,
+      "images": 749,
+      "ours": 0.9399730215827338,
+      "p_two_sided": 0.0001,
+      "units": 4448
+    },
+    "gRefCOCO N-acc testB": {
+      "baseline": 0.8285897710250375,
+      "best_baseline": "sam3_text",
+      "ci95": [
+        0.06749390949126469,
+        0.09391453621803958
+      ],
+      "delta": 0.0806762251230473,
+      "images": 750,
+      "ours": 0.9092659961480848,
+      "p_two_sided": 0.0001,
+      "units": 4673
+    },
+    "gRefCOCO testA": {
+      "baseline": 0.5150522866372217,
+      "best_baseline": "sa2va",
+      "ci95": [
+        0.06912803396635883,
+        0.090076856588344
+      ],
+      "delta": 0.07994390583584568,
+      "images": 750,
+      "ours": 0.5949961924730673,
+      "p_two_sided": 0.0001,
+      "units": 19200
+    },
+    "gRefCOCO testB": {
+      "baseline": 0.4796079010900686,
+      "best_baseline": "qwen_box_sam",
+      "ci95": [
+        0.0679677921764956,
+        0.09053482370584973
+      ],
+      "delta": 0.07924897104261341,
+      "images": 750,
+      "ours": 0.5588568721326821,
+      "p_two_sided": 0.0001,
+      "units": 16063
+    }
+  },
+  "stage": "ta_pool_soft_fam",
+  "what": "paired image-level bootstrap of Table 1 margins"
+}

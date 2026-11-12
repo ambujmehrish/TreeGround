@@ -1,0 +1,17 @@
+{
+ "id": "2026-11-12j-reason-breakdown",
+ "what": "D50 breakdown: reasoning results by target size and query form, and the kind of each miss (read-only, CPU)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_breakdown.py",
+  "TG_ARGS": "--config configs/reason_ours.yaml"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "after": [
+  "2026-11-12j-reason-instructpart-human-ours-merge",
+  "2026-11-12j-reason-instructpart-gpt-ours-merge"
+ ],
+ "collect": true
+}

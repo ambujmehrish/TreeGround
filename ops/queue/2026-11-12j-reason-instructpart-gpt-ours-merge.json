@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-12j-reason-instructpart-gpt-ours-merge",
+ "what": "D50 reasoning: instructpart_gpt, ours under the current rule (1536-pixel long side cap, token-level SAM 3 cut), 8 shards merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/reason_eval.py",
+  "TG_ARGS": "--config configs/reason_ours.yaml --method ours --benchmark instructpart_gpt --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-11-12j-reason-instructpart-gpt-ours"
+ ],
+ "collect": true
+}

@@ -1,0 +1,17 @@
+{
+ "id": "2026-11-12j-qual-reason",
+ "what": "qualitative figure: reasoning (InstructPart human instructions, ReasonSeg test), ours vs Box + SAM 3, Sa2VA, SAM 3 text (always answers) (read-only, JSON under results/figures)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qual_assets.py",
+  "TG_ARGS": "reason --config configs/reason_ours.yaml --baseline_config configs/reason_baselines.yaml"
+ },
+ "sbatch": {
+  "time": "02:00:00"
+ },
+ "collect": true,
+ "after": [
+  "2026-11-12j-reason-instructpart-human-ours-merge",
+  "2026-11-12j-reason-instructpart-gpt-ours-merge"
+ ]
+}

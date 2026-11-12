@@ -5,3 +5,78 @@ You are using a model of type sam3_video to instantiate a model of type sam3_tra
 /leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/image_processing_utils_fast.py:692: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
   image = torch.from_numpy(image).contiguous()
 Token indices sequence length is longer than the specified maximum sequence length for this model (36 > 32). Running this sequence through the model will result in indexing errors
+[25/97] 829s
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_eval.py", line 291, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_eval.py", line 287, in main
+    run_shard(cfg, args.method, args.benchmark, args.shard)
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_eval.py", line 237, in run_shard
+    pred = predict(image, key, text)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_eval.py", line 105, in __call__
+    m = self.select(small, key, text)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/reason_eval.py", line 114, in select
+    pools, lgs = self.s.score(image, key, [f"{text} {mllm.SEL}"], [q])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 153, in score
+    pools = self.pools(image, texts)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/ta_test_eval.py", line 131, in pools
+    inst = dict(zip(plist, self.text(image, plist, self.ps["instances_per_phrase"])))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/s3_pool.py", line 107, in __call__
+    r = st.model(vision_embeds=ve, input_ids=t.input_ids, attention_mask=t.attention_mask)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 1002, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/models/sam3/modeling_sam3.py", line 2286, in forward
+    text_features = self.get_text_features(
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 835, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/models/sam3/modeling_sam3.py", line 2175, in get_text_features
+    text_outputs = self.text_encoder(
+                   ^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 1002, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 992, in forward
+    text_outputs: BaseModelOutputWithPooling = self.text_model(
+                                               ^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 544, in forward
+    hidden_states = self.embeddings(input_ids=input_ids, position_ids=position_ids)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/treeground/tg-venv/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 247, in forward
+    raise ValueError(
+ValueError: Sequence length must be less than max_position_embeddings (got `sequence length`: 41 and max_position_embeddings: 32

@@ -16,7 +16,7 @@ def rect(y0, y1, x0, x1, h=H, w=W):
 
 
 def test_noun_phrase_takes_the_first_line_without_decoration():
-    rd = load_script("reason_diag")
+    rd = load_script("reason_eval")   # D51's parser lives in the evaluator; the val diagnosis imports it
     assert rd.noun_phrase("The sink.") == "The sink"
     assert rd.noun_phrase("Answer: 'the red cup'\nbecause ...") == "the red cup"
     assert rd.noun_phrase("   ") == ""

@@ -1,0 +1,19 @@
+PARTONOMY micro        ours  49.4  qwen_box_sam   47.1  delta  +2.3 [+1.4, +3.3]  p 0.0001
+PARTONOMY macro        ours  51.0  qwen_box_sam   48.8  delta  +2.2 [+1.1, +3.3]  p 0.0001
+GSEval Part            ours  51.4  qwen_box_sam   37.5  delta +13.9 [+10.0, +17.9]  p 0.0001
+Traceback (most recent call last):
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/sig_table1.py", line 218, in <module>
+    main()
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/sig_table1.py", line 206, in main
+    r = compare(get(), args.n, args.seed)
+                ^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/sig_table1.py", line 166, in <lambda>
+    "PACO Part": lambda: paco(cfg, stage, "part"),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/sig_table1.py", line 96, in paco
+    out["ours"] = (units(df, "qid", df.sel_iou), reported(run, "by_kind", kind, "gIoU"))
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/leonardo_work/AIFAC_S07_041/TreeGround/scripts/sig_table1.py", line 65, in reported
+    v = v[k]
+        ~^^^
+KeyError: 'gIoU'

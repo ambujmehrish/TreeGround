@@ -2,7 +2,7 @@
  "cluster": {
   "counts": {
    "PENDING": 1,
-   "RUNNING": 8
+   "RUNNING": 1
   },
   "ended_24h": [
    {
@@ -2684,6 +2684,62 @@
     "jobid": "64294238_7",
     "name": "q_2026-11-12k-reasonseg-val-diag",
     "state": "FAILED"
+   },
+   {
+    "elapsed": "01:01:45",
+    "end": "2026-11-12T19:30:07",
+    "exit": "0:0",
+    "jobid": "64294712_0",
+    "name": "q_2026-11-12m-reasonseg-val-diag",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:47:45",
+    "end": "2026-11-12T19:16:07",
+    "exit": "0:0",
+    "jobid": "64294712_1",
+    "name": "q_2026-11-12m-reasonseg-val-diag",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:50:59",
+    "end": "2026-11-12T19:19:21",
+    "exit": "0:0",
+    "jobid": "64294712_2",
+    "name": "q_2026-11-12m-reasonseg-val-diag",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "01:02:11",
+    "end": "2026-11-12T19:30:33",
+    "exit": "0:0",
+    "jobid": "64294712_4",
+    "name": "q_2026-11-12m-reasonseg-val-diag",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:49:01",
+    "end": "2026-11-12T19:17:23",
+    "exit": "0:0",
+    "jobid": "64294712_5",
+    "name": "q_2026-11-12m-reasonseg-val-diag",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:50:02",
+    "end": "2026-11-12T19:18:24",
+    "exit": "0:0",
+    "jobid": "64294712_6",
+    "name": "q_2026-11-12m-reasonseg-val-diag",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "01:01:25",
+    "end": "2026-11-12T19:29:47",
+    "exit": "0:0",
+    "jobid": "64294712_7",
+    "name": "q_2026-11-12m-reasonseg-val-diag",
+    "state": "COMPLETED"
    }
   ],
   "squeue": [
@@ -2698,81 +2754,11 @@
     "time_limit": "30:00"
    },
    {
-    "elapsed": "30:42",
-    "jobid": "64294712_0",
-    "name": "q_2026-11-12m-reasonseg-val-diag",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2581",
-    "start": "2026-11-12T18:28:22",
-    "state": "RUNNING",
-    "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "30:42",
-    "jobid": "64294712_1",
-    "name": "q_2026-11-12m-reasonseg-val-diag",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0066",
-    "start": "2026-11-12T18:28:22",
-    "state": "RUNNING",
-    "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "30:42",
-    "jobid": "64294712_2",
-    "name": "q_2026-11-12m-reasonseg-val-diag",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0166",
-    "start": "2026-11-12T18:28:22",
-    "state": "RUNNING",
-    "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "30:42",
+    "elapsed": "1:04:02",
     "jobid": "64294712_3",
     "name": "q_2026-11-12m-reasonseg-val-diag",
     "nodes": "1",
     "reason_or_nodelist": "lrdn0232",
-    "start": "2026-11-12T18:28:22",
-    "state": "RUNNING",
-    "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "30:42",
-    "jobid": "64294712_4",
-    "name": "q_2026-11-12m-reasonseg-val-diag",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0379",
-    "start": "2026-11-12T18:28:22",
-    "state": "RUNNING",
-    "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "30:42",
-    "jobid": "64294712_5",
-    "name": "q_2026-11-12m-reasonseg-val-diag",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0488",
-    "start": "2026-11-12T18:28:22",
-    "state": "RUNNING",
-    "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "30:42",
-    "jobid": "64294712_6",
-    "name": "q_2026-11-12m-reasonseg-val-diag",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0492",
-    "start": "2026-11-12T18:28:22",
-    "state": "RUNNING",
-    "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "30:42",
-    "jobid": "64294712_7",
-    "name": "q_2026-11-12m-reasonseg-val-diag",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0492",
     "start": "2026-11-12T18:28:22",
     "state": "RUNNING",
     "time_limit": "3:00:00"
@@ -18923,6 +18909,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
+    "COMPLETED",
     "RUNNING"
    ],
    "submit_error": null,
@@ -18945,5 +18932,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794506344.3526976
+ "updated": 1794508344.3904688
 }

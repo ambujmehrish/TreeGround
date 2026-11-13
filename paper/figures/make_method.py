@@ -24,7 +24,9 @@ sys.path.insert(0, str(HERE))
 from make_overview import INTER, bbox, dec, math_svg, png_b64, square, text_width, typeset  # noqa: E402
 from make_teaser import esc  # noqa: E402
 
-W, H = 1400, 632
+W, H = 1400, 676
+D = 44                                         # room between the MLLM and the selection head for the read-out
+READOUT_LAYER = 36                             # results/metrics/ta_pool_soft_fam.json: best_layer (chosen on PACO val)
 FONT = "Inter, Helvetica, Arial, sans-serif"
 INK, MUTED, LINE = "#1f2633", "#5b6474", "#cfd5de"
 BLUE, GREEN, PINK = "#3b6fb6", "#2f8f6b", "#b0306f"      # mask stream, image stream, text stream
@@ -47,6 +49,10 @@ TEX = {
     "head": r"s_v=\lambda\,\cos\!\big(\psi_q(h_{\langle\mathrm{SEL}\rangle}),\,\psi_k(z_v)\big)+\beta",
     "argmax": r"v^{\star}=\arg\max_{v}\,s_v",
     "mstar": r"m_{v^{\star}}",
+    "psiq": r"\psi_q",
+    "psik": r"\psi_k",
+    "hsel": r"h_{\langle\mathrm{SEL}\rangle}",
+    "zv": r"z_v",
     "bias": r"b_{\ell,\,\mathrm{rel}(u,v)}",
 }
 
@@ -164,8 +170,8 @@ def tokens(x, y, n, color, w=22, h=26, gap=6) -> tuple[list[str], float]:
 def inputs(ex, img, M, grid_ids, text_ids) -> list[str]:
     pool = [dec(r) for r in ex["pool"]]
     obj = dec(ex["gt_object"])
-    out = [dashed_box(20, 452, 910, 168, "Inputs")]
-    y = 470
+    out = [dashed_box(20, 452 + D, 910, 168, "Inputs")]
+    y = 470 + D
     # image
     out.append(rect(36, y, 250, 128, "#fff", GREEN, 1.8, 12))
     shown = obj | pool[grid_ids[1]]
@@ -207,12 +213,12 @@ def inputs(ex, img, M, grid_ids, text_ids) -> list[str]:
 def stack(ex, img, M) -> list[str]:
     out = []
     # tokenizers over their inputs, tokens, the MLLM
-    out.append(trapezoid(161, 380, 230, 180, 44, GREEN, "Vision encoder"))
-    out.append(trapezoid(445, 380, 230, 180, 44, PINK, "Text tokenizer"))
-    out.append(trapezoid(760, 380, 240, 190, 44, BLUE, "Mask tokenizer"))
+    out.append(trapezoid(161, 380 + D, 230, 180, 44, GREEN, "Vision encoder"))
+    out.append(trapezoid(445, 380 + D, 230, 180, 44, PINK, "Text tokenizer"))
+    out.append(trapezoid(760, 380 + D, 240, 190, 44, BLUE, "Mask tokenizer"))
     for cx, c in ((161, GREEN), (445, PINK), (760, BLUE)):
-        out.append(arrow([(cx, 468), (cx, 427)], c))
-    ty = 336
+        out.append(arrow([(cx, 468 + D), (cx, 427 + D)], c))
+    ty = 336 + D
     t1, e1 = tokens(161 - 82, ty, 6, GREEN)
     t2, e2 = tokens(445 - 112, ty, 5, PINK)
     sel_x = e2 + 6
@@ -221,23 +227,31 @@ def stack(ex, img, M) -> list[str]:
     out.append(rect(sel_x, ty, 64, 26, PINK, PINK, 1, 5) + text(sel_x + 32, ty + 18.5, "<SEL>", 13, 700, "#fff", "middle"))
     out.append(M("ej", e1 + 8, ty + 20, 16, GREEN) + M("xv", e3 + 8, ty + 20, 16, BLUE))
     for cx, c in ((161, GREEN), (445, PINK), (760, BLUE)):
-        out.append(arrow([(cx, 379), (cx, 364)], c, 2))
-    out.append(rect(20, 252, 910, 70, "url(#llm)", "none", 0, 16))
-    out.append(text(475, 283, "Qwen3-VL-4B + LoRA", 22, 700, "#fff", "middle"))
-    out.append(text(475, 308, "one pass over image, query and mask tokens; LoRA rank r = 16", F_SMALL, 500,
+        out.append(arrow([(cx, 379 + D), (cx, 364 + D)], c, 2))
+    bar = 252 + D
+    out.append(rect(20, bar, 910, 70, "url(#llm)", "none", 0, 16))
+    out.append(text(475, bar + 31, "Qwen3-VL-4B + LoRA", 22, 700, "#fff", "middle"))
+    out.append(text(475, bar + 56, "one pass over image, query and mask tokens; LoRA rank r = 16", F_SMALL, 500,
                     "#fff", "middle"))
     # selection head on <SEL> and the mask tokens' states
-    hx, hy, hw, hh, tab = 380, 158, 550, 70, 132
+    hx, hy, hw, hh, tab = 380, 158, 550, 70, 112
     out.append(rect(hx, hy, hw, hh, "#fff", PINK, 2.2, 12))
     out.append(f'<path d="M{hx + 12},{hy} H{hx + tab} V{hy + hh} H{hx + 12} a12,12 0 0 1 -12,-12 V{hy + 12} '
                f'a12,12 0 0 1 12,-12 z" fill="{PINK}"/>')
-    out.append(text(hx + tab / 2, hy + 31, "Selection", 18, 700, "#fff", "middle"))
-    out.append(text(hx + tab / 2, hy + 53, "head", 18, 700, "#fff", "middle"))
+    out.append(text(hx + tab / 2, hy + 31, "Selection", 17, 700, "#fff", "middle"))
+    out.append(text(hx + tab / 2, hy + 53, "head", 17, 700, "#fff", "middle"))
     ex_ = hx + tab + (hw - tab) / 2
     out.append(M("head", ex_, hy + 29, 19, INK, "middle"))
     out.append(M("argmax", ex_, hy + 58, 19, INK, "middle"))
-    out.append(arrow([(sel_x + 32, 252), (sel_x + 32, hy + hh + 2)], PINK))
-    out.append(arrow([(838, 252), (838, hy + hh + 2)], BLUE))
+    # read-out: the chosen layer's states go through one MLP each before the cosine
+    for cx, c, key, state, side in ((sel_x + 32, PINK, "psiq", "hsel", 1), (838, BLUE, "psik", "zv", -1)):
+        py_, pw_, ph_ = hy + hh + 20, 104, 28
+        out.append(arrow([(cx, bar), (cx, py_ + ph_ + 1)], c))
+        out.append(rect(cx - pw_ / 2, py_, pw_, ph_, c, c, 1, 8))
+        out.append(text(cx - 8, py_ + 20, "MLP", 16, 700, "#fff", "end") + M(key, cx - 2, py_ + 20, 17, "#fff"))
+        out.append(arrow([(cx, py_), (cx, hy + hh + 2)], c))
+        out.append(M(state, cx + side * (pw_ / 2 + 10), py_ + 20, 17, c, "start" if side > 0 else "end"))
+    out.append(text((sel_x + 32 + 838) / 2, hy + hh + 39, f"layer-{READOUT_LAYER} states", F_BODY, 600, MUTED, "middle"))
     # scores over candidates and the answer
     pool = [dec(r) for r in ex["pool"]]
     pick = ex["pick"]
@@ -285,25 +299,25 @@ def tokenizer_inset(ex, img, M) -> list[str]:
     pool = [dec(r) for r in ex["pool"]]
     m = pool[ex["pick"]]
     x0, y0 = 950, 24
-    out = [dashed_box(x0, y0, 436, 348, "Mask tokenizer", "one token per candidate")]
-    out.append(img_tag(x0 + 16, y0 + 62, 84, 84, cutout(img, m, 168), 8))
-    out.append(rect(x0 + 16, y0 + 62, 84, 84, "none", PINK, 2.2, 8))
-    out.append(text(x0 + 16, y0 + 50, "candidate", F_IN, 600, MUTED) + M("mv", x0 + 16 + text_width("candidate ", F_IN, 600),
-                                                                          y0 + 50, 18, MUTED))
+    out = [dashed_box(x0, y0, 436, 392, "Mask tokenizer", "one token per candidate")]
+    out.append(img_tag(x0 + 16, y0 + 76, 84, 84, cutout(img, m, 168), 8))
+    out.append(rect(x0 + 16, y0 + 76, 84, 84, "none", PINK, 2.2, 8))
+    out.append(text(x0 + 58, y0 + 64, "candidate", F_IN, 600, MUTED, "middle"))
+    out.append(M("mv", x0 + 58, y0 + 184, 19, MUTED, "middle"))
     rows = [("app", "Appearance", "MLLM image tokens in the mask", GREEN),
             ("geo", "Geometry", "box, area, depth in the tree", BLUE),
             ("src", "Source", "grid or SAM 3 text: rank, score", BLUE)]
-    rx, rw, rh = x0 + 126, 298, 62
-    ys = [y0 + 32, y0 + 100, y0 + 168]
+    rx, rw, rh = x0 + 126, 298, 68
+    ys = [y0 + 34, y0 + 112, y0 + 190]
     trunk = rx - 14
-    out.append(f'<path d="M{x0 + 100},{y0 + 104} H{trunk} M{trunk},{ys[0] + rh / 2} V{ys[2] + rh / 2}" fill="none" '
+    out.append(f'<path d="M{x0 + 100},{y0 + 118} H{trunk} M{trunk},{ys[0] + rh / 2} V{ys[2] + rh / 2}" fill="none" '
                f'stroke="{BLUE}" stroke-width="2"/>')
     for (key, title, desc, c), y in zip(rows, ys):
         out.append(arrow([(trunk, y + rh / 2), (rx - 2, y + rh / 2)], BLUE, 2))
         out.append(rect(rx, y, rw, rh, "#fff", c, 1.8, 10) + f'<rect x="{rx}" y="{y}" width="7" height="{rh}" rx="3.5" fill="{c}"/>')
-        out.append(text(rx + 18, y + 25, title, 17.5, 700, c))
-        out.append(M(key, rx + rw - 10, y + 26, 18, INK, "end"))
-        out.append(text(rx + 18, y + 49, desc, F_IN, 400, MUTED))
+        out.append(text(rx + 18, y + 27, title, 17.5, 700, c))
+        out.append(M(key, rx + rw - 10, y + 28, 18, INK, "end"))
+        out.append(text(rx + 18, y + 53, desc, F_IN, 400, MUTED))
     my = ys[2] + rh + 26
     out.append(arrow([(rx + rw / 2, ys[2] + rh + 1), (rx + rw / 2, my - 1)], BLUE))
     out.append(text(rx + rw / 2 + 8, ys[2] + rh + 19, "concatenate", 15.5, 600, BLUE))
@@ -314,7 +328,7 @@ def tokenizer_inset(ex, img, M) -> list[str]:
 
 
 def attention_inset(M) -> list[str]:
-    x0, y0 = 950, 404
+    x0, y0 = 950, 404 + D
     out = [dashed_box(x0, y0, 436, 216, "Region-restricted attention", "every layer")]
     cell, n_img, n_txt, n_m = 14, 4, 3, 3
     mx, my = x0 + 16, y0 + 50
@@ -360,8 +374,8 @@ def build(ex, img, M, grid_ids, text_ids) -> str:
     body += tree_inset(M) + inputs(ex, img, M, grid_ids, text_ids) + stack(ex, img, M)
     body += tokenizer_inset(ex, img, M) + attention_inset(M)
     # insets hang off what they detail
-    body.append(f'<path d="M880,402 L950,300" fill="none" stroke="{FRAME}" stroke-width="1.4" stroke-dasharray="5 4"/>')
-    body.append(f'<path d="M930,300 L950,470" fill="none" stroke="{FRAME}" stroke-width="1.4" stroke-dasharray="5 4"/>')
+    body.append(f'<path d="M880,{402 + D} L950,330" fill="none" stroke="{FRAME}" stroke-width="1.4" stroke-dasharray="5 4"/>')
+    body.append(f'<path d="M930,{300 + D} L950,{470 + D}" fill="none" stroke="{FRAME}" stroke-width="1.4" stroke-dasharray="5 4"/>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
             f'font-family="{FONT}">{"".join(body)}</svg>')
 

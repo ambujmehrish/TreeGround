@@ -27,19 +27,14 @@ from make_overview import dec, png_b64, text_width, typeset  # noqa: E402
 from treeground import mllm  # noqa: E402
 from treeground.tree_attn import REGION_DILATE  # noqa: E402
 
-W, H = 700, 986
+W, H = 700, 822
 CELL_PX = 32
 F_T, F_B, F_S = 26, 24, 23                      # single column: 1 px ~ 0.34 pt, so 7 pt and up
 TEX = {
     "xv": r"\hat{x}_v", "xu": r"\hat{x}_u", "v": r"v", "mv": r"m_v",
     "rv": r"\mathcal{R}_v", "ru": r"\mathcal{R}_u",
-    "jin": r"j\in\mathcal{R}_v", "jout": r"j\notin\mathcal{R}_v",
+    "jin": r"j\in\mathcal{R}_v", "jout": r"j\notin\mathcal{R}_v", "ninf": r"-\infty",
     "bias": r"b_{\ell,\,\mathrm{rel}(u,v)}",
-    "r1": r"e_j,\ j\in\mathcal{R}_v:\ \ 0\quad\big(\mathcal{R}_v=\text{cells under } m_v\text{, dilated by 1}\big)",
-    "r2": r"\text{query tokens, }\langle\mathrm{SEL}\rangle:\quad 0",
-    "r3": r"\hat{x}_u:\quad b_{\ell,\,\mathrm{rel}(u,v)}\quad\text{(learned, by tree relation)}",
-    "r4": r"e_j,\ j\notin\mathcal{R}_v:\quad -\infty",
-    "r5": r"\text{image and query tokens}\ \to\ \hat{x}_v:\quad -\infty",
 }
 
 
@@ -107,31 +102,31 @@ def legend(M, x, y, anchor) -> list[str]:
     out = []
     rows = [("xv", PINK, "handle", "rv", ["cells under", "+ 1-cell margin"], "mv"),
             ("xu", BLUE, "mug", "ru", ["region of the parent", "mask (the mug)"], None)]
-    for (key, c, name, rkey, lines, mkey), yy in zip(rows, (y, y + 150)):
-        out.append(rect(x, yy, 74, 46, TINT[c], c, 2.6, 9) + M(key, x + 37, yy + 32, 26, INK, "middle"))
-        out.append(text(x + 88, yy + 31, "sees", F_B, 400, INK) + M(rkey, x + 88 + text_width("sees ", F_B, 400), yy + 32, 27, c))
-        out.append(text(x, yy + 76, lines[0], F_B, 400, MUTED)
-                   + (M(mkey, x + text_width(lines[0] + " ", F_B, 400), yy + 77, 25, MUTED) if mkey else ""))
-        out.append(text(x, yy + 106, lines[1], F_B, 400, MUTED))
+    for (key, c, name, rkey, lines, mkey), yy in zip(rows, (y, y + 160)):
+        out.append(rect(x, yy, 84, 54, TINT[c], c, 2.8, 10) + M(key, x + 42, yy + 38, 32, INK, "middle"))
+        out.append(text(x + 100, yy + 37, "sees", 26, 400, INK) + M(rkey, x + 100 + text_width("sees ", 26, 400), yy + 38, 33, c))
+        out.append(text(x, yy + 88, lines[0], F_B, 400, MUTED)
+                   + (M(mkey, x + text_width(lines[0] + " ", F_B, 400), yy + 89, 29, MUTED) if mkey else ""))
+        out.append(text(x, yy + 118, lines[1], F_B, 400, MUTED))
         ax, ay = anchor[name]
-        out.append(arrow([(x - 8, yy + 23), (ax + 4, ay)], c, 2.4))
+        out.append(arrow([(x - 8, yy + 27), (ax + 4, ay)], c, 2.4))
     return out
 
 
 def sequence(M, x0, y0) -> list[str]:
     # image | query <SEL> | mask tokens; arcs from the mask token v (the handle)
     out, x, pos = [], x0, {}
-    cells = [("i", GREEN)] * 6 + [("gap", None)] + [("q", PINK)] * 2 + [("sel", PINK), ("gap", None), ("u", BLUE),
+    cells = [("i", GREEN)] * 5 + [("gap", None)] + [("q", PINK)] * 1 + [("sel", PINK), ("gap", None), ("u", BLUE),
                                                                          ("v", PINK), ("m", BLUE)]
     own = (0, 1)                                             # image tokens j in R_v
-    k_img, tw, th = 0, 38, 40
+    k_img, tw, th = 0, 46, 48
     for kind, c in cells:
         if kind == "gap":
-            x += 18
+            x += 16
             continue
-        w = 78 if kind == "sel" else tw
+        w = 84 if kind == "sel" else tw
         if kind == "sel":
-            out.append(rect(x, y0, w, th, PINK, PINK, 1, 7) + text(x + w / 2, y0 + 27, "<SEL>", 18, 700, "#fff", "middle"))
+            out.append(rect(x, y0, w, th, PINK, PINK, 1, 7) + text(x + w / 2, y0 + 32, "<SEL>", 20, 700, "#fff", "middle"))
         else:
             hit = kind == "i" and k_img in own
             fill = PINK if hit else "#fff" if kind == "v" else TINT[c]
@@ -143,10 +138,10 @@ def sequence(M, x0, y0) -> list[str]:
             pos.setdefault("m_first", x)
         pos[key] = x + w / 2
         k_img += kind == "i"
-        x += w + 7
-    out.append(M("xu", pos["u"], y0 + 28, 21, INK, "middle") + M("xv", pos["v"], y0 + 28, 21, INK, "middle"))
-    for a, b, lab in ((pos["i0"] - tw / 2, pos["i5"] + tw / 2, "image tokens"), (pos["q0"] - tw / 2, pos["sel"] + 39, "query"),
-                      (pos["m_first"], x - 7, "mask tokens")):
+        x += w + 6
+    out.append(M("xu", pos["u"], y0 + 34, 26, INK, "middle") + M("xv", pos["v"], y0 + 34, 26, INK, "middle"))
+    for a, b, lab in ((pos["i0"] - tw / 2, pos["i4"] + tw / 2, "image tokens"), (pos["q0"] - tw / 2, pos["sel"] + 42, "query"),
+                      (pos["m_first"], x - 6, "mask tokens")):
         out.append(f'<path d="M{a:.1f},{y0 + th + 8} v7 H{b:.1f} v-7" fill="none" stroke="{MUTED}" stroke-width="1.5"/>')
         out.append(text((a + b) / 2, y0 + th + 40, lab, F_B, 600, MUTED, "middle"))
     hx = pos["v"]
@@ -157,31 +152,22 @@ def sequence(M, x0, y0) -> list[str]:
                 f'stroke="{color}" stroke-width="{sw}"{d} marker-end="url(#{MM.marker_id(color)})"/>')
 
     for k in own:
-        out.append(arc(pos[f"i{k}"], 200, PINK))
-    out.append(arc(pos["i5"], 150, FRAME, "6 5", 2))
-    for k in ("q0", "q1", "sel"):
-        out.append(arc(pos[k], 100, PINK, None, 2))
+        out.append(arc(pos[f"i{k}"], 230, PINK))
+    out.append(arc(pos["i4"], 160, FRAME, "6 5", 2))
+    for k in ("q0", "sel"):
+        out.append(arc(pos[k], 92, PINK, None, 2))
     out.append(arc(pos["u"], 44, BLUE, None, 2.6))
-    out.append(M("jin", x0 + 2, y0 - 142, 26, PINK))
-    out.append(text(pos["i5"] - 18, y0 - 30, "✕", 24, 700, FRAME, "end")
-               + M("jout", pos["i5"] - 46, y0 - 30, 25, MUTED, "end"))
-    out.append(M("bias", hx + 24, y0 - 18, 23, BLUE))
-    return out
-
-
-def rule(M, x, y, w) -> list[str]:
-    # the additive attention mask of a mask token v at layer l
-    out = [rect(x, y, w, 244, "#fff", FRAME, 1.4, 12, dash="6 5")]
-    out.append(f'<rect x="{x + 12}" y="{y - 13}" width="{text_width("Attention mask of mask token ", F_B, 700) + M.width("v", 22) + 22:.1f}" '
-               f'height="26" fill="#fff"/>')
-    out.append(text(x + 20, y + 7, "Attention mask of mask token", F_B, 700, INK)
-               + M("v", x + 20 + text_width("Attention mask of mask token ", F_B, 700), y + 8, 25, INK))
-    rows = [("r1", PINK, ""), ("r2", PINK, ""), ("r3", BLUE, ""), ("r4", FRAME, ""), ("r5", FRAME, "")]
-    for i, (key, c, lab) in enumerate(rows):
-        yy = y + 52 + i * 41
-        out.append(f'<rect x="{x + 16}" y="{yy - 16}" width="17" height="17" rx="4" fill="{c}" fill-opacity="0.8"/>')
-        out.append(M(key, x + 44, yy, 22.5, INK))
-    out.append(text(x + 18, y + 184, "", F_S))
+    out.append(M("jin", x0 + 2, y0 - 172, 31, PINK))
+    out.append(M("jout", pos["i4"] - 20, y0 - 26, 27, MUTED, "end"))
+    out.append(M("bias", hx + 22, y0 - 22, 27, BLUE))
+    # image and query tokens never attend to mask tokens
+    yb = y0 + th + 58
+    out.append(f'<path d="M{pos["sel"]:.1f},{yb} C{pos["sel"]:.1f},{yb + 46} {pos["v"]:.1f},{yb + 46} {pos["v"]:.1f},{yb + 4}" '
+               f'fill="none" stroke="{FRAME}" stroke-width="2" stroke-dasharray="6 5" '
+               f'marker-end="url(#{MM.marker_id(FRAME)})"/>')
+    out.append(M("ninf", (pos["sel"] + pos["v"]) / 2, yb + 70, 28, MUTED, "middle"))
+    out.append(text(x0, yb + 30, "image, query tokens", F_B, 400, MUTED))
+    out.append(text(x0, yb + 60, "never see mask tokens", F_B, 400, MUTED))
     return out
 
 
@@ -195,8 +181,7 @@ def build(ex, img, M) -> str:
     body += g + legend(M, 384, 70, anchor)
     body.append(text(12, 420, "(b) Attention of mask token", F_T, 700, INK)
                 + M("v", 12 + text_width("(b) Attention of mask token ", F_T, 700), 421, 27, INK))
-    body += sequence(M, 14, 606)
-    body += rule(M, 12, 726, W - 24)
+    body += sequence(M, 14, 634)
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
             f'font-family="{MM.FONT}">{"".join(body)}</svg>')
 

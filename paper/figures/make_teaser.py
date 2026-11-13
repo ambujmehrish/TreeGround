@@ -25,13 +25,13 @@ from make_overview import INTER, bbox, dec, png_b64, text_width  # noqa: E402
 
 W, H = 1400, 590
 # type sizes (px on the 1400-px canvas; at \linewidth 1 px ~ 0.35 pt): title 7.4 pt, labels 6 pt, small 5.6 pt
-F_TITLE, F_HEAD, F_LABEL, F_SMALL, F_CHIP = 25, 23, 20, 18, 19
+F_TITLE, F_HEAD, F_LABEL, F_SMALL, F_CHIP = 26, 23, 21, 19, 20
 FONT = "Inter, Helvetica, Arial, sans-serif"
 INK, MUTED, LINE = "#1f2633", "#5b6474", "#c9ced6"
-PANEL, PANEL_LINE, WORD = "#f7f1fa", "#e2cfe9", "#e8f0fb"   # MLLM box (tinted to the pick colour), query-word chips
+FRAME, WORD, IMG = "#8d96a3", "#fbeff5", "#2f8f6b"     # dashed group outline; text-stream tint; image stream (as Fig. 2)
 PICK = (176, 48, 111)                                  # the selected mask (as in the overview figure)
-GRID, TEXT = (59, 111, 182), (217, 130, 43)            # candidate provenance: point grid / SAM 3 text
-SET_COLORS = [PICK, (24, 128, 120), (203, 140, 20), (96, 76, 170)]
+GRID, TEXT = (59, 111, 182), (176, 48, 111)            # candidate provenance: point grid / SAM 3 text (as Fig. 2)
+SET_COLORS = [PICK, (59, 111, 182), (47, 143, 107), (96, 76, 170)]
 # test-split results of the 4B model, Tab. 1: gains over the best <=4B baseline (PACO part, gRefCOCO testA), N-acc testA
 STATS = {"part": "PACO +14.5", "multi": "gRefCOCO +8.0", "none": "N-acc 94.0%"}
 
@@ -210,7 +210,7 @@ def hero(ex: dict, x0: float, y0: float, wdt: float) -> str:
         if kind == "word":
             start = x if start is None else start
             row.append(f'<rect x="{x:.1f}" y="{cy + 5}" width="{cw:.1f}" height="{ch - 10}" rx="6" fill="{WORD}" '
-                       f'stroke="#b9cbe6"/>')
+                       f'stroke="{hexc(PICK)}" stroke-width="1.6"/>')
             row.append(text(x + cw / 2, mid_y, val, F_CHIP, 500, INK, "middle"))
         elif kind == "gap":
             if start is not None:
@@ -221,6 +221,8 @@ def hero(ex: dict, x0: float, y0: float, wdt: float) -> str:
             t = (box[2] - box[0]) // 3
             tx, ty = box[0] + t * (0, 2)[val], box[1] + t * (0, 1)[val]
             row.append(image_tag(round(x, 1), cy + 3, cw, cw, to_png(img, (tx, ty, tx + t, ty + t), (2 * int(cw),) * 2), 4))
+            row.append(f'<rect x="{x:.1f}" y="{cy + 3}" width="{cw}" height="{cw}" rx="4" fill="none" stroke="{IMG}" '
+                       f'stroke-width="2"/>')
         elif kind == "dots":
             start = x if start is None else start
             row.append(text(x + cw / 2, mid_y, "⋯", 20, 700, MUTED, "middle"))
@@ -248,13 +250,12 @@ def hero(ex: dict, x0: float, y0: float, wdt: float) -> str:
     out.append(text(xs[0], y0 + 22, "Query", F_LABEL, 600, MUTED))
     out.append(text(xs[0] + text_width("Query", F_LABEL, 600) + 10, y0 + 22, f"“{q}”", F_LABEL, 500, INK, italic=True))
     ims = [img, pool_view(img, pool, ng), paint(img, [pool[pick]], [PICK], line=3)]
-    for xi, im, fr in zip(xs, ims, (LINE, hexc(GRID), hexc(PICK))):
-        out.append(f'<rect x="{xi + 3:.1f}" y="{yi + 4}" width="{S}" height="{S}" rx="8" fill="#1f2633" fill-opacity="0.12"/>')
+    for xi, im, fr in zip(xs, ims, (IMG, hexc(GRID), hexc(PICK))):
         out.append(image_tag(round(xi, 1), yi, S, S, to_png(im, box, (2 * S, 2 * S)), 7))
         out.append(f'<rect x="{xi:.1f}" y="{yi}" width="{S}" height="{S}" rx="7" fill="none" stroke="{fr}" '
-                   f'stroke-width="{1 if fr == LINE else 2.5}"/>')
+                   f'stroke-width="2.5"/>')
     for (xa, xb), top, sub, col, dash in (((xs[0], xs[1]), "SAM 3", "frozen", hexc(GRID), None),
-                                          ((xs[1], xs[2]), "MLLM picks", "no mask decoder", hexc(PICK), "5 4")):
+                                          ((xs[1], xs[2]), "MLLM picks", "no decoder", hexc(PICK), "5 4")):
         mid = (xa + S + xb) / 2
         out.append(arrow(xa + S + 10, yi + S / 2, xb - 12, yi + S / 2, col, 2.5, dash))
         tw = text_width(top, F_LABEL - 1, 700) + 18
@@ -266,7 +267,8 @@ def hero(ex: dict, x0: float, y0: float, wdt: float) -> str:
     lw1, lw2 = text_width("point grid", F_SMALL, 400), text_width("SAM 3 text", F_SMALL, 400)
     lx = xs[1] + S / 2 - (lw1 + lw2 + 50) / 2
     ly = yi + S + 47
-    out.append(f'<rect x="{lx:.1f}" y="{ly - 11}" width="12" height="12" rx="2" fill="#9cc3e6"/>')
+    out.append(f'<rect x="{lx:.1f}" y="{ly - 11}" width="12" height="12" rx="2" fill="#9cc3e6" stroke="{hexc(GRID)}" '
+               f'stroke-width="1.5"/>')
     out.append(text(lx + 17, ly, "point grid", F_SMALL, 400, MUTED))
     lx2 = lx + 17 + lw1 + 16
     out.append(f'<rect x="{lx2:.1f}" y="{ly - 11}" width="12" height="12" rx="2" fill="none" '
@@ -275,11 +277,14 @@ def hero(ex: dict, x0: float, y0: float, wdt: float) -> str:
     out.append(text(xs[2] + S / 2, yi + S + 24, "selected mask", F_LABEL, 700, hexc(PICK), "middle"))
     # row 2: the MLLM's input sequence
     bh = cy + ch + 44 - by
-    out.append(f'<rect x="{x0}" y="{by}" width="{wdt}" height="{bh}" rx="12" fill="{PANEL}" stroke="{PANEL_LINE}" stroke-width="1.5"/>')
-    out.append(text(x0 + 16, by + 27, "MLLM input sequence", F_LABEL, 700, INK))
-    out.append(text(x0 + 16 + text_width("MLLM input sequence", F_LABEL, 700) + 10, by + 27,
-                    "Qwen3-VL-4B, 64.2M trainable parameters", F_LABEL, 400, MUTED))
-    out.append(text(x0 + 16, by + 50, "one token per candidate mask; bar = its selection score", F_SMALL, 400, MUTED))
+    out.append(f'<rect x="{x0}" y="{by}" width="{wdt}" height="{bh}" rx="14" fill="none" stroke="{FRAME}" '
+               f'stroke-width="1.4" stroke-dasharray="6 5"/>')
+    t1, t2 = "MLLM input sequence", "Qwen3-VL-4B + LoRA"
+    tw = text_width(t1, F_LABEL, 700) + 18
+    out.append(f'<rect x="{x0 + 12}" y="{by - 13}" width="{tw:.1f}" height="26" fill="#fff"/>')
+    out.append(text(x0 + 21, by + 7, t1, F_LABEL, 700, INK))
+    out.append(text(x0 + wdt - 56, by + 42, t2, F_SMALL, 600, MUTED, "end"))
+    out.append(text(x0 + 16, by + 42, "one token per candidate mask; bar = its selection score", F_SMALL, 400, MUTED))
     out.extend(row)
     labels = ["query", "image", f"mask tokens ({n})"]
     for (a, b), lab in zip(groups, labels):
@@ -335,9 +340,9 @@ def answer_panel(ex: dict, kind: str, x0: float, y0: float, pw: float, ph: float
         out.append(f'<rect x="{x0 + pw / 2 - bw / 2:.1f}" y="{iy + ph - 50}" width="{bw:.1f}" height="38" rx="19" '
                    f'fill="#fff" fill-opacity="0.95" stroke="{INK}" stroke-width="1.8"/>')
         out.append(text(x0 + pw / 2, iy + ph - 25, "∅  no target", F_LABEL, 700, INK, "middle"))
-    out.append(text(x0, iy + ph + 26, badge, F_LABEL, 700, hexc(bcol)))
-    out.append(text(x0, iy + ph + 51, f"▲ {STATS[kind]}" if "+" in STATS[kind] else STATS[kind], F_SMALL, 600,
-                    "#24965a" if "+" in STATS[kind] else MUTED))
+    out.append(text(x0, iy + ph + 26, badge, 19, 700, hexc(bcol)))
+    out.append(text(x0, iy + ph + 50, f"▲ {STATS[kind]}" if "+" in STATS[kind] else STATS[kind], 18, 600,
+                    IMG if "+" in STATS[kind] else MUTED))
     return "".join(out)
 
 
@@ -347,17 +352,20 @@ def badge(x, base, letter, color) -> str:
 
 
 def build(a: dict, hero_i: int, part_i: int, multi_i: int, none_i: int) -> str:
-    defs = ('<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" '
-            f'orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>'
-            '<marker id="ahp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" '
-            f'orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="{hexc(PICK)}"/></marker></defs>')
+    # fixed-size filled heads (user units), as in the method figure
+    defs = ('<defs><marker id="ah" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" '
+            'markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0.5 L12,6 L0,11.5 z" '
+            'fill="context-stroke"/></marker>'
+            '<marker id="ahp" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" '
+            f'markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0.5 L12,6 L0,11.5 z" '
+            f'fill="{hexc(PICK)}"/></marker></defs>')
     left, lw = 14, 800
     rx = left + lw + 30
     body = [f'<rect width="{W}" height="{H}" fill="#fff"/>',
-            badge(left, 30, "a", hexc(PICK)), text(left + 34, 30, "Ask, don’t draw: masks become tokens, the MLLM picks one", F_TITLE, 700),
+            badge(left, 30, "a", INK), text(left + 34, 30, "Ask, don’t draw: masks are tokens, the MLLM picks one", F_TITLE, 700),
             hero(a["part"][hero_i], left, 40, lw),
             f'<line x1="{rx - 15}" y1="14" x2="{rx - 15}" y2="{H - 14}" stroke="{LINE}" stroke-width="1.2"/>',
-            badge(rx, 30, "b", hexc(SET_COLORS[1])), text(rx + 34, 30, "One read-out, three kinds of answer", F_TITLE, 700)]
+            badge(rx, 30, "b", INK), text(rx + 34, 30, "One read-out, three kinds of answer", F_TITLE, 700)]
     gap = 14
     pw = (W - rx - 12 - 2 * gap) / 3
     ph = H - 48 - 84 - 64

@@ -1,0 +1,17 @@
+% Method section, written paragraph by paragraph. Notation follows Fig. 2 (make_method.py):
+%   image I, query x, phrases \phi(x), candidate masks m_v (v = 1..N), mask token \hat{x}_v, selection score s_v,
+%   answer v^\star. Citation keys as in intro.tex.
+\section{Method}
+\label{sec:method}
+
+\paragraph{Overview.}
+Given an image $I$ and a query $x$, such as ``locate the handle of the mug'', the task is to return the one mask
+the query refers to, or no mask when the image contains no such region. We treat this as a choice rather than a
+drawing problem (Fig.~\ref{fig:method}). A frozen SAM\,3~\cite{sam3} first proposes a pool of candidate masks
+$\{m_v\}_{v=1}^{N}$ for the image. Each candidate is then turned into a single \emph{mask token} $\hat{x}_v$ and
+appended to the input of a multimodal LLM, after the image and the query. The model reads the whole sequence in one
+pass, and a selection token \texttt{<SEL>} at the end of the query scores every candidate; the answer is the
+highest-scoring mask $m_{v^{\star}}$. The MLLM therefore never produces pixels: the shape of the answer comes from the
+segmenter, and the decision about which region is meant comes from the language model. The rest of this section
+describes how the pool is built (Sec.~\ref{sec:pool}), how a mask becomes a token (Sec.~\ref{sec:tokens}), how the
+tokens are read and scored (Sec.~\ref{sec:selection}), and how the model is trained (Sec.~\ref{sec:training}).

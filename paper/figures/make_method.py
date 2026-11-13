@@ -24,8 +24,8 @@ sys.path.insert(0, str(HERE))
 from make_overview import INTER, bbox, dec, math_svg, png_b64, square, text_width, typeset  # noqa: E402
 from make_teaser import esc  # noqa: E402
 
-W, H = 1400, 676
-D = 44                                         # room between the MLLM and the selection head for the read-out
+W, H = 1400, 684
+D = 52                                         # room between the MLLM and the selection head for the read-out
 FONT = "Inter, Helvetica, Arial, sans-serif"
 INK, MUTED, LINE = "#1f2633", "#5b6474", "#cfd5de"
 BLUE, GREEN, PINK = "#3b6fb6", "#2f8f6b", "#b0306f"      # mask stream, image stream, text stream
@@ -245,16 +245,16 @@ def stack(ex, img, M) -> list[str]:
     out.append(M("argmax", ex_, hy + 58, 19, INK, "middle"))
     # read-out: the chosen layer's states go through one MLP each before the cosine
     for cx, c, key, state, side in ((sel_x + 32, PINK, "psiq", "hsel", 1), (838, BLUE, "psik", "zv", -1)):
-        py_, pw_, ph_ = hy + hh + 20, 104, 28
+        py_, pw_, ph_ = hy + hh + 21, 124, 34
         out.append(arrow([(cx, bar), (cx, py_ + ph_ + 1)], c))
         out.append(rect(cx - pw_ / 2, py_, pw_, ph_, c, c, 1, 8))
-        out.append(text(cx - 8, py_ + 20, "MLP", 16, 700, "#fff", "end") + M(key, cx - 2, py_ + 20, 17, "#fff"))
+        out.append(text(cx - 6, py_ + 24, "MLP", 19, 700, "#fff", "end") + M(key, cx + 2, py_ + 24, 22, "#fff"))
         out.append(arrow([(cx, py_), (cx, hy + hh + 2)], c))
-        out.append(M(state, cx + side * (pw_ / 2 + 10), py_ + 20, 17, c, "start" if side > 0 else "end"))
-    mid, lab = (sel_x + 32 + 838) / 2 + 6, "at layer "
-    w_ = text_width(lab, F_BODY, 600) + M.width("lstar", 18)
-    out.append(text(mid - w_ / 2, hy + hh + 39, lab, F_BODY, 600, MUTED)
-               + M("lstar", mid - w_ / 2 + text_width(lab, F_BODY, 600), hy + hh + 40, 18, MUTED))
+        out.append(M(state, cx + side * (pw_ / 2 + 12), py_ + 24, 23, c, "start" if side > 0 else "end"))
+    mid, lab = (sel_x + 32 + 838) / 2 + 20, "layer "
+    w_ = text_width(lab, 19, 600) + M.width("lstar", 23)
+    out.append(text(mid - w_ / 2, hy + hh + 45, lab, 19, 600, MUTED)
+               + M("lstar", mid - w_ / 2 + text_width(lab, 19, 600), hy + hh + 46, 23, INK))
     # scores over candidates and the answer
     pool = [dec(r) for r in ex["pool"]]
     pick = ex["pick"]
@@ -302,7 +302,7 @@ def tokenizer_inset(ex, img, M) -> list[str]:
     pool = [dec(r) for r in ex["pool"]]
     m = pool[ex["pick"]]
     x0, y0 = 950, 24
-    out = [dashed_box(x0, y0, 436, 392, "Mask tokenizer", "one token per candidate")]
+    out = [dashed_box(x0, y0, 436, 400, "Mask tokenizer", "one token per candidate")]
     out.append(img_tag(x0 + 16, y0 + 76, 84, 84, cutout(img, m, 168), 8))
     out.append(rect(x0 + 16, y0 + 76, 84, 84, "none", PINK, 2.2, 8))
     out.append(text(x0 + 58, y0 + 64, "candidate", F_IN, 600, MUTED, "middle"))

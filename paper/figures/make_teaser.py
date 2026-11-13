@@ -232,12 +232,12 @@ def hero(ex: dict, x0: float, y0: float, wdt: float) -> str:
             row.append(image_tag(round(x + 1, 1), cy + 1, cw - 2, cw - 2, cutout(img, pool[val], 2 * cw), 5))
             bar = 40 * p[val] / pmax
             row.append(f'<rect x="{x + 10:.1f}" y="{cy - 7 - bar:.1f}" width="{cw - 20}" height="{max(bar, 2):.1f}" '
-                       f'rx="2" fill="{hexc(PICK) if val == pick else "#aab1bd"}"/>')
+                       f'rx="2" fill="{hexc(PICK) if val == pick else hexc(col)}" fill-opacity="{1 if val == pick else 0.45}"/>')
             if val == pick:
                 row.append(text(x + 4, cy - 7 - bar / 2 + F_SMALL * 0.36, f"{p[val]:.2f}", F_SMALL, 700, hexc(PICK), "end"))
             sx[val] = x
         elif kind == "sel":
-            row.append(f'<rect x="{x:.1f}" y="{cy + 3}" width="{cw}" height="{ch - 6}" rx="7" fill="{INK}"/>')
+            row.append(f'<rect x="{x:.1f}" y="{cy + 3}" width="{cw}" height="{ch - 6}" rx="7" fill="{hexc(PICK)}"/>')
             row.append(text(x + cw / 2, mid_y, "<SEL>", F_CHIP, 700, "#fff", "middle"))
             sel_x = x + cw / 2
         x += cw + 4
@@ -248,14 +248,19 @@ def hero(ex: dict, x0: float, y0: float, wdt: float) -> str:
     out.append(text(xs[0], y0 + 22, "Query", F_LABEL, 600, MUTED))
     out.append(text(xs[0] + text_width("Query", F_LABEL, 600) + 10, y0 + 22, f"“{q}”", F_LABEL, 500, INK, italic=True))
     ims = [img, pool_view(img, pool, ng), paint(img, [pool[pick]], [PICK], line=3)]
-    for xi, im in zip(xs, ims):
+    for xi, im, fr in zip(xs, ims, (LINE, hexc(GRID), hexc(PICK))):
+        out.append(f'<rect x="{xi + 3:.1f}" y="{yi + 4}" width="{S}" height="{S}" rx="8" fill="#1f2633" fill-opacity="0.12"/>')
         out.append(image_tag(round(xi, 1), yi, S, S, to_png(im, box, (2 * S, 2 * S)), 7))
-        out.append(f'<rect x="{xi:.1f}" y="{yi}" width="{S}" height="{S}" rx="7" fill="none" stroke="{LINE}"/>')
-    for (xa, xb), top, sub, col, dash in (((xs[0], xs[1]), "SAM 3", "frozen", INK, None),
-                                          ((xs[1], xs[2]), "MLLM picks", "no mask decoder", MUTED, "5 4")):
+        out.append(f'<rect x="{xi:.1f}" y="{yi}" width="{S}" height="{S}" rx="7" fill="none" stroke="{fr}" '
+                   f'stroke-width="{1 if fr == LINE else 2.5}"/>')
+    for (xa, xb), top, sub, col, dash in (((xs[0], xs[1]), "SAM 3", "frozen", hexc(GRID), None),
+                                          ((xs[1], xs[2]), "MLLM picks", "no mask decoder", hexc(PICK), "5 4")):
         mid = (xa + S + xb) / 2
-        out.append(arrow(xa + S + 10, yi + S / 2, xb - 12, yi + S / 2, col, 2, dash))
-        out.append(text(mid, yi + S / 2 - 12, top, F_LABEL, 600, INK, "middle"))
+        out.append(arrow(xa + S + 10, yi + S / 2, xb - 12, yi + S / 2, col, 2.5, dash))
+        tw = text_width(top, F_LABEL - 1, 700) + 18
+        out.append(f'<rect x="{mid - tw / 2:.1f}" y="{yi + S / 2 - 40}" width="{tw:.1f}" height="{F_LABEL + 12}" '
+                   f'rx="{(F_LABEL + 12) / 2}" fill="{col}"/>')
+        out.append(text(mid, yi + S / 2 - 14, top, F_LABEL - 1, 700, "#fff", "middle"))
         out.append(text(mid, yi + S / 2 + 26, sub, F_SMALL, 400, MUTED, "middle"))
     out.append(text(xs[1] + S / 2, yi + S + 24, f"{n} candidate masks", F_LABEL, 600, INK, "middle"))
     lw1, lw2 = text_width("point grid", F_SMALL, 400), text_width("SAM 3 text", F_SMALL, 400)
@@ -331,8 +336,14 @@ def answer_panel(ex: dict, kind: str, x0: float, y0: float, pw: float, ph: float
                    f'fill="#fff" fill-opacity="0.95" stroke="{INK}" stroke-width="1.8"/>')
         out.append(text(x0 + pw / 2, iy + ph - 25, "∅  no target", F_LABEL, 700, INK, "middle"))
     out.append(text(x0, iy + ph + 26, badge, F_LABEL, 700, hexc(bcol)))
-    out.append(text(x0, iy + ph + 51, STATS[kind], F_SMALL, 400, MUTED))
+    out.append(text(x0, iy + ph + 51, f"▲ {STATS[kind]}" if "+" in STATS[kind] else STATS[kind], F_SMALL, 600,
+                    "#24965a" if "+" in STATS[kind] else MUTED))
     return "".join(out)
+
+
+def badge(x, base, letter, color) -> str:
+    return (f'<circle cx="{x + 13}" cy="{base - F_TITLE * 0.36:.1f}" r="14" fill="{color}"/>'
+            + text(x + 13, base - F_TITLE * 0.36 + 6.5, letter, 19, 700, "#fff", "middle"))
 
 
 def build(a: dict, hero_i: int, part_i: int, multi_i: int, none_i: int) -> str:
@@ -343,10 +354,10 @@ def build(a: dict, hero_i: int, part_i: int, multi_i: int, none_i: int) -> str:
     left, lw = 14, 800
     rx = left + lw + 30
     body = [f'<rect width="{W}" height="{H}" fill="#fff"/>',
-            text(left, 30, "(a) Ask, don’t draw: masks become tokens, the MLLM picks one", F_TITLE, 700),
+            badge(left, 30, "a", hexc(PICK)), text(left + 34, 30, "Ask, don’t draw: masks become tokens, the MLLM picks one", F_TITLE, 700),
             hero(a["part"][hero_i], left, 40, lw),
             f'<line x1="{rx - 15}" y1="14" x2="{rx - 15}" y2="{H - 14}" stroke="{LINE}" stroke-width="1.2"/>',
-            text(rx, 30, "(b) One read-out, three kinds of answer", F_TITLE, 700)]
+            badge(rx, 30, "b", hexc(SET_COLORS[1])), text(rx + 34, 30, "One read-out, three kinds of answer", F_TITLE, 700)]
     gap = 14
     pw = (W - rx - 12 - 2 * gap) / 3
     ph = H - 48 - 84 - 64

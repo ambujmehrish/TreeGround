@@ -1,0 +1,30 @@
+% Supplementary: gRefCOCO under the GRES multi-target protocol (several masks per expression allowed; D40 parity
+% runs; generated from results/metrics/gres_*.json). Ours: every candidate with sigmoid score >= t, t chosen on
+% gRefCOCO val (2-fold) and frozen. Grounded-SAM 2's val-chosen threshold empties every prediction (t = 0.95), so only
+% its released threshold is shown. Needs macros.tex.
+\begin{table}[t]
+\centering
+\setlength{\tabcolsep}{4pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l ccc ccc}
+\toprule
+ & \multicolumn{3}{c}{testA\indom} & \multicolumn{3}{c}{testB\indom} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Method (multi-mask output) & gIoU & cIoU & N-acc & gIoU & cIoU & N-acc \\
+\midrule
+SAM\,3 (text), all instances                         & 44.3 & 29.8 & 89.3 & 50.5 & 39.7 & 82.8 \\
+SAM\,3 (text), all instances, threshold from val     & 47.6 & 37.1 & 83.2 & 51.7 & 43.8 & 76.1 \\
+Grounded-SAM\,2, all boxes                           & 51.5 & 47.6 & 28.3 & 44.7 & 39.4 & 28.4 \\
+Sa2VA                                                & 51.5 & 51.0 & 19.0 & 46.0 & 46.1 & 17.6 \\
+Box + SAM\,3, all boxes                              & 62.9 & 65.8 & 27.7 & 57.1 & \textbf{58.9} & 32.4 \\
+\midrule
+\rowcolor{oursrow}
+\ours{} (Ours), set of candidates above $t$          & \textbf{72.3} & \textbf{67.2} & \textbf{89.6} & \textbf{65.2} & 58.3 & \textbf{86.0} \\
+\bottomrule
+\end{tabular}}
+\caption{\textbf{Multi-target referring} on gRefCOCO (test; \%), where an expression may name several objects or none
+and every method may output several masks (their union is scored). \ours{} keeps every candidate scoring above a
+threshold chosen on val ($t=0.9$); baselines output all instances or boxes above their released
+thresholds. $^\S$\ours{} trains on gRefCOCO's training split.}
+\label{tab:multitarget}
+\end{table}

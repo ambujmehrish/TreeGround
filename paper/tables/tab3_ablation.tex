@@ -4,14 +4,8 @@
 % e: pool_soft_fam, anchor none). GSEval and gRefCOCO use no part-decision rule, so their (d) vs (e) differences are
 % attention effects only. Val selector success: (e) 0.856, (d) 0.850. The shuffled-tree run (pool_soft_fam_random_tree)
 % is not shown: the tree is not a claimed contribution (test: 51.1 / 55.4 / 47.4 / 40.2 / 50.1 / 69.5 / 70.9 / 58.9 / 56.1 / 91.3 / 88.1; gRefCOCO one-mask readout).
-% TODO (agreed 2026-11-12, appendix only, write when the appendix ablation is drafted): row (e') = pool_full, i.e. (e)
-% without the tree-relation attention bias and the family loss (same pool, region-restricted tokens, data, schedule).
-% Test: PACO part 47.5, InstructPart 67.2, PartImageNet 50.3, PPS part 39.9, GSEval part 49.1 / all 70.1,
-% gRefCOCO top-1 59.6 / 57.1, N-acc 89.9 / 85.9 (ours 94.0 / 90.9); PARTONOMY identification micro / macro 49.5 / 50.8 (ours 49.4 / 51.0).
-% Frame as a design choice for rejection (+4-5 N-acc, grounding within ~1), not as a tree claim. Its D47 editing
-% rows (edit_cocoedit_pool.yaml) go with it; the main editing table uses pool_soft_fam (edit_cocoedit_softfam.yaml).
 % (a) SAM 3 text: our run (GSEval and gRefCOCO with expressions clipped to SAM 3's 32-token text limit).
-% Preamble: \usepackage{booktabs,graphicx} \usepackage[table]{xcolor}; \ours and oursrow are defined in main.tex.
+% Needs macros.tex. Row (e') without the tree terms: tabD_tree_ablation.tex (appendix).
 \begin{table*}[t]
 \centering
 \setlength{\tabcolsep}{4pt}

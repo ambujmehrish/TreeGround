@@ -1,0 +1,23 @@
+% Appendix: baseline prompts on the reasoning queries (test splits; phrase-prompt runs kept as *_phraseprompt.json).
+\begin{table}[t]
+\centering
+\setlength{\tabcolsep}{4pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l cc cc cc}
+\toprule
+ & \multicolumn{2}{c}{InstructPart (human)} & \multicolumn{2}{c}{InstructPart (GPT-4)} & \multicolumn{2}{c}{ReasonSeg} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Baseline, prompt & gIoU & cIoU & gIoU & cIoU & gIoU & cIoU \\
+\midrule
+Sa2VA, phrase prompt             & 43.3 & 38.8 & 44.3 & 36.5 & 53.9 & 48.9 \\
+Sa2VA, own question prompt       & 41.3 & 36.7 & 44.7 & 36.9 & 54.5 & 50.3 \\
+\midrule
+Box + SAM\,3, phrase prompt      & 48.7 & 41.6 & 52.4 & 47.0 & 58.6 & 47.6 \\
+Box + SAM\,3, sentence prompt    & 49.5 & 41.4 & 52.4 & 42.4 & 60.4 & 49.5 \\
+\bottomrule
+\end{tabular}}
+\caption{\textbf{Baseline prompts on reasoning queries} (test; \%). Phrase prompt: the template used for noun phrases
+in Tab.~\ref{tab:controlled}; own prompt: Sa2VA's question prompt from its evaluation code, Qwen3-VL asked for the
+region the request refers to (Tab.~\ref{tab:reasoning}). The comparison with \ours{} holds under either prompt.}
+\label{tab:reason_prompts}
+\end{table}

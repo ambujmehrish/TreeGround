@@ -1,0 +1,26 @@
+% Appendix: (e) without the tree-relation attention bias and the family loss (pool_full; same pool, region-restricted
+% mask tokens, data, schedule and protocol; chosen on PACO val 0.850 vs 0.856). Test splits, one mask per query.
+% Sources: results/metrics/{partonomy,gseval,pacotest,ophrg_*,gres}_ta_pool_{full,soft_fam}.json. Needs macros.tex.
+\begin{table*}[t]
+\centering
+\setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l ccccccccccc}
+\toprule
+ & \multicolumn{6}{c}{Part grounding} & \multicolumn{3}{c}{Object and referring} & \multicolumn{2}{c}{Rejection} \\
+\cmidrule(lr){2-7}\cmidrule(lr){8-10}\cmidrule(lr){11-12}
+ & PARTONOMY & GSEval & PACO & PPS & PartImage- & Instruct- & GSEval & \multicolumn{2}{c}{gRefCOCO} & \multicolumn{2}{c}{gRefCOCO N-acc} \\
+\cmidrule(lr){9-10}\cmidrule(lr){11-12}
+ & macro & Part & Part\indom & -116\indom & Net & Part & All & testA\indom & testB\indom & testA\indom & testB\indom \\
+\midrule
+(e$'$) without tree-relation bias and family loss & 50.8 & 49.1 & 47.5 & 39.9 & 50.3 & 67.2 & \textbf{70.1} & \textbf{59.6} & \textbf{57.1} & 89.9 & 85.9 \\
+\rowcolor{oursrow}
+(e) \ours{} & \textbf{51.0} & \textbf{51.4} & 47.5 & \textbf{40.6} & \textbf{50.7} & \textbf{68.2} & 70.0 & 59.5 & 55.9 & \textbf{94.0} & \textbf{90.9} \\
+\bottomrule
+\end{tabular}}
+\caption{\textbf{Tree-relation terms} (test; gIoU, \%; N-acc: accuracy on no-target expressions). (e$'$) is (e) of
+Tab.~\ref{tab:ablation} without the learned attention bias by tree relation between mask tokens and without the family
+loss; everything else is identical. Grounding stays within about one point; rejection of no-target expressions
+improves by 4.1 / 5.0 N-acc with the two terms. $^\S$in-domain for both rows.}
+\label{tab:tree_ablation}
+\end{table*}

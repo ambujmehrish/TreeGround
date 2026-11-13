@@ -304,23 +304,13 @@
   "squeue": [
    {
     "elapsed": "0:00",
-    "jobid": "64367245",
-    "name": "q_2026-11-13b-32b-pps-merge",
+    "jobid": "64366801_[0-7]",
+    "name": "q_2026-11-13b-32b-gseval",
     "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
+    "reason_or_nodelist": "(Priority)",
     "start": "N/A",
     "state": "PENDING",
-    "time_limit": "30:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64367243",
-    "name": "q_2026-11-13b-32b-partimagenet-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "30:00"
+    "time_limit": "2:00:00"
    },
    {
     "elapsed": "0:00",
@@ -344,16 +334,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "64367242",
-    "name": "q_2026-11-13b-32b-pacotest-merge",
-    "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "30:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "64366804_[0-31]",
     "name": "q_2026-11-13b-32b-pacotest",
     "nodes": "1",
@@ -364,13 +344,33 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "64366801_[0-7]",
-    "name": "q_2026-11-13b-32b-gseval",
+    "jobid": "64367245",
+    "name": "q_2026-11-13b-32b-pps-merge",
     "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
+    "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
     "state": "PENDING",
-    "time_limit": "2:00:00"
+    "time_limit": "30:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "64367243",
+    "name": "q_2026-11-13b-32b-partimagenet-merge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "30:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "64367242",
+    "name": "q_2026-11-13b-32b-pacotest-merge",
+    "nodes": "1",
+    "reason_or_nodelist": "(Dependency)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "30:00"
    },
    {
     "elapsed": "0:00",
@@ -16903,5 +16903,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794605515.5048409
+ "updated": 1794609393.7225559
 }

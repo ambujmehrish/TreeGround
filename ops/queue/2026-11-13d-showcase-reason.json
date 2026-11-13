@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-13d-showcase-reason",
+ "what": "main-paper figure candidates: reasoning, ours with query rewriting (selected; 1024 px)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qual_assets.py",
+  "TG_ARGS": "reason --config configs/reason_ours.yaml --baseline_config configs/reason_baselines.yaml --showcase 12 --side 1024 --rewrite"
+ },
+ "sbatch": {
+  "time": "03:00:00"
+ },
+ "collect": true
+}

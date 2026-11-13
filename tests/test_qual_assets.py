@@ -66,3 +66,26 @@ def test_pick_index_is_the_pick_ta_test_eval_scores(anchor):
         row = tte.single_rows(g, [tte.Pool(rles, parents, 3)], [lg], {0: M.encode(gt[None])[0]}, anchor)[0]
         a = qa.pick_index("part", lg, parents, anchor)
         assert abs(qa.iou(masks[a], gt) - row["sel_iou"]) < 1e-9
+
+
+def test_showcase_keeps_clear_wins_one_per_category_largest_margin_first():
+    qa = load_script("qual_assets")
+    q = ["k1|part|mug:handle", "k2|part|mug:lid", "k3|part|dog:tail", "k4|part|car:wheel", "k5|part|bird:wing"]
+    ours = pd.DataFrame({"qid": q, "iou": [0.95, 0.99, 0.90, 0.80, 0.97]})
+    b1 = pd.DataFrame({"qid": q, "iou": [0.10, 0.00, 0.20, 0.00, 0.70]})
+    b2 = pd.DataFrame({"qid": q, "iou": [0.30, 0.05, 0.10, 0.00, 0.10]})
+    out = qa.showcase(ours, {"box": b1, "sam3": b2}, 5, qa.part_category)
+    # mug: lid (margin .94) beats handle (.65); car fails min_ours; bird's best baseline .70 -> margin .27 < .4
+    assert [r["qid"] for r in out] == ["k2|part|mug:lid", "k3|part|dog:tail"]
+    assert out[0]["group"] == "selected" and out[0]["run_iou"]["sam3"] == 0.05
+    assert qa.part_category("instructpart:pic_7-kettle-handle") == "kettle"
+
+
+def test_top_candidates_follow_the_decision_row_with_softmax_shares():
+    qa = load_script("qual_assets")
+    masks = [rect(0, 4, 0, 4), rect(4, 8, 4, 8), rect(8, 12, 8, 12)]
+    pool = type("P", (), {"rles": M.encode(np.stack(masks))})()
+    lg = np.array([[9.0, 0.0, 0.0], [0.0, 2.0, 1.0]])              # chain: the last row decides
+    out = qa.top_candidates(pool, lg, 2)
+    assert [m.sum() for m, _ in out] == [16, 16] and (out[0][0] == masks[1]).all()
+    assert abs(sum(p for _, p in qa.top_candidates(pool, lg, 3)) - 1) < 1e-9 and out[0][1] > out[1][1]

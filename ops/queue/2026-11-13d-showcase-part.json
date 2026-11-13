@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-13d-showcase-part",
+ "what": "main-paper figure candidates: part grounding, clear wins of ours (selected; 1024 px; top-5 candidates kept)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qual_assets.py",
+  "TG_ARGS": "part --config configs/ta_test_pool_soft_fam.yaml --baseline_config configs/ophrg_baselines.yaml --showcase 12 --side 1024"
+ },
+ "sbatch": {
+  "time": "03:00:00"
+ },
+ "collect": true
+}

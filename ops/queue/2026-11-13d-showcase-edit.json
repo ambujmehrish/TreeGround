@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-13d-showcase-edit",
+ "what": "main-paper figure candidates: editing, one per edit category (selected; 1024 px; Qwen-Image-Edit)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/qual_assets.py",
+  "TG_ARGS": "edit --config configs/edit_cocoedit_softfam.yaml --showcase 8 --side 1024"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "collect": true
+}

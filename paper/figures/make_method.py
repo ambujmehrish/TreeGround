@@ -247,8 +247,13 @@ def stack(ex, img, M) -> list[str]:
     for cx, c, key, state, side in ((sel_x + 32, PINK, "psiq", "hsel", 1), (838, BLUE, "psik", "zv", -1)):
         py_, pw_, ph_ = hy + hh + 21, 124, 34
         out.append(arrow([(cx, bar), (cx, py_ + ph_ + 1)], c))
-        out.append(rect(cx - pw_ / 2, py_, pw_, ph_, c, c, 1, 8))
-        out.append(text(cx - 6, py_ + 24, "MLP", 19, 700, "#fff", "end") + M(key, cx + 2, py_ + 24, 22, "#fff"))
+        # a small projection block in the tokenizers' shape: wide at the input, narrow at the output
+        top = pw_ - 28
+        out.append(f'<polygon points="{cx - pw_ / 2},{py_ + ph_} {cx + pw_ / 2},{py_ + ph_} {cx + top / 2},{py_} '
+                   f'{cx - top / 2},{py_}" fill="{TINT[c]}" stroke="{c}" stroke-width="2.2" stroke-linejoin="round"/>')
+        tw_ = text_width("MLP ", 18, 700) + M.width(key, 21)
+        out.append(text(cx - tw_ / 2, py_ + 24, "MLP", 18, 700, c)
+                   + M(key, cx - tw_ / 2 + text_width("MLP ", 18, 700), py_ + 24.5, 21, INK))
         out.append(arrow([(cx, py_), (cx, hy + hh + 2)], c))
         out.append(M(state, cx + side * (pw_ / 2 + 12), py_ + 24, 23, c, "start" if side > 0 else "end"))
     mid, lab = (sel_x + 32 + 838) / 2 + 20, "layer "

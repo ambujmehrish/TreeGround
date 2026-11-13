@@ -26,12 +26,13 @@ from make_teaser import esc  # noqa: E402
 W, H = 1400, 676
 FONT = "Inter, Helvetica, Arial, sans-serif"
 INK, MUTED, LINE = "#1f2633", "#5b6474", "#cfd5de"
-BLUE, ORANGE, GREEN, PINK, TEAL, VIOLET = "#3b6fb6", "#d9822b", "#2e9a5b", "#b0306f", "#18807a", "#6b4fbf"
-TINT = {BLUE: "#eef3fb", TEAL: "#eaf6f4", PINK: "#fbeff5", ORANGE: "#fdf3e8", GREEN: "#ecf7f0", VIOLET: "#f2effb"}
+BLUE, GREEN, PINK = "#3b6fb6", "#2f8f6b", "#b0306f"      # mask stream, image stream, text stream
+FRAME = "#8d96a3"
+TINT = {BLUE: "#eef3fb", PINK: "#fbeff5", GREEN: "#eaf5ef"}
 F_STAGE, F_TITLE, F_BODY, F_SMALL, F_MATH = 21, 18, 16, 15, 18
 COLS = [(14, 452, BLUE, "1", "Propose candidates", "SAM 3, frozen"),
-        (466, 862, TEAL, "2", "Mask tokenization", ""),
-        (876, 1386, PINK, "3", "The MLLM selects", "Qwen3-VL-4B + LoRA")]
+        (466, 862, BLUE, "2", "Mask tokenization", ""),
+        (876, 1386, PINK, "3", "The MLLM selects", "")]
 
 TEX = {
     "phi": r"\phi(x)",
@@ -139,12 +140,15 @@ def scene(img, m, region, side, color=(176, 48, 111), fill=0.55) -> str:
 
 # ---------------------------------------------------------------- the three stages
 def stage_frames() -> list[str]:
+    # thin dashed group outlines on white; the title sits in a gap of the top edge
     out = []
     for x0, x1, c, num, title, sub in COLS:
-        out.append(rect(x0, 10, x1 - x0, H - 20, TINT[c], c, 1.6, 16))
-        out.append(f'<circle cx="{x0 + 26}" cy="40" r="15" fill="{c}"/>' + text(x0 + 26, 46.5, num, 18, 700, "#fff", "middle"))
-        out.append(text(x0 + 50, 47, title, F_STAGE, 700, INK))
-        out.append(text(x1 - 14, 47, sub, F_SMALL, 600, c, "end"))
+        out.append(rect(x0, 30, x1 - x0, H - 40, "none", FRAME, 1.4, 16, dash="6 5"))
+        tw = text_width(title, F_STAGE - 2, 700) + (text_width(sub, F_SMALL, 500) + 10 if sub else 0) + 24
+        out.append(f'<rect x="{x0 + 14}" y="18" width="{tw:.1f}" height="26" fill="#fff"/>')
+        out.append(text(x0 + 26, 38, title, F_STAGE - 2, 700, INK))
+        if sub:
+            out.append(text(x0 + 26 + text_width(title + " ", F_STAGE - 2, 700), 38, sub, F_SMALL, 500, MUTED))
     return out
 
 
@@ -155,8 +159,7 @@ def stage1(ex, img, M, grid_ids, text_ids) -> list[str]:
     # input image and query
     S = 150
     shown = obj | pool[grid_ids[1]]
-    out.append(img_tag(30, 72, S, S, scene(img, None, shown, 2 * S) if False else
-                       png_b64(Image.fromarray(img).crop(square(bbox(shown), img.shape[1], img.shape[0], margin=0.12))
+    out.append(img_tag(30, 72, S, S, png_b64(Image.fromarray(img).crop(square(bbox(shown), img.shape[1], img.shape[0], margin=0.12))
                                .resize((2 * S, 2 * S), Image.LANCZOS)), 10))
     out.append(text(30 + S / 2, 72 + S + 22, "image", F_SMALL, 600, MUTED, "middle"))
     bx, by, bw = 196, 74, 242
@@ -165,19 +168,19 @@ def stage1(ex, img, M, grid_ids, text_ids) -> list[str]:
     out.append(text(bx + 12, by + 47, "of the mug.”", 17, 500, INK, italic=True))
     out.append(text(bx, by + 86, "phrases", F_SMALL, 600, MUTED) + M("phi", bx + text_width("phrases ", F_SMALL, 600),
                                                                       by + 86, 16, MUTED))
-    c1, w1 = chip(bx, by + 96, "the handle of the mug", "#fff", ORANGE, F_SMALL, 600, ORANGE)
-    c2, _ = chip(bx, by + 128, "the mug", "#fff", ORANGE, F_SMALL, 600, ORANGE)
+    c1, w1 = chip(bx, by + 96, "the handle of the mug", "#fff", PINK, F_SMALL, 600, PINK)
+    c2, _ = chip(bx, by + 128, "the mug", "#fff", PINK, F_SMALL, 600, PINK)
     out += [c1, c2]
     # the two SAM 3 calls
     gy = 280
-    out.append(rect(30, gy, 196, 64, "#fff", BLUE, 2, 12))
-    out.append(text(128, gy + 26, "SAM 3 · point grid", F_BODY, 700, BLUE, "middle"))
-    out.append(text(128, gy + 49, "32×32, query-free, ≤ 256", F_SMALL, 400, MUTED, "middle"))
-    out.append(rect(242, gy, 196, 64, "#fff", ORANGE, 2, 12))
-    out.append(text(340, gy + 26, "SAM 3 · text", F_BODY, 700, ORANGE, "middle"))
-    out.append(text(340, gy + 49, "top 3 per phrase", F_SMALL, 400, MUTED, "middle"))
+    out.append(rect(30, gy, 196, 64, BLUE, BLUE, 1, 12))
+    out.append(text(128, gy + 26, "SAM 3 · point grid", F_BODY, 700, "#fff", "middle"))
+    out.append(text(128, gy + 49, "32×32, query-free, ≤ 256", F_SMALL, 400, "#e3ebf7", "middle"))
+    out.append(rect(242, gy, 196, 64, PINK, PINK, 1, 12))
+    out.append(text(340, gy + 26, "SAM 3 · text", F_BODY, 700, "#fff", "middle"))
+    out.append(text(340, gy + 49, "top 3 per phrase", F_SMALL, 400, "#f7e1ec", "middle"))
     out.append(arrow([(105, 72 + S + 30), (105, gy - 3)], BLUE))
-    out.append(arrow([(330, by + 158), (330, gy - 3)], ORANGE))
+    out.append(arrow([(330, by + 158), (330, gy - 3)], PINK))
     # the pool
     py = 380
     out.append(rect(30, py, 408, 132, "#fff", LINE, 1.5, 12))
@@ -192,15 +195,15 @@ def stage1(ex, img, M, grid_ids, text_ids) -> list[str]:
     x += 22
     for k, i in enumerate(text_ids):
         out.append(img_tag(x, py + 40, t, t, cutout(img, pool[i], 2 * t), 6))
-        out.append(rect(x, py + 40, t, t, "none", ORANGE, 2.2, 6))
-        out.append(chip(x + 2, py + 42, "#1", ORANGE, "#fff", 12, 700, pad=5)[0])
+        out.append(rect(x, py + 40, t, t, "none", PINK, 2.2, 6))
+        out.append(chip(x + 2, py + 42, "#1", PINK, "#fff", 12, 700, pad=5)[0])
         x += t + gap
     out.append(f'<rect x="44" y="{py + 112}" width="12" height="12" rx="3" fill="none" stroke="{BLUE}" stroke-width="2.2"/>'
                + text(62, py + 123, "grid masks", F_SMALL, 400, MUTED))
-    out.append(f'<rect x="170" y="{py + 112}" width="12" height="12" rx="3" fill="none" stroke="{ORANGE}" stroke-width="2.2"/>'
+    out.append(f'<rect x="170" y="{py + 112}" width="12" height="12" rx="3" fill="none" stroke="{PINK}" stroke-width="2.2"/>'
                + text(188, py + 123, "SAM 3 text instances (#rank)", F_SMALL, 400, MUTED))
     out.append(arrow([(128, gy + 64), (128, py - 3)], BLUE))
-    out.append(arrow([(340, gy + 64), (340, py - 3)], ORANGE))
+    out.append(arrow([(340, gy + 64), (340, py - 3)], PINK))
     # containment tree
     ty = 532
     out.append(rect(30, ty, 408, 122, "#fff", LINE, 1.5, 12))
@@ -225,11 +228,11 @@ def stage2(ex, img, M) -> list[str]:
     # the candidate
     out.append(text(x0, 92, "candidate", F_SMALL, 600, MUTED) + M("mv", x0 + text_width("candidate ", F_SMALL, 600), 92, 16, MUTED))
     out.append(img_tag(x0, 102, 96, 96, cutout(img, m, 192), 8))
-    out.append(rect(x0, 102, 96, 96, "none", ORANGE, 2.4, 8))
+    out.append(rect(x0, 102, 96, 96, "none", PINK, 2.4, 8))
     # three descriptors
-    cards = [("app", "Appearance", "what it shows: the MLLM's", "image tokens under the mask", ORANGE),
+    cards = [("app", "Appearance", "what it shows: the MLLM's", "image tokens under the mask", GREEN),
              ("geo", "Geometry", "where it is: box, area,", "depth in the tree", BLUE),
-             ("src", "Source", "where it came from: grid or", "SAM 3 text (rank, score)", VIOLET)]
+             ("src", "Source", "where it came from: grid or", "SAM 3 text (rank, score)", BLUE)]
     cx, cw, ch = 604, 244, 92
     ys = [76, 178, 280]
     for (key, title, l1, l2, c), y in zip(cards, ys):
@@ -240,27 +243,26 @@ def stage2(ex, img, M) -> list[str]:
         out.append(text(cx + 20, y + 54, l1, F_SMALL, 400, MUTED))
         out.append(text(cx + 20, y + 74, l2, F_SMALL, 400, MUTED))
     tx_ = cx - 18
-    out.append(f'<path d="M{x0 + 98},150 H{tx_} M{tx_},{ys[0] + ch / 2} V{ys[2] + ch / 2}" fill="none" stroke="{TEAL}" '
+    out.append(f'<path d="M{x0 + 98},150 H{tx_} M{tx_},{ys[0] + ch / 2} V{ys[2] + ch / 2}" fill="none" stroke="{BLUE}" '
                f'stroke-width="2.2"/>')
     for y in ys:
-        out.append(arrow([(tx_, y + ch / 2), (cx - 3, y + ch / 2)], TEAL))
+        out.append(arrow([(tx_, y + ch / 2), (cx - 3, y + ch / 2)], BLUE))
     my = 420
-    out.append(arrow([(cx + cw / 2, ys[2] + ch + 2), (cx + cw / 2, my - 3)], TEAL))
-    out.append(text(cx + cw / 2 + 10, ys[2] + ch + 30, "concatenate", F_SMALL, 600, TEAL))
-    out.append(rect(cx + 14, my, cw - 28, 46, "#fff", TEAL, 2, 12))
-    out.append(text(cx + cw / 2, my + 30, "MLP + RMS norm", F_BODY, 700, TEAL, "middle"))
+    out.append(arrow([(cx + cw / 2, ys[2] + ch + 2), (cx + cw / 2, my - 3)], BLUE))
+    out.append(text(cx + cw / 2 + 10, ys[2] + ch + 30, "concatenate", F_SMALL, 600, BLUE))
+    out.append(rect(cx + 14, my, cw - 28, 46, BLUE, BLUE, 1, 12))
+    out.append(text(cx + cw / 2, my + 30, "MLP + RMS norm", F_BODY, 700, "#fff", "middle"))
     out.append(M("tok", cx + cw / 2, my + 80, 19, INK, "middle"))
     # the token
-    out.append(arrow([(cx + cw / 2, my + 90), (cx + cw / 2, my + 116)], TEAL))
+    out.append(arrow([(cx + cw / 2, my + 90), (cx + cw / 2, my + 116)], BLUE))
     tx = cx + cw / 2 - 52
-    out.append(rect(tx, my + 120, 104, 48, "#fff", ORANGE, 2.6, 10))
+    out.append(rect(tx, my + 120, 104, 48, "#fff", BLUE, 2.6, 10))
     out.append(img_tag(tx + 6, my + 125, 38, 38, cutout(img, m, 76), 5))
     out.append(M("xv", tx + 74, my + 152, 21, INK, "middle"))
     out.append(text(x0, my + 140, "position (mRoPE):", F_SMALL, 600, MUTED))
     out.append(text(x0, my + 159, "mask centroid", F_SMALL, 400, MUTED))
     # framing
-    out.append(rect(482, 626, 366, 34, "#fff", TEAL, 1.2, 10, op=0.9))
-    out.append(text(665, 648, "like a word token: content + position + type", F_SMALL, 600, TEAL, "middle"))
+    out.append(text(665, 648, "like a word token: content + position + type", F_SMALL, 600, MUTED, "middle"))
     return out
 
 
@@ -271,8 +273,8 @@ def stage3(ex, img, M) -> list[str]:
     x0, x1 = 892, 1372
     # token sequence
     y = 78
-    seq = [("img", ORANGE)] * 3 + [("dots", None)] + [("txt", GREEN)] * 3 + [("sel", PINK)] + \
-          [("m", BLUE), ("m", BLUE), ("dots", None), ("m", ORANGE), ("m", ORANGE)]
+    seq = [("img", GREEN)] * 3 + [("dots", None)] + [("txt", PINK)] * 3 + [("sel", PINK)] + \
+          [("m", BLUE), ("m", BLUE), ("dots", None), ("m", BLUE), ("m", BLUE)]
     x, spans, cur, start = x0 + 4, {}, None, None
     for kind, c in seq:
         group = {"img": "image", "txt": "query", "sel": "query", "m": "mask", "dots": cur}[kind]
@@ -294,13 +296,13 @@ def stage3(ex, img, M) -> list[str]:
     for g, (a, b) in spans.items():
         out.append(f'<path d="M{a},{y + 42} v6 H{b} v-6" fill="none" stroke="{MUTED}" stroke-width="1.3"/>')
         out.append(text((a + b) / 2, y + 68, labels[g], F_SMALL, 600, MUTED, "middle"))
-    out.append(M("ej", spans["image"][0] + 2, y - 4, 15, ORANGE) + M("xv", spans["mask"][1] - 2, y - 4, 15, BLUE, "end"))
+    out.append(M("ej", spans["image"][0] + 2, y - 4, 15, GREEN) + M("xv", spans["mask"][1] - 2, y - 4, 15, BLUE, "end"))
     # the LLM
     ly = 172
     out.append(arrow([(1130, y + 76), (1130, ly - 3)], INK))
-    out.append(rect(x0, ly, x1 - x0, 64, PINK, PINK, 1, 14))
+    out.append(rect(x0, ly, x1 - x0, 64, "url(#llm)", "none", 0, 14))
     out.append(text((x0 + x1) / 2, ly + 30, "Large language model", 20, 700, "#fff", "middle"))
-    out.append(text((x0 + x1) / 2, ly + 52, "Qwen3-VL-4B + LoRA, 64.2M trainable parameters", F_SMALL, 500, "#ffe6f1", "middle"))
+    out.append(text((x0 + x1) / 2, ly + 52, "Qwen3-VL-4B + LoRA, 64.2M trainable parameters", F_SMALL, 500, "#ffffff", "middle"))
     # region-restricted attention: matrix + three short lines
     ay = 262
     out.append(text(x0, ay + 18, "Region-restricted attention", F_TITLE, 700, INK)
@@ -313,10 +315,10 @@ def stage3(ex, img, M) -> list[str]:
         for c in range(n):
             if r < n_img + n_txt:
                 on = c <= r
-                col = ORANGE if c < n_img else GREEN
+                col = GREEN if c < n_img else PINK
             else:
                 on = c >= n_img or (r, c) in own
-                col = ORANGE if c < n_img else GREEN if c < n_img + n_txt else BLUE
+                col = GREEN if c < n_img else PINK if c < n_img + n_txt else BLUE
             fill = col if on else "#ffffff"
             op = 0.85 if on and col != BLUE else 0.45 if on else 1
             out.append(f'<rect x="{mx + c * cell}" y="{my + r * cell}" width="{cell - 1.5}" height="{cell - 1.5}" rx="2" '
@@ -327,12 +329,13 @@ def stage3(ex, img, M) -> list[str]:
     out.append(f'<rect x="{mx + (n_img + n_txt) * cell - 1}" y="{my + (n_img + n_txt) * cell - 1}" width="{n_m * cell + 0.5}" '
                f'height="{n_m * cell + 0.5}" fill="none" stroke="{BLUE}" stroke-width="2.2" rx="3"/>')
     lx = mx + n * cell + 22
-    lines = [(ORANGE, "a mask token sees only its own", "image region, plus the query"),
-             (GREEN, "image and query tokens never", "see the mask tokens"),
+    lines = [(GREEN, "a mask token sees only its own", "image region, plus the query"),
+             (PINK, "image and query tokens never", "see the mask tokens"),
              (BLUE, "between mask tokens: a learned", None)]
     for i, (c, l1, l2) in enumerate(lines):
         yy = my + 8 + i * 46
-        out.append(f'<rect x="{lx}" y="{yy - 11}" width="12" height="12" rx="3" fill="{c}" fill-opacity="0.85"/>')
+        key = (f'fill="{c}" fill-opacity="0.85"' if i != 1 else f'fill="#fff" stroke="{LINE}" stroke-width="1.5"')
+        out.append(f'<rect x="{lx}" y="{yy - 11}" width="12" height="12" rx="3" {key}/>')
         out.append(text(lx + 20, yy, l1, F_SMALL, 400, INK))
         if l2:
             out.append(text(lx + 20, yy + 19, l2, F_SMALL, 400, INK))
@@ -361,7 +364,7 @@ def stage3(ex, img, M) -> list[str]:
     cand = [83, 65, 34, 257, pick]
     bx = x0
     for i in cand:
-        c = PINK if i == pick else (BLUE if i < ex["n_grid"] else ORANGE)
+        c = PINK if i == pick else (BLUE if i < ex["n_grid"] else PINK)
         out.append(img_tag(bx, by + 46, 40, 40, cutout(img, pool[i], 80), 5))
         out.append(rect(bx, by + 46, 40, 40, "none", c, 2.4 if i == pick else 1.6, 5))
         hgt = max(2, 30 * p[i] / p[pick])
@@ -379,15 +382,15 @@ def stage3(ex, img, M) -> list[str]:
 
 
 def build(ex, img, M, grid_ids, text_ids) -> str:
-    body = [f'<rect width="{W}" height="{H}" fill="#fff"/>', "<defs>" + markers([INK, BLUE, ORANGE, PINK, TEAL, VIOLET,
-                                                                              GREEN]) + "</defs>"]
+    body = [f'<rect width="{W}" height="{H}" fill="#fff"/>', "<defs>" + '<linearGradient id="llm" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#2f8f6b"/>'
+            '<stop offset="0.45" stop-color="#b0306f"/><stop offset="1" stop-color="#3b6fb6"/></linearGradient>' + markers([INK, BLUE, PINK, GREEN]) + "</defs>"]
     body += stage_frames()
     body += stage1(ex, img, M, grid_ids, text_ids)
     body += stage2(ex, img, M)
     body += stage3(ex, img, M)
     # stage links
-    body.append(arrow([(438, 446), (458, 446), (458, 150), (478, 150)], ORANGE))
-    body.append(arrow([(778, 564), (869, 564), (869, 100), (892, 100)], TEAL))
+    body.append(arrow([(438, 446), (458, 446), (458, 150), (478, 150)], BLUE))
+    body.append(arrow([(778, 564), (869, 564), (869, 100), (892, 100)], BLUE))
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
             f'font-family="{FONT}">{"".join(body)}</svg>')
 

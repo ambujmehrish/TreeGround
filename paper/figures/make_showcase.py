@@ -31,7 +31,7 @@ FONT = "Inter, Helvetica, Arial, sans-serif"
 INK, MUTED, LINE, BUBBLE = "#1f2633", "#5b6474", "#d5d9e0", "#eef1f6"
 PICK, BASE, GT = (176, 48, 111), (59, 111, 182), (36, 150, 72)
 ALT = [(217, 130, 43), (24, 128, 120)]                  # outlines of the next-ranked candidates
-F_ROW, F_Q, F_LAB, F_SMALL = 21, 16, 15, 14
+F_ROW, F_Q, F_LAB, F_SMALL = 27, 22, 21, 20      # at \\linewidth 1 px ~ 0.35 pt: 7 pt and up
 BASELINE = "qwen_box_sam"
 ASPECT = 4 / 3
 
@@ -92,17 +92,17 @@ def chip(x, y, s, color, size=F_SMALL, weight=600) -> str:
             f'fill="{color}"/>' + text(x + 6, y + size + 1.5, s, size, weight, "#fff")), w
 
 
-def bubble(x, y, w, s, max_lines=3) -> tuple[str, float]:
-    lines = wrap(s, F_Q, w - 56)
+def bubble(x, y, w, s, max_lines=4) -> tuple[str, float]:
+    lines = wrap(s, F_Q, w - 64)
     if len(lines) > max_lines:
         lines = lines[:max_lines]
         lines[-1] = lines[-1].rstrip(".,;") + " …"
-    h = 14 + len(lines) * (F_Q + 5)
-    out = [f'<circle cx="{x + 13}" cy="{y + 13}" r="12" fill="{INK}"/>',
-           text(x + 13, y + 18.5, "Q", 13, 700, "#fff", "middle"),
-           f'<rect x="{x + 32}" y="{y}" width="{w - 32}" height="{h}" rx="10" fill="{BUBBLE}"/>',
-           f'<path d="M{x + 32} {y + 9} l-7 5 l7 4 z" fill="{BUBBLE}"/>']
-    out += [text(x + 44, y + 7 + (i + 1) * (F_Q + 5) - 4, l, F_Q, 400, INK, italic=True) for i, l in enumerate(lines)]
+    h = 16 + len(lines) * (F_Q + 6)
+    out = [f'<circle cx="{x + 15}" cy="{y + 19}" r="15" fill="{INK}"/>',
+           text(x + 15, y + 25.5, "Q", 17, 700, "#fff", "middle"),
+           f'<rect x="{x + 38}" y="{y}" width="{w - 38}" height="{h}" rx="12" fill="{BUBBLE}"/>',
+           f'<path d="M{x + 38} {y + 13} l-8 6 l8 5 z" fill="{BUBBLE}"/>']
+    out += [text(x + 50, y + 8 + (i + 1) * (F_Q + 6) - 5, l, F_Q, 400, INK, italic=True) for i, l in enumerate(lines)]
     return "".join(out), h
 
 
@@ -133,7 +133,7 @@ def side_panel(x, y, w, h, s, a, gt, box, kind) -> list[str]:
 
     if kind == "part":
         t = (w - 2 * 8) / 3
-        out.append(text(x, y + F_SMALL, "Top-3 candidates (share)", F_SMALL, 600, INK))
+        out.append(text(x, y + F_SMALL, "Top-3 candidates", F_SMALL, 600, INK))
         for k, c in enumerate(s["candidates"][:3]):
             col = PICK if k == 0 else ALT[k - 1]
             tx = x + k * (t + 8)
@@ -162,11 +162,11 @@ def grounding_card(s, x, y, w, kind) -> tuple[str, float]:
     mh = mw / ASPECT
     out = [body, img_tag(x, iy, mw, mh, cell(a, box, (int(mw * 2), int(mh * 2)), [(ours, PICK)], r=5))]
     out += side_panel(x + mw + 14, iy, sw, mh, s, a, gt, box, kind)
-    ty = iy + mh + 20
+    ty = iy + mh + 27
     out.append(text(x, ty, "Ours", F_LAB, 700, hexc(PICK)))
-    out.append(text(x + 44, ty, f"IoU {s['methods']['ours']['iou']:.2f}", F_SMALL, 400, MUTED))
+    out.append(text(x + text_width("Ours ", F_LAB, 700) + 4, ty, f"IoU {s['methods']['ours']['iou']:.2f}", F_SMALL, 400, MUTED))
     out.append(text(x + w, ty, "dashed: ground truth", F_SMALL, 400, hexc(GT), "end"))
-    return "".join(out), ty - y + 6
+    return "".join(out), ty - y + 8
 
 
 def edit_card(s, x, y, w) -> tuple[str, float]:
@@ -181,21 +181,21 @@ def edit_card(s, x, y, w) -> tuple[str, float]:
     if eo.shape != a.shape or eb.shape != a.shape:
         raise SystemExit(f"{s['qid']}: edits are not at the source size")
     full = crop_box(hw[0], hw[1], focus([ours], hw), ASPECT, margin=0.1, min_frac=1.0)   # the largest 4:3 window
-    cells = [([(ours, PICK)], a, "Our mask", PICK), ([], eo, "Edit with our mask", PICK),
-             ([], eb, "Edit with Box + SAM 3 mask", BASE)]
+    cells = [([(ours, PICK)], a, "Our mask", PICK), ([], eo, "Our edit", PICK),
+             ([], eb, "Box + SAM 3 edit", BASE)]
     out = [body]
     for k, (fills, im, lab, c) in enumerate(cells):
         cx = x + k * (cw + 8)
         out.append(img_tag(cx, iy, cw, ch, cell(im, full, (int(cw * 2), int(ch * 2)), fills, r=4)))
-        out.append(text(cx, iy + ch + 20, lab, F_LAB, 600 if k else 700, hexc(c)))
+        out.append(text(cx, iy + ch + 27, lab, F_LAB, 700, hexc(c)))
     mi = s["mask_iou"]
-    out.append(text(x, iy + ch + 39, f"mask IoU: ours {mi['ours_softfam']:.2f}, Box + SAM 3 {mi[BASELINE]:.2f}",
+    out.append(text(x, iy + ch + 54, f"mask IoU: ours {mi['ours_softfam']:.2f}, Box + SAM 3 {mi[BASELINE]:.2f}",
                     F_SMALL, 400, MUTED))
-    return "".join(out), iy + ch + 45 - y
+    return "".join(out), iy + ch + 62 - y
 
 
 def figure(part, reason, edit) -> tuple[str, int]:
-    pad, gap, lab_w = 14, 26, 34
+    pad, gap, lab_w = 14, 26, 40
     cw = (W - 2 * pad - lab_w - gap) / 2
     rows, y = [], 12
     titles = ["(a) Part grounding", "(b) Reasoning", "(c) Editing"]
@@ -207,7 +207,7 @@ def figure(part, reason, edit) -> tuple[str, int]:
             parts.append(svg)
             hs.append(h)
         h = max(hs)
-        rows.append(f'<g transform="rotate(-90 {pad + 16} {y + h / 2})">' + text(pad + 16, y + h / 2 + 7, t, F_ROW, 700,
+        rows.append(f'<g transform="rotate(-90 {pad + 16} {y + h / 2})">' + text(pad + 16, y + h / 2 + 9, t, F_ROW, 700,
                                                                                 INK, "middle") + "</g>")
         rows.append(f'<line x1="{pad + lab_w + cw + gap / 2}" y1="{y}" x2="{pad + lab_w + cw + gap / 2}" '
                     f'y2="{y + h}" stroke="{LINE}" stroke-width="1.2"/>')

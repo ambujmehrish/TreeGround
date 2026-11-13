@@ -31,6 +31,7 @@ BLUE, GREEN, PINK = "#3b6fb6", "#2f8f6b", "#b0306f"      # mask stream, image st
 FRAME = "#8d96a3"
 TINT = {BLUE: "#eef3fb", PINK: "#fbeff5", GREEN: "#eaf5ef"}
 F_STAGE, F_TITLE, F_BODY, F_SMALL, F_MATH = 21, 18, 16, 15, 18
+F_IN = 16.5                                    # body text of the inset panels
 
 TEX = {
     "phi": r"\phi(x)",
@@ -146,12 +147,12 @@ def trapezoid(cx, y, wb, wt, h, color, label) -> str:
 
 
 def dashed_box(x, y, w, h, title, sub="") -> str:
-    tw = text_width(title, F_TITLE, 700) + (text_width(sub, F_SMALL, 500) + 8 if sub else 0) + 18
+    tw = text_width(title, F_TITLE + 1, 700) + (text_width(sub, F_BODY, 500) + 8 if sub else 0) + 18
     out = rect(x, y, w, h, "none", FRAME, 1.4, 14, dash="6 5")
     out += f'<rect x="{x + 12}" y="{y - 12}" width="{tw:.1f}" height="24" fill="#fff"/>'
-    out += text(x + 21, y + 6, title, F_TITLE, 700, INK)
+    out += text(x + 21, y + 6, title, F_TITLE + 1, 700, INK)
     if sub:
-        out += text(x + 21 + text_width(title + " ", F_TITLE, 700), y + 6, sub, F_SMALL, 500, MUTED)
+        out += text(x + 21 + text_width(title + " ", F_TITLE + 1, 700), y + 6, sub, F_BODY, 500, MUTED)
     return out
 
 
@@ -285,38 +286,38 @@ def tokenizer_inset(ex, img, M) -> list[str]:
     m = pool[ex["pick"]]
     x0, y0 = 950, 24
     out = [dashed_box(x0, y0, 436, 348, "Mask tokenizer", "one token per candidate")]
-    out.append(img_tag(x0 + 16, y0 + 40, 84, 84, cutout(img, m, 168), 8))
-    out.append(rect(x0 + 16, y0 + 40, 84, 84, "none", PINK, 2.2, 8))
-    out.append(text(x0 + 16, y0 + 146, "candidate", F_SMALL, 600, MUTED) + M("mv", x0 + 16 + text_width("candidate ", F_SMALL, 600),
-                                                                          y0 + 146, 16, MUTED))
-    rows = [("app", "Appearance", "MLLM image tokens under the mask", GREEN),
+    out.append(img_tag(x0 + 16, y0 + 62, 84, 84, cutout(img, m, 168), 8))
+    out.append(rect(x0 + 16, y0 + 62, 84, 84, "none", PINK, 2.2, 8))
+    out.append(text(x0 + 16, y0 + 50, "candidate", F_IN, 600, MUTED) + M("mv", x0 + 16 + text_width("candidate ", F_IN, 600),
+                                                                          y0 + 50, 18, MUTED))
+    rows = [("app", "Appearance", "MLLM image tokens in the mask", GREEN),
             ("geo", "Geometry", "box, area, depth in the tree", BLUE),
             ("src", "Source", "grid or SAM 3 text: rank, score", BLUE)]
-    rx, rw, rh = x0 + 130, 292, 60
+    rx, rw, rh = x0 + 126, 298, 62
     ys = [y0 + 32, y0 + 100, y0 + 168]
     trunk = rx - 14
-    out.append(f'<path d="M{x0 + 100},{y0 + 82} H{trunk} M{trunk},{ys[0] + rh / 2} V{ys[2] + rh / 2}" fill="none" '
+    out.append(f'<path d="M{x0 + 100},{y0 + 104} H{trunk} M{trunk},{ys[0] + rh / 2} V{ys[2] + rh / 2}" fill="none" '
                f'stroke="{BLUE}" stroke-width="2"/>')
     for (key, title, desc, c), y in zip(rows, ys):
         out.append(arrow([(trunk, y + rh / 2), (rx - 2, y + rh / 2)], BLUE, 2))
         out.append(rect(rx, y, rw, rh, "#fff", c, 1.8, 10) + f'<rect x="{rx}" y="{y}" width="7" height="{rh}" rx="3.5" fill="{c}"/>')
-        out.append(text(rx + 18, y + 24, title, F_BODY, 700, c))
-        out.append(M(key, rx + rw - 12, y + 25, 17, INK, "end"))
-        out.append(text(rx + 18, y + 47, desc, F_SMALL, 400, MUTED))
+        out.append(text(rx + 18, y + 25, title, 17.5, 700, c))
+        out.append(M(key, rx + rw - 10, y + 26, 18, INK, "end"))
+        out.append(text(rx + 18, y + 49, desc, F_IN, 400, MUTED))
     my = ys[2] + rh + 26
     out.append(arrow([(rx + rw / 2, ys[2] + rh + 1), (rx + rw / 2, my - 1)], BLUE))
-    out.append(text(rx + rw / 2 + 8, ys[2] + rh + 19, "concatenate", 13, 600, BLUE))
-    out.append(rect(rx + 30, my, rw - 60, 36, BLUE, BLUE, 1, 10) + text(rx + rw / 2, my + 24, "MLP + RMS norm", F_BODY, 700, "#fff", "middle"))
-    out.append(M("tok", x0 + 16, my + 72, 18, INK))
-    out.append(text(x0 + 16 + M.width("tok", 18) + 16, my + 71, "position: mask centroid", F_SMALL, 400, MUTED))
+    out.append(text(rx + rw / 2 + 8, ys[2] + rh + 19, "concatenate", 15.5, 600, BLUE))
+    out.append(rect(rx + 30, my, rw - 60, 36, BLUE, BLUE, 1, 10) + text(rx + rw / 2, my + 24.5, "MLP + RMS norm", 17.5, 700, "#fff", "middle"))
+    out.append(M("tok", x0 + 16, my + 72, 19, INK))
+    out.append(text(x0 + 16 + M.width("tok", 19) + 14, my + 71, "position: mask centroid", F_IN, 400, MUTED))
     return out
 
 
 def attention_inset(M) -> list[str]:
     x0, y0 = 950, 404
     out = [dashed_box(x0, y0, 436, 216, "Region-restricted attention", "every layer")]
-    cell, n_img, n_txt, n_m = 13, 4, 3, 3
-    mx, my = x0 + 18, y0 + 46
+    cell, n_img, n_txt, n_m = 14, 4, 3, 3
+    mx, my = x0 + 16, y0 + 50
     n = n_img + n_txt + n_m
     own = {(7, 1), (7, 2), (8, 0), (8, 1), (9, 2), (9, 3)}
     for r in range(n):
@@ -331,23 +332,23 @@ def attention_inset(M) -> list[str]:
             out.append(f'<rect x="{mx + c * cell}" y="{my + r * cell}" width="{cell - 1.5}" height="{cell - 1.5}" rx="2" '
                        f'fill="{fill}" fill-opacity="{op}" stroke="{LINE}" stroke-width="0.8"/>')
     for k, lab in ((n_img / 2, "img"), (n_img + n_txt / 2, "txt"), (n_img + n_txt + n_m / 2, "mask")):
-        out.append(text(mx + k * cell, my - 6, lab, 12, 600, MUTED, "middle"))
+        out.append(text(mx + k * cell, my - 7, lab, 14, 600, MUTED, "middle"))
     out.append(f'<rect x="{mx + (n_img + n_txt) * cell - 1}" y="{my + (n_img + n_txt) * cell - 1}" width="{n_m * cell + 0.5}" '
                f'height="{n_m * cell + 0.5}" fill="none" stroke="{BLUE}" stroke-width="2" rx="3"/>')
-    lx = mx + n * cell + 22
-    keys = [(GREEN, "a mask token sees only its own", "image region and the query"),
-            (None, "image and query tokens never", "see the mask tokens"),
-            (BLUE, "between masks: a learned bias", None)]
+    lx = mx + n * cell + 16
+    keys = [(GREEN, "a mask token sees only its", "own region and the query"),
+            (None, "image and query tokens", "never see the mask tokens"),
+            (BLUE, "between masks: learned bias", None)]
     for i, (c, l1, l2) in enumerate(keys):
-        yy = my + 10 + i * 48
+        yy = my + 10 + i * 50
         k = f'fill="{c}" fill-opacity="0.85"' if c else f'fill="#fff" stroke="{FRAME}" stroke-width="1.5"'
         out.append(f'<rect x="{lx}" y="{yy - 11}" width="12" height="12" rx="3" {k}/>')
-        out.append(text(lx + 20, yy, l1, F_SMALL, 400, INK))
+        out.append(text(lx + 20, yy, l1, F_IN, 400, INK))
         if l2:
-            out.append(text(lx + 20, yy + 19, l2, F_SMALL, 400, INK))
+            out.append(text(lx + 20, yy + 21, l2, F_IN, 400, INK))
         else:
-            out.append(M("bias", lx + 20, yy + 21, 15, INK)
-                       + text(lx + 26 + M.width("bias", 15), yy + 19, "by tree relation", F_SMALL, 400, INK))
+            out.append(M("bias", lx + 20, yy + 23, 16.5, INK)
+                       + text(lx + 26 + M.width("bias", 16.5), yy + 21, "by tree relation", F_IN, 400, INK))
     return out
 
 

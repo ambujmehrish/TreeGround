@@ -27,15 +27,15 @@ from make_overview import dec, png_b64, text_width, typeset  # noqa: E402
 from treeground import mllm  # noqa: E402
 from treeground.tree_attn import REGION_DILATE  # noqa: E402
 
-W, H = 700, 956
+W, H = 700, 986
 CELL_PX = 32
-F_T, F_B, F_S = 24, 22, 21                      # single column: 1 px ~ 0.34 pt, so 7 pt and up
+F_T, F_B, F_S = 26, 24, 23                      # single column: 1 px ~ 0.34 pt, so 7 pt and up
 TEX = {
     "xv": r"\hat{x}_v", "xu": r"\hat{x}_u", "v": r"v", "mv": r"m_v",
     "rv": r"\mathcal{R}_v", "ru": r"\mathcal{R}_u",
     "jin": r"j\in\mathcal{R}_v", "jout": r"j\notin\mathcal{R}_v",
     "bias": r"b_{\ell,\,\mathrm{rel}(u,v)}",
-    "r1": r"e_j,\ j\in\mathcal{R}_v:\quad 0\qquad\big(\mathcal{R}_v=\text{cells under } m_v\text{, dilated by one cell}\big)",
+    "r1": r"e_j,\ j\in\mathcal{R}_v:\ \ 0\quad\big(\mathcal{R}_v=\text{cells under } m_v\text{, dilated by 1}\big)",
     "r2": r"\text{query tokens, }\langle\mathrm{SEL}\rangle:\quad 0",
     "r3": r"\hat{x}_u:\quad b_{\ell,\,\mathrm{rel}(u,v)}\quad\text{(learned, by tree relation)}",
     "r4": r"e_j,\ j\notin\mathcal{R}_v:\quad -\infty",
@@ -108,11 +108,11 @@ def legend(M, x, y, anchor) -> list[str]:
     rows = [("xv", PINK, "handle", "rv", ["cells under", "+ 1-cell margin"], "mv"),
             ("xu", BLUE, "mug", "ru", ["region of the parent", "mask (the mug)"], None)]
     for (key, c, name, rkey, lines, mkey), yy in zip(rows, (y, y + 150)):
-        out.append(rect(x, yy, 74, 46, TINT[c], c, 2.6, 9) + M(key, x + 37, yy + 31, 23, INK, "middle"))
-        out.append(text(x + 88, yy + 31, "sees", F_B, 400, INK) + M(rkey, x + 88 + text_width("sees ", F_B, 400), yy + 32, 24, c))
+        out.append(rect(x, yy, 74, 46, TINT[c], c, 2.6, 9) + M(key, x + 37, yy + 32, 26, INK, "middle"))
+        out.append(text(x + 88, yy + 31, "sees", F_B, 400, INK) + M(rkey, x + 88 + text_width("sees ", F_B, 400), yy + 32, 27, c))
         out.append(text(x, yy + 76, lines[0], F_B, 400, MUTED)
-                   + (M(mkey, x + text_width(lines[0] + " ", F_B, 400), yy + 77, 23, MUTED) if mkey else ""))
-        out.append(text(x, yy + 102, lines[1], F_B, 400, MUTED))
+                   + (M(mkey, x + text_width(lines[0] + " ", F_B, 400), yy + 77, 25, MUTED) if mkey else ""))
+        out.append(text(x, yy + 106, lines[1], F_B, 400, MUTED))
         ax, ay = anchor[name]
         out.append(arrow([(x - 8, yy + 23), (ax + 4, ay)], c, 2.4))
     return out
@@ -144,7 +144,7 @@ def sequence(M, x0, y0) -> list[str]:
         pos[key] = x + w / 2
         k_img += kind == "i"
         x += w + 7
-    out.append(M("xu", pos["u"], y0 + 27, 19, INK, "middle") + M("xv", pos["v"], y0 + 27, 19, INK, "middle"))
+    out.append(M("xu", pos["u"], y0 + 28, 21, INK, "middle") + M("xv", pos["v"], y0 + 28, 21, INK, "middle"))
     for a, b, lab in ((pos["i0"] - tw / 2, pos["i5"] + tw / 2, "image tokens"), (pos["q0"] - tw / 2, pos["sel"] + 39, "query"),
                       (pos["m_first"], x - 7, "mask tokens")):
         out.append(f'<path d="M{a:.1f},{y0 + th + 8} v7 H{b:.1f} v-7" fill="none" stroke="{MUTED}" stroke-width="1.5"/>')
@@ -162,25 +162,25 @@ def sequence(M, x0, y0) -> list[str]:
     for k in ("q0", "q1", "sel"):
         out.append(arc(pos[k], 100, PINK, None, 2))
     out.append(arc(pos["u"], 44, BLUE, None, 2.6))
-    out.append(M("jin", x0 + 2, y0 - 142, 23, PINK))
-    out.append(text(pos["i5"] - 18, y0 - 30, "✕", 22, 700, FRAME, "end")
-               + M("jout", pos["i5"] - 44, y0 - 30, 22, MUTED, "end"))
-    out.append(M("bias", hx + 26, y0 - 16, 21, BLUE))
+    out.append(M("jin", x0 + 2, y0 - 142, 26, PINK))
+    out.append(text(pos["i5"] - 18, y0 - 30, "✕", 24, 700, FRAME, "end")
+               + M("jout", pos["i5"] - 46, y0 - 30, 25, MUTED, "end"))
+    out.append(M("bias", hx + 24, y0 - 18, 23, BLUE))
     return out
 
 
 def rule(M, x, y, w) -> list[str]:
     # the additive attention mask of a mask token v at layer l
-    out = [rect(x, y, w, 218, "#fff", FRAME, 1.4, 12, dash="6 5")]
+    out = [rect(x, y, w, 244, "#fff", FRAME, 1.4, 12, dash="6 5")]
     out.append(f'<rect x="{x + 12}" y="{y - 13}" width="{text_width("Attention mask of mask token ", F_B, 700) + M.width("v", 22) + 22:.1f}" '
                f'height="26" fill="#fff"/>')
     out.append(text(x + 20, y + 7, "Attention mask of mask token", F_B, 700, INK)
-               + M("v", x + 20 + text_width("Attention mask of mask token ", F_B, 700), y + 8, 23, INK))
+               + M("v", x + 20 + text_width("Attention mask of mask token ", F_B, 700), y + 8, 25, INK))
     rows = [("r1", PINK, ""), ("r2", PINK, ""), ("r3", BLUE, ""), ("r4", FRAME, ""), ("r5", FRAME, "")]
     for i, (key, c, lab) in enumerate(rows):
-        yy = y + 48 + i * 36
-        out.append(f'<rect x="{x + 18}" y="{yy - 15}" width="16" height="16" rx="4" fill="{c}" fill-opacity="0.8"/>')
-        out.append(M(key, x + 46, yy, 21, INK))
+        yy = y + 52 + i * 41
+        out.append(f'<rect x="{x + 16}" y="{yy - 16}" width="17" height="17" rx="4" fill="{c}" fill-opacity="0.8"/>')
+        out.append(M(key, x + 44, yy, 22.5, INK))
     out.append(text(x + 18, y + 184, "", F_S))
     return out
 
@@ -190,11 +190,11 @@ def build(ex, img, M) -> str:
     handle = pool[ex["pick"]]
     mug = pool[ex["parents"][ex["pick"]]] if 0 <= ex["parents"][ex["pick"]] < len(pool) else pool[257]
     body = [f'<rect width="{W}" height="{H}" fill="#fff"/>', "<defs>" + MM.markers([INK, BLUE, PINK, GREEN, FRAME]) + "</defs>"]
-    body.append(text(12, 30, "(a) Region of a mask token on the image-token grid", F_T, 700, INK))
+    body.append(text(12, 30, "(a) Region of a mask token on the token grid", F_T, 700, INK))
     g, anchor = grid_panel(img, handle, mug, 12, 46, 330)
     body += g + legend(M, 384, 70, anchor)
     body.append(text(12, 420, "(b) Attention of mask token", F_T, 700, INK)
-                + M("v", 12 + text_width("(b) Attention of mask token ", F_T, 700), 421, 25, INK))
+                + M("v", 12 + text_width("(b) Attention of mask token ", F_T, 700), 421, 27, INK))
     body += sequence(M, 14, 606)
     body += rule(M, 12, 726, W - 24)
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '

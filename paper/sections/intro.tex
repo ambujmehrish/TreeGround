@@ -2,7 +2,8 @@
 % significance from results/metrics/sig_table1.json and sig_reason.json. Citation keys are placeholders:
 %   ophrg 2607.15374, sam3 2511.16719, lisa 2308.00692, sa2va 2501.04001, attnseg 2610.18729, refcoco (Kazemzadeh
 %   EMNLP 2014), refcocog_mao 1511.02283, paco 2301.01795, partimagenet 2112.00933, instructpart 2505.18291,
-%   gres 2306.00968, gsva 2312.10103, affordjev 2611.07896, partgrounding_bottleneck 2609.13225.
+%   gres 2306.00968, gsva 2312.10103, affordjev 2611.07896, partgrounding_bottleneck 2609.13225, mres 2504.01954,
+%   partonomy 2505.20759, groundhog 2402.16846, panorama 2609.19143.
 \section{Introduction}
 \label{sec:intro}
 
@@ -10,8 +11,9 @@ A request such as ``hold the mug by its handle'' or ``recolor the seat of the ch
 in the image that matches a phrase. It refers to one region: one part of one object. Answering it requires two
 decisions that current language-guided segmentation systems tend to merge. The first is \emph{which} entity is
 meant, the handle and not the mug, this chair and not the one behind it. The second is \emph{how much} of the image
-that entity covers: the whole handle, not a sliver of it, and not the cup it is attached to. We call this task
-\emph{part grounding}: given an image and a request, return the single mask of the part the request refers to.
+that entity covers: the whole handle, not a sliver of it, and not the cup it is attached to. This is \emph{part grounding}, studied as part-level referring segmentation~\cite{mres,instructpart} and part-level
+visual grounding~\cite{ophrg,partonomy}: given an image and a request, return the mask of the part the request
+refers to.
 
 Part grounding is where today's systems fail most visibly. Multimodal large language models (MLLMs) localize whole
 objects well but return the parent object when a query names one of its parts~\cite{ophrg}; promptable segmenters
@@ -33,10 +35,10 @@ separately.
 
 Our approach starts from an observation about where the difficulty lies. A promptable segmenter already proposes
 a good mask for most parts, but does not rank it first: on PARTONOMY, the best of the candidates SAM\,3 produces for
-a query reaches 71.0 gIoU, while SAM\,3's own top-ranked instance reaches 42.0 (Tab.~\ref{tab:coverage}). What is
-missing is the decision among them, which requires reading the request in the context of the whole image. We give
-that decision to an MLLM. We propose \ours{}, which \emph{asks} the MLLM to choose a mask instead of \emph{drawing}
-one. For each query, \ours{} builds a pool of candidate masks from a frozen SAM\,3: automatic masks from a point
+a query reaches 71.0 gIoU, while SAM\,3's own top-ranked instance reaches 42.0 (Tab.~\ref{tab:coverage}). What is missing is the decision among them, which requires reading the request in the context of the whole image.
+Grounding by selecting among mask proposals has been explored for phrase grounding and grounded
+captioning~\cite{groundhog,panorama}; we build on it for part grounding. We propose \ours{}, which \emph{asks} the
+MLLM to choose a mask instead of \emph{drawing} one. For each query, \ours{} builds a pool of candidate masks from a frozen SAM\,3: automatic masks from a point
 grid, which are query-independent and cover objects and parts at every scale, and the top instances SAM\,3 returns
 for the query's own phrases. Every candidate enters the MLLM as a \emph{mask token}, an embedding pooled from the
 image tokens it covers together with its geometry and its provenance. Each mask token attends only to the image
@@ -65,12 +67,12 @@ When several masks per expression are allowed, the same scores select a set and 
 
 In summary, our contributions are:
 \begin{itemize}
-\item We formulate \emph{part grounding} as selecting one region among candidate masks, and evaluate it under a
-  uniform one-mask-per-query protocol that every method, including ours, follows; we report the multi-mask setting
+\item We evaluate part grounding under a uniform one-mask-per-query protocol that every method, including ours,
+  follows, and show that union-based scoring changes how methods compare; the multi-mask setting is reported
   separately.
-\item We propose \ours{}, which represents each candidate mask as a region-restricted token inside an MLLM and
-  answers a request by selection, separating the choice of region (the MLLM) from its extent (a frozen segmenter)
-  with 64.2M trainable parameters.
+\item We propose \ours{}, a selection-based grounder for parts: a query-conditioned pool of SAM\,3 candidates enters
+  the MLLM as mask tokens pooled from the MLLM's own image tokens, each restricted to its region, and a selection
+  token chooses one, with 64.2M trainable parameters and the segmenter frozen.
 \item In a controlled comparison on test splits with a same-size backbone, \ours{} improves part grounding on five of
   six benchmarks, referring segmentation and rejection on gRefCOCO, and part-level reasoning, and supports
   region-grounded editing with a mask for every request; ablations isolate query-conditioned candidates, mask

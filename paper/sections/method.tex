@@ -4,14 +4,21 @@
 \section{Method}
 \label{sec:method}
 
-\paragraph{Overview.}
-Given an image $I$ and a query $x$, such as ``locate the handle of the mug'', the task is to return the one mask
-the query refers to, or no mask when the image contains no such region. We treat this as a choice rather than a
-drawing problem (Fig.~\ref{fig:method}). A frozen SAM\,3~\cite{sam3} first proposes a pool of candidate masks
-$\{m_v\}_{v=1}^{N}$ for the image. Each candidate is then turned into a single \emph{mask token} $\hat{x}_v$ and
-appended to the input of a multimodal LLM, after the image and the query. The model reads the whole sequence in one
-pass, and a selection token \texttt{<SEL>} at the end of the query scores every candidate; the answer is the
-highest-scoring mask $m_{v^{\star}}$. The MLLM therefore never produces pixels: the shape of the answer comes from the
-segmenter, and the decision about which region is meant comes from the language model. The rest of this section
-describes how the pool is built (Sec.~\ref{sec:pool}), how a mask becomes a token (Sec.~\ref{sec:tokens}), how the
-tokens are read and scored (Sec.~\ref{sec:selection}), and how the model is trained (Sec.~\ref{sec:training}).
+\paragraph{Problem formulation.}
+The input is an image $I\in\mathbb{R}^{H\times W\times 3}$ and a text query $x$, for example ``locate the handle of
+the mug''. The query refers to at most one region, which may be a whole object or a part of one. The output is a
+binary mask $m\in\{0,1\}^{H\times W}$ of that region, or the empty answer $\varnothing$ when nothing in the image
+matches the query. Most segmentation MLLMs meet this goal by generating $m$, decoding it from a hidden state of the
+language model. We cast the task as selection instead (Fig.~\ref{fig:method}). A frozen segmenter proposes a pool
+of $N$ candidate masks $\mathcal{M}(I,x)=\{m_v\}_{v=1}^{N}$, the model assigns each candidate a score $s_v(I,x)$, and
+the answer is the best-scoring candidate,
+\begin{equation}
+  v^{\star}=\arg\max_{v\in\{1,\dots,N\}} s_v(I,x), \qquad
+  \hat{m}=\begin{cases} m_{v^{\star}} & \text{if } s_{v^{\star}}\geq\tau,\\ \varnothing & \text{otherwise,}\end{cases}
+  \label{eq:selection}
+\end{equation}
+where the threshold $\tau$ is set on validation and is needed only on benchmarks where a query can have no target.
+Under this formulation the extent of the answer is fixed by the segmenter, and the model has one thing left to
+learn: which candidate the query means. The following subsections describe how the pool $\mathcal{M}$ is built
+(Sec.~\ref{sec:pool}), how each candidate becomes a token the language model can read (Sec.~\ref{sec:tokens}), how
+the scores $s_v$ are computed (Sec.~\ref{sec:selection}), and how the model is trained (Sec.~\ref{sec:training}).

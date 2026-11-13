@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-13c-32b-instructpart",
+ "what": "D38 InstructPart: Box + SAM 3 Qwen3-VL-32B, re-run (one shard hit a GPU ECC error; finished shards are skipped)",
+ "script": "q_gpu4py.sbatch",
+ "env": {
+  "TG_PY": "scripts/ophrg_eval.py",
+  "TG_ARGS": "--config configs/ophrg_baselines.yaml --method qwen32_box_sam --benchmark instructpart"
+ },
+ "sbatch": {
+  "time": "01:00:00",
+  "array": "0-15"
+ }
+}

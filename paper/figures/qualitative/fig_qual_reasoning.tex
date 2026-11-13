@@ -1,0 +1,9 @@
+% Main paper / supplementary. Needs macros.tex.
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/qualitative/reason_main.pdf}
+\caption{\textbf{Reasoning queries} (InstructPart human-written instructions, ReasonSeg test), one mask per query as
+in Tab.~\ref{tab:reasoning}. \ours{} is shown without query rewriting; SAM\,3 always returns its top mask.
+Every mask is a stored output on a test query; the ground truth is the dashed green outline, the number under each cell its IoU with it. Rows are a fixed-seed random sample and the queries where \ours{} beats Box + SAM\,3 by the largest margin (labelled on each row); the queries where it loses most are in the appendix. }
+\label{fig:qual_reasoning}
+\end{figure*}

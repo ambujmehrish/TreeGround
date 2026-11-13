@@ -1,0 +1,8 @@
+% Main paper. Needs macros.tex (\ours); path relative to the paper root.
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/qualitative/part_main.pdf}
+\caption{\textbf{Part grounding} on OP-HRG test queries (InstructPart part names, PascalPart-116, PartImageNet), one
+mask per query as in Tab.~\ref{tab:controlled}; SAM\,3 at its released threshold. Every mask is a stored output on a test query; the ground truth is the dashed green outline, the number under each cell its IoU with it. Rows are a fixed-seed random sample and the queries where \ours{} beats Box + SAM\,3 by the largest margin (labelled on each row); the queries where it loses most are in the appendix. }
+\label{fig:qual_part}
+\end{figure*}

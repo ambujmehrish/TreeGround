@@ -224,7 +224,7 @@ def stack(ex, img, M) -> list[str]:
         out.append(arrow([(cx, 379), (cx, 364)], c, 2))
     out.append(rect(20, 252, 910, 70, "url(#llm)", "none", 0, 16))
     out.append(text(475, 283, "Qwen3-VL-4B + LoRA", 22, 700, "#fff", "middle"))
-    out.append(text(475, 308, "one pass over image, query and mask tokens; 64.2M trainable parameters", F_SMALL, 500,
+    out.append(text(475, 308, "one pass over image, query and mask tokens; LoRA rank r = 16", F_SMALL, 500,
                     "#fff", "middle"))
     # selection head on <SEL> and the mask tokens' states
     hx, hy, hw, hh, tab = 380, 158, 550, 70, 132

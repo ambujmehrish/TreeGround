@@ -25,13 +25,13 @@ Box + SAM\,3                     & 46.5 & 48.2 & 26.3 & 33.2 & 32.8 & 47.0 & 69.
 $\Delta$ vs.\ Box + SAM\,3       & \up{+3.5} & \up{+3.1} & \up{+24.5} & \up{+14.3} & \up{+6.8} & \up{+3.6} & \dn{$-$0.1} & \up{+5.5} & \up{+0.3} & \dn{$-$1.0} & \up{+7.8} & \up{+8.7} & \up{+64.8} & \up{+58.7} \\
 \midrule
 \multicolumn{15}{l}{\textit{MLLM backbone: Qwen3-VL-32B}} \\
-Box + SAM\,3                     & 49.3 & 50.5 & --   & --   & --   & --   & --   & --   & --   & --   & 55.3 & 52.1 & 44.7 & 43.8 \\
+Box + SAM\,3                     & 49.3 & 50.5 & --   & --   & --   & --   & 70.5 & --   & --   & --   & 55.3 & 52.1 & 44.7 & 43.8 \\
 \bottomrule
 \end{tabular}}
 \caption{\textbf{Larger MLLM backbones} under the protocol of Tab.~\ref{tab:controlled} (test splits; gIoU, \%; N-acc:
 accuracy on no-target expressions). $\Delta$: \ours{} minus Box + SAM\,3 with the same 8B backbone. With 8B, \ours{}
 leads Box + SAM\,3 on every column except InstructPart ($-$0.1) and GSEval All ($-$1.0); compared with the 4B model it is within 1.5 points on every grounding column and
-lower on rejection (N-acc $-$4.8 / $-$2.9). Every method outputs at most one mask per query. The 32B pipeline was run on PARTONOMY and gRefCOCO only. $^\dagger$same pool and data as the 4B model, without the tree-relation bias and family
+lower on rejection (N-acc $-$4.8 / $-$2.9). Every method outputs at most one mask per query. The 32B pipeline was run on PARTONOMY, InstructPart and gRefCOCO only. $^\dagger$same pool and data as the 4B model, without the tree-relation bias and family
 loss. $^\S$\ours{} trains on this dataset's training split; all other columns are zero-shot.}
 \label{tab:backbones}
 \end{table*}

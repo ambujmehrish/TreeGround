@@ -1,0 +1,12 @@
+% Method figure: \input after macros.tex. Rendered by paper/figures/make_method.py (real PACO test image, pool and scores).
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/method_cropped.pdf}
+  \caption{\textbf{\ours{}.} \textbf{(1)}~A frozen SAM\,3 proposes candidates: query-free masks from a point grid and
+  the top instances for the query's own phrases. \textbf{(2)}~Each candidate becomes one mask token, built like a word
+  token from its content (the MLLM's own image tokens under the mask), its position (box, area, place in the
+  containment tree) and its type (grid mask or SAM\,3 instance, with rank and score). \textbf{(3)}~The mask tokens are
+  appended after the query; each attends to the query and its own image region, and the selection token
+  \texttt{<SEL>} scores them in one pass. The answer is the top-scoring candidate; the MLLM never draws pixels.}
+  \label{fig:method}
+\end{figure*}

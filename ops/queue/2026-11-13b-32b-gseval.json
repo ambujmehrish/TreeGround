@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-13b-32b-gseval",
+ "what": "D45 GSEval: Box + SAM 3 with Qwen3-VL-32B (4 GPUs per shard; appendix backbone table)",
+ "script": "q_gpu4py.sbatch",
+ "env": {
+  "TG_PY": "scripts/gseval_eval.py",
+  "TG_ARGS": "--config configs/gseval_baselines.yaml --method qwen32_box_sam"
+ },
+ "sbatch": {
+  "time": "02:00:00",
+  "array": "0-7"
+ }
+}

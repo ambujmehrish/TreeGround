@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-13b-32b-gseval-merge",
+ "what": "D45 GSEval: Box + SAM 3 Qwen3-VL-32B merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/gseval_eval.py",
+  "TG_ARGS": "--config configs/gseval_baselines.yaml --method qwen32_box_sam --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-11-13b-32b-gseval"
+ ],
+ "collect": true
+}

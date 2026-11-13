@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-13b-32b-partimagenet-merge",
+ "what": "D38 PartImageNet: Box + SAM 3 Qwen3-VL-32B merge",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/ophrg_eval.py",
+  "TG_ARGS": "--config configs/ophrg_baselines.yaml --method qwen32_box_sam --benchmark partimagenet --merge"
+ },
+ "sbatch": {
+  "time": "00:30:00"
+ },
+ "after": [
+  "2026-11-13b-32b-partimagenet"
+ ],
+ "collect": true
+}

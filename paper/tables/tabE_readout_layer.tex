@@ -6,7 +6,7 @@
 \setlength{\tabcolsep}{8pt}
 \begin{tabular}{l ccc}
 \toprule
- & \multicolumn{3}{c}{Read-out layer} \\
+ & \multicolumn{3}{c}{Read-out layer $\ell$} \\
 \cmidrule(lr){2-4}
 Training step & 12 & 24 & 36 \\
 \midrule
@@ -25,7 +25,7 @@ Training step & 12 & 24 & 36 \\
 12k & 81.1 & 85.4 & 85.3 \\
 \bottomrule
 \end{tabular}
-\caption{\textbf{Choice of the read-out layer} (PACO \emph{validation} subset, 500 images; selection success, \%: the
+\caption{\textbf{Choice of the read-out layer $\ell^{\star}$} (PACO \emph{validation} subset, 500 images; selection success, \%: the
 selected mask is a correct one). Selection heads at layers 12, 24 and 36 of the 36-layer decoder are trained jointly;
 checkpoint and layer are chosen together on validation (shaded row, bold). Layer 12 is more than 4 points behind at every checkpoint,
 while layers 24 and 36 stay within 0.5 points of each other, so the choice among the later layers is not critical.

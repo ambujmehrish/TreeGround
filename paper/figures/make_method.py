@@ -26,7 +26,6 @@ from make_teaser import esc  # noqa: E402
 
 W, H = 1400, 676
 D = 44                                         # room between the MLLM and the selection head for the read-out
-READOUT_LAYER = 36                             # results/metrics/ta_pool_soft_fam.json: best_layer (chosen on PACO val)
 FONT = "Inter, Helvetica, Arial, sans-serif"
 INK, MUTED, LINE = "#1f2633", "#5b6474", "#cfd5de"
 BLUE, GREEN, PINK = "#3b6fb6", "#2f8f6b", "#b0306f"      # mask stream, image stream, text stream
@@ -53,6 +52,7 @@ TEX = {
     "psik": r"\psi_k",
     "hsel": r"h_{\langle\mathrm{SEL}\rangle}",
     "zv": r"z_v",
+    "lstar": r"\ell^{\star}",
     "bias": r"b_{\ell,\,\mathrm{rel}(u,v)}",
 }
 
@@ -251,7 +251,10 @@ def stack(ex, img, M) -> list[str]:
         out.append(text(cx - 8, py_ + 20, "MLP", 16, 700, "#fff", "end") + M(key, cx - 2, py_ + 20, 17, "#fff"))
         out.append(arrow([(cx, py_), (cx, hy + hh + 2)], c))
         out.append(M(state, cx + side * (pw_ / 2 + 10), py_ + 20, 17, c, "start" if side > 0 else "end"))
-    out.append(text((sel_x + 32 + 838) / 2, hy + hh + 39, f"layer-{READOUT_LAYER} states", F_BODY, 600, MUTED, "middle"))
+    mid, lab = (sel_x + 32 + 838) / 2 + 6, "at layer "
+    w_ = text_width(lab, F_BODY, 600) + M.width("lstar", 18)
+    out.append(text(mid - w_ / 2, hy + hh + 39, lab, F_BODY, 600, MUTED)
+               + M("lstar", mid - w_ / 2 + text_width(lab, F_BODY, 600), hy + hh + 40, 18, MUTED))
     # scores over candidates and the answer
     pool = [dec(r) for r in ex["pool"]]
     pick = ex["pick"]

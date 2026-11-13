@@ -226,20 +226,24 @@ def stack(ex, img, M) -> list[str]:
     out.append(text(475, 308, "one pass over image, query and mask tokens; 64.2M trainable parameters", F_SMALL, 500,
                     "#fff", "middle"))
     # selection head on <SEL> and the mask tokens' states
-    hx, hy, hw = 380, 168, 550
-    out.append(rect(hx, hy, hw, 58, "#fff", PINK, 2.2, 12))
-    out.append(text(hx + 14, hy + 24, "Selection head", F_BODY, 700, PINK))
-    out.append(M("head", hx + 14, hy + 48, 17.5, INK))
-    out.append(M("argmax", hx + hw - 14, hy + 25, 17.5, INK, "end"))
-    out.append(arrow([(sel_x + 32, 252), (sel_x + 32, hy + 60)], PINK))
-    out.append(arrow([(838, 252), (838, hy + 60)], BLUE))
+    hx, hy, hw, hh, tab = 380, 158, 550, 70, 132
+    out.append(rect(hx, hy, hw, hh, "#fff", PINK, 2.2, 12))
+    out.append(f'<path d="M{hx + 12},{hy} H{hx + tab} V{hy + hh} H{hx + 12} a12,12 0 0 1 -12,-12 V{hy + 12} '
+               f'a12,12 0 0 1 12,-12 z" fill="{PINK}"/>')
+    out.append(text(hx + tab / 2, hy + 31, "Selection", 18, 700, "#fff", "middle"))
+    out.append(text(hx + tab / 2, hy + 53, "head", 18, 700, "#fff", "middle"))
+    ex_ = hx + tab + (hw - tab) / 2
+    out.append(M("head", ex_, hy + 29, 19, INK, "middle"))
+    out.append(M("argmax", ex_, hy + 58, 19, INK, "middle"))
+    out.append(arrow([(sel_x + 32, 252), (sel_x + 32, hy + hh + 2)], PINK))
+    out.append(arrow([(838, 252), (838, hy + hh + 2)], BLUE))
     # scores over candidates and the answer
     pool = [dec(r) for r in ex["pool"]]
     pick = ex["pick"]
     lg = np.asarray(ex["logits"])
     p = np.exp(lg - lg.max())
     p /= p.sum()
-    by, x = 98, 640
+    by, x = 88, 640
     out.append(text(x, by - 26, "selection scores over the pool", F_SMALL, 600, MUTED))
     for i in (83, 65, 34, 257, pick):
         c = PINK if i == pick else (BLUE if i < ex["n_grid"] else PINK)
@@ -263,15 +267,16 @@ def stack(ex, img, M) -> list[str]:
 
 
 def tree_inset(M) -> list[str]:
-    out = [dashed_box(20, 24, 250, 196, "Containment tree")]
-    nodes = {"r": (145, 64), "a": (105, 98), "b": (185, 98), "c": (80, 132), "d": (128, 132)}
+    out = [dashed_box(20, 24, 300, 204, "Containment tree")]
+    nodes = {"r": (170, 62), "a": (118, 102), "b": (222, 102), "c": (84, 142), "d": (152, 142)}
     for a, b in (("r", "a"), ("r", "b"), ("a", "c"), ("a", "d")):
         out.append(f'<line x1="{nodes[a][0]}" y1="{nodes[a][1]}" x2="{nodes[b][0]}" y2="{nodes[b][1]}" stroke="{MUTED}" '
-                   f'stroke-width="2"/>')
+                   f'stroke-width="2.6"/>')
     for k, (x, y) in nodes.items():
-        out.append(f'<circle cx="{x}" cy="{y}" r="8" fill="{PINK if k == "d" else BLUE}" stroke="#fff" stroke-width="1.5"/>')
-    out.append(M("par1", 34, 172, 16))
-    out.append(M("par2", 34, 200, 16))
+        out.append(f'<circle cx="{x}" cy="{y}" r="11" fill="{PINK if k == "d" else BLUE}" stroke="#fff" stroke-width="2"/>')
+    out.append(text(138, 107, "mug", F_SMALL, 600, BLUE) + text(172, 147, "handle", F_SMALL, 600, PINK))
+    out.append(M("par1", 170, 184, 19, INK, "middle"))
+    out.append(M("par2", 170, 213, 19, INK, "middle"))
     return out
 
 

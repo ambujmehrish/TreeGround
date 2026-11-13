@@ -4,7 +4,7 @@ answers part queries, multi-target expressions and no-target expressions.
 Every pixel shown is a real model output: results/figures/teaser_assets.json (scripts/teaser_assets.py, pool_soft_fam
 on test queries). Scores are the model's own: (a) softmax of s_v over the whole pool (the part decision is argmax);
 (b) sigmoid(s_v) against the gRefCOCO set threshold t chosen on val.
-usage: python paper/figures/make_teaser.py --hero 5 --part 0 --multi 2 --none 6 --png   (the paper version)
+usage: python paper/figures/make_teaser.py --hero 1 --part 0 --multi 2 --none 6 --png   (the paper version)
 """
 import argparse
 import base64
@@ -23,11 +23,12 @@ ROOT = HERE.parents[1]
 sys.path.insert(0, str(HERE))
 from make_overview import INTER, bbox, dec, png_b64, text_width  # noqa: E402
 
-W, H = 1400, 540
+W, H = 1400, 590
 # type sizes (px on the 1400-px canvas; at \linewidth 1 px ~ 0.35 pt): title 7.4 pt, labels 6 pt, small 5.6 pt
-F_TITLE, F_HEAD, F_LABEL, F_SMALL, F_CHIP = 21, 19, 17, 16, 16
+F_TITLE, F_HEAD, F_LABEL, F_SMALL, F_CHIP = 25, 23, 20, 18, 19
 FONT = "Inter, Helvetica, Arial, sans-serif"
 INK, MUTED, LINE = "#1f2633", "#5b6474", "#c9ced6"
+PANEL, PANEL_LINE, WORD = "#f7f1fa", "#e2cfe9", "#e8f0fb"   # MLLM box (tinted to the pick colour), query-word chips
 PICK = (176, 48, 111)                                  # the selected mask (as in the overview figure)
 GRID, TEXT = (59, 111, 182), (217, 130, 43)            # candidate provenance: point grid / SAM 3 text
 SET_COLORS = [PICK, (24, 128, 120), (203, 140, 20), (96, 76, 170)]
@@ -157,9 +158,9 @@ def query_words(q: str) -> list[str]:
 def pool_view(img: np.ndarray, pool: list, ng: int) -> np.ndarray:
     # point-grid masks as coloured segments (large first, small on top), SAM 3 text masks outlined
     rng = np.random.default_rng(3)
-    x = img.astype(float) * 0.55 + 255 * 0.45
+    x = img.astype(float) * 0.75 + 255 * 0.25
     for i in sorted(range(ng), key=lambda i: -int(pool[i].sum())):
-        c = np.array(Image.new("HSV", (1, 1), (int(rng.integers(256)), 150, 235)).convert("RGB").getpixel((0, 0)))
+        c = np.array(Image.new("HSV", (1, 1), (int(rng.integers(256)), 160, 245)).convert("RGB").getpixel((0, 0)))
         x = np.where(pool[i][..., None], 0.45 * x + 0.55 * c, x)
         x[edge(pool[i], 1)] = 255
     for i in range(ng, len(pool)):
@@ -170,7 +171,7 @@ def pool_view(img: np.ndarray, pool: list, ng: int) -> np.ndarray:
 def token_row(ex, img, box, pool, k, ch, width):
     # chips (kind, payload, width); returns None if they do not fit in `width`
     words = query_words(ex["query"])
-    chips = [("word", wd, text_width(wd, F_CHIP, 500) + 12) for wd in words] + [("gap", None, 6)]
+    chips = [("word", wd, text_width(wd, F_CHIP, 500) + 10) for wd in words] + [("gap", None, 6)]
     chips += [("tile", t, ch - 6) for t in range(2)] + [("dots", None, 18), ("gap", None, 6)]
     shown = shown_tokens(ex, k)
     for j, i in enumerate(shown):
@@ -194,11 +195,11 @@ def hero(ex: dict, x0: float, y0: float, wdt: float) -> str:
     out = []
     # the token row decides where <SEL> sits; the selected-mask image goes right above it
     ch = 50
-    chips = next(c for k in (7, 6, 5, 4, 3) if (c := token_row(ex, img, box, pool, k, ch, wdt - 28)))
-    S = 168
-    yi = y0 + 36
-    by = yi + S + 66
-    cy = by + 112
+    chips = next(c for k in (7, 6, 5, 4, 3, 2) if (c := token_row(ex, img, box, pool, k, ch, wdt - 28)))
+    S = 160
+    yi = y0 + 40
+    by = yi + S + 74
+    cy = by + 122
     x = x0 + wdt - 14 - (sum(c[2] for c in chips) + 4 * (len(chips) - 1))
     p = softmax(np.asarray(ex["logits"]))
     pmax = max(p[c[1]] for c in chips if c[0] == "mask")
@@ -208,8 +209,8 @@ def hero(ex: dict, x0: float, y0: float, wdt: float) -> str:
     for kind, val, cw in chips:
         if kind == "word":
             start = x if start is None else start
-            row.append(f'<rect x="{x:.1f}" y="{cy + 5}" width="{cw:.1f}" height="{ch - 10}" rx="6" fill="#fff" '
-                       f'stroke="{LINE}"/>')
+            row.append(f'<rect x="{x:.1f}" y="{cy + 5}" width="{cw:.1f}" height="{ch - 10}" rx="6" fill="{WORD}" '
+                       f'stroke="#b9cbe6"/>')
             row.append(text(x + cw / 2, mid_y, val, F_CHIP, 500, INK, "middle"))
         elif kind == "gap":
             if start is not None:
@@ -233,7 +234,7 @@ def hero(ex: dict, x0: float, y0: float, wdt: float) -> str:
             row.append(f'<rect x="{x + 10:.1f}" y="{cy - 7 - bar:.1f}" width="{cw - 20}" height="{max(bar, 2):.1f}" '
                        f'rx="2" fill="{hexc(PICK) if val == pick else "#aab1bd"}"/>')
             if val == pick:
-                row.append(text(x + cw / 2, cy - 13 - bar, f"{p[val]:.2f}", F_SMALL, 700, hexc(PICK), "middle"))
+                row.append(text(x + 4, cy - 7 - bar / 2 + F_SMALL * 0.36, f"{p[val]:.2f}", F_SMALL, 700, hexc(PICK), "end"))
             sx[val] = x
         elif kind == "sel":
             row.append(f'<rect x="{x:.1f}" y="{cy + 3}" width="{cw}" height="{ch - 6}" rx="7" fill="{INK}"/>')
@@ -246,12 +247,12 @@ def hero(ex: dict, x0: float, y0: float, wdt: float) -> str:
     q = " ".join(query_words(ex["query"]))
     out.append(text(xs[0], y0 + 22, "Query", F_LABEL, 600, MUTED))
     out.append(text(xs[0] + text_width("Query", F_LABEL, 600) + 10, y0 + 22, f"“{q}”", F_LABEL, 500, INK, italic=True))
-    ims = [img, pool_view(img, pool, ng), paint(img, [pool[pick]], [PICK], dim=0.25)]
+    ims = [img, pool_view(img, pool, ng), paint(img, [pool[pick]], [PICK], line=3)]
     for xi, im in zip(xs, ims):
         out.append(image_tag(round(xi, 1), yi, S, S, to_png(im, box, (2 * S, 2 * S)), 7))
         out.append(f'<rect x="{xi:.1f}" y="{yi}" width="{S}" height="{S}" rx="7" fill="none" stroke="{LINE}"/>')
-    for (xa, xb), top, sub, col, dash in (((xs[0], xs[1]), "SAM 3 (frozen)", "grid + text", INK, None),
-                                          ((xs[1], xs[2]), "MLLM selects", "no mask decoder", MUTED, "5 4")):
+    for (xa, xb), top, sub, col, dash in (((xs[0], xs[1]), "SAM 3", "frozen", INK, None),
+                                          ((xs[1], xs[2]), "MLLM picks", "no mask decoder", MUTED, "5 4")):
         mid = (xa + S + xb) / 2
         out.append(arrow(xa + S + 10, yi + S / 2, xb - 12, yi + S / 2, col, 2, dash))
         out.append(text(mid, yi + S / 2 - 12, top, F_LABEL, 600, INK, "middle"))
@@ -269,7 +270,7 @@ def hero(ex: dict, x0: float, y0: float, wdt: float) -> str:
     out.append(text(xs[2] + S / 2, yi + S + 24, "selected mask", F_LABEL, 700, hexc(PICK), "middle"))
     # row 2: the MLLM's input sequence
     bh = cy + ch + 44 - by
-    out.append(f'<rect x="{x0}" y="{by}" width="{wdt}" height="{bh}" rx="12" fill="#f5f6f8" stroke="{LINE}"/>')
+    out.append(f'<rect x="{x0}" y="{by}" width="{wdt}" height="{bh}" rx="12" fill="{PANEL}" stroke="{PANEL_LINE}" stroke-width="1.5"/>')
     out.append(text(x0 + 16, by + 27, "MLLM input sequence", F_LABEL, 700, INK))
     out.append(text(x0 + 16 + text_width("MLLM input sequence", F_LABEL, 700) + 10, by + 27,
                     "Qwen3-VL-4B, 64.2M trainable parameters", F_LABEL, 400, MUTED))
@@ -295,38 +296,42 @@ def answer_panel(ex: dict, kind: str, x0: float, y0: float, pw: float, ph: float
     h, w = img.shape[:2]
     pool = [dec(r) for r in ex["pool"]]
     out = []
-    title = {"part": "Part", "multi": "Several targets", "none": "No target"}[kind]
-    out.append(text(x0, y0 + 18, title, F_HEAD, 700, INK))
+    title = {"part": "Part", "multi": "Multi-target", "none": "No target"}[kind]
+    accent = {"part": hexc(PICK), "multi": hexc(SET_COLORS[1]), "none": INK}[kind]
+    out.append(f'<rect x="{x0:.1f}" y="{y0 - 2}" width="{text_width(title, F_HEAD, 700) + 20:.1f}" height="{F_HEAD + 12}" '
+               f'rx="{(F_HEAD + 12) / 2}" fill="{accent}"/>')
+    out.append(text(x0 + 10, y0 + F_HEAD + 1, title, F_HEAD, 700, "#fff"))
     lines = wrap(f"“{' '.join(query_words(ex['query']))}”", F_SMALL, pw, 500)[:2]
     for k, ln in enumerate(lines):
-        out.append(text(x0, y0 + 42 + 20 * k, ln, F_SMALL, 500, INK, italic=True))
-    iy = y0 + 72
+        out.append(text(x0, y0 + 52 + 23 * k, ln, F_SMALL, 500, INK, italic=True))
+    iy = y0 + 84
     lg = np.asarray(ex["logits"])
     if kind == "part":
         m = pool[ex["pick"]]
         focus, frac = bbox(m), 0.5
-        arr = paint(img, [m], [PICK], dim=0.2)
+        arr = paint(img, [m], [PICK], line=3)
         badge, bcol = f"1 mask, IoU {ex['pick_iou']:.2f}", PICK
     elif kind == "multi":
         ms = [pool[i] for i in ex["chosen"]]
         focus, frac = bbox(np.logical_or.reduce(ms)), 0.6
-        arr = paint(img, ms, SET_COLORS * 4, dim=0.2)
+        arr = paint(img, ms, SET_COLORS * 4, line=3)
         badge, bcol = f"{len(ms)} masks, IoU {ex['iou']:.2f}", SET_COLORS[1]
     else:
         best = int(np.argmax(lg))
         focus, frac = bbox(pool[best]), 1.0             # whole image: the scene shows why nothing matches
-        arr = paint(img, [], [], dim=0.3, dashed=(pool[best], (40, 40, 40)))
+        arr = paint(img, [], [], dim=0.15, line=3, dashed=(pool[best], (40, 40, 40)))
         badge, bcol = f"max σ {1 / (1 + np.exp(-lg[best])):.2f} < {ex['t']:.2f}", (60, 60, 60)
     box = crop_box(h, w, focus, pw / ph, margin=0.3, min_frac=frac)
     out.append(image_tag(round(x0, 1), iy, round(pw, 1), ph, to_png(arr, box, (int(2 * pw), int(2 * ph))), 7))
-    out.append(f'<rect x="{x0:.1f}" y="{iy}" width="{pw:.1f}" height="{ph}" rx="7" fill="none" stroke="{LINE}"/>')
+    out.append(f'<rect x="{x0:.1f}" y="{iy}" width="{pw:.1f}" height="{ph}" rx="7" fill="none" stroke="{accent}" '
+               f'stroke-width="2.5"/>')
     if kind == "none":
         bw = text_width("∅  no target", F_LABEL, 700) + 30
         out.append(f'<rect x="{x0 + pw / 2 - bw / 2:.1f}" y="{iy + ph - 50}" width="{bw:.1f}" height="38" rx="19" '
                    f'fill="#fff" fill-opacity="0.95" stroke="{INK}" stroke-width="1.8"/>')
         out.append(text(x0 + pw / 2, iy + ph - 25, "∅  no target", F_LABEL, 700, INK, "middle"))
-    out.append(text(x0, iy + ph + 23, badge, F_LABEL, 700, hexc(bcol)))
-    out.append(text(x0, iy + ph + 45, STATS[kind], F_SMALL, 400, MUTED))
+    out.append(text(x0, iy + ph + 26, badge, F_LABEL, 700, hexc(bcol)))
+    out.append(text(x0, iy + ph + 51, STATS[kind], F_SMALL, 400, MUTED))
     return "".join(out)
 
 
@@ -338,16 +343,16 @@ def build(a: dict, hero_i: int, part_i: int, multi_i: int, none_i: int) -> str:
     left, lw = 14, 800
     rx = left + lw + 30
     body = [f'<rect width="{W}" height="{H}" fill="#fff"/>',
-            text(left, 27, "(a) Ask, don’t draw: masks become tokens, the MLLM points at one", F_TITLE, 700),
-            hero(a["part"][hero_i], left, 36, lw),
+            text(left, 30, "(a) Ask, don’t draw: masks become tokens, the MLLM picks one", F_TITLE, 700),
+            hero(a["part"][hero_i], left, 40, lw),
             f'<line x1="{rx - 15}" y1="14" x2="{rx - 15}" y2="{H - 14}" stroke="{LINE}" stroke-width="1.2"/>',
-            text(rx, 27, "(b) One read-out, three kinds of answer", F_TITLE, 700)]
+            text(rx, 30, "(b) One read-out, three kinds of answer", F_TITLE, 700)]
     gap = 14
     pw = (W - rx - 12 - 2 * gap) / 3
-    ph = H - 44 - 72 - 58
+    ph = H - 48 - 84 - 64
     for k, (kind, ex) in enumerate([("part", a["part"][part_i]), ("multi", a["multi"][multi_i]),
                                     ("none", a["no_target"][none_i])]):
-        body.append(answer_panel(ex, kind, rx + k * (pw + gap), 44, pw, ph))
+        body.append(answer_panel(ex, kind, rx + k * (pw + gap), 48, pw, ph))
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
             f'font-family="{FONT}">{defs}{"".join(body)}</svg>')
 

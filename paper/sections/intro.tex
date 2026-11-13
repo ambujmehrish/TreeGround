@@ -1,0 +1,78 @@
+% Introduction (draft 2026-11-13). Numbers: tab1_controlled / tab5_reasoning / tab6_editing / tabC_multitarget,
+% significance from results/metrics/sig_table1.json and sig_reason.json. Citation keys are placeholders:
+%   ophrg 2607.15374, sam3 2511.16719, lisa 2308.00692, sa2va 2501.04001, attnseg 2610.18729, refcoco (Kazemzadeh
+%   EMNLP 2014), refcocog_mao 1511.02283, paco 2301.01795, partimagenet 2112.00933, instructpart 2505.18291,
+%   gres 2306.00968, gsva 2312.10103, affordjev 2611.07896, partgrounding_bottleneck 2609.13225.
+\section{Introduction}
+\label{sec:intro}
+
+A request such as ``hold the mug by its handle'' or ``recolor the seat of the chair'' does not ask for every object
+in the image that matches a phrase. It refers to one region: one part of one object. Answering it requires two
+decisions that current language-guided segmentation systems tend to merge. The first is \emph{which} entity is
+meant, the handle and not the mug, this chair and not the one behind it. The second is \emph{how much} of the image
+that entity covers: the whole handle, not a sliver of it, and not the cup it is attached to. We call this task
+\emph{part grounding}: given an image and a request, return the single mask of the part the request refers to.
+
+Part grounding is where today's systems fail most visibly. Multimodal large language models (MLLMs) localize whole
+objects well but return the parent object when a query names one of its parts~\cite{ophrg}; promptable segmenters
+answer a noun phrase with every instance of the concept~\cite{sam3}; and token-based segmentation MLLMs decode a
+mask from a single hidden state that carries no explicit notion of spatial extent~\cite{lisa,sa2va,attnseg}. In our
+controlled comparison (Tab.~\ref{tab:controlled}), the strongest same-size pipeline, Qwen3-VL-4B boxes prompting
+SAM\,3, reaches 33.0 gIoU on PACO parts against 76.4 on PACO objects.
+
+The way these systems are usually evaluated hides part of the gap. Referring expressions were introduced to pick
+out one object~\cite{refcoco,refcocog_mao}, and part and affordance benchmarks pair each request with one target
+region~\cite{paco,partimagenet,instructpart}. Yet recent protocols score the union of every instance a method
+returns~\cite{ophrg,gres}. Under a union rule, covering the whole object or several guesses still earns overlap:
+with all instances merged, SAM\,3 reaches 53.9 gIoU on PartImageNet~\cite{ophrg}, while its single top-scoring
+mask at its released threshold reaches 24.3 (Tab.~\ref{tab:controlled}). Downstream uses do not have this slack.
+An editor applies the mask it is given, and a robot grasps the part it is shown~\cite{affordjev,partgrounding_bottleneck}; a wrong or additional region edits or touches the
+wrong pixels. We therefore evaluate every method under one rule: \emph{at most one mask per query}, the answer the
+request asks for. Multi-target expressions~\cite{gres,gsva} remain a natural extension, which we evaluate
+separately.
+
+Our approach starts from an observation about where the difficulty lies. A promptable segmenter already proposes
+a good mask for most parts, but does not rank it first: on PARTONOMY, the best of the candidates SAM\,3 produces for
+a query reaches 71.0 gIoU, while SAM\,3's own top-ranked instance reaches 42.0 (Tab.~\ref{tab:coverage}). What is
+missing is the decision among them, which requires reading the request in the context of the whole image. We give
+that decision to an MLLM. We propose \ours{}, which \emph{asks} the MLLM to choose a mask instead of \emph{drawing}
+one. For each query, \ours{} builds a pool of candidate masks from a frozen SAM\,3: automatic masks from a point
+grid, which are query-independent and cover objects and parts at every scale, and the top instances SAM\,3 returns
+for the query's own phrases. Every candidate enters the MLLM as a \emph{mask token}, an embedding pooled from the
+image tokens it covers together with its geometry and its provenance. Each mask token attends only to the image
+tokens of its own region, so it represents that region rather than the whole image. A selection token at the end
+of the query reads the pool and scores every candidate; the answer is the highest-scoring mask, or no mask when no
+candidate passes a threshold chosen on validation (needed only where a request can have no target).
+
+This design separates the two decisions that part grounding requires. The extent of each answer comes from a
+segmentation model built for boundaries, and the choice of answer comes from a language model built for reading
+requests in context. The MLLM never generates mask pixels, so its reasoning is spent on the choice alone. \ours{}
+adds 64.2M trainable parameters (1.2\% of the system): LoRA adapters on Qwen3-VL-4B, the mask-token embedding and
+the selection heads, trained on PACO, Pascal-Part and gRefCOCO with SAM\,3 frozen.
+
+Under the one-mask protocol, with Qwen3-VL-4B for every MLLM-based method and test splits throughout, \ours{}
+improves part grounding on five of six benchmarks over the strongest same-size baseline, with paired image-level
+bootstrap tests at $p<10^{-4}$: $+14.5$ gIoU on PACO parts, $+13.9$ on GSEval parts, $+7.1$ on PascalPart-116,
+$+5.6$ on PartImageNet and $+2.3$ on PARTONOMY, and it is on par on InstructPart part names
+(Tab.~\ref{tab:controlled}). The same model improves referring segmentation on gRefCOCO by $+8.0$ / $+7.9$ gIoU and
+rejects expressions with no target more reliably ($+4.9$ / $+8.1$ N-acc). On reasoning queries, where a part is
+described by the task it serves rather than named, \ours{} with query rewriting by the same backbone exceeds
+Box + SAM\,3 by $+11.2$ / $+8.5$ gIoU on InstructPart and is on par on the object-level ReasonSeg
+(Tab.~\ref{tab:reasoning}). As a mask source for region-grounded editing, \ours{} returns a mask for every request
+and is on par with same-size baselines in edit quality, with the best mask IoU on ImgEdit (Tab.~\ref{tab:editing}).
+When several masks per expression are allowed, the same scores select a set and lead gRefCOCO's multi-target protocol
+(Tab.~\ref{tab:multitarget}).
+
+In summary, our contributions are:
+\begin{itemize}
+\item We formulate \emph{part grounding} as selecting one region among candidate masks, and evaluate it under a
+  uniform one-mask-per-query protocol that every method, including ours, follows; we report the multi-mask setting
+  separately.
+\item We propose \ours{}, which represents each candidate mask as a region-restricted token inside an MLLM and
+  answers a request by selection, separating the choice of region (the MLLM) from its extent (a frozen segmenter)
+  with 64.2M trainable parameters.
+\item In a controlled comparison on test splits with a same-size backbone, \ours{} improves part grounding on five of
+  six benchmarks, referring segmentation and rejection on gRefCOCO, and part-level reasoning, and supports
+  region-grounded editing with a mask for every request; ablations isolate query-conditioned candidates, mask
+  tokens and region-restricted attention.
+\end{itemize}

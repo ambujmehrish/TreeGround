@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-13a-sig-reason",
+ "what": "D50/D51 reasoning rows: paired image-level bootstrap (gIoU, cIoU) of ours + rewriting vs the best baseline and vs ours (read-only, CPU)",
+ "script": "q_gpu.sbatch",
+ "env": {
+  "TG_PY": "scripts/sig_reason.py",
+  "TG_ARGS": "--config configs/reason_ours.yaml"
+ },
+ "sbatch": {
+  "time": "01:00:00"
+ },
+ "collect": true
+}

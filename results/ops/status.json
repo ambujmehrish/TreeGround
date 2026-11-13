@@ -1,8 +1,6 @@
 {
  "cluster": {
-  "counts": {
-   "PENDING": 1
-  },
+  "counts": {},
   "ended_24h": [
    {
     "elapsed": "01:16:08",
@@ -2139,20 +2137,17 @@
     "jobid": "64303449",
     "name": "q_2026-11-12n-reason-reasonseg-oursrw-merge",
     "state": "COMPLETED"
-   }
-  ],
-  "squeue": [
+   },
    {
-    "elapsed": "0:00",
+    "elapsed": "00:02:26",
+    "end": "2026-11-13T07:15:43",
+    "exit": "0:0",
     "jobid": "64350176",
     "name": "q_2026-11-13a-sig-reason",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "1:00:00"
+    "state": "COMPLETED"
    }
-  ]
+  ],
+  "squeue": []
  },
  "queue": [
   "2026-10-24-coco-edit-f-gedit",
@@ -18417,20 +18412,20 @@
    "waiting_for": null
   },
   "2026-11-13a-sig-reason": {
-   "collected": null,
+   "collected": 1794550662.6386614,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794550662.6386602,
    "invalid": null,
    "jobid": "64350176",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1794550355.0005343,
    "waiting_for": null
   }
  },
- "updated": 1794550355.814259
+ "updated": 1794551609.801558
 }

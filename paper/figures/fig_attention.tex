@@ -1,0 +1,12 @@
+% Region-restricted attention (single column): \input after macros.tex. Rendered by paper/figures/make_attention.py.
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/attention_cropped.pdf}
+  \caption{\textbf{Region-restricted attention.} (a)~The region $\mathcal{R}_v$ of a mask token $\hat{x}_v$ is the set
+  of image-token cells its mask $m_v$ covers, dilated by one cell (pink: the handle; blue: its parent in the
+  containment tree, the mug). (b)~In every layer, $\hat{x}_v$ attends to the image tokens $e_j$ with
+  $j\in\mathcal{R}_v$, to the query including \texttt{<SEL>}, and to the other mask tokens $\hat{x}_u$ with a learned
+  bias $b_{\ell,\mathrm{rel}(u,v)}$ per layer and tree relation; the remaining image tokens are masked. Image and
+  query tokens never attend to mask tokens, so the image and the query are read as they would be without them.}
+  \label{fig:attention}
+\end{figure}

@@ -75,3 +75,47 @@ and a mask with no such container is a child of the root, which stands for the w
 labels and no training. It is used twice in what follows: the position of a mask in the tree becomes part of its
 token (Sec.~\ref{sec:tokens}), and the tree relation between two masks sets a learned bias on the attention between
 their tokens (Sec.~\ref{sec:selection}). The values of all settings are given in Sec.~\ref{sec:setup}.
+
+\subsection{Mask tokens}
+\label{sec:tokens}
+
+A language model reads tokens, not masks. To let it compare the candidates with the query, we turn every mask $m_v$
+in the pool into one vector $\hat{x}_v$ in the input space of the MLLM, which we call a \emph{mask token}. A word
+token carries three kinds of information: what the word is, where it stands in the sentence, and what type of input
+it is. We build a mask token from the same three ingredients.
+
+The first is what the mask shows. The MLLM has already encoded the image as a grid of image tokens
+$e_1,\dots,e_J$, one per cell. We reuse them instead of adding a second image encoder. Let $c_{v,j}\in[0,1]$ be the
+fraction of cell $j$ that $m_v$ covers. The appearance of the mask is the average of the image tokens under it,
+weighted by this coverage,
+\begin{equation}
+  a_v=\sum_{j=1}^{J}\tilde{c}_{v,j}\,e_j, \qquad \tilde{c}_{v,j}=\frac{c_{v,j}}{\sum_{j'}c_{v,j'}} .
+  \label{eq:appearance}
+\end{equation}
+Because $a_v$ is made of the model's own image tokens, it lives in a space the model already understands.
+
+Appearance alone cannot separate two masks that look alike, such as the two front wheels of a car, and it says
+nothing about size. The second ingredient is therefore a geometry vector $g_v\in\mathbb{R}^{d_g}$. It holds the
+bounding box of the mask and its area, both relative to the image, and its place in the containment tree of
+Eq.~\eqref{eq:tree}: its depth, how many children and siblings it has, and its area relative to its parent.
+
+The third ingredient is where the mask came from. A mask that SAM\,3 returned for the query's own phrase is a
+stronger candidate than an arbitrary grid mask, and the model should know this. The source vector
+$q_v\in\mathbb{R}^{d_q}$ marks whether the mask comes from the text prompts and, if so, holds its rank $r_v$ and
+its score $\sigma_v$ from Sec.~\ref{sec:pool}; for a grid mask it is zero.
+
+A small MLP $f$ maps the three parts to one vector, which we rescale to a common length,
+\begin{equation}
+  h_v=f\big([\,a_v;\,g_v;\,q_v\,]\big), \qquad \hat{x}_v=\gamma\,\frac{h_v}{\mathrm{rms}(h_v)},
+  \label{eq:token}
+\end{equation}
+where $[\,\cdot\,;\cdot\,]$ is concatenation, $\mathrm{rms}$ is the root mean square of the entries, and $\gamma$ is
+a learned scalar. We initialise $\gamma$ to the average length of the MLLM's word embeddings, so that mask tokens
+start at the same scale as the tokens the model was trained on.
+
+Finally, a token needs a position. Qwen3-VL gives every image token a position on the image grid. We give
+$\hat{x}_v$ the grid position of the centre of its mask, so the model can relate a mask token to the image tokens
+around it in the same way it relates image tokens to each other. All mask tokens share one position in the text
+order, directly after the query, so the order in which the candidates are listed carries no information. The $N$
+mask tokens are appended to the input after the image tokens and the query, which ends with the selection token
+\texttt{<SEL>}.

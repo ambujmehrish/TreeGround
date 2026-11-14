@@ -1,10 +1,74 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 10,
-   "RUNNING": 8
+   "PENDING": 9,
+   "RUNNING": 1
   },
   "ended_24h": [
+   {
+    "elapsed": "00:34:04",
+    "end": "2026-11-14T13:35:59",
+    "exit": "0:0",
+    "jobid": "64366801_0",
+    "name": "q_2026-11-13b-32b-gseval",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:34:14",
+    "end": "2026-11-14T13:36:09",
+    "exit": "0:0",
+    "jobid": "64366801_1",
+    "name": "q_2026-11-13b-32b-gseval",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:34:57",
+    "end": "2026-11-14T13:36:52",
+    "exit": "0:0",
+    "jobid": "64366801_2",
+    "name": "q_2026-11-13b-32b-gseval",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:35:01",
+    "end": "2026-11-14T13:37:36",
+    "exit": "0:0",
+    "jobid": "64366801_3",
+    "name": "q_2026-11-13b-32b-gseval",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:34:23",
+    "end": "2026-11-14T13:37:39",
+    "exit": "0:0",
+    "jobid": "64366801_4",
+    "name": "q_2026-11-13b-32b-gseval",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:33:27",
+    "end": "2026-11-14T13:43:57",
+    "exit": "0:0",
+    "jobid": "64366801_5",
+    "name": "q_2026-11-13b-32b-gseval",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:34:22",
+    "end": "2026-11-14T13:44:52",
+    "exit": "0:0",
+    "jobid": "64366801_6",
+    "name": "q_2026-11-13b-32b-gseval",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "00:35:12",
+    "end": "2026-11-14T13:45:42",
+    "exit": "0:0",
+    "jobid": "64366801_7",
+    "name": "q_2026-11-13b-32b-gseval",
+    "state": "COMPLETED"
+   },
    {
     "elapsed": "00:00:00",
     "end": "2026-11-14T12:18:17",
@@ -87,6 +151,16 @@
    },
    {
     "elapsed": "0:00",
+    "jobid": "64366806_[0-15]",
+    "name": "q_2026-11-13b-32b-pps",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "3:00:00"
+   },
+   {
+    "elapsed": "0:00",
     "jobid": "64366805_[0-15]",
     "name": "q_2026-11-13b-32b-partimagenet",
     "nodes": "1",
@@ -104,16 +178,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "4:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64366806_[0-15]",
-    "name": "q_2026-11-13b-32b-pps",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "3:00:00"
    },
    {
     "elapsed": "0:00",
@@ -146,94 +210,14 @@
     "time_limit": "30:00"
    },
    {
-    "elapsed": "0:00",
+    "elapsed": "2:23",
     "jobid": "64367238",
     "name": "q_2026-11-13b-32b-gseval-merge",
     "nodes": "1",
-    "reason_or_nodelist": "(Dependency)",
-    "start": "N/A",
-    "state": "PENDING",
+    "reason_or_nodelist": "lrdn0097",
+    "start": "2026-11-14T13:45:57",
+    "state": "RUNNING",
     "time_limit": "30:00"
-   },
-   {
-    "elapsed": "10:10",
-    "jobid": "64366801_5",
-    "name": "q_2026-11-13b-32b-gseval",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3240",
-    "start": "2026-11-14T13:10:30",
-    "state": "RUNNING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "10:10",
-    "jobid": "64366801_6",
-    "name": "q_2026-11-13b-32b-gseval",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3269",
-    "start": "2026-11-14T13:10:30",
-    "state": "RUNNING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "10:10",
-    "jobid": "64366801_7",
-    "name": "q_2026-11-13b-32b-gseval",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3354",
-    "start": "2026-11-14T13:10:30",
-    "state": "RUNNING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "17:24",
-    "jobid": "64366801_4",
-    "name": "q_2026-11-13b-32b-gseval",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2532",
-    "start": "2026-11-14T13:03:16",
-    "state": "RUNNING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "18:05",
-    "jobid": "64366801_3",
-    "name": "q_2026-11-13b-32b-gseval",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2953",
-    "start": "2026-11-14T13:02:35",
-    "state": "RUNNING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "18:45",
-    "jobid": "64366801_0",
-    "name": "q_2026-11-13b-32b-gseval",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2661",
-    "start": "2026-11-14T13:01:55",
-    "state": "RUNNING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "18:45",
-    "jobid": "64366801_1",
-    "name": "q_2026-11-13b-32b-gseval",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn2738",
-    "start": "2026-11-14T13:01:55",
-    "state": "RUNNING",
-    "time_limit": "2:00:00"
-   },
-   {
-    "elapsed": "18:45",
-    "jobid": "64366801_2",
-    "name": "q_2026-11-13b-32b-gseval",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3165",
-    "start": "2026-11-14T13:01:55",
-    "state": "RUNNING",
-    "time_limit": "2:00:00"
    }
   ]
  },
@@ -16530,15 +16514,15 @@
    "waiting_for": null
   },
   "2026-11-13b-32b-gseval": {
-   "collected": null,
+   "collected": 1794660500.1421316,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794660500.1421304,
    "invalid": null,
    "jobid": "64366801",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1794562284.9160936,
@@ -16553,7 +16537,7 @@
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "PENDING"
+    "RUNNING"
    ],
    "submit_error": null,
    "submitted": 1794562613.237595,
@@ -16756,5 +16740,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794658840.891155
+ "updated": 1794660500.7013156
 }

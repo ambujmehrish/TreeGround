@@ -1,30 +1,50 @@
-% Experimental setup: hyperparameter values moved here from the method section (collected as the method is written).
-% Values: configs/s0.yaml (proposals), configs/s3.yaml (s3_pool), treeground/tree.py (CONTAIN_NUM / CONTAIN_DEN).
-% Still to add when the corresponding method paragraphs are written: mask-token MLP sizes, region margin, LoRA rank,
-% read-out layer, threshold tau, training schedule and data.
-\paragraph{Candidate pool.}
-The point grid has $G=32$ points per side, and we keep $N_g=256$ query-free masks after removing near-duplicates at
-$\delta_g=0.9$. For each phrase we add the $k=3$ highest-scoring SAM\,3 instances, with $\delta_t=0.95$. The
-containment tree uses $\rho=0.8$. This gives $N\approx260$ candidates per query.
+% Experiments, part 1: setup. Benchmarks and numbers as in tab1_controlled / tab5_reasoning / tab6_editing; all
+% hyperparameter values in full: appendix_implementation.tex.
+\section{Experiments}
+\label{sec:experiments}
 
-\paragraph{Mask tokens.}
-The geometry vector has $d_g=9$ entries (box, log area, log depth, log numbers of children and siblings, log area
-ratio to the parent) and the source vector $d_q=k+2=5$ (a flag, a one-hot rank, the score). The MLP $f$ first maps
-$[g_v;q_v]$ to $256$ dimensions with one hidden layer, then maps its concatenation with $a_v$ to the width of the
-MLLM with one hidden layer, both with GELU.
+\subsection{Experimental setup}
+\label{sec:setup}
 
-\paragraph{Attention and selection head.}
-The region margin is $d=1$ cell. The tree bias has seven relations (self, parent, child, sibling, ancestor,
-descendant, other) and one scalar per relation and layer. $\psi_q$ and $\psi_k$ are two-layer MLPs with hidden
-width $1024$ and output width $256$. The scale $\lambda$ is initialised to $1/0.07$ and capped at $100$; the offset
-$\beta$ is initialised to $-\log N_g$. We train heads at layers $\ell\in\{12,24,36\}$ of the 36-layer decoder jointly
-and choose $\ell^{\star}$ with the checkpoint on validation, which gives $\ell^{\star}=36$.
+\paragraph{Benchmarks.}
+Our target task is part grounding, so most of our benchmarks ask for a part. We use six: PARTONOMY, the part
+subset of GSEval, PACO, Pascal-Part-116, PartImageNet and InstructPart. To see whether a model built for parts
+still handles whole objects, we add object queries from PACO and Pascal-Part, the full GSEval set, and the
+referring expressions of gRefCOCO (testA and testB). gRefCOCO also contains expressions with no target in the
+image, which lets us measure rejection. Beyond named parts, we test reasoning queries, where the target is
+described by its use rather than its name, on the instructions of InstructPart and on ReasonSeg. Finally, we test
+the masks as input to image editing on GEdit-Bench and ImgEdit-Bench. All numbers are on test splits. Our model is
+trained on the training splits of PACO, Pascal-Part and gRefCOCO; these columns are marked as in-domain in the
+tables, and every other benchmark is zero-shot.
 
-\paragraph{Training.}
-LoRA has rank $16$ ($\alpha=32$, dropout $0.05$) on the attention and MLP projections of the language model. A
-candidate is a positive or ignored at $\theta=0.5$. Each query uses $n_h=32$ hard and $n_u=32$ random negatives from
-its image and $n_c=64$ candidates from other images. The focal loss has focusing parameter $2$; the family loss uses
-$\mu=0.1$ and $w_{\mathrm{fam}}=1$. Training data are PACO-LVIS, Pascal-Part and gRefCOCO (train splits) with
-per-step shares $0.6$ / $0.2$ / $0.2$. We train for $12{,}000$ steps with a batch of $32$ images, AdamW, learning
-rates $2\times10^{-4}$ (LoRA and \texttt{<SEL>}), $3\times10^{-4}$ (heads and mask-token MLP) and $10^{-2}$ (tree
-biases), $500$ warm-up steps followed by cosine decay, and gradient clipping at $1$.
+\paragraph{One mask per query.}
+A request for a part refers to one region, so every method answers with at most one mask per query. For a method
+that returns several instances, we keep the one with its highest score, and we keep no mask when that score is
+below the method's released threshold. Our model returns its top-scoring candidate, with the rejection threshold
+$\tau$ chosen on the validation split of gRefCOCO and used only there. This rule is the same for all rows of a
+table, which is what makes them comparable. Results with several masks per expression are reported separately
+(Tab.~\ref{tab:multitarget}).
+
+\paragraph{Metrics.}
+We report gIoU, the mean over queries of the IoU between the predicted and the ground-truth mask. On gRefCOCO a
+no-target expression scores $1$ for an empty answer and $0$ otherwise, and N-acc is the share of no-target
+expressions answered with no mask. For reasoning queries we also report cIoU, the total intersection divided by
+the total union over all queries. For every comparison in the main table we test significance with a paired
+bootstrap over images ($10{,}000$ resamples).
+
+\paragraph{Baselines.}
+We compare against two kinds of systems, and we run all of them ourselves on the same queries and with the same
+scoring code. The first kind uses no MLLM: SAM\,3 prompted with the text of the query, and Grounded-SAM\,2, which
+turns the boxes of an open-vocabulary detector into masks. The second kind uses an MLLM. Sa2VA generates the mask
+with its own decoder, and Box\,+\,SAM\,3 lets the MLLM predict a box that SAM\,3 turns into a mask. To separate the
+method from the size of the language model, every MLLM-based row uses the same backbone as ours, Qwen3-VL-4B.
+Results with larger backbones are in the appendix (Tab.~\ref{tab:backbones}) and serve as references only. We also
+compare with numbers published by other systems under the same protocols (Tab.~\ref{tab:published}).
+
+\paragraph{Implementation.}
+Our model combines Qwen3-VL-4B with a frozen SAM\,3. It adds $64.2$M trainable parameters, $1.2\%$ of the system:
+LoRA of rank $16$ on the language model, the mask-token MLP and the selection head. The pool has about $260$
+candidates per query ($G=32$, $N_g=256$, $k=3$). We train for $12{,}000$ steps with a batch of $32$ images on a mix
+of PACO, Pascal-Part and gRefCOCO. The checkpoint, the read-out layer $\ell^{\star}$ and $\tau$ are chosen on
+validation data; nothing is tuned on a test split. All remaining settings are listed in the appendix
+(Sec.~\ref{sec:impl}).

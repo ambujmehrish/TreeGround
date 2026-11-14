@@ -22,3 +22,40 @@ Under this formulation the extent of the answer is fixed by the segmenter, and t
 learn: which candidate the query means. The following subsections describe how the pool $\mathcal{M}$ is built
 (Sec.~\ref{sec:pool}), how each candidate becomes a token the language model can read (Sec.~\ref{sec:tokens}), how
 the scores $s_v$ are computed (Sec.~\ref{sec:selection}), and how the model is trained (Sec.~\ref{sec:training}).
+
+\subsection{Query-conditioned candidate pool}
+\label{sec:pool}
+
+The pool has to contain the right mask before anything can select it, and no single way of prompting a segmenter
+guarantees that. We therefore query a frozen SAM\,3~\cite{sam3} in two complementary ways and merge the results.
+
+\paragraph{Query-free masks.}
+We first prompt SAM\,3 with a regular $32\times32$ grid of points and keep the three masks it returns for each
+point. These masks do not depend on the query. They cover the image at every scale, from whole objects down to
+small parts, including regions that have no common name. We discard masks smaller than 64 pixels, remove
+near-duplicates (IoU above $0.9$), and keep the $256$ masks with the highest stability score.
+
+\paragraph{Query-conditioned masks.}
+A point grid can still miss the target, or split it across several masks, when the part is thin or small. So we also
+ask SAM\,3 for the query directly. From the query $x$ we extract a short list of noun phrases $\phi(x)$: for a part
+query such as ``the handle of the mug'' these are the part phrase and its object (``the handle of the mug'', ``the
+mug''), for an object query the object phrase, and otherwise the query itself. SAM\,3 is prompted with each phrase,
+and we add its three highest-scoring instances per phrase to the pool, skipping instances that duplicate one already
+added (IoU above $0.95$). Each of these candidates keeps a record of where it came from: its rank among the
+instances of its phrase and its SAM\,3 score, which Sec.~\ref{sec:tokens} passes on to the model. The pool
+$\mathcal{M}(I,x)$ thus holds $N\le 256+3\,|\phi(x)|$ masks, about $260$ in practice. The two sources are both
+needed: on part queries the best mask in the pool comes from the point grid in $52$--$59\%$ of the cases and from
+the text prompts in the rest (Tab.~\ref{tab:coverage}).
+
+\paragraph{Containment tree.}
+Candidates overlap heavily: the handle lies inside the mug, which lies inside the table setting. We make this
+structure explicit with a tree over the pool. The parent of a mask $m_v$ is the smallest larger mask that contains
+at least $80\%$ of it,
+\begin{equation}
+  \mathrm{parent}(v)=\arg\min_{u:\,|m_u|>|m_v|}\,|m_u| \quad \text{s.t.}\quad |m_u\cap m_v|\ \ge\ 0.8\,|m_v|,
+  \label{eq:tree}
+\end{equation}
+and masks with no such container are children of a root that stands for the whole image. The tree needs no labels
+and no learning. We use it in two places: a mask's position in the tree is part of its token
+(Sec.~\ref{sec:tokens}), and the relation between two masks sets a learned bias on the attention between their
+tokens (Sec.~\ref{sec:selection}).

@@ -1,9 +1,0 @@
-% Main-text paragraph on the read-out layer (goes in the method section, after the selection head). Numbers:
-% results/metrics/ta_pool_soft_fam.json (validation only; details in tabE_readout_layer.tex).
-\paragraph{Read-out layer.}
-The selection head reads the hidden states of \texttt{<SEL>} and of the mask tokens at one decoder layer
-$\ell^{\star}$, a hyperparameter; each state passes through its own two-layer MLP ($\psi_q$, $\psi_k$) before the
-cosine. We train heads at $\ell\in\{12, 24, 36\}$ of the 36-layer decoder jointly and choose $\ell^{\star}$ together
-with the checkpoint on validation, which gives $\ell^{\star}=36$, the final layer. The choice among the later layers is
-not critical: layers 24 and 36 stay within half a point of each other throughout training, while layer 12 is more than
-4 points behind at every checkpoint (Appendix, Tab.~\ref{tab:readout_layer}).

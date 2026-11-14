@@ -119,3 +119,56 @@ around it in the same way it relates image tokens to each other. All mask tokens
 order, directly after the query, so the order in which the candidates are listed carries no information. The $N$
 mask tokens are appended to the input after the image tokens and the query, which ends with the selection token
 \texttt{<SEL>}.
+
+\subsection{Reading and scoring the candidates}
+\label{sec:selection}
+
+The MLLM now receives one sequence: the image tokens $e_1,\dots,e_J$, the text tokens of the prompt, which contain
+the query and end with \texttt{<SEL>}, and the mask tokens $\hat{x}_1,\dots,\hat{x}_N$. It reads this sequence in a
+single pass. What matters is which tokens are allowed to look at which, and we set this with the attention mask
+(Fig.~\ref{fig:attention}).
+
+We start from two requirements. First, adding candidates should not change how the model reads the image and the
+query, because this is what it was pretrained to do well. So image and text tokens keep their usual causal
+attention and never attend to a mask token. Second, a mask token should describe its own region and not the whole
+image. If it could look everywhere, every token could collect the same global evidence, and the tokens of a part
+and of its object would become hard to tell apart. So a mask token attends only to the image tokens of its
+\emph{region} $\mathcal{R}_v$, the cells its mask covers plus a margin of $d$ cells,
+\begin{equation}
+  \mathcal{R}_v=\mathrm{dilate}_d\big(\{\,j : c_{v,j}>0\,\}\big).
+  \label{eq:region}
+\end{equation}
+It also attends to all text tokens, so that it reads its region with the query in mind.
+
+Mask tokens attend to each other as well, since whether a mask is the right answer often depends on the others:
+``the handle'' is the answer only if a mug contains it. Here we use the containment tree. For two masks $u$ and $v$,
+let $\mathrm{rel}(u,v)$ be their relation in the tree: the same mask, parent, child, sibling, a more distant
+ancestor or descendant, or unrelated. In every layer $\ell$ we add a learned scalar $b_{\ell,\mathrm{rel}(u,v)}$ to
+the attention from $\hat{x}_v$ to $\hat{x}_u$. The biases start at zero, so training begins from plain attention
+between mask tokens and learns how much each relation should count. In summary, the term added to the attention
+logits of a mask token $\hat{x}_v$ in layer $\ell$ is
+\begin{equation}
+  B_\ell(v,t)=
+  \begin{cases}
+    0 & t \text{ is a text token,}\\
+    0 & t=e_j,\ j\in\mathcal{R}_v,\\
+    b_{\ell,\mathrm{rel}(u,v)} & t=\hat{x}_u,\\
+    -\infty & \text{otherwise.}
+  \end{cases}
+  \label{eq:attention}
+\end{equation}
+
+After the pass, two kinds of states hold what we need. The state of \texttt{<SEL>} has read the image and the query
+and says what is being asked for. The state of each mask token has read its region, the query and the other
+candidates, and says what that candidate is. We take both at one layer $\ell^{\star}$ of the MLLM, written
+$h_{\langle\mathrm{SEL}\rangle}$ and $z_v$, and compare them with a small selection head. Two MLPs, $\psi_q$ for the
+query side and $\psi_k$ for the candidate side, map the states to a common space, and the score of candidate $v$ is
+their scaled cosine similarity,
+\begin{equation}
+  s_v=\lambda\,\cos\!\big(\psi_q(h_{\langle\mathrm{SEL}\rangle}),\,\psi_k(z_v)\big)+\beta ,
+  \label{eq:score}
+\end{equation}
+with a learned scale $\lambda$ and offset $\beta$. The answer then follows from Eq.~\eqref{eq:selection}: the
+candidate with the highest score, or no mask if that score is below $\tau$. The layer $\ell^{\star}$ is a
+hyperparameter that we choose on validation; later layers work about equally well (Appendix,
+Tab.~\ref{tab:readout_layer}).

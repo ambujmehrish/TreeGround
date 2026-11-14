@@ -12,3 +12,10 @@ The geometry vector has $d_g=9$ entries (box, log area, log depth, log numbers o
 ratio to the parent) and the source vector $d_q=k+2=5$ (a flag, a one-hot rank, the score). The MLP $f$ first maps
 $[g_v;q_v]$ to $256$ dimensions with one hidden layer, then maps its concatenation with $a_v$ to the width of the
 MLLM with one hidden layer, both with GELU.
+
+\paragraph{Attention and selection head.}
+The region margin is $d=1$ cell. The tree bias has seven relations (self, parent, child, sibling, ancestor,
+descendant, other) and one scalar per relation and layer. $\psi_q$ and $\psi_k$ are two-layer MLPs with hidden
+width $1024$ and output width $256$. The scale $\lambda$ is initialised to $1/0.07$ and capped at $100$; the offset
+$\beta$ is initialised to $-\log N$. We train heads at layers $\ell\in\{12,24,36\}$ of the 36-layer decoder jointly
+and choose $\ell^{\star}$ with the checkpoint on validation, which gives $\ell^{\star}=36$.

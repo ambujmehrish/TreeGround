@@ -1,0 +1,20 @@
+% Conclusion (main paper). Numbers: tab1_controlled, tab4_coverage, tab5_reasoning (test splits).
+\section{Conclusion}
+\label{sec:conclusion}
+
+We presented \ours{}, which grounds a part by asking a multimodal LLM to choose a mask instead of drawing one. A
+frozen SAM\,3 proposes candidates with and without the query, every candidate enters the model as one mask token
+that reads only its own region, and a selection token scores them all in a single pass. With $64.2$M trainable
+parameters and a $4$B backbone, \ours{} is the best method on $13$ of $14$ columns in a controlled comparison under a
+one-mask-per-query rule. The gains are largest on parts, up to $+14.5$ gIoU, and the model rejects more than
+$90\%$ of the expressions that have no target. The same scores extend to reasoning queries and provide usable
+masks for image editing.
+
+\paragraph{Limitations and future work.}
+\ours{} can only return a mask that the segmenter proposed, so its answers are bounded by the candidate pool.
+Our analysis shows that this is not yet the limit: the best mask in the pool is far better than the one selected
+($71.0$ against $49.4$ gIoU on PARTONOMY), so most of the remaining errors are errors of choice. Closing this gap is
+the most direct way to improve the method. Reasoning queries need an extra rewriting step, and on object-level
+reasoning \ours{} matches the box-based pipeline but does not exceed it. Finally, we studied requests with one
+target; selecting several masks per request works with the same scores, and treating it as a first-class task is
+left for future work.

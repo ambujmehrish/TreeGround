@@ -17,7 +17,7 @@ MLLM with one hidden layer, both with GELU.
 The region margin is $d=1$ cell. The tree bias has seven relations (self, parent, child, sibling, ancestor,
 descendant, other) and one scalar per relation and layer. $\psi_q$ and $\psi_k$ are two-layer MLPs with hidden
 width $1024$ and output width $256$. The scale $\lambda$ is initialised to $1/0.07$ and capped at $100$; the offset
-$\beta$ is initialised to $-\log N$. We train heads at layers $\ell\in\{12,24,36\}$ of the 36-layer decoder jointly
+$\beta$ is initialised to $-\log N_g$. We train heads at layers $\ell\in\{12,24,36\}$ of the 36-layer decoder jointly
 and choose $\ell^{\star}$ with the checkpoint on validation, which gives $\ell^{\star}=36$.
 
 \paragraph{Training.}
@@ -27,4 +27,4 @@ its image and $n_c=64$ candidates from other images. The focal loss has focusing
 $\mu=0.1$ and $w_{\mathrm{fam}}=1$. Training data are PACO-LVIS, Pascal-Part and gRefCOCO (train splits) with
 per-step shares $0.6$ / $0.2$ / $0.2$. We train for $12{,}000$ steps with a batch of $32$ images, AdamW, learning
 rates $2\times10^{-4}$ (LoRA and \texttt{<SEL>}), $3\times10^{-4}$ (heads and mask-token MLP) and $10^{-2}$ (tree
-biases), $500$ warm-up steps and gradient clipping at $1$.
+biases), $500$ warm-up steps followed by cosine decay, and gradient clipping at $1$.

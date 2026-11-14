@@ -13,8 +13,10 @@ language model. We cast the task as selection instead (Fig.~\ref{fig:method}). A
 of $N$ candidate masks $\mathcal{M}(I,x)=\{m_v\}_{v=1}^{N}$, the model assigns each candidate a score $s_v(I,x)$, and
 the answer is the best-scoring candidate,
 \begin{equation}
-  v^{\star}=\arg\max_{v\in\{1,\dots,N\}} s_v(I,x), \qquad
-  \hat{m}=\begin{cases} m_{v^{\star}} & \text{if } s_{v^{\star}}\geq\tau,\\ \varnothing & \text{otherwise,}\end{cases}
+\begin{aligned}
+  v^{\star}&=\arg\max_{v\in\{1,\dots,N\}}\ s_v(I,x), \\
+  \hat{m}&=\begin{cases} m_{v^{\star}} & \text{if } s_{v^{\star}}\geq\tau,\\ \varnothing & \text{otherwise,}\end{cases}
+\end{aligned}
   \label{eq:selection}
 \end{equation}
 where the threshold $\tau$ is set on validation and is needed only on benchmarks where a query can have no target.
@@ -63,7 +65,10 @@ region, so a part and its object are both candidates for the same query. To let 
 record how the masks nest as a \emph{containment tree} over the pool. The parent of a mask $m_v$ is the smallest
 larger mask that contains at least a fraction $\rho$ of it,
 \begin{equation}
-  \mathrm{parent}(v)=\arg\min_{u:\,|m_u|>|m_v|}\,|m_u| \quad \text{s.t.}\quad |m_u\cap m_v|\ \ge\ \rho\,|m_v| ,
+\begin{aligned}
+  \mathrm{parent}(v)=\ &\arg\min_{u}\ |m_u| \\
+  &\text{s.t.}\ \ |m_u|>|m_v|,\ \ |m_u\cap m_v|\ge\rho\,|m_v| ,
+\end{aligned}
   \label{eq:tree}
 \end{equation}
 and a mask with no such container is a child of the root, which stands for the whole image. The tree needs no

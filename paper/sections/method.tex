@@ -26,48 +26,48 @@ the scores $s_v$ are computed (Sec.~\ref{sec:selection}), and how the model is t
 \subsection{Query-conditioned candidate pool}
 \label{sec:pool}
 
-Selection can only succeed if the right mask is in the pool. No single way of prompting a segmenter guarantees
-this, so we prompt a frozen SAM\,3~\cite{sam3} in two ways and take the union,
+Selection in Eq.~\eqref{eq:selection} can only succeed if the right mask is in the pool, so we start with how the
+pool is built. A segmenter can be prompted in two ways, without the query or with it, and each way misses masks the
+other one finds. We therefore prompt a frozen SAM\,3~\cite{sam3} in both ways and take the union,
 \begin{equation}
-  \mathcal{M}(I,x)=\mathcal{M}_{g}(I)\,\cup\,\mathcal{M}_{t}(I,x).
+  \mathcal{M}(I,x)=\mathcal{M}_{g}(I)\,\cup\,\mathcal{M}_{t}(I,x),
   \label{eq:pool}
 \end{equation}
+where $\mathcal{M}_g$ are query-free masks from a point grid and $\mathcal{M}_t$ are masks SAM\,3 returns for the
+text of the query.
 
-\paragraph{Query-free masks $\mathcal{M}_g$.}
-We place a $G\times G$ grid of points on the image and prompt SAM\,3 with each point. This gives masks at all
-scales, from whole objects to small parts, and it also covers regions that have no common name. These masks do not
-depend on the query. Many of them are near-copies of each other, so we drop a mask when its IoU with a mask we
-already kept exceeds $\delta_g$. From the rest we keep the $N_g$ masks with the highest stability score.
+The first set, $\mathcal{M}_g$, gives broad coverage. We place a $G\times G$ grid of points on the image and prompt
+SAM\,3 with each point. The resulting masks span all scales, from whole objects to small parts, and include regions
+that have no common name. Many of them are near-copies of each other, so we drop a mask when its IoU with a mask we
+already kept exceeds $\delta_g$, and from the rest we keep the $N_g$ masks with the highest stability score.
 
-\paragraph{Query-conditioned masks $\mathcal{M}_t$.}
-A point grid can miss a thin or small part, or split it into several pieces. So we also ask SAM\,3 for the query
-itself. We turn the query $x$ into a short list of noun phrases $\phi(x)$. For a part query such as ``the handle of
-the mug'', $\phi(x)$ holds the part phrase and the object phrase (``the handle of the mug'', ``the mug''). For an
-object query it holds the object phrase, and for any other query it holds the query text. We prompt SAM\,3 with
-each phrase and add its $k$ highest-scoring instances to the pool, skipping an instance when its IoU with one
-already added exceeds $\delta_t$. For each of these masks we store its rank $r_v\in\{1,\dots,k\}$ among the
-instances of its phrase and its SAM\,3 score $\sigma_v$; Sec.~\ref{sec:tokens} gives both to the model.
+This grid does not know what the query asks for, and that is its weakness: it can miss a thin or small part, or
+split it into several pieces. The second set, $\mathcal{M}_t$, fills this gap by asking SAM\,3 for the query
+itself. We first turn the query $x$ into a short list of noun phrases $\phi(x)$. For a part query such as ``the
+handle of the mug'', $\phi(x)$ holds the part phrase and the object phrase (``the handle of the mug'', ``the
+mug''); for an object query it holds the object phrase; for any other query it holds the query text. We then
+prompt SAM\,3 with each phrase and add its $k$ highest-scoring instances to the pool, skipping an instance when
+its IoU with one already added exceeds $\delta_t$. Because these masks come with extra information, we keep it:
+for each one we store its rank $r_v\in\{1,\dots,k\}$ among the instances of its phrase and its SAM\,3 score
+$\sigma_v$, and Sec.~\ref{sec:tokens} passes both to the model.
 
-The pool therefore has
+Together the two sets give a pool of
 \begin{equation}
   N=|\mathcal{M}(I,x)|\ \le\ N_g+k\,|\phi(x)|
 \end{equation}
-masks. Both sources matter: on part queries, the best mask in the pool comes from the point grid in $52$--$59\%$ of
-the cases and from the text prompts in the rest (Tab.~\ref{tab:coverage}).
+candidates, and neither set can be dropped: on part queries, the best mask in the pool comes from the point grid in
+$52$--$59\%$ of the cases and from the text prompts in the rest (Tab.~\ref{tab:coverage}).
 
-\paragraph{Containment tree.}
-Masks in the pool overlap. The handle lies inside the mug, and the mug may lie inside a larger region. We record
-this structure as a tree over the pool. The parent of a mask $m_v$ is the smallest larger mask that contains at
-least a fraction $\rho$ of it,
+The masks in this pool are not independent. The handle lies inside the mug, and the mug may lie inside a larger
+region, so a part and its object are both candidates for the same query. To let the model tell them apart, we
+record how the masks nest as a \emph{containment tree} over the pool. The parent of a mask $m_v$ is the smallest
+larger mask that contains at least a fraction $\rho$ of it,
 \begin{equation}
-  \mathrm{parent}(v)=\arg\min_{u:\,|m_u|>|m_v|}\,|m_u| \quad \text{s.t.}\quad |m_u\cap m_v|\ \ge\ \rho\,|m_v| .
+  \mathrm{parent}(v)=\arg\min_{u:\,|m_u|>|m_v|}\,|m_u| \quad \text{s.t.}\quad |m_u\cap m_v|\ \ge\ \rho\,|m_v| ,
   \label{eq:tree}
 \end{equation}
-A mask with no such container is a child of the root, which stands for the whole image. The tree needs no labels
-and no training. We use it twice: the position of a mask in the tree is part of its token (Sec.~\ref{sec:tokens}),
-and the tree relation between two masks sets a learned bias on the attention between their tokens
-(Sec.~\ref{sec:selection}).
-
-\paragraph{Settings.}
-We use $G=32$, $N_g=256$, $k=3$, $\delta_g=0.9$, $\delta_t=0.95$ and $\rho=0.8$ in all experiments, which gives
-$N\approx260$ candidates per query.
+and a mask with no such container is a child of the root, which stands for the whole image. The tree needs no
+labels and no training. It is used twice in what follows: the position of a mask in the tree becomes part of its
+token (Sec.~\ref{sec:tokens}), and the tree relation between two masks sets a learned bias on the attention between
+their tokens (Sec.~\ref{sec:selection}). In all experiments we use $G=32$, $N_g=256$, $k=3$, $\delta_g=0.9$,
+$\delta_t=0.95$ and $\rho=0.8$, which gives $N\approx260$ candidates per query.

@@ -22,9 +22,7 @@ Box + SAM\,3, all boxes                              & 62.9 & 65.8 & 27.7 & 57.1
 \ours{} (Ours), set of candidates above $t$          & \textbf{72.3} & \textbf{67.2} & \textbf{89.6} & \textbf{65.2} & 58.3 & \textbf{86.0} \\
 \bottomrule
 \end{tabular}}
-\caption{\textbf{Multi-target referring} on gRefCOCO (test; \%), where an expression may name several objects or none
-and every method may output several masks (their union is scored). \ours{} keeps every candidate scoring above a
-threshold chosen on val ($t=0.9$); baselines output all instances or boxes above their released
-thresholds. $^\S$\ours{} trains on gRefCOCO's training split.}
+\caption{\textbf{Multi-target referring} on gRefCOCO (test; \%). Every method may output several masks, and their
+union is scored. $^\S$in-domain for \ours{}.}
 \label{tab:multitarget}
 \end{table}

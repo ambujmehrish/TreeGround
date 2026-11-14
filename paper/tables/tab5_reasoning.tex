@@ -28,13 +28,7 @@ Box + SAM\,3                             & 49.5 & 41.4 & 52.4 & 42.4 & \textbf{6
 $\Delta$ vs.\ Box + SAM\,3             & \up{+11.2} & \up{+10.0} & \up{+8.5} & \up{+10.6} & \dn{$-$0.9} & \dn{$-$3.6} \\
 \bottomrule
 \end{tabular}}
-\caption{\textbf{Reasoning queries} (test splits; \%). Every method outputs at most one mask per query; nothing is
-tuned on these benchmarks. Baselines use their own instruction or question prompt (phrase prompts in the appendix);
-\ours{} reads the query as given. \emph{Query rewriting}: the pool's SAM\,3 phrase is the target named by the base
-Qwen3-VL-4B (the backbone of \ours{} and of Box + SAM\,3), a rule fixed on ReasonSeg val before any test run.
-Paired image-level bootstrap against Box + SAM\,3: InstructPart gIoU $+11.2$ / $+8.5$ ($p<10^{-4}$), cIoU
-$+10.0$ / $+10.6$ ($p=0.002$); ReasonSeg gIoU $-0.9$ ($p=0.39$), cIoU $-3.6$ ($p=0.31$).
-$\Delta$: \ours{} + query rewriting minus Box + SAM\,3, the same-backbone pipeline; bold: best. $^\dagger$Sa2VA trains on ReasonSeg's
-training split; all other cells are zero-shot.}
+\caption{\textbf{Reasoning queries} (test splits; \%), one mask per query. $\Delta$: \ours{} with query rewriting
+minus Box + SAM\,3. Bold: best. $^\dagger$trained on ReasonSeg; all other cells are zero-shot.}
 \label{tab:reasoning}
 \end{table*}

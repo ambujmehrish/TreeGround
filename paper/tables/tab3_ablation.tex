@@ -27,11 +27,7 @@
 (e) & \ours{}: query pool $\rightarrow$ region-restricted mask tokens & \textbf{51.0} & 51.4 & \textbf{47.5} & 40.6 & \textbf{50.7} & 68.2 & 70.0 & \textbf{59.5} & \textbf{55.9} & \textbf{94.0} & 90.9 \\
 \bottomrule
 \end{tabular}}
-\caption{\textbf{Ablations} on test splits (gIoU, \%; N-acc: accuracy on no-target expressions). (a)$\rightarrow$(b): the
-MLLM selecting among candidates instead of SAM\,3's own ranking; (b)$\rightarrow$(e): query-conditioned candidates;
-(c)$\rightarrow$(e): candidates as mask tokens inside the MLLM instead of pooled features; (d) vs (e): free attention
-helps GSEval, while restricting each mask token to its region gives better grounding on gRefCOCO (the variant chosen
-on validation). Every row outputs at most one mask per query. Rows (b)--(e) use the same data, schedule and backbone; checkpoint, layer
-and part-decision rule of each are chosen on validation. $^\S$in-domain for (b)--(e).}
+\caption{\textbf{Ablations} on test splits (gIoU, \%; N-acc as in Tab.~\ref{tab:controlled}). Each row changes the
+candidates or how they are scored; (e) is the full model. $^\S$in-domain for (b)--(e).}
 \label{tab:ablation}
 \end{table*}

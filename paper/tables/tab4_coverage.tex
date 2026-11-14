@@ -23,11 +23,8 @@ PARTONOMY    & 35.3\% & 57.7\% & 7.0\% & & 58.8\% & 41.2\% \\
 InstructPart & 28.0\% & 65.2\% & 6.8\% & & 52.3\% & 47.7\% \\
 \bottomrule
 \end{tabular}}
-\caption{\textbf{Selection versus coverage} on part queries (test splits). \emph{Best in pool}: an oracle that picks the
-candidate with the highest IoU. \emph{Gap closed}: share of the distance from SAM\,3's own top instance to the oracle
-that \ours{}'s selection recovers. \emph{Better}: queries where one pick beats the other by at least 0.1 IoU. The
-candidate pool contains a much better mask than either pick (71.0 vs.\ 49.4 on PARTONOMY), so the remaining errors are
-selection errors; most of the best masks come from the query-free point grid, which SAM\,3's text instances alone
-would miss.}
+\caption{\textbf{Selection versus coverage} on part queries (test splits). \emph{Best in pool}: an oracle that picks
+the candidate with the highest IoU. \emph{Gap closed}: share of the gap between SAM\,3's top instance and the oracle
+that \ours{} recovers. \emph{Better}: one pick beats the other by at least 0.1 IoU.}
 \label{tab:coverage}
 \end{table}

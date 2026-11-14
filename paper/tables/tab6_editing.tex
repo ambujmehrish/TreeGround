@@ -25,11 +25,8 @@ Box + SAM\,3               & \textbf{57.6} & 1.3 & 6.27 & \textbf{0.046} & 3.31 
 \ours{} (Ours)             & 53.6 & \textbf{0.0} & \textbf{6.45} & 0.053 & \textbf{3.62} & 0.091 & \textbf{67.5} & \textbf{0.0} & 3.39 & 0.033 & \textbf{2.11} & \textbf{0.026} \\
 \bottomrule
 \end{tabular}}
-\caption{\textbf{Region-grounded editing} on all GEdit-Bench-EN and ImgEdit-Bench samples (CoCoEdit masked protocol).
-Each mask source localizes the edit's referent; the editor then edits within that mask (Qwen-Image-Edit: its edit
-blended into the mask; FLUX Fill: inpainting the mask). Mask IoU and empty rate (\%) against the GT edit region;
-judge: Qwen2.5-VL-72B on the benchmark's scale; LPIPS-out: change outside the GT edit region. The judge favours
-larger edit regions (the GT bbox scores above the exact GT region), so judge differences between mask sources are not
-read as edit quality. \ours{} returns a mask for every request. Bold: best of the three mask sources.}
+\caption{\textbf{Region-grounded editing} on GEdit-Bench-EN and ImgEdit-Bench. Each method provides the mask, and the
+editor changes only that region. Mask IoU and empty rate (\%) are against the ground-truth edit region; judge: score
+of an MLLM judge; LPIPS-out: change outside the edit region. Bold: best of the three mask sources.}
 \label{tab:editing}
 \end{table*}

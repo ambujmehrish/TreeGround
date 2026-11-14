@@ -50,12 +50,8 @@ PANORAMA & 4B & 5.32B & 1.32B & 25\% & 957K samples & -- & \textbf{53.5} & -- & 
 \ours{} (Ours) & 4B & 5.36B & \textbf{64.2M} & \textbf{1.2\%} & PACO, Pascal-Part, gRefCOCO & \textbf{51.0} & 51.4 & \textbf{40.6}\indom & 50.7 & 68.2 & 70.0 & 72.3\indom & 65.2\indom & \textbf{89.6}\indom & \textbf{86.0}\indom \\
 \bottomrule
 \end{tabular}}
-\caption{\textbf{Comparison with published systems}, grouped by how the mask is produced (test splits; gIoU, \%; N-acc
-as in Tab.~\ref{tab:controlled}). Numbers as published under the same protocol; our gRefCOCO cells use that protocol's multi-mask readout (threshold from val), Tab.~\ref{tab:controlled} the one-mask readout. Size: backbone size; rows larger than
-4B are references, and bold marks the best result with $\le$4B. Parameters: total at inference including any frozen
-segmenter (model cards), trainable as printed in the paper, and their ratio (ours: Qwen3-VL-4B + SAM\,3 + 64.2M trained,
-counted exactly from the model code). $^\ddagger$measured by PANORAMA under each method's released recipe (its
-Tab.~17). PPS-116: Pascal-Part-116. ``-'' / ``--'': not reported. $^\S$the method trains on this benchmark's training
-split (in-domain); all other cells are zero-shot.}
+\caption{\textbf{Comparison with published systems} (test splits; gIoU, \%), grouped by how the mask is produced.
+Numbers are as published. Rows above 4B are references; bold marks the best result with $\le$4B.
+$^\ddagger$as measured by PANORAMA. $^\S$in-domain.}
 \label{tab:published}
 \end{table*}

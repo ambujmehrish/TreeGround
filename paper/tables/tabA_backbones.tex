@@ -28,10 +28,8 @@ $\Delta$ vs.\ Box + SAM\,3       & \up{+3.5} & \up{+3.1} & \up{+24.5} & \up{+14.
 Box + SAM\,3                     & 49.3 & 50.5 & --   & --   & --   & --   & 70.5 & --   & --   & --   & 55.3 & 52.1 & 44.7 & 43.8 \\
 \bottomrule
 \end{tabular}}
-\caption{\textbf{Larger MLLM backbones} under the protocol of Tab.~\ref{tab:controlled} (test splits; gIoU, \%; N-acc:
-accuracy on no-target expressions). $\Delta$: \ours{} minus Box + SAM\,3 with the same 8B backbone. With 8B, \ours{}
-leads Box + SAM\,3 on every column except InstructPart ($-$0.1) and GSEval All ($-$1.0); compared with the 4B model it is within 1.5 points on every grounding column and
-lower on rejection (N-acc $-$4.8 / $-$2.9). Every method outputs at most one mask per query. The 32B pipeline was run on PARTONOMY, InstructPart and gRefCOCO only. $^\dagger$same pool and data as the 4B model, without the tree-relation bias and family
-loss. $^\S$\ours{} trains on this dataset's training split; all other columns are zero-shot.}
+\caption{\textbf{Larger backbones} under the protocol of Tab.~\ref{tab:controlled} (test splits; gIoU, \%). $\Delta$:
+\ours{} minus Box + SAM\,3 at 8B. The 32B pipeline was run on three benchmarks. $^\dagger$without the tree-relation
+terms. $^\S$in-domain for \ours{}.}
 \label{tab:backbones}
 \end{table*}

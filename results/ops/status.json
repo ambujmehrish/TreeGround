@@ -1,8 +1,7 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 9,
-   "RUNNING": 1
+   "PENDING": 9
   },
   "ended_24h": [
    {
@@ -70,6 +69,14 @@
     "state": "COMPLETED"
    },
    {
+    "elapsed": "00:02:25",
+    "end": "2026-11-14T13:48:22",
+    "exit": "0:0",
+    "jobid": "64367238",
+    "name": "q_2026-11-13b-32b-gseval-merge",
+    "state": "COMPLETED"
+   },
+   {
     "elapsed": "00:00:00",
     "end": "2026-11-14T12:18:17",
     "exit": "0:0",
@@ -119,36 +126,6 @@
    }
   ],
   "squeue": [
-   {
-    "elapsed": "0:00",
-    "jobid": "64461969",
-    "name": "fg-node2",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:30:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64461968",
-    "name": "fg-node1",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:30:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64461967",
-    "name": "fg-node0",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "2:30:00"
-   },
    {
     "elapsed": "0:00",
     "jobid": "64366806_[0-15]",
@@ -210,14 +187,34 @@
     "time_limit": "30:00"
    },
    {
-    "elapsed": "2:23",
-    "jobid": "64367238",
-    "name": "q_2026-11-13b-32b-gseval-merge",
+    "elapsed": "0:00",
+    "jobid": "64461968",
+    "name": "fg-node1",
     "nodes": "1",
-    "reason_or_nodelist": "lrdn0097",
-    "start": "2026-11-14T13:45:57",
-    "state": "RUNNING",
-    "time_limit": "30:00"
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "2:30:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "64461967",
+    "name": "fg-node0",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "2:30:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "64461969",
+    "name": "fg-node2",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "2:30:00"
    }
   ]
  },
@@ -16529,15 +16526,15 @@
    "waiting_for": null
   },
   "2026-11-13b-32b-gseval-merge": {
-   "collected": null,
+   "collected": 1794660823.5558088,
    "dependency_failed": null,
-   "finished": null,
+   "finished": 1794660823.5558078,
    "invalid": null,
    "jobid": "64367238",
    "post_error": null,
    "post_output_tail": null,
    "states": [
-    "RUNNING"
+    "COMPLETED"
    ],
    "submit_error": null,
    "submitted": 1794562613.237595,
@@ -16740,5 +16737,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794660500.7013156
+ "updated": 1794662778.6042347
 }

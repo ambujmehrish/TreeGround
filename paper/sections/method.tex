@@ -1,6 +1,7 @@
 % Method section, written paragraph by paragraph. Notation follows Fig. 2 (make_method.py):
 %   image I, query x, phrases \phi(x), candidate masks m_v (v = 1..N), mask token \hat{x}_v, selection score s_v,
-%   answer v^\star. Citation keys as in intro.tex.
+%   answer v^\star. Citation keys as in intro.tex, plus: lora 2106.09685 (Hu et al., ICLR 2022),
+%   focal 1708.02002 (Lin et al., ICCV 2017).
 \section{Method}
 \label{sec:method}
 
@@ -9,7 +10,7 @@ The input is an image $I\in\mathbb{R}^{H\times W\times 3}$ and a text query $x$,
 the mug''. The query refers to at most one region, which may be a whole object or a part of one. The output is a
 binary mask $m\in\{0,1\}^{H\times W}$ of that region, or the empty answer $\varnothing$ when nothing in the image
 matches the query. Most segmentation MLLMs meet this goal by generating $m$, decoding it from a hidden state of the
-language model. We cast the task as selection instead (Fig.~\ref{fig:method}). A frozen segmenter proposes a pool
+language model~\cite{lisa,sa2va}. We cast the task as selection instead (Fig.~\ref{fig:method}). A frozen segmenter proposes a pool
 of $N$ candidate masks $\mathcal{M}(I,x)=\{m_v\}_{v=1}^{N}$, the model assigns each candidate a score $s_v(I,x)$, and
 the answer is the best-scoring candidate,
 \begin{equation}

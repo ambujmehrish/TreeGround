@@ -172,3 +172,50 @@ with a learned scale $\lambda$ and offset $\beta$. The answer then follows from 
 candidate with the highest score, or no mask if that score is below $\tau$. The layer $\ell^{\star}$ is a
 hyperparameter that we choose on validation; later layers work about equally well (Appendix,
 Tab.~\ref{tab:readout_layer}).
+
+\subsection{Training}
+\label{sec:training}
+
+Training has to teach one thing: to give the right candidate a high score and all others a low one. We keep SAM\,3
+frozen and adapt the MLLM with LoRA~\cite{lora}. The new parts are trained from scratch: the mask-token MLP $f$ and
+its scale $\gamma$, the selection head ($\psi_q$, $\psi_k$, $\lambda$, $\beta$), the tree biases
+$b_{\ell,\mathrm{rel}}$ and the embedding of \texttt{<SEL>}.
+
+For each training query we first decide which candidates are right. Let $\mathrm{IoU}_v$ be the overlap of
+candidate $m_v$ with the ground-truth mask. The \emph{positive} is the candidate with the highest overlap,
+$p=\arg\max_v \mathrm{IoU}_v$, provided that $\mathrm{IoU}_p\ge\theta$. The pool usually holds several near-copies
+of the same region, and it would be wrong to punish the model for choosing one of them. So every other candidate
+with $\mathrm{IoU}_v\ge\theta$ is \emph{ignored}: it is neither a positive nor a negative. All remaining candidates
+are \emph{negatives}. A query whose target is not in the image has no positive, and all its candidates are
+negatives. This is how the model learns to answer $\varnothing$.
+
+We do not use all negatives at once. For each query we take the $n_h$ negatives with the highest current scores,
+which are the ones the model confuses with the target, add $n_u$ random negatives from the same image, and add
+$n_c$ candidates from other images in the batch. On the positive and on this set $\mathcal{N}$ of negatives we
+apply a binary focal loss~\cite{focal} to the scores of Eq.~\eqref{eq:score},
+\begin{equation}
+  \mathcal{L}_{\mathrm{sel}}=\mathrm{FL}\big(s_p,1\big)+\frac{1}{|\mathcal{N}|}\sum_{v\in\mathcal{N}}\mathrm{FL}\big(s_v,0\big),
+  \label{eq:lsel}
+\end{equation}
+where $\mathrm{FL}(s,y)$ is the focal loss of the probability $\mathrm{sigmoid}(s)$ against the label $y$. Each
+candidate is thus judged on its own, and no candidate has to win. This is what lets all scores stay low when the
+query has no target.
+
+The hardest negatives are the relatives of the positive in the containment tree: the object that contains the
+target part, and the smaller pieces inside it. They overlap the target, look like it, and match most of the words
+of the query. We add a \emph{family loss} that asks the positive to beat each of them by a margin $\mu$. With
+$\cos_v$ the cosine in Eq.~\eqref{eq:score} and $\mathcal{F}_p$ the parent and the children of $p$ that are not
+ignored,
+\begin{equation}
+  \mathcal{L}_{\mathrm{fam}}=\frac{1}{|\mathcal{F}_p|}\sum_{u\in\mathcal{F}_p}\max\big(0,\ \mu-(\cos_p-\cos_u)\big).
+  \label{eq:lfam}
+\end{equation}
+Finally, the model still writes its answer as text ending in \texttt{<SEL>}, so we keep the usual next-token loss
+$\mathcal{L}_{\mathrm{lm}}$ on the answer. The full objective is
+\begin{equation}
+  \mathcal{L}=\mathcal{L}_{\mathrm{sel}}+w_{\mathrm{fam}}\,\mathcal{L}_{\mathrm{fam}}+\mathcal{L}_{\mathrm{lm}} .
+  \label{eq:loss}
+\end{equation}
+We train on part, object and referring-expression data, including expressions with no target; the datasets, the
+values of $\theta$, $n_h$, $n_u$, $n_c$, $\mu$ and $w_{\mathrm{fam}}$, and the schedule are given in
+Sec.~\ref{sec:setup}.

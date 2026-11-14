@@ -69,5 +69,4 @@ larger mask that contains at least a fraction $\rho$ of it,
 and a mask with no such container is a child of the root, which stands for the whole image. The tree needs no
 labels and no training. It is used twice in what follows: the position of a mask in the tree becomes part of its
 token (Sec.~\ref{sec:tokens}), and the tree relation between two masks sets a learned bias on the attention between
-their tokens (Sec.~\ref{sec:selection}). In all experiments we use $G=32$, $N_g=256$, $k=3$, $\delta_g=0.9$,
-$\delta_t=0.95$ and $\rho=0.8$, which gives $N\approx260$ candidates per query.
+their tokens (Sec.~\ref{sec:selection}). The values of all settings are given in Sec.~\ref{sec:setup}.

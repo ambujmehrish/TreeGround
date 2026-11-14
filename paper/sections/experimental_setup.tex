@@ -1,0 +1,8 @@
+% Experimental setup: hyperparameter values moved here from the method section (collected as the method is written).
+% Values: configs/s0.yaml (proposals), configs/s3.yaml (s3_pool), treeground/tree.py (CONTAIN_NUM / CONTAIN_DEN).
+% Still to add when the corresponding method paragraphs are written: mask-token MLP sizes, region margin, LoRA rank,
+% read-out layer, threshold tau, training schedule and data.
+\paragraph{Candidate pool.}
+The point grid has $G=32$ points per side, and we keep $N_g=256$ query-free masks after removing near-duplicates at
+$\delta_g=0.9$. For each phrase we add the $k=3$ highest-scoring SAM\,3 instances, with $\delta_t=0.95$. The
+containment tree uses $\rho=0.8$. This gives $N\approx260$ candidates per query.

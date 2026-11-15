@@ -1,0 +1,37 @@
+% Related work (main paper, compact). Citation keys are those of the user's main.bib (2026-11-15).
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Part-level understanding.}
+Part datasets such as Pascal-Part~\cite{chen2014detect}, PartImageNet~\cite{he2022partimagenet} and
+PACO~\cite{ramanathan2023paco} made parts a recognition target, and open-vocabulary part segmentation extended
+them beyond fixed label sets~\cite{sun2023going,wei2023ov,choi2025fine}. More recent work connects parts to
+language. Benchmarks now ask a model to segment the part named or implied by a free-form
+query~\cite{liu2025towards,wan2025instructpart,blume2026partonomy}, and they consistently find that models which
+ground whole objects well fail on parts, often returning the enclosing
+object~\cite{mehrab2026reasoning,jhang2026enhancing}. We address this task and compare all methods under one
+protocol in which a query has a single answer.
+
+\paragraph{Language-guided segmentation with MLLMs.}
+Most systems let the language model \emph{generate} the mask. LISA~\cite{lai2024lisa} decodes it from the hidden
+state of a special token, and later models scale this idea to more tasks, denser outputs and
+video~\cite{rasheed2024glamm,ren2024pixellm,zhang2024omg,yuan2025sa2va,liu2026unipixel,wei2025instructseg}; others
+write the mask as discrete tokens~\cite{zhou2026samtok}. These models must learn boundaries and meaning together,
+which takes large-scale training. A second family lets the MLLM \emph{prompt} a frozen segmenter with boxes or
+points~\cite{chen2024sam4mllm,liu2025seg,liu2025visionreasoner,mehrab2026reasoning}, building on promptable
+segmenters~\cite{kirillov2023segment,ravi2025sam,carion2026sam,ren2024grounded}. This keeps boundaries sharp, but a
+box around a part is ambiguous with a box around its object. Generalized referring segmentation further asks a
+model to handle expressions with several targets or none~\cite{liu2023gres,xia2024gsva,ding2026grex}; most MLLM-based
+systems still rarely return an empty answer. \ours{} neither generates the mask nor prompts for it: the segmenter
+proposes, and the MLLM only chooses.
+
+\paragraph{Selecting among proposals and region tokens.}
+Region-level MLLMs feed the features of a given box or mask to the language model so that it can describe that
+region~\cite{you2024ferret,yuan2024osprey,lian2025describe}. GROUNDHOG~\cite{zhang2024groundhog} turns this
+around for grounding: it encodes class-agnostic mask proposals as entities and lets the model select and merge
+them for each grounded phrase, and a recent study analyses where selection over frozen proposals
+fails~\cite{ma2026does}. \ours{} follows this selection view and adapts it to parts in three ways. The pool is
+conditioned on the query, so that small parts missed by generic proposals are still present. Each candidate is a
+token built from the MLLM's own image tokens, without an additional visual encoder. And each mask token attends
+only to its own region, which keeps a part and the object that contains it apart. One selection score then also
+decides when no candidate matches, which gives rejection without a separate mechanism.

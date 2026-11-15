@@ -72,8 +72,11 @@ do not depend on the prompt given to the baselines (Tab.~\ref{tab:reason_prompts
 A mask is often an intermediate result that an editor uses to decide which pixels to change.
 Tab.~\ref{tab:editing} uses each method as the mask source for two editors. \ours{} returns a mask for every
 request, while Box\,+\,SAM\,3 returns none for $1.3\%$ and $2.8\%$ of them. Its mask IoU is the highest on
-ImgEdit-Bench ($67.5$) and below Box\,+\,SAM\,3 on GEdit-Bench ($53.6$ against $57.6$). In edit quality the mask
-sources are close: \ours{} has the best judge score in three of four settings, and the change outside the target
-region is similar except with FLUX Fill on GEdit-Bench, where it is higher for \ours{}. The differences are small
-and the judge favours larger edit regions, so we read this table as showing that masks selected by \ours{} are as
-usable for editing as those of the baselines, not that they give better edits.
+ImgEdit-Bench ($67.5$) and below Box\,+\,SAM\,3 on GEdit-Bench ($53.6$ against $57.6$). The judge scores of
+GEdit-Bench separate the two aspects of an edit. Perceptual quality is the same for every mask source, between
+$7.28$ and $7.37$ with both editors, so editing with our masks does not degrade the image. The difference lies in
+instruction following, where \ours{} has the highest score of the three sources with both editors ($6.73$ against
+$6.54$ and $6.43$ with Qwen-Image-Edit). On ImgEdit-Bench the judge scores of the three sources are within
+$0.1$, and the change outside the target region is similar except with FLUX Fill on GEdit-Bench, where it is
+higher for \ours{}. The differences are small and the judge favours larger edit regions, so we read this table as
+showing that masks selected by \ours{} are at least as usable for editing as those of the baselines.

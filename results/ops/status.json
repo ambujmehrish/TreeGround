@@ -5,30 +5,6 @@
   },
   "ended_24h": [
    {
-    "elapsed": "02:03:14",
-    "end": "2026-11-14T19:47:03",
-    "exit": "0:0",
-    "jobid": "64478294",
-    "name": "fg-node0",
-    "state": "TIMEOUT"
-   },
-   {
-    "elapsed": "02:03:14",
-    "end": "2026-11-14T19:47:03",
-    "exit": "0:0",
-    "jobid": "64478295",
-    "name": "fg-node1",
-    "state": "TIMEOUT"
-   },
-   {
-    "elapsed": "02:03:14",
-    "end": "2026-11-14T19:47:03",
-    "exit": "0:0",
-    "jobid": "64478297",
-    "name": "fg-node2",
-    "state": "TIMEOUT"
-   },
-   {
     "elapsed": "00:01:37",
     "end": "2026-11-15T10:29:29",
     "exit": "0:0",
@@ -38,6 +14,16 @@
    }
   ],
   "squeue": [
+   {
+    "elapsed": "0:00",
+    "jobid": "64366804_[0-31]",
+    "name": "q_2026-11-13b-32b-pacotest",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "4:00:00"
+   },
    {
     "elapsed": "0:00",
     "jobid": "64366806_[0-15]",
@@ -57,16 +43,6 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "3:00:00"
-   },
-   {
-    "elapsed": "0:00",
-    "jobid": "64366804_[0-31]",
-    "name": "q_2026-11-13b-32b-pacotest",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "4:00:00"
    },
    {
     "elapsed": "0:00",
@@ -110,16 +86,6 @@
    },
    {
     "elapsed": "0:00",
-    "jobid": "64521660",
-    "name": "paperA_quality",
-    "nodes": "1",
-    "reason_or_nodelist": "(Priority)",
-    "start": "N/A",
-    "state": "PENDING",
-    "time_limit": "6:00:00"
-   },
-   {
-    "elapsed": "0:00",
     "jobid": "64521658",
     "name": "paperA_quality",
     "nodes": "1",
@@ -127,6 +93,16 @@
     "start": "N/A",
     "state": "PENDING",
     "time_limit": "3:00:00"
+   },
+   {
+    "elapsed": "0:00",
+    "jobid": "64521660",
+    "name": "paperA_quality",
+    "nodes": "1",
+    "reason_or_nodelist": "(Priority)",
+    "start": "N/A",
+    "state": "PENDING",
+    "time_limit": "6:00:00"
    },
    {
     "elapsed": "0:00",
@@ -16659,5 +16635,5 @@
    "waiting_for": null
   }
  },
- "updated": 1794765943.1895013
+ "updated": 1794769823.4311235
 }

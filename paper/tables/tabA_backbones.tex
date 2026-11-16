@@ -25,11 +25,11 @@ Box + SAM\,3                     & 46.5 & 48.2 & 26.3 & 33.2 & 32.8 & 47.0 & 69.
 $\Delta$ vs.\ Box + SAM\,3       & \up{+3.5} & \up{+3.1} & \up{+24.5} & \up{+14.3} & \up{+6.8} & \up{+3.6} & \dn{$-$0.1} & \up{+5.5} & \up{+0.3} & \dn{$-$1.0} & \up{+7.8} & \up{+8.7} & \up{+64.8} & \up{+58.7} \\
 \midrule
 \multicolumn{15}{l}{\textit{MLLM backbone: Qwen3-VL-32B}} \\
-Box + SAM\,3                     & 49.3 & 50.5 & --   & --   & --   & --   & 70.5 & --   & --   & --   & 55.3 & 52.1 & 44.7 & 43.8 \\
+Box + SAM\,3                     & 49.3 & 50.5 & 43.5 & --   & --   & --   & 70.5 & --   & --   & 72.7 & 55.3 & 52.1 & 44.7 & 43.8 \\
 \bottomrule
 \end{tabular}}
 \caption{\textbf{Larger backbones} under the protocol of Tab.~\ref{tab:controlled} (test splits; gIoU, \%). $\Delta$:
-\ours{} minus Box + SAM\,3 at 8B. The 32B pipeline was run on three benchmarks. $^\dagger$without the tree-relation
+\ours{} minus Box + SAM\,3 at 8B. The 32B runs on PACO, PPS and PartImageNet are not included. $^\dagger$without the tree-relation
 terms. $^\S$in-domain for \ours{}.}
 \label{tab:backbones}
 \end{table*}

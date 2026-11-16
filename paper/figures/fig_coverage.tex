@@ -1,0 +1,10 @@
+% Selection versus coverage as a figure (replaces tab4_coverage.tex; same numbers). Needs macros.tex.
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/coverage_cropped.pdf}
+  \caption{\textbf{Selection versus coverage} on part queries (test splits). (a)~gIoU of SAM\,3's top instance, of
+  the mask \ours{} selects, and of the best mask in the pool (an oracle). \emph{Better}: one pick beats the other by at
+  least 0.1 IoU. (b)~Source of the mask \ours{} selects and of the best mask; for the best mask, SAM\,3 text covers
+  both phrases.}
+  \label{tab:coverage}
+\end{figure}

@@ -24,7 +24,7 @@ sys.path.insert(0, str(HERE))
 from make_overview import INTER, bbox, dec, math_svg, png_b64, square, text_width, typeset  # noqa: E402
 from make_teaser import esc  # noqa: E402
 
-W, H = 1400, 684
+W, H = 1400, 696
 D = 52                                         # room between the MLLM and the selection head for the read-out
 FONT = "Inter, Helvetica, Arial, sans-serif"
 INK, MUTED, LINE = "#1f2633", "#5b6474", "#cfd5de"
@@ -171,7 +171,7 @@ def tokens(x, y, n, color, w=25, h=30, gap=6) -> tuple[list[str], float]:
 def inputs(ex, img, M, grid_ids, text_ids) -> list[str]:
     pool = [dec(r) for r in ex["pool"]]
     obj = dec(ex["gt_object"])
-    out = [dashed_box(20, 452 + D, 910, 168, "Inputs")]
+    out = [dashed_box(20, 452 + D, 910, 180, "Inputs")]
     y = 470 + D
     # image
     out.append(rect(36, y, 250, 128, "#fff", GREEN, 1.8, 12))
@@ -208,7 +208,7 @@ def inputs(ex, img, M, grid_ids, text_ids) -> list[str]:
                + f'<rect x="744" y="{y + 97}" width="12" height="12" rx="3" fill="none" stroke="{PINK}" stroke-width="2.2"/>'
                + text(762, y + 109, "query phrases", F_SMALL, 400, MUTED))
     out.append(arrow([(590, y + 94), (603, y + 94)], PINK, 2))
-    out.append(arrow([(161, y + 128), (161, y + 134), (900, y + 134), (900, y + 130)], GREEN, 1.8))
+    out.append(arrow([(161, y + 128), (161, y + 148), (760, y + 148), (760, y + 130)], GREEN, 2))
     return out
 
 
@@ -371,21 +371,21 @@ def tokenizer_inset(ex, img, M) -> list[str]:
     pool = [dec(r) for r in ex["pool"]]
     m, obj = pool[ex["pick"]], dec(ex["gt_object"])
     x0, y0 = 950, 24
-    out = [dashed_box(x0, y0, 436, 636, "Mask tokenizer")]
+    out = [dashed_box(x0, y0, 436, 648, "Mask tokenizer")]
     T, tx = 104, x0 + 138                                   # tile size and left edge
     ys = [y0 + 40, y0 + 160, y0 + 280]
     # the candidate and the three things read from it
-    th = ys[1] + T / 2 - 48
-    out.append(img_tag(x0 + 16, th, 96, 96, cutout(img, m, 192), 8) + rect(x0 + 16, th, 96, 96, "none", PINK, 2.4, 8))
-    out.append(M("mv", x0 + 64, th + 126, 25, MUTED, "middle"))
-    trunk = tx - 14
-    out.append(f'<path d="M{x0 + 114},{th + 48} H{trunk} M{trunk},{ys[0] + T / 2} V{ys[2] + T / 2}" fill="none" '
-               f'stroke="{FRAME}" stroke-width="2"/>')
+    th = ys[1] + T / 2 - 44
+    out.append(img_tag(x0 + 14, th, 88, 88, cutout(img, m, 176), 8) + rect(x0 + 14, th, 88, 88, "none", PINK, 2.4, 8))
+    out.append(M("mv", x0 + 58, th + 118, 25, MUTED, "middle"))
+    trunk = tx - 24
+    out.append(f'<path d="M{x0 + 104},{th + 44} H{trunk} M{trunk},{ys[0] + T / 2} V{ys[2] + T / 2}" fill="none" '
+               f'stroke="{FRAME}" stroke-width="2.2" stroke-linecap="round"/>')
     geo, box = tile_geometry(img, m, obj, T)
     rows = [("Appearance", "av", GREEN, 7), ("Geometry", "gv", BLUE, 4), ("Source", "qv", PINK, 3)]
     lx, xc = tx + T + 16, x0 + 414
     for k, ((title, key, c, n), y) in enumerate(zip(rows, ys)):
-        out.append(arrow([(trunk, y + T / 2), (tx - 3, y + T / 2)], FRAME, 2))
+        out.append(arrow([(trunk, y + T / 2), (tx - 4, y + T / 2)], FRAME, 2.2))
         if k == 0:
             out.append(img_tag(tx, y, T, T, tile_appearance(img, m, T), 8))
         elif k == 1:

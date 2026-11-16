@@ -289,14 +289,25 @@ def stack(ex, img, M) -> list[str]:
 
 
 def tree_inset(M) -> list[str]:
-    out = [dashed_box(20, 24, 290, 150, "Containment tree")]
-    nodes = {"r": (150, 60), "a": (100, 100), "b": (200, 100), "c": (66, 140), "d": (134, 140)}
-    for a, b in (("r", "a"), ("r", "b"), ("a", "c"), ("a", "d")):
-        out.append(f'<line x1="{nodes[a][0]}" y1="{nodes[a][1]}" x2="{nodes[b][0]}" y2="{nodes[b][1]}" stroke="{MUTED}" '
-                   f'stroke-width="2.6"/>')
+    # the nesting of the candidates: image -> objects -> parts (the handle's path is highlighted)
+    out = [dashed_box(20, 24, 290, 160, "Containment tree")]
+    nodes = {"r": (165, 56), "mug": (82, 98), "glass": (165, 98), "plate": (248, 98),
+             "m1": (42, 142), "m2": (82, 142), "h": (122, 142), "g1": (165, 142), "p1": (222, 142), "p2": (274, 142)}
+    edges = [("r", "mug"), ("r", "glass"), ("r", "plate"), ("mug", "m1"), ("mug", "m2"), ("mug", "h"), ("glass", "g1"),
+             ("plate", "p1"), ("plate", "p2")]
+    path = {("r", "mug"), ("mug", "h")}
+    for a, b in edges:
+        on = (a, b) in path
+        out.append(f'<line x1="{nodes[a][0]}" y1="{nodes[a][1]}" x2="{nodes[b][0]}" y2="{nodes[b][1]}" '
+                   f'stroke="{PINK if on else FRAME}" stroke-width="{3 if on else 2.2}"/>')
     for k, (x, y) in nodes.items():
-        out.append(f'<circle cx="{x}" cy="{y}" r="11" fill="{PINK if k == "d" else BLUE}" stroke="#fff" stroke-width="2"/>')
-    out.append(text(120, 105, "mug", F_SMALL, 600, BLUE) + text(154, 145, "handle", F_SMALL, 600, PINK))
+        col = PINK if k == "h" else BLUE if k in ("mug", "r") else "#9db7dc"
+        out.append(f'<circle cx="{x}" cy="{y}" r="{10 if k in ("h", "mug", "r") else 8}" fill="{col}" stroke="#fff" '
+                   f'stroke-width="2"/>')
+    out.append(text(181, 61, "image", F_SMALL, 600, MUTED))
+    out.append(text(66, 103, "mug", F_SMALL, 600, BLUE, "end") + text(180, 103, "glass", F_SMALL, 500, MUTED)
+               + text(263, 103, "plate", F_SMALL, 500, MUTED))
+    out.append(text(122, 172, "handle", F_SMALL, 700, PINK, "middle"))
     return out
 
 

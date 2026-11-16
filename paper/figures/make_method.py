@@ -48,6 +48,7 @@ TEX = {
     "head": r"s_v=\lambda\,\cos\!\big(\psi_q(h_{\langle\mathrm{SEL}\rangle}),\,\psi_k(z_v)\big)+\beta",
     "argmax": r"v^{\star}=\arg\max_{v}\,s_v",
     "mstar": r"m_{v^{\star}}",
+    "av": r"a_v", "gv": r"g_v", "qv": r"q_v",
     "psiq": r"\psi_q",
     "psik": r"\psi_k",
     "hsel": r"h_{\langle\mathrm{SEL}\rangle}",
@@ -178,20 +179,17 @@ def inputs(ex, img, M, grid_ids, text_ids) -> list[str]:
     crop = square(bbox(shown), img.shape[1], img.shape[0], margin=0.12)
     out.append(img_tag(48, y + 12, 104, 104, png_b64(Image.fromarray(img).crop(crop).resize((208, 208), Image.LANCZOS)), 8))
     out.append(text(166, y + 30, "Image", F_TITLE, 700, GREEN))
-    out.append(text(166, y + 54, "PACO test", F_SMALL, 400, MUTED))
     # query and its phrases
     out.append(rect(300, y, 290, 128, "#fff", PINK, 1.8, 12))
     out.append(text(314, y + 26, "Query", F_TITLE, 700, PINK))
     out.append(text(314, y + 52, "“Locate the handle of the mug.”", 16, 500, INK, italic=True))
-    out.append(text(314, y + 80, "phrases", F_SMALL, 600, MUTED) + M("phi", 314 + text_width("phrases ", F_SMALL, 600),
-                                                                  y + 80, 16, MUTED))
-    c1, w1 = chip(314, y + 90, "the handle of the mug", "#fff", PINK, 14, 600, PINK, 8)
-    c2, _ = chip(314 + w1 + 6, y + 90, "the mug", "#fff", PINK, 14, 600, PINK, 8)
+    c1, w1 = chip(314, y + 82, "the handle of the mug", "#fff", PINK, 14, 600, PINK, 8)
+    c2, _ = chip(314 + w1 + 6, y + 82, "the mug", "#fff", PINK, 14, 600, PINK, 8)
     out += [c1, c2]
     # the candidate pool, built by SAM 3 from the image and the phrases
     out.append(rect(604, y, 312, 128, "#fff", BLUE, 1.8, 12))
     out.append(text(618, y + 26, "Candidates", F_TITLE, 700, BLUE)
-               + text(618 + text_width("Candidates ", F_TITLE, 700), y + 26, "from SAM 3 (frozen)", F_SMALL, 500, MUTED))
+               + text(618 + text_width("Candidates ", F_TITLE, 700), y + 26, "frozen SAM 3", F_SMALL, 500, MUTED))
     t, x = 46, 618
     for k, i in enumerate(grid_ids[:3] + text_ids):
         c = BLUE if k < 3 else PINK
@@ -202,10 +200,11 @@ def inputs(ex, img, M, grid_ids, text_ids) -> list[str]:
         x += t + 8 if k != 2 else t + 26
         if k == 2:
             out.append(text(x - 17, y + 70, "…", 18, 700, MUTED, "middle"))
-    out.append(text(618, y + 108, f"N = {len(pool)}:", F_SMALL, 700, INK)
-               + text(618 + text_width(f"N = {len(pool)}: ", F_SMALL, 700), y + 108, "point grid + text phrases (#rank)",
-                      F_SMALL, 400, MUTED))
-    out.append(arrow([(590, y + 104), (603, y + 104)], PINK, 2))
+    out.append(f'<rect x="618" y="{y + 97}" width="12" height="12" rx="3" fill="none" stroke="{BLUE}" stroke-width="2.2"/>'
+               + text(636, y + 108, "point grid", F_SMALL, 400, MUTED)
+               + f'<rect x="730" y="{y + 97}" width="12" height="12" rx="3" fill="none" stroke="{PINK}" stroke-width="2.2"/>'
+               + text(748, y + 108, "query phrases", F_SMALL, 400, MUTED))
+    out.append(arrow([(590, y + 94), (603, y + 94)], PINK, 2))
     out.append(arrow([(161, y + 128), (161, y + 134), (900, y + 134), (900, y + 130)], GREEN, 1.8))
     return out
 
@@ -230,19 +229,20 @@ def stack(ex, img, M) -> list[str]:
         out.append(arrow([(cx, 379 + D), (cx, 364 + D)], c, 2))
     bar = 252 + D
     out.append(rect(20, bar, 910, 70, "url(#llm)", "none", 0, 16))
-    out.append(text(475, bar + 31, "Qwen3-VL-4B + LoRA", 22, 700, "#fff", "middle"))
-    out.append(text(475, bar + 56, "one pass over image, query and mask tokens; LoRA rank r = 16", F_SMALL, 500,
-                    "#fff", "middle"))
+    out.append(text(350, bar + 44, "MLLM + LoRA", 25, 700, "#fff", "middle"))
+    cx_ = 664
+    out.append(rect(cx_, bar + 8, 254, 54, "#fff", "none", 0, 10, op=0.93))
+    out += attention_icon(cx_ + 8, bar + 12, 4.6)
+    out.append(text(cx_ + 66, bar + 31, "region-restricted", 16, 600, INK))
+    out.append(text(cx_ + 66, bar + 51, "attention", 16, 600, INK))
     # selection head on <SEL> and the mask tokens' states
-    hx, hy, hw, hh, tab = 380, 158, 550, 70, 112
+    hx, hy, hw, hh, tab = 380, 176, 550, 52, 150
     out.append(rect(hx, hy, hw, hh, "#fff", PINK, 2.2, 12))
     out.append(f'<path d="M{hx + 12},{hy} H{hx + tab} V{hy + hh} H{hx + 12} a12,12 0 0 1 -12,-12 V{hy + 12} '
                f'a12,12 0 0 1 12,-12 z" fill="{PINK}"/>')
-    out.append(text(hx + tab / 2, hy + 31, "Selection", 17, 700, "#fff", "middle"))
-    out.append(text(hx + tab / 2, hy + 53, "head", 17, 700, "#fff", "middle"))
+    out.append(text(hx + tab / 2, hy + 33, "Selection head", 17, 700, "#fff", "middle"))
     ex_ = hx + tab + (hw - tab) / 2
-    out.append(M("head", ex_, hy + 29, 19, INK, "middle"))
-    out.append(M("argmax", ex_, hy + 58, 19, INK, "middle"))
+    out.append(M("head", ex_, hy + 34, 20, INK, "middle"))
     # read-out: the chosen layer's states go through one MLP each before the cosine
     for cx, c, key, state, side in ((sel_x + 32, PINK, "psiq", "hsel", 1), (838, BLUE, "psik", "zv", -1)):
         py_, pw_, ph_ = hy + hh + 21, 124, 34
@@ -266,8 +266,7 @@ def stack(ex, img, M) -> list[str]:
     lg = np.asarray(ex["logits"])
     p = np.exp(lg - lg.max())
     p /= p.sum()
-    by, x = 88, 640
-    out.append(text(x, by - 26, "selection scores over the pool", F_SMALL, 600, MUTED))
+    by, x = 96, 640
     for i in (83, 65, 34, 257, pick):
         c = PINK if i == pick else (BLUE if i < ex["n_grid"] else PINK)
         out.append(img_tag(x, by, 44, 44, cutout(img, pool[i], 88), 5))
@@ -281,67 +280,32 @@ def stack(ex, img, M) -> list[str]:
     out.append(arrow([(760, hy - 2), (760, by + 48)], PINK))
     obj = dec(ex["gt_object"])
     ax = 412
-    out.append(arrow([(634, by + 22), (ax + 126, by + 22)], PINK))
-    out.append(img_tag(ax, 24, 120, 120, scene(img, pool[pick], obj, 240), 10))
-    out.append(rect(ax, 24, 120, 120, "none", PINK, 2.4, 10))
-    out.append(text(ax - 12, 70, "Answer", F_TITLE, 700, PINK, "end") + M("mstar", ax - 12, 96, 18, PINK, "end"))
-    out.append(text(ax - 12, 120, "one mask", F_SMALL, 400, MUTED, "end"))
+    out.append(arrow([(632, by + 22), (ax + 126, by + 22)], PINK))
+    out.append(text((632 + ax + 126) / 2, by + 13, "argmax", F_SMALL, 600, PINK, "middle"))
+    out.append(img_tag(ax, 30, 120, 120, scene(img, pool[pick], obj, 240), 10))
+    out.append(rect(ax, 30, 120, 120, "none", PINK, 2.4, 10))
+    out.append(text(ax - 12, 84, "Answer", F_TITLE, 700, PINK, "end") + M("mstar", ax - 12, 110, 19, PINK, "end"))
     return out
 
 
 def tree_inset(M) -> list[str]:
-    out = [dashed_box(20, 24, 300, 204, "Containment tree")]
-    nodes = {"r": (170, 62), "a": (118, 102), "b": (222, 102), "c": (84, 142), "d": (152, 142)}
+    out = [dashed_box(20, 24, 290, 150, "Containment tree")]
+    nodes = {"r": (150, 60), "a": (100, 100), "b": (200, 100), "c": (66, 140), "d": (134, 140)}
     for a, b in (("r", "a"), ("r", "b"), ("a", "c"), ("a", "d")):
         out.append(f'<line x1="{nodes[a][0]}" y1="{nodes[a][1]}" x2="{nodes[b][0]}" y2="{nodes[b][1]}" stroke="{MUTED}" '
                    f'stroke-width="2.6"/>')
     for k, (x, y) in nodes.items():
         out.append(f'<circle cx="{x}" cy="{y}" r="11" fill="{PINK if k == "d" else BLUE}" stroke="#fff" stroke-width="2"/>')
-    out.append(text(138, 107, "mug", F_SMALL, 600, BLUE) + text(172, 147, "handle", F_SMALL, 600, PINK))
-    out.append(M("par1", 170, 184, 19, INK, "middle"))
-    out.append(M("par2", 170, 213, 19, INK, "middle"))
+    out.append(text(120, 105, "mug", F_SMALL, 600, BLUE) + text(154, 145, "handle", F_SMALL, 600, PINK))
     return out
 
 
-def tokenizer_inset(ex, img, M) -> list[str]:
-    pool = [dec(r) for r in ex["pool"]]
-    m = pool[ex["pick"]]
-    x0, y0 = 950, 24
-    out = [dashed_box(x0, y0, 436, 400, "Mask tokenizer", "one token per candidate")]
-    out.append(img_tag(x0 + 16, y0 + 76, 84, 84, cutout(img, m, 168), 8))
-    out.append(rect(x0 + 16, y0 + 76, 84, 84, "none", PINK, 2.2, 8))
-    out.append(text(x0 + 58, y0 + 64, "candidate", F_IN, 600, MUTED, "middle"))
-    out.append(M("mv", x0 + 58, y0 + 184, 19, MUTED, "middle"))
-    rows = [("app", "Appearance", "MLLM image tokens in the mask", GREEN),
-            ("geo", "Geometry", "box, area, depth in the tree", BLUE),
-            ("src", "Source", "grid or SAM 3 text: rank, score", BLUE)]
-    rx, rw, rh = x0 + 126, 298, 68
-    ys = [y0 + 34, y0 + 112, y0 + 190]
-    trunk = rx - 14
-    out.append(f'<path d="M{x0 + 100},{y0 + 118} H{trunk} M{trunk},{ys[0] + rh / 2} V{ys[2] + rh / 2}" fill="none" '
-               f'stroke="{BLUE}" stroke-width="2"/>')
-    for (key, title, desc, c), y in zip(rows, ys):
-        out.append(arrow([(trunk, y + rh / 2), (rx - 2, y + rh / 2)], BLUE, 2))
-        out.append(rect(rx, y, rw, rh, "#fff", c, 1.8, 10) + f'<rect x="{rx}" y="{y}" width="7" height="{rh}" rx="3.5" fill="{c}"/>')
-        out.append(text(rx + 18, y + 27, title, 17.5, 700, c))
-        out.append(M(key, rx + rw - 10, y + 28, 18, INK, "end"))
-        out.append(text(rx + 18, y + 53, desc, F_IN, 400, MUTED))
-    my = ys[2] + rh + 26
-    out.append(arrow([(rx + rw / 2, ys[2] + rh + 1), (rx + rw / 2, my - 1)], BLUE))
-    out.append(text(rx + rw / 2 + 8, ys[2] + rh + 19, "concatenate", 15.5, 600, BLUE))
-    out.append(rect(rx + 30, my, rw - 60, 36, BLUE, BLUE, 1, 10) + text(rx + rw / 2, my + 24.5, "MLP + RMS norm", 17.5, 700, "#fff", "middle"))
-    out.append(M("tok", x0 + 16, my + 72, 19, INK))
-    out.append(text(x0 + 16 + M.width("tok", 19) + 14, my + 71, "position: mask centroid", F_IN, 400, MUTED))
-    return out
-
-
-def attention_inset(M) -> list[str]:
-    x0, y0 = 950, 404 + D
-    out = [dashed_box(x0, y0, 436, 216, "Region-restricted attention", "every layer")]
-    cell, n_img, n_txt, n_m = 14, 4, 3, 3
-    mx, my = x0 + 16, y0 + 50
+def attention_icon(x, y, cell) -> list[str]:
+    # the attention pattern as a small matrix (image | text | mask tokens); details in the attention figure
+    n_img, n_txt, n_m = 4, 3, 3
     n = n_img + n_txt + n_m
     own = {(7, 1), (7, 2), (8, 0), (8, 1), (9, 2), (9, 3)}
+    out = []
     for r in range(n):
         for c in range(n):
             if r < n_img + n_txt:
@@ -349,41 +313,121 @@ def attention_inset(M) -> list[str]:
             else:
                 on = c >= n_img or (r, c) in own
                 col = GREEN if c < n_img else PINK if c < n_img + n_txt else BLUE
-            fill = col if on else "#ffffff"
-            op = 0.85 if on and col != BLUE else 0.45 if on else 1
-            out.append(f'<rect x="{mx + c * cell}" y="{my + r * cell}" width="{cell - 1.5}" height="{cell - 1.5}" rx="2" '
-                       f'fill="{fill}" fill-opacity="{op}" stroke="{LINE}" stroke-width="0.8"/>')
-    for k, lab in ((n_img / 2, "img"), (n_img + n_txt / 2, "txt"), (n_img + n_txt + n_m / 2, "mask")):
-        out.append(text(mx + k * cell, my - 7, lab, 14, 600, MUTED, "middle"))
-    out.append(f'<rect x="{mx + (n_img + n_txt) * cell - 1}" y="{my + (n_img + n_txt) * cell - 1}" width="{n_m * cell + 0.5}" '
-               f'height="{n_m * cell + 0.5}" fill="none" stroke="{BLUE}" stroke-width="2" rx="3"/>')
-    lx = mx + n * cell + 16
-    keys = [(GREEN, "a mask token sees only its", "own region and the query"),
-            (None, "image and query tokens", "never see the mask tokens"),
-            (BLUE, "between masks: learned bias", None)]
-    for i, (c, l1, l2) in enumerate(keys):
-        yy = my + 10 + i * 50
-        k = f'fill="{c}" fill-opacity="0.85"' if c else f'fill="#fff" stroke="{FRAME}" stroke-width="1.5"'
-        out.append(f'<rect x="{lx}" y="{yy - 11}" width="12" height="12" rx="3" {k}/>')
-        out.append(text(lx + 20, yy, l1, F_IN, 400, INK))
-        if l2:
-            out.append(text(lx + 20, yy + 21, l2, F_IN, 400, INK))
+            out.append(f'<rect x="{x + c * cell:.1f}" y="{y + r * cell:.1f}" width="{cell - 0.8:.1f}" height="{cell - 0.8:.1f}" '
+                       f'rx="1" fill="{col if on else "#e9ecf1"}"/>')
+    return out
+
+
+def vector(x, y, n, color, cell=13) -> str:
+    return "".join(f'<rect x="{x + k * cell}" y="{y}" width="{cell - 2}" height="{cell + 3}" rx="2.5" fill="{color}" '
+                   f'fill-opacity="{0.45 + 0.5 * ((k * 7 + 3) % 5) / 4:.2f}"/>' for k in range(n))
+
+
+def tile_appearance(img, m, side, cells=6) -> str:
+    # the image tokens under the mask: token grid over a crop, covered cells tinted
+    h, w = m.shape
+    crop = square(bbox(m), w, h, margin=0.55)
+    a = np.asarray(Image.fromarray(img).crop(crop).resize((2 * side, 2 * side), Image.LANCZOS)).astype(float)
+    cov = np.asarray(Image.fromarray((m * 255).astype(np.uint8)).crop(crop).resize((cells, cells), Image.BOX)) > 12
+    c = 2 * side // cells
+    g = np.array([47, 143, 107])
+    for r in range(cells):
+        for k in range(cells):
+            blk = a[r * c:(r + 1) * c, k * c:(k + 1) * c]
+            blk[:] = 0.45 * blk + 0.55 * g if cov[r, k] else 0.55 * blk + 0.45 * 255
+    for k in range(1, cells):
+        a[k * c - 1:k * c + 1, :] = 255
+        a[:, k * c - 1:k * c + 1] = 255
+    return png_b64(Image.fromarray(a.clip(0, 255).astype(np.uint8)))
+
+
+def tile_geometry(img, m, obj, side) -> tuple[str, tuple]:
+    # where the mask lies: the object crop with the mask and its box
+    h, w = m.shape
+    crop = square(bbox(obj), w, h, margin=0.12)
+    a = img.astype(float) * 0.5 + 255 * 0.5
+    a = np.where(m[..., None], 0.35 * a + 0.65 * np.array([59, 111, 182]), a)
+    im = Image.fromarray(a.clip(0, 255).astype(np.uint8)).crop(crop).resize((2 * side, 2 * side), Image.LANCZOS)
+    x0, y0, x1, y1 = bbox(m)
+    f = side / (crop[2] - crop[0])
+    return png_b64(im), ((x0 - crop[0]) * f, (y0 - crop[1]) * f, (x1 - x0) * f, (y1 - y0) * f)
+
+
+def tokenizer_inset(ex, img, M) -> list[str]:
+    pool = [dec(r) for r in ex["pool"]]
+    m, obj = pool[ex["pick"]], dec(ex["gt_object"])
+    x0, y0 = 950, 24
+    out = [dashed_box(x0, y0, 436, 636, "Mask tokenizer")]
+    T, tx = 104, x0 + 138                                   # tile size and left edge
+    ys = [y0 + 40, y0 + 160, y0 + 280]
+    # the candidate and the three things read from it
+    th = ys[1] + T / 2 - 48
+    out.append(img_tag(x0 + 16, th, 96, 96, cutout(img, m, 192), 8) + rect(x0 + 16, th, 96, 96, "none", PINK, 2.4, 8))
+    out.append(M("mv", x0 + 64, th + 124, 21, MUTED, "middle"))
+    trunk = tx - 14
+    out.append(f'<path d="M{x0 + 114},{th + 48} H{trunk} M{trunk},{ys[0] + T / 2} V{ys[2] + T / 2}" fill="none" '
+               f'stroke="{FRAME}" stroke-width="2"/>')
+    geo, box = tile_geometry(img, m, obj, T)
+    rows = [("Appearance", "av", GREEN, 7), ("Geometry", "gv", BLUE, 4), ("Source", "qv", PINK, 3)]
+    lx, xc = tx + T + 16, x0 + 414
+    for k, ((title, key, c, n), y) in enumerate(zip(rows, ys)):
+        out.append(arrow([(trunk, y + T / 2), (tx - 3, y + T / 2)], FRAME, 2))
+        if k == 0:
+            out.append(img_tag(tx, y, T, T, tile_appearance(img, m, T), 8))
+        elif k == 1:
+            out.append(img_tag(tx, y, T, T, geo, 8))
+            out.append(f'<rect x="{tx + box[0]:.1f}" y="{y + box[1]:.1f}" width="{box[2]:.1f}" height="{box[3]:.1f}" '
+                       f'fill="none" stroke="{BLUE}" stroke-width="2.4" stroke-dasharray="5 3"/>')
+            for a_, b_ in (((tx + 26, y + 14), (tx + 14, y + 30)), ((tx + 26, y + 14), (tx + 38, y + 30))):
+                out.append(f'<line x1="{a_[0]}" y1="{a_[1]}" x2="{b_[0]}" y2="{b_[1]}" stroke="{MUTED}" stroke-width="1.8"/>')
+            for (px_, py_), col in (((tx + 26, y + 14), MUTED), ((tx + 14, y + 30), MUTED), ((tx + 38, y + 30), BLUE)):
+                out.append(f'<circle cx="{px_}" cy="{py_}" r="5.5" fill="{col}" stroke="#fff" stroke-width="1.5"/>')
         else:
-            out.append(M("bias", lx + 20, yy + 23, 16.5, INK)
-                       + text(lx + 26 + M.width("bias", 16.5), yy + 21, "by tree relation", F_IN, 400, INK))
+            # point grid or text prompt, with the rank and the score of a text instance
+            for r in range(4):
+                for q in range(4):
+                    out.append(f'<circle cx="{tx + 14 + q * 9}" cy="{y + 34 + r * 9}" r="2.4" fill="{FRAME}"/>')
+            out.append(text(tx + 27, y + 88, "grid", 14, 500, MUTED, "middle"))
+            out.append(rect(tx + 58, y + 24, 40, 26, PINK, PINK, 1, 6) + text(tx + 78, y + 42, "text", 14, 700, "#fff", "middle"))
+            out.append(chip(tx + 58, y + 58, "#1", "#fff", PINK, 13, 700, PINK, 6)[0])
+            out.append(f'<rect x="{tx + 58}" y="{y + 88}" width="40" height="6" rx="3" fill="{LINE}"/>'
+                       f'<rect x="{tx + 58}" y="{y + 88}" width="37" height="6" rx="3" fill="{PINK}"/>')
+        out.append(rect(tx, y, T, T, "none", c, 2.2, 8))
+        out.append(text(lx, y + 30, title, 18, 700, c))
+        out.append(M(key, lx + text_width(title + " ", 18, 700) + 2, y + 31, 21, INK))
+        out.append(vector(lx, y + 52, n, c))
+        end = lx + n * 13 + 4
+        out.append(f'<path d="M{end},{y + 60} H{xc}" fill="none" stroke="{c}" stroke-width="2"/>')
+    # concatenation -> MLP -> one token
+    cy = ys[2] + T + 44
+    cells = sum(r[3] for r in rows)
+    vx = x0 + 218 - cells * 13 / 2
+    out.append(f'<path d="M{xc},{ys[0] + 60} V{cy + 8} H{vx + cells * 13 + 6}" fill="none" stroke="{FRAME}" stroke-width="2" '
+               f'marker-end="url(#{marker_id(FRAME)})"/>')
+    off = vx
+    for _, _, c, n in rows:
+        out.append(vector(off, cy, n, c))
+        off += n * 13
+    mx_ = x0 + 218
+    out.append(arrow([(mx_, cy + 22), (mx_, cy + 46)], BLUE))
+    out.append(trapezoid(mx_, cy + 48, 200, 150, 40, BLUE, "MLP"))
+    out.append(arrow([(mx_, cy + 90), (mx_, cy + 114)], BLUE))
+    out.append(rect(mx_ - 56, cy + 116, 112, 50, TINT[BLUE], BLUE, 2.6, 10))
+    out.append(img_tag(mx_ - 48, cy + 122, 38, 38, cutout(img, m, 76), 5))
+    out.append(M("xv", mx_ + 24, cy + 150, 23, INK, "middle"))
+    out.append(text(mx_ + 70, cy + 147, "mask token", F_BODY, 600, BLUE))
     return out
 
 
 def build(ex, img, M, grid_ids, text_ids) -> str:
     defs = ('<defs><linearGradient id="llm" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#2f8f6b"/>'
             '<stop offset="0.45" stop-color="#b0306f"/><stop offset="1" stop-color="#3b6fb6"/></linearGradient>'
-            + markers([INK, BLUE, PINK, GREEN]) + "</defs>")
+            + markers([INK, BLUE, PINK, GREEN, FRAME]) + "</defs>")
     body = [f'<rect width="{W}" height="{H}" fill="#fff"/>', defs]
     body += tree_inset(M) + inputs(ex, img, M, grid_ids, text_ids) + stack(ex, img, M)
-    body += tokenizer_inset(ex, img, M) + attention_inset(M)
+    body += tokenizer_inset(ex, img, M)
     # insets hang off what they detail
     body.append(f'<path d="M880,{402 + D} L950,330" fill="none" stroke="{FRAME}" stroke-width="1.4" stroke-dasharray="5 4"/>')
-    body.append(f'<path d="M930,{300 + D} L950,{470 + D}" fill="none" stroke="{FRAME}" stroke-width="1.4" stroke-dasharray="5 4"/>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
             f'font-family="{FONT}">{"".join(body)}</svg>')
 

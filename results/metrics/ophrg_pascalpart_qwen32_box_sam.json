@@ -1,0 +1,36 @@
+{
+  "benchmark": "pascalpart",
+  "deviation": "D38",
+  "images": 851,
+  "label": "test",
+  "method": "qwen32_box_sam",
+  "protocol": "OP-HRG (arXiv 2607.15374)",
+  "results": {
+    "objects": {
+      "cIoU": 0.8042120983860297,
+      "gIoU": {
+        "ci95": [
+          0.7819024069383074,
+          0.8094592764166942
+        ],
+        "mean": 0.7959828477785782,
+        "n": 1077
+      },
+      "queries": 1077
+    },
+    "parts": {
+      "cIoU": 0.4956326794610455,
+      "gIoU": {
+        "ci95": [
+          0.3586794568486936,
+          0.3815370274811781
+        ],
+        "mean": 0.37062293553056236,
+        "n": 9552
+      },
+      "queries": 9552
+    },
+    "train_overlap_images": 0
+  },
+  "stage": "qwen32_box_sam"
+}

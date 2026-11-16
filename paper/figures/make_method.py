@@ -227,7 +227,7 @@ def stack(ex, img, M) -> list[str]:
     t3, e3 = tokens(760 - 112, ty, 7, BLUE)
     out += t1 + t2 + t3
     out.append(rect(sel_x, ty, 70, 30, PINK, PINK, 1, 5) + text(sel_x + 35, ty + 21, "<SEL>", 15, 700, "#fff", "middle"))
-    out.append(M("ej", e1 + 8, ty + 23, 20, GREEN) + M("xv", e3 + 8, ty + 23, 20, BLUE))
+    out.append(M("ej", e1 + 9, ty + 24, 29, GREEN) + M("xv", e3 + 9, ty + 25, 29, BLUE))
     for cx, c in ((161, GREEN), (445, PINK), (760, BLUE)):
         out.append(arrow([(cx, 379 + D), (cx, 364 + D)], c, 2))
     bar = 252 + D
@@ -441,7 +441,7 @@ def build(ex, img, M, grid_ids, text_ids) -> str:
     body += tree_inset(M) + inputs(ex, img, M, grid_ids, text_ids) + stack(ex, img, M)
     body += tokenizer_inset(ex, img, M)
     # insets hang off what they detail
-    body.append(f'<path d="M880,{402 + D} L950,330" fill="none" stroke="{FRAME}" stroke-width="1.4" stroke-dasharray="5 4"/>')
+    body.append(f'<path d="M884,{424 + D} L950,{424 + D}" fill="none" stroke="{FRAME}" stroke-width="1.4" stroke-dasharray="5 4"/>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
             f'font-family="{FONT}">{"".join(body)}</svg>')
 

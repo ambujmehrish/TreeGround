@@ -1,10 +1,17 @@
 {
  "cluster": {
   "counts": {
-   "PENDING": 28,
-   "RUNNING": 2
+   "PENDING": 28
   },
   "ended_24h": [
+   {
+    "elapsed": "08:55:10",
+    "end": "2026-11-18T19:49:27",
+    "exit": "0:0",
+    "jobid": "64735276",
+    "name": "paperA_nclips",
+    "state": "COMPLETED"
+   },
    {
     "elapsed": "01:32:21",
     "end": "2026-11-18T12:44:33",
@@ -19,6 +26,14 @@
     "exit": "0:0",
     "jobid": "64736613",
     "name": "paperA_ms",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "08:55:39",
+    "end": "2026-11-18T20:07:51",
+    "exit": "0:0",
+    "jobid": "64736614",
+    "name": "paperA_nclips",
     "state": "COMPLETED"
    },
    {
@@ -411,26 +426,6 @@
     "reason_or_nodelist": "(Dependency)",
     "start": "N/A",
     "state": "PENDING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "8:26:18",
-    "jobid": "64736614",
-    "name": "paperA_nclips",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0159",
-    "start": "2026-11-18T11:12:12",
-    "state": "RUNNING",
-    "time_limit": "1-00:00:00"
-   },
-   {
-    "elapsed": "8:44:13",
-    "jobid": "64735276",
-    "name": "paperA_nclips",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn0254",
-    "start": "2026-11-18T10:54:17",
-    "state": "RUNNING",
     "time_limit": "1-00:00:00"
    },
    {
@@ -16964,5 +16959,5 @@
    "waiting_for": null
   }
  },
- "updated": 1795027110.3792968
+ "updated": 1795030946.639971
 }

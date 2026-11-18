@@ -2,7 +2,7 @@
  "cluster": {
   "counts": {
    "PENDING": 28,
-   "RUNNING": 6
+   "RUNNING": 2
   },
   "ended_24h": [
    {
@@ -50,6 +50,38 @@
     "end": "2026-11-18T15:49:04",
     "exit": "0:0",
     "jobid": "64760073",
+    "name": "fact-eval-base",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "01:51:14",
+    "end": "2026-11-18T17:02:56",
+    "exit": "0:0",
+    "jobid": "64760087",
+    "name": "fact-eval-base",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "01:49:53",
+    "end": "2026-11-18T17:01:35",
+    "exit": "0:0",
+    "jobid": "64760094",
+    "name": "fact-eval-base",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "02:02:50",
+    "end": "2026-11-18T17:14:32",
+    "exit": "0:0",
+    "jobid": "64760095",
+    "name": "fact-eval-base",
+    "state": "COMPLETED"
+   },
+   {
+    "elapsed": "01:50:33",
+    "end": "2026-11-18T17:02:15",
+    "exit": "0:0",
+    "jobid": "64760099",
     "name": "fact-eval-base",
     "state": "COMPLETED"
    },
@@ -374,47 +406,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "1:10:09",
-    "jobid": "64760087",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn1782",
-    "start": "2026-11-18T15:11:42",
-    "state": "RUNNING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "1:10:09",
-    "jobid": "64760094",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn1782",
-    "start": "2026-11-18T15:11:42",
-    "state": "RUNNING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "1:10:09",
-    "jobid": "64760095",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn1804",
-    "start": "2026-11-18T15:11:42",
-    "state": "RUNNING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "1:10:09",
-    "jobid": "64760099",
-    "name": "fact-eval-base",
-    "nodes": "1",
-    "reason_or_nodelist": "lrdn3094",
-    "start": "2026-11-18T15:11:42",
-    "state": "RUNNING",
-    "time_limit": "12:00:00"
-   },
-   {
-    "elapsed": "5:09:39",
+    "elapsed": "6:16:10",
     "jobid": "64736614",
     "name": "paperA_nclips",
     "nodes": "1",
@@ -424,7 +416,7 @@
     "time_limit": "1-00:00:00"
    },
    {
-    "elapsed": "5:27:34",
+    "elapsed": "6:34:05",
     "jobid": "64735276",
     "name": "paperA_nclips",
     "nodes": "1",
@@ -16964,5 +16956,5 @@
    "waiting_for": null
   }
  },
- "updated": 1795015312.1728399
+ "updated": 1795019303.0210104
 }

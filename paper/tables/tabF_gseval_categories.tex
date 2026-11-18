@@ -1,0 +1,22 @@
+% Appendix: GSEval by expression category (test; gIoU, %; one mask per query as in Tab. 1).
+% Source: results/metrics/gseval_{sam3_text_clip,grounded_sam2,sa2va,qwen_box_sam,ta_pool_soft_fam}.json
+% (baselines: results.official; ours: results.nodes/top1). Needs macros.tex.
+\begin{table}[t]
+\centering
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{l ccccc}
+\toprule
+Method & Part & Single & Multi & Stuff & All \\
+\#Queries & 455 & 1{,}480 & 769 & 1{,}011 & 3{,}715 \\
+\midrule
+SAM\,3 (text)     & 30.7 & 37.2 & 43.5 & 54.4 & 42.4 \\
+Grounded-SAM\,2   & 28.0 & 64.8 & 63.2 & 75.5 & 62.9 \\
+Sa2VA             & 21.1 & 52.4 & \textbf{73.0} & 91.1 & 63.4 \\
+Box + SAM\,3      & 37.5 & \textbf{71.6} & 68.4 & \textbf{91.8} & \textbf{72.2} \\
+\rowcolor{oursrow}
+\ours{} (Ours)    & \textbf{51.4} & 67.6 & 64.1 & 86.1 & 70.0 \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{GSEval by expression category} (test; gIoU, \%), under the protocol of Tab.~\ref{tab:controlled}.}
+\label{tab:gseval_categories}
+\end{table}

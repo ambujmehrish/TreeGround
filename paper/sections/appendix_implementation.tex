@@ -29,3 +29,18 @@ $\mu=0.1$ and $w_{\mathrm{fam}}=1$. Training data are PACO-LVIS, Pascal-Part and
 per-step shares $0.6$ / $0.2$ / $0.2$. We train for $12{,}000$ steps with a batch of $32$ images, AdamW, learning
 rates $2\times10^{-4}$ (LoRA and \texttt{<SEL>}), $3\times10^{-4}$ (heads and mask-token MLP) and $10^{-2}$ (tree
 biases), $500$ warm-up steps followed by cosine decay, and gradient clipping at $1$.
+
+\paragraph{Inference.}
+Under the one-mask-per-query protocol the answer is the candidate with the highest score $s_v$. On gRefCOCO the
+model answers ``no target'' when $\sigma(s_v)<\tau$ for every candidate, with $\tau=0.925$ chosen on the validation
+split. Under the multi-mask protocol (Tab.~\ref{tab:multitarget}) the answer is the union of all candidates with
+$\sigma(s_v)\geq t$, with $t=0.9$.
+
+\paragraph{Query rewriting for reasoning queries.}
+A reasoning query is a full question, which is not a useful text prompt for SAM\,3. For these queries only, the
+base Qwen3-VL-4B (without our LoRA weights) first names the target with the prompt: ``Read the request about this
+image and name the one object or object part it refers to. Answer with a short noun phrase only, such as `the red
+cup' or `the handle of the door'. Request: \{query\}''. Decoding is greedy with at most $24$ new tokens. The noun
+phrase replaces the query's phrases as the SAM\,3 prompt for the text candidates; if the answer is empty we fall
+back to the phrases of the original query. The selection model is unchanged and still reads the original question.
+This rule was fixed on the ReasonSeg validation split before any test run.

@@ -37,7 +37,8 @@ biases), $500$ warm-up steps followed by cosine decay, and gradient clipping at 
 \paragraph{Inference.}
 Under the one-mask-per-query protocol the answer is the candidate with the highest score $s_v$. On gRefCOCO the
 model answers ``no target'' when $\sigma(s_v)<\tau$ for every candidate, with $\tau=0.925$ chosen on the validation
-split. Under the multi-mask protocol (\cref{tab:multitarget}) the answer is the union of all candidates with
+split. The threshold is applied to the sigmoid of the score, so the rule $s_{v^\star}<\tau$ of
+\cref{sec:method} corresponds to a raw-score threshold of $\log(\tau/(1-\tau))\approx2.51$. Under the multi-mask protocol (\cref{tab:multitarget}) the answer is the union of all candidates with
 $\sigma(s_v)\geq t$, with $t=0.9$.
 
 \paragraph{Query rewriting for reasoning queries.}

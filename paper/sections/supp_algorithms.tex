@@ -1,0 +1,59 @@
+% Pseudocode for the supplementary (needs \usepackage{algorithm,algpseudocode} in the preamble). Full-width floats.
+\paragraph{Pseudocode.}
+\Cref{alg:inference} summarises inference and \cref{alg:training} one training step. Both use the notation of
+\cref{sec:method}; all values are given above.
+
+\begin{algorithm*}[t]
+\caption{Inference of \ours{} for one query}
+\label{alg:inference}
+\begin{algorithmic}[1]
+\Require image $I$, query $x$; frozen SAM\,3 $S$; MLLM $F$ with LoRA; mask-token MLP $f$; heads $\psi_q,\psi_k$;
+read-out layer $\ell^\star$; threshold $\tau$ (rejection only)
+\Ensure a mask, or no mask
+\Statex \textit{Candidate pool}
+\State $\mathcal{M}_g \gets S(I,\ G{\times}G \text{ point grid})$, keep the $N_g$ most stable after deduplication at $\delta_g$
+\State $\mathcal{M}_t \gets \emptyset$
+\For{each phrase $p \in \phi(x)$}
+  \State add the top-$k$ instances of $S(I,p)$ to $\mathcal{M}_t$, skipping any with IoU $\geq\delta_t$ to one already in $\mathcal{M}_t$
+\EndFor
+\State $\mathcal{V} \gets \mathcal{M}_g \cup \mathcal{M}_t$; \ build the containment tree $\mathcal{T}$ with threshold $\rho$
+\Statex \textit{Mask tokens}
+\State $\{e_c\} \gets$ image tokens of $F$ for $I$
+\For{each candidate $v \in \mathcal{V}$}
+  \State $a_v \gets$ coverage-weighted mean of the $e_c$ under $m_v$; \ $g_v, q_v \gets$ geometry and source of $v$
+  \State $h_v \gets f([a_v; g_v; q_v])$; \quad $\hat{x}_v \gets \gamma\, h_v / \mathrm{rms}(h_v)$
+\EndFor
+\Statex \textit{One forward pass}
+\State input: image tokens, query $x$, the referent named in $x$ followed by $\langle\mathrm{SEL}\rangle$, then $\hat{x}_1,\dots,\hat{x}_N$
+\State attention: image and text tokens are causal and never see mask tokens; $\hat{x}_v$ sees all text tokens and
+the image tokens in $R_v$; mask tokens see each other with bias $b_{\ell,\mathrm{rel}_{\mathcal{T}}(u,v)}$
+\State run $F$; take $h_{\langle\mathrm{SEL}\rangle}$ and $z_v$ at layer $\ell^\star$
+\State $s_v \gets \lambda \cos\!\big(\psi_q(h_{\langle\mathrm{SEL}\rangle}), \psi_k(z_v)\big) + \beta$ \ for all $v$
+\State $v^\star \gets \arg\max_v s_v$
+\If{rejection is enabled \textbf{and} $\sigma(s_{v^\star}) < \tau$}
+  \State \Return no mask
+\EndIf
+\State \Return $m_{v^\star}$
+\end{algorithmic}
+\end{algorithm*}
+
+\begin{algorithm*}[t]
+\caption{One training step of \ours{} for one query}
+\label{alg:training}
+\begin{algorithmic}[1]
+\Require image $I$, query $x$, target mask $m^\ast$ (none for a no-target expression); $\theta$, $n_h$, $n_u$, $n_c$, $\mu$
+\State build $\mathcal{V}$, $\mathcal{T}$ and the mask tokens, run $F$ and compute the scores $s_v$ as in \cref{alg:inference} (lines 1--15)
+\If{$x$ has a target}
+  \State $p \gets \arg\max_v \mathrm{IoU}(m_v, m^\ast)$
+  \State $p$ is the positive if $\mathrm{IoU}(m_p, m^\ast) \geq \theta$; ignore every other $v$ with $\mathrm{IoU}(m_v, m^\ast) \geq \theta$
+\Else
+  \State no positive: every candidate is a negative
+\EndIf
+\State negatives: $n_h$ hard and $n_u$ random candidates from $\mathcal{V}$, and $n_c$ candidates from other images in the batch
+\State $\mathcal{L}_{\mathrm{sel}} \gets$ focal loss on $\sigma(s_v)$ over the positive and the negatives
+\State $\mathcal{L}_{\mathrm{fam}} \gets$ mean over $u \in \{\text{parent and children of } p \text{ in } \mathcal{T}\}$ of $\max(0,\ \mu - (s_p - s_u))$
+\State $\mathcal{L}_{\mathrm{ntp}} \gets$ next-token loss on the answer span, including $\langle\mathrm{SEL}\rangle$
+\State update LoRA, $\langle\mathrm{SEL}\rangle$, $f$, $\psi_q$, $\psi_k$, $\lambda$, $\beta$ and the tree biases with
+$\mathcal{L} = \mathcal{L}_{\mathrm{sel}} + w_{\mathrm{fam}}\mathcal{L}_{\mathrm{fam}} + \mathcal{L}_{\mathrm{ntp}}$
+\end{algorithmic}
+\end{algorithm*}

@@ -1,118 +1,95 @@
-% Supplementary material: body only. \input after \appendix at the end of the main paper's .tex (same preamble,
-% macros.tex loaded), so that references to the main paper resolve; then split the PDF after the main paper.
-% Numbers: results/metrics/*.json (test splits unless marked validation); tables in paper/tables/.
-
-\section*{Overview}
-This supplementary material contains the implementation details (\cref{sec:impl}), results that complement the main
-paper (\cref{sec:supp_results}), an audit of overlap between training and test images (\cref{sec:supp_overlap}) and
-further qualitative results (\cref{sec:supp_qual}). All results are on test splits unless a table is marked as
-validation.
+% Supplementary material (final structure, as submitted): body only. \input after the main paper with
+% \clearpage \setcounter{page}{1} \maketitlesupplementary; preamble needs algorithm, algpseudocode, placeins,
+% dblfloatfix. Table numbers 6-12 must stay in this order: the main paper cites Tab. 6-11 by number.
+% Numbers: results/metrics/*.json (test splits unless marked validation).
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.85}
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{5}
 
 \input{sections/appendix_implementation}
 
-\section{Additional results}
+\section{Additional Results}
 \label{sec:supp_results}
 
-\subsection{Larger backbones}
+\paragraph{Candidate Selection.}
+\label{sec:supp_coverage}
+\Cref{tab:coverage} separates two sources of error on part queries: choosing the wrong candidate, and having no good
+candidate in the pool. On PARTONOMY, an oracle that always picks the candidate with the highest IoU reaches $71.0$
+gIoU, against $49.4$ for \ours{} and $42.0$ for SAM\,3's top-ranked instance. \ours{} closes $26\%$ of the gap between
+SAM\,3's ranking and the oracle, and its pick is better on $25.9\%$ of the queries and worse on $11.5\%$. On
+InstructPart, \ours{} is $0.8$ gIoU above SAM\,3's ranking and closes $7\%$ of the gap, and the two picks win about
+equally often ($11.3\%$ and $11.8\%$). On both benchmarks the oracle remains well above \ours{}, so a better
+selection alone could improve grounding without generating new masks. The lower part of \cref{tab:coverage} shows
+where the masks come from. The best mask in the pool comes from the point grid for $58.8\%$ of the PARTONOMY queries
+and $52.3\%$ of the InstructPart queries, and from the SAM\,3 text instances for the rest, so both sources are needed.
+\ours{} itself picks a text instance more often ($64.7\%$ and $72.0\%$), mostly one for the part phrase.
+
+\input{tables/tab4_coverage}
+
+\subsection{Larger Backbones}
 \label{sec:supp_backbones}
 \Cref{tab:backbones} repeats the protocol of \cref{tab:controlled} with Qwen3-VL-8B and Qwen3-VL-32B. These rows are
-references and are not part of the same-size comparison. At 8B, \ours{} is trained on the same data with the same
-pool, without the tree-relation terms. It is ahead of Box\,+\,SAM\,3 at 8B on every part benchmark except
-InstructPart ($-0.1$), ahead on gRefCOCO by $7.8$ and $8.7$ gIoU, and rejects $64.8$ and $58.7$ points more no-target
-expressions; it is $1.0$ behind on GSEval All. With the 32B MLLM, Box\,+\,SAM\,3 improves part grounding only
-modestly: it reaches $33.2$ on PACO parts, $37.1$ on PPS-116 and $49.3$ on PartImageNet, against $47.5$, $40.6$ and
-$50.7$ for \ours{} at 4B, and rejects $44.7$ and $43.8\%$ of no-target expressions. It is above \ours{} at 4B on
-InstructPart ($70.5$ vs.\ $68.2$) and GSEval All ($72.7$ vs.\ $70.0$).
+references only and are not part of the same-size comparison. At 8B, \ours{} is trained on the same data with the
+same pool, without the tree-relation terms. It is ahead of Box\,+\,SAM\,3 at 8B on every part benchmark except
+InstructPart ($-0.1$), and ahead on gRefCOCO by $7.8$ and $8.7$ gIoU. It also rejects $64.8$ and $58.7$ points more
+no-target expressions, and it is $1.0$ point behind on GSEval All. With the 32B MLLM, Box\,+\,SAM\,3 improves part
+grounding only modestly. It reaches $33.2$ on PACO parts, $37.1$ on PPS-116 and $49.3$ on PartImageNet, against
+$47.5$, $40.6$ and $50.7$ for \ours{} at 4B. It rejects $44.7\%$ and $43.8\%$ of the no-target expressions, against
+$94.0\%$ and $90.9\%$ for \ours{}. It is above \ours{} at 4B on InstructPart ($70.5$ vs.\ $68.2$) and GSEval All
+($72.7$ vs.\ $70.0$).
 
 \input{tables/tabA_backbones}
 
-\subsection{Multi-target referring}
-\label{sec:supp_multitarget}
-In the main comparison every method returns one mask per query. gRefCOCO also contains expressions that refer to
-several objects, so \cref{tab:multitarget} lets every method return several masks and scores their union. \ours{}
-returns all candidates with $\sigma(s_v)\geq t$, with $t=0.9$ chosen on the validation split. Under this protocol
-\ours{} has the highest gIoU ($72.3$ and $65.2$) and N-acc ($89.6$ and $86.0$) on both test splits; Box\,+\,SAM\,3
-with all boxes has the higher cIoU on testB ($58.9$ vs.\ $58.3$). SAM\,3 with all text instances rejects almost as
-often on testA ($89.3$) but grounds the targets much less accurately ($44.3$ gIoU).
+\subsection{Further Analyses}
+\label{sec:supp_further}
 
-\input{tables/tabC_multitarget}
-
-\subsection{Tree-relation terms}
-\label{sec:supp_tree}
-\Cref{tab:tree_ablation} removes the tree-relation attention bias and the family loss from the full model. Grounding
-changes little: \ours{} is higher on GSEval parts ($+2.3$), PPS-116 ($+0.7$) and InstructPart ($+1.0$), and lower on
-gRefCOCO testB ($-1.2$). The clearest effect is on rejection, where the tree terms add $4.1$ and $5.0$ N-acc. The
-full model was also the better of the two on validation ($85.6$ vs.\ $85.0$ selection success on PACO), which is
-how it was chosen.
-
-\input{tables/tabD_tree_ablation}
-
-\subsection{GSEval by expression category}
-\label{sec:supp_gseval}
-\Cref{tab:gseval_categories} splits GSEval by the category of the referring expression. \ours{} is best on part
-expressions, $13.9$ gIoU above Box\,+\,SAM\,3. It is behind Box\,+\,SAM\,3 on single objects ($-4.0$), multiple
-objects ($-4.3$) and stuff ($-5.7$); on multiple objects Sa2VA is best. These three categories hold $88\%$ of the
-expressions, which explains the gap on GSEval All in \cref{tab:controlled}. One likely reason is that the candidate
-pool is built for parts: whole objects and stuff regions often have no single candidate that covers them, while a
-box prompt to SAM\,3 recovers them directly.
-
-\input{tables/tabF_gseval_categories}
-
-\subsection{Baseline prompts on reasoning queries}
-\label{sec:supp_prompts}
-For the reasoning benchmarks in \cref{tab:reasoning}, each baseline receives its own question prompt.
-\Cref{tab:reason_prompts} compares this with the phrase template of \cref{tab:controlled}. The prompt changes each
-baseline by at most $2.0$ gIoU, much less than the gap between \ours{} and Box\,+\,SAM\,3 on InstructPart, so the
-conclusions of \cref{tab:reasoning} do not depend on it.
+\paragraph{Baseline prompts on reasoning queries.}
+In \cref{tab:reasoning}, each baseline receives its own question prompt. \Cref{tab:reason_prompts} compares this
+with the phrase template of \cref{tab:controlled}. The prompt changes each baseline by at most $2.0$ gIoU, far less
+than the margin of \ours{} over Box\,+\,SAM\,3 on InstructPart ($11.2$ and $8.5$ gIoU), so the conclusions of
+\cref{tab:reasoning} do not depend on the choice of prompt.
 
 \input{tables/tabB_reason_prompts}
 
-\subsection{Choice of the read-out layer}
-\label{sec:supp_readout}
-We train selection heads at decoder layers $12$, $24$ and $36$ jointly and choose the layer $\ell^\star$ and the
-checkpoint on a fixed PACO validation subset (\cref{tab:readout_layer}). Layers $24$ and $36$ are within $0.5$ points
-of each other at every checkpoint after the first, and layer $12$ is about $4$ points lower at the end of training.
-We use $\ell^\star=36$ at step $11{,}000$. These are validation numbers, used only for this choice.
+\paragraph{Multi-target referring.}
+In the main comparison every method returns one mask per query. gRefCOCO also contains expressions that refer to
+several objects, so \cref{tab:multitarget} lets every method return several masks and scores their union. \ours{}
+returns all candidates with $\sigma(s_v)\geq t$ (\cref{sec:impl}). Under this protocol, \ours{} has the highest gIoU
+($72.3$ and $65.2$) and N-acc ($89.6$ and $86.0$) on both test splits, while Box\,+\,SAM\,3 with all boxes has the
+higher cIoU on testB ($58.9$ vs.\ $58.3$). SAM\,3 with all text instances rejects almost as often on testA ($89.3$)
+but grounds the targets much less accurately ($44.3$ gIoU). These are the gRefCOCO numbers reported for \ours{} in
+\cref{tab:published}.
 
-\input{tables/tabE_readout_layer}
+\input{tables/tabC_multitarget}
 
-\section{Overlap between training and test images}
-\label{sec:supp_overlap}
-We checked every test set built from the same image sources as our training data (PARTONOMY, PACO, Pascal-Part
-(PPS-116), PartImageNet, InstructPart and gRefCOCO; $18{,}122$ test images) against all $64{,}806$ training images.
-No test image is an exact pixel copy of a training image, and no COCO image id is shared between the training and
-evaluation splits. A 64-bit difference hash flags $168$ test images ($0.9\%$) whose hash is within Hamming distance
-$4$ of a training image (\cref{tab:overlap}). These are candidates for near-duplicates, not confirmed duplicates, and
-they were not removed. GSEval uses the COCO unlabeled2017 images, which are disjoint from the COCO training images.
+\paragraph{Tree-relation terms.}
+\Cref{tab:tree_ablation} removes the tree-relation attention bias and the family loss from the full model (row (e) of
+\cref{tab:ablation}). Grounding changes little: the full model is higher on GSEval parts ($+2.3$), PPS-116 ($+0.7$)
+and InstructPart ($+1.0$), lower on gRefCOCO testB ($-1.2$), and within $0.4$ points elsewhere. The clearest effect
+is on rejection, where the tree terms add $4.1$ and $5.0$ N-acc. The full model was also the better of the two on
+validation ($85.6$ vs.\ $85.0$ selection success on PACO), which is how it was chosen.
 
-\begin{table}[t]
-\centering
-\setlength{\tabcolsep}{6pt}
-\begin{tabular}{l rrr}
-\toprule
-Test set & Images & Exact & Near ($\leq4$) \\
-\midrule
-PARTONOMY        & 1{,}065 & 0 & 30 \\
-PACO             & 9{,}443 & 0 & 74 \\
-PPS-116          &   925   & 0 &  4 \\
-PartImageNet     & 4{,}589 & 0 & 40 \\
-InstructPart     &   600   & 0 & 18 \\
-gRefCOCO testA   &   750   & 0 &  1 \\
-gRefCOCO testB   &   750   & 0 &  1 \\
-\midrule
-Total            & 18{,}122 & 0 & 168 \\
-\bottomrule
-\end{tabular}
-\caption{\textbf{Training images in the test sets.} Exact: identical pixels. Near: difference-hash Hamming distance
-at most $4$ (candidates only).}
-\label{tab:overlap}
-\end{table}
+\input{tables/tabD_tree_ablation}
 
-\clearpage
-\section{Qualitative results}
+\paragraph{GSEval by expression category.}
+\Cref{tab:gseval_categories} splits GSEval by the category of the referring expression. \ours{} is best on part
+expressions, $13.9$ gIoU above Box\,+\,SAM\,3. It is behind Box\,+\,SAM\,3 on single objects ($-4.0$), multiple
+objects ($-4.3$) and stuff ($-5.7$), and on multiple objects Sa2VA is best. These three categories hold $88\%$ of the
+expressions, which explains the gap of $2.3$ points on GSEval All in \cref{tab:controlled}.
+
+\input{tables/tabF_gseval_categories}
+
+\FloatBarrier
+\subsection{Qualitative Examples}
 \label{sec:supp_qual}
-The following pages extend \cref{fig:showcase} for each task. For every task there are selected examples, a
-fixed-seed random sample and the failure cases, i.e.\ the test queries where \ours{} falls furthest behind
-Box\,+\,SAM\,3. No example from the main paper is repeated, and every mask is a stored model output on a test query.
+Figures~\ref{fig:supp_part_selected_1}--\ref{fig:supp_edit_failures} extend Fig.~\ref{fig:showcase} for each task.
+For part grounding (Figs.~\ref{fig:supp_part_selected_1}--\ref{fig:supp_part_failures}), reasoning
+(Figs.~\ref{fig:supp_reason_selected_1}--\ref{fig:supp_reason_failures}) and editing
+(Figs.~\ref{fig:supp_edit_selected_1}--\ref{fig:supp_edit_failures}), we show selected examples, a fixed-seed random
+sample, and the failure cases, i.e.\ the test queries where \ours{} falls furthest behind Box\,+\,SAM\,3. No example
+from the main paper is repeated, and every mask is a stored model output on a test query.
 
 \input{figures/qualitative/supp/supp_qualitative}

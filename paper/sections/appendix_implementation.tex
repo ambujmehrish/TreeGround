@@ -1,6 +1,6 @@
 % Appendix: implementation details (all hyperparameter values; symbols as in the method section).
 % Values: configs/s0.yaml, configs/s3.yaml, configs/ta.yaml, treeground/{tree,tree_attn,selector,sampling,lora}.py.
-\section{Implementation details}
+\section{Implementation Details}
 \label{sec:impl}
 
 \paragraph{Candidate pool.}
@@ -16,10 +16,14 @@ MLLM with one hidden layer, both with GELU.
 
 \paragraph{Attention and selection head.}
 The region margin is $d=1$ cell. The tree bias has seven relations (self, parent, child, sibling, ancestor,
-descendant, other) and one scalar per relation and layer. $\psi_q$ and $\psi_k$ are two-layer MLPs with hidden
-width $1024$ and output width $256$. The scale $\lambda$ is initialised to $1/0.07$ and capped at $100$; the offset
-$\beta$ is initialised to $-\log N_g$. We train heads at layers $\ell\in\{12,24,36\}$ of the 36-layer decoder jointly
-and choose $\ell^{\star}$ with the checkpoint on validation, which gives $\ell^{\star}=36$.
+descendant, other), with one scalar per relation and layer, initialised to $0$. $\psi_q$ and $\psi_k$ are two-layer
+MLPs with hidden width $1024$ and output width $256$. The scale $\lambda$ is initialised to $1/0.07$ and capped at
+$100$, and the offset $\beta$ is initialised to $-\log N_g$. We train selection heads at layers $12$, $24$ and $36$ of
+the $36$-layer decoder jointly, and choose the read-out layer $\ell^\star$ and the checkpoint on a fixed PACO
+validation subset (\cref{tab:readout_layer}). Layers $24$ and $36$ stay within $0.5$ points of each other at every
+checkpoint, while layer $12$ ends about $4$ points lower. We use $\ell^\star=36$ at step $11{,}000$.
+
+\input{tables/tabE_readout_layer}
 
 \paragraph{Training.}
 LoRA has rank $16$ ($\alpha=32$, dropout $0.05$) on the attention and MLP projections of the language model. A
@@ -33,7 +37,7 @@ biases), $500$ warm-up steps followed by cosine decay, and gradient clipping at 
 \paragraph{Inference.}
 Under the one-mask-per-query protocol the answer is the candidate with the highest score $s_v$. On gRefCOCO the
 model answers ``no target'' when $\sigma(s_v)<\tau$ for every candidate, with $\tau=0.925$ chosen on the validation
-split. Under the multi-mask protocol (Tab.~\ref{tab:multitarget}) the answer is the union of all candidates with
+split. Under the multi-mask protocol (\cref{tab:multitarget}) the answer is the union of all candidates with
 $\sigma(s_v)\geq t$, with $t=0.9$.
 
 \paragraph{Query rewriting for reasoning queries.}
@@ -44,3 +48,5 @@ cup' or `the handle of the door'. Request: \{query\}''. Decoding is greedy with 
 phrase replaces the query's phrases as the SAM\,3 prompt for the text candidates; if the answer is empty we fall
 back to the phrases of the original query. The selection model is unchanged and still reads the original question.
 This rule was fixed on the ReasonSeg validation split before any test run.
+
+\input{sections/supp_algorithms}

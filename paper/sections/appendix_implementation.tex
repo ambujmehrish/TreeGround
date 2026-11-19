@@ -27,7 +27,7 @@ candidate is a positive or ignored at $\theta=0.5$. Each query uses $n_h=32$ har
 its image and $n_c=64$ candidates from other images. The focal loss has focusing parameter $2$; the family loss uses
 $\mu=0.1$ and $w_{\mathrm{fam}}=1$. Training data are PACO-LVIS, Pascal-Part and gRefCOCO (train splits) with
 per-step shares $0.6$ / $0.2$ / $0.2$. We train for $12{,}000$ steps with a batch of $32$ images, AdamW, learning
-rates $2\times10^{-4}$ (LoRA and \texttt{<SEL>}), $3\times10^{-4}$ (heads and mask-token MLP) and $10^{-2}$ (tree
+rates $2\times10^{-4}$ (LoRA and the selection-token embedding), $3\times10^{-4}$ (heads and mask-token MLP) and $10^{-2}$ (tree
 biases), $500$ warm-up steps followed by cosine decay, and gradient clipping at $1$.
 
 \paragraph{Inference.}

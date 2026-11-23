@@ -1,0 +1,684 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.4cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,amsthm,booktabs,array,enumitem,xcolor}
+\usepackage{algorithm,algpseudocode}
+\usepackage[colorlinks,allcolors=blue!55!black]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\newcommand{\nul}{\varnothing}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\Top}{\mathrm{Top}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\setlist{itemsep=2pt,topsep=4pt}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\title{Graded Grounding with Priced Tree Answers\\[4pt]
+\large Problem, algorithm and mathematics --- working document}
+\author{Extension of \emph{Ask, Don't Draw} (ADD)}
+\date{Version of 23 November 2026}
+
+\begin{document}
+\maketitle
+
+\noindent\fbox{\parbox{0.97\linewidth}{\textbf{Status of this document.} This is a design document. No experiment
+has been run for the method described here. Every proof below is complete and written out; the recursions,
+Theorem~\ref{thm:nested} and Propositions~\ref{prop:logz}--\ref{prop:limit} were also checked numerically against
+brute-force enumeration (Sec.~\ref{sec:status}). Numbers in the examples are illustrative unless they are marked as
+results of the ADD paper. Statements about other papers are marked in the reference list as either read for this
+document or recalled from memory.}}
+
+\tableofcontents
+
+%=====================================================================================================
+\section{Summary}
+ADD answers a query such as ``the handle of the mug'' by scoring about 260 candidate masks and returning the best
+one, or nothing. It cannot say that it is unsure, it cannot return a coarser but safe answer, and it cannot say ``the
+mug is here, but it has no visible handle''.
+
+We propose to replace only the last step of ADD, the step that turns scores into an answer. The new answer is a
+small \emph{set of nodes of the containment tree} that ADD already builds. It is chosen by one rule: take the
+regions whose probability is worth more than their area, at a price $\tau$ per unit of area. We show three things.
+\begin{enumerate}
+\item The answers for different prices are nested (Theorem~\ref{thm:nested}). A lower price can only enlarge the
+answer.
+\item If the probabilities are correct, the rule is optimal: no other rule covers as many targets with less claimed
+area (Theorem~\ref{thm:optimal}).
+\item Because of nesting, the price can be calibrated on held-out data so that the fraction of missed targets is at
+most a chosen level $\alpha$, for any model (Theorem~\ref{thm:crc}, which is the conformal risk control theorem of
+\cite{crc}).
+\end{enumerate}
+We then derive a training loss from the same rule (Sec.~\ref{sec:training}). It is the negative log-probability that a
+smoothed version of the rule returns an acceptable answer, and it becomes the exact rule at zero temperature.
+Finally we define a new task, \emph{graded grounding}, in which the correct answer can be a part, several parts, the
+object when the part is not visible, or nothing (Sec.~\ref{sec:task}).
+
+%=====================================================================================================
+\section{The problem}
+\subsection{What ADD does and where it stops}
+For an image $I$ and a query $x$, ADD (our CVPR 2027 submission \cite{add}) performs four steps.
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item \textbf{Candidates.} A frozen segmenter (SAM\,3 \cite{sam3}) proposes masks from a point grid and from the
+phrases of the query. This gives candidates $V=\{1,\dots,N\}$ with masks $m_v\subseteq\Omega$, where $\Omega$ is the
+set of pixels and $N\approx260$.
+\item \textbf{Tree.} The parent of a mask is the smallest larger mask that contains at least a fraction
+$\rho=0.8$ of it. The root $r$ is the whole image, $m_r=\Omega$.
+\item \textbf{Scores.} Each mask becomes one token. One forward pass of the multimodal language model gives a score
+\[
+s_v=\lambda\cos\!\big(\psi_q(h_{\langle\mathrm{SEL}\rangle}),\psi_k(z_v)\big)+\beta .
+\]
+\item \textbf{Answer.} $v^\star=\argmax_v s_v$; the answer is $m_{v^\star}$, or nothing if $\sigma(s_{v^\star})<\tau_{\mathrm{rej}}$.
+\end{enumerate}
+Steps A--C stay unchanged in everything that follows. We replace step~D.
+
+Step~D has three weaknesses.
+\begin{itemize}
+\item \textbf{No signal of uncertainty.} A wrong mask looks like a right one. On PARTONOMY, ADD reaches 49.4 gIoU
+while the best candidate in its pool reaches 71.0 \cite{add}; many answers are wrong although a good candidate
+exists.
+\item \textbf{Only two kinds of answer.} One mask, or nothing. There is no way to answer ``one of these two
+handles'' or ``somewhere on this mug''.
+\item \textbf{No guarantee.} The rejection threshold is tuned for a benchmark score. It says nothing about how often
+the answer misses the target.
+\end{itemize}
+
+\subsection{The new task: graded grounding}
+\label{sec:task}
+Existing benchmarks have two kinds of query: the target exists, or it does not (gRefCOCO \cite{gres}). We consider
+five cases. Example: an image with three mugs.
+
+\begin{center}
+\begin{tabular}{L{3.3cm}L{5.0cm}L{6.0cm}}
+\toprule
+Case & Example query & Correct answer \\
+\midrule
+Unique part & the handle of the red mug & that handle \\
+All instances & the handles of the mugs & all three handles \\
+Ambiguous & the handle of the mug & all three, or a hedge that contains them \\
+Part not visible & the lid of the mug (no lid visible) & the mug, with the statement ``no lid visible'' \\
+Object absent & the handle of the teapot & nothing \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent The fourth case is the new one: the correct answer lies at an intermediate level of the hierarchy. The
+goal is to return, for every query, \emph{the finest answer that is correct}, together with a guarantee on how often
+the answer misses a target.
+
+\paragraph{How the task can be built.} PACO-LVIS \cite{paco} annotates, for each object instance, the masks of its
+visible parts from a fixed list of possible parts per object class, and it flags the images in which an object-part
+is not exhaustively annotated. On the exhaustively annotated subset, a part of the class list without a mask on an
+instance gives a ``part not visible'' query, and images with several instances of one class give the ``all
+instances'' and ``ambiguous'' queries. No new labelling is needed. (``Not visible'' includes occluded parts; for
+grounding, both have the same correct answer.)
+
+%=====================================================================================================
+\section{Notation}
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Symbol & Meaning \\
+\midrule
+$\Omega$ & pixels of the image \\
+$V$, $m_v$ & candidates and their masks; $r\in V$ is the image root \\
+$D(v)$ & $v$ together with all its descendants in the tree \\
+$R(v)$ & region of $v$ (Def.~\ref{def:region}) \\
+$\nul$ & extra leaf meaning ``no target'' \\
+$s_v$, $q_v$ & score and probability of candidate $v$ (Sec.~\ref{sec:prob}) \\
+$\gamma_v$ & own area of $v$ (Def.~\ref{def:cost}); $\gamma_\nul=c_\nul$ \\
+$S$ & an answer: a downward-closed set of nodes (Def.~\ref{def:answer}) \\
+$P(S)$, $C(S)$ & mass and cost of an answer \\
+$\tau$ & price per unit of area \\
+$w_u=q_u-\tau\gamma_u$ & weight of node $u$; $W(v)=\sum_{u\in D(v)}w_u$ \\
+$\kappa$ & fraction of a target that must be covered \\
+$\alpha$ & tolerated miss rate \\
+$T$ & temperature of the smoothed rule \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%=====================================================================================================
+\section{Inference: from scores to an answer}
+\subsection{Component 1: regions}
+In ADD's tree a child lies only 80\% inside its parent. Backing off from a child to its parent could therefore lose
+pixels of the target. We remove this by giving each node the union of all masks below it.
+
+\begin{definition}[Region]\label{def:region}
+$R(v)=\bigcup_{u\in D(v)}m_u$ for $v\in V$.
+\end{definition}
+
+\begin{proposition}[Exact nesting]\label{prop:nest}
+If $u\in D(v)$ then $R(u)\subseteq R(v)$.
+\end{proposition}
+\begin{proof}
+$u\in D(v)$ implies $D(u)\subseteq D(v)$, so every mask in the union defining $R(u)$ also appears in the union
+defining $R(v)$.
+\end{proof}
+\noindent Consequence: if a target is covered by $R(u)$, it is covered by the region of every ancestor of $u$.
+Moving up the tree can make an answer coarser but never wrong.
+
+\subsection{Component 2: probabilities}
+\label{sec:prob}
+\begin{definition}[Probabilities]
+For every candidate $v\in V$, $q_v=\sigma(s_v)=1/(1+e^{-s_v})$.
+\end{definition}
+$q_v$ is the probability that candidate $v$ is a target. The probabilities do not sum to one over the pool: each
+answers its own yes-or-no question. This is how ADD is trained (a focal loss \cite{focal} on each $\sigma(s_v)$
+separately), and it is what allows several targets. Their sum estimates the number of targets.
+
+\paragraph{No target.} The sigmoids have no left-over mass for ``nothing there'', so its probability is defined
+separately. With a frozen ADD model we use
+\[
+q_\nul=1-\max_{v\in V}q_v ,
+\]
+which reproduces ADD's rejection rule exactly ($\sigma(s_{v^\star})<\tau_{\mathrm{rej}}\iff q_\nul>1-\tau_{\mathrm{rej}}$);
+this rule gives 94.0 / 90.9 N-acc on gRefCOCO \cite{add}. When the model is trained with the loss of
+Sec.~\ref{sec:training}, we use a learned value $q_\nul=\sigma(s_\nul)$ with $s_\nul$ a linear read-out of
+$h_{\langle\mathrm{SEL}\rangle}$.
+
+\paragraph{Extended tree.} We add $\nul$ as a leaf of its own, next to the image root. The node set is
+$V^+=V\cup\{\nul\}$; it is a forest with the two roots $r$ and $\nul$.
+
+\begin{remark}
+The guarantee of Sec.~\ref{sec:calib} holds for any values of $q$. Accurate probabilities make the answers more
+specific, not more valid. If needed, the scores can be rescaled on validation data, $q_v=\sigma(a\,s_v+b)$.
+\end{remark}
+
+\subsection{Component 3: answers and their cost}
+\begin{definition}[Answer]\label{def:answer}
+An answer is a set $S\subseteq V^+$ that is closed downwards: $v\in S\Rightarrow D(v)\subseteq S$. The set of all
+answers is $\cS$. $\Top(S)$ is the set of nodes of $S$ whose parent is not in $S$. The claimed region is
+$A(S)=\bigcup_{v\in\Top(S)\cap V}R(v)$, and the answer asserts ``no target'' as a possibility if $\nul\in S$.
+\end{definition}
+Examples: $\{$handle 1$\}$; $\{$handle 1, handle 2$\}$; $D(\text{mug})$ shown as $\{$mug$\}$; $\{\nul\}$; $V^+$
+(``cannot tell''). ADD's answers are the special cases $D(v^\star)$ and $\{\nul\}$.
+
+\begin{proposition}[Lattice]\label{prop:lattice}
+If $S,S'\in\cS$ then $S\cup S'\in\cS$ and $S\cap S'\in\cS$.
+\end{proposition}
+\begin{proof}
+Let $v\in S\cup S'$, say $v\in S$. Then $D(v)\subseteq S\subseteq S\cup S'$. Let $v\in S\cap S'$. Then
+$D(v)\subseteq S$ and $D(v)\subseteq S'$.
+\end{proof}
+
+\begin{definition}[Mass and cost]\label{def:cost}
+Each pixel is owned by the smallest candidate mask that covers it (ties broken by a fixed order). The own area of
+$u\in V$ is $\gamma_u=\#\{\text{pixels owned by }u\}/|\Omega|$, and $\gamma_\nul=c_\nul>0$ is a constant. For an
+answer $S$,
+\[
+P(S)=\sum_{u\in S}q_u,\qquad C(S)=\sum_{u\in S}\gamma_u .
+\]
+\end{definition}
+$P(S)$ is the expected number of targets among the nodes of $S$. $C(S)$ is the fraction of the image owned by the
+nodes of $S$; it is at most the area of $A(S)$ and equal to it when sibling masks do not overlap. Both are sums
+over nodes with non-negative terms; this additivity is what the theory uses. The number of nodes of $\Top(S)$ would
+not be additive, which is why we do not use it as a cost. $c_\nul$ is a convention (for example the typical area of
+a target); without it, adding $\nul$ to every answer would be free.
+
+\subsection{Component 4: the rule}
+\begin{definition}[Rule]\label{def:rule}
+For a price $\tau\ge0$, let $w_u=q_u-\tau\gamma_u$ and $w(S)=\sum_{u\in S}w_u=P(S)-\tau C(S)$. The answer is
+\[
+S(\tau)=\text{the largest maximiser of } w(S)\text{ over }S\in\cS .
+\]
+\end{definition}
+The largest maximiser exists and is unique: by Proposition~\ref{prop:lattice} and additivity of $w$, the union of
+two maximisers is again a maximiser (this is the case $\tau=\tau'$ of the proof of Theorem~\ref{thm:nested}).
+
+\paragraph{Computation.} For a node $v$, an answer restricted to the subtree of $v$ either contains $v$, and then
+it is all of $D(v)$, or it does not contain $v$, and then it is a union of independent answers in the subtrees of
+the children. Hence, with $g(v)$ the best value inside the subtree of $v$,
+\begin{equation}\label{eq:dp}
+g(v)=\max\Big(W(v),\ \sum_{c\in\mathrm{ch}(v)}g(c)\Big),\qquad g(\text{leaf})=\max(w_{\text{leaf}},0).
+\end{equation}
+If the first term is at least as large as the second, $v$ is taken with its whole subtree and becomes a node of
+$\Top(S)$; otherwise $v$ is left out and the children decide. Taking the subtree on ties returns the largest
+maximiser. The total is $g(r)+g(\nul)$. Each node is visited once, so the cost is $O(N)$ (Algorithm~\ref{alg:rule}).
+
+\paragraph{When a parent replaces its children.} $W(v)\ge\sum_cg(c)$ is equivalent to
+$w_v\ge\sum_c\big(g(c)-W(c)\big)$. The right-hand side is the value of what the children had left out. A parent takes
+over when its own probability pays for its own area and for everything its children had rejected.
+
+\begin{theorem}[Nested answers]\label{thm:nested}
+If $\tau<\tau'$ then $S(\tau')\subseteq S(\tau)$.
+\end{theorem}
+\begin{proof}
+Write $w_\tau(S)=P(S)-\tau C(S)$. Let $S$ be a maximiser at $\tau$ and $S'$ a maximiser at $\tau'$, and let
+$\Delta=S'\setminus S$. By Proposition~\ref{prop:lattice}, $S\cap S'\in\cS$ and $S\cup S'\in\cS$. Since $S'$ is optimal
+at $\tau'$ and $S'=(S\cap S')\cup\Delta$ with a disjoint union,
+\[
+0\le w_{\tau'}(S')-w_{\tau'}(S\cap S')=P(\Delta)-\tau'C(\Delta).
+\]
+Because $C(\Delta)\ge0$ and $\tau<\tau'$, also $P(\Delta)-\tau C(\Delta)\ge0$. Therefore
+$w_\tau(S\cup S')=w_\tau(S)+P(\Delta)-\tau C(\Delta)\ge w_\tau(S)$, so $S\cup S'$ is a maximiser at $\tau$. Taking $S$
+to be the largest maximiser at $\tau$ gives $S\cup S'\subseteq S$, that is, $S'\subseteq S(\tau)$ for every
+maximiser $S'$ at $\tau'$, in particular for $S(\tau')$.
+\end{proof}
+
+\begin{theorem}[Optimality]\label{thm:optimal}
+Suppose that for every input the values $q_u$ equal the true probabilities that node $u$ is a truth node
+(Def.~\ref{def:truth}). Fix $\tau>0$ and let $S_\tau(\cdot)$ be the rule of Def.~\ref{def:rule}. Let $S'(\cdot)$ be
+any rule that returns an answer in $\cS$ for every input and covers at least as many truth nodes in expectation,
+$\mathbb{E}[P(S')]\ge\mathbb{E}[P(S_\tau)]$. Then $\mathbb{E}[C(S_\tau)]\le\mathbb{E}[C(S')]$.
+\end{theorem}
+\begin{proof}
+For every input, $S_\tau$ maximises $P(S)-\tau C(S)$, so $P(S_\tau)-\tau C(S_\tau)\ge P(S')-\tau C(S')$. Taking
+expectations and using $\mathbb{E}[P(S')]\ge\mathbb{E}[P(S_\tau)]$ gives $\tau\,\mathbb{E}[C(S_\tau)]\le\tau\,
+\mathbb{E}[C(S')]$.
+\end{proof}
+\noindent The theorem is the tree version of the Neyman--Pearson argument \cite{np}: threshold probability per unit
+of cost. For flat label sets the analogous result is known \cite{sadinle}.
+
+\subsection{Component 5: calibration of the price}
+\label{sec:calib}
+\begin{definition}[Miss loss]\label{def:loss}
+Let a query have targets with masks $m_1,\dots,m_k$ ($k\ge0$) and let $S$ be an answer. Target $t$ is covered if
+$|m_t\cap A(S)|\ge\kappa|m_t|$.
+\[
+L(S)=\begin{cases}\dfrac{\#\{t:\ t\text{ not covered}\}}{k}&k\ge1,\\[8pt] \mathbf{1}[\nul\notin S]&k=0.\end{cases}
+\]
+\end{definition}
+$L\in[0,1]$. If $S\subseteq S'$ then $A(S)\subseteq A(S')$ and $\nul\in S\Rightarrow\nul\in S'$, so
+$L(S')\le L(S)$. Together with Theorem~\ref{thm:nested} and Proposition~\ref{prop:nest}:
+\begin{equation}\label{eq:mono}
+\tau<\tau'\ \Longrightarrow\ L\big(S(\tau)\big)\le L\big(S(\tau')\big)\quad\text{for every single query,}
+\end{equation}
+and $L(S(0))=0$ because $S(0)=V^+$.
+
+\paragraph{Procedure.} Take $n$ held-out images with ground truth. Let $L_i(\tau)$ be the loss of image $i$ at price
+$\tau$, averaged over the queries of that image, and $\hat R(\tau)=\frac1n\sum_iL_i(\tau)$. On a fixed finite grid
+$\Gamma\ni0$ of prices,
+\begin{equation}\label{eq:tauhat}
+\hat\tau=\max\Big\{\tau\in\Gamma:\ \frac{n}{n+1}\hat R(\tau)+\frac{1}{n+1}\le\alpha\Big\}.
+\end{equation}
+The set is not empty if $\alpha\ge1/(n+1)$, because $\hat R(0)=0$. Images, not queries, are the units, because
+several queries on one image are dependent.
+
+\begin{theorem}[Risk control {\cite{crc}}]\label{thm:crc}
+If the $n$ calibration images and the test image are exchangeable, then
+$\ \mathbb{E}\big[L_{n+1}(\hat\tau)\big]\le\alpha .$
+\end{theorem}
+\noindent This is the conformal risk control theorem of Angelopoulos et al.\ \cite{crc}, applied with the parameter
+$-\tau$. Its conditions are: a loss bounded by $1$, monotone in the parameter (Eq.~\ref{eq:mono}), and a parameter
+value at which the loss is at most $\alpha$ ($\tau=0$). On a finite grid no continuity condition is needed. We state
+the theorem from the literature and do not re-prove it; its exact conditions should be checked against \cite{crc}
+before publication. The expectation is over the calibration set and the test image: the guarantee is an average,
+not a statement about each single answer.
+
+\paragraph{The floor.} Some targets have no usable candidate. If the only node that covers such a target is the image
+root, and the root has probability near zero, the rule takes it only at a price near zero. The miss rate at any
+useful price is therefore at least the fraction of such targets. If $\alpha$ is below this floor, $\hat\tau$ is
+close to $0$ and every answer is ``everything'': valid but empty. The floor is measurable without a model and is the
+first thing to measure.
+
+%=====================================================================================================
+\section{Training through the rule}
+\label{sec:training}
+A frozen ADD model has a specific weakness for this task. For the query ``the handle of the mug'', the mug itself
+was always a negative. The model has no way to put probability on the mug when no handle is visible or when the
+pool contains no handle candidate. The loss below rewards exactly that.
+
+\subsection{The gold answer}
+\begin{definition}[Truth node, gold answer, ignored nodes]\label{def:truth}
+For a target with mask $m_t$, the truth node is the smallest node that covers it,
+\[
+u_t=\argmin_{v\in V:\ |m_t\cap R(v)|\ge\kappa|m_t|}\ |R(v)| ,
+\]
+which exists because the root covers everything. The gold answer is $S^\star=\bigcup_tD(u_t)$ for a query with
+targets and $S^\star=\{\nul\}$ for a query without. The ignored set $I\subseteq V\setminus S^\star$ contains the
+candidates that match some target with IoU $\ge\theta$ but are not in $S^\star$ (for example a near-duplicate mask),
+as in ADD. The acceptable answers are
+\[
+\cG=\{S\in\cS:\ S^\star\subseteq S\subseteq S^\star\cup I\}.
+\]
+\end{definition}
+\begin{center}
+\begin{tabular}{L{5.2cm}L{4.6cm}L{4.4cm}}
+\toprule
+Case & Truth node & Gold answer \\
+\midrule
+Part visible, good candidate & that candidate & the part \\
+Part visible, no good candidate & smallest covering node, often the object & the object \\
+Part not visible & smallest node covering the object & the object \\
+Several targets & one per target & all of them \\
+No target & --- & $\{\nul\}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+For ``part not visible'' queries the target mask is the mask of the object. Containing the truth node implies that
+the target is covered in the sense of Def.~\ref{def:loss}; the converse can fail when several nodes together cover a
+target that none covers alone.
+
+\subsection{The smoothed rule}
+Fix a training price $\tau_0$, weights $w_u=q_u-\tau_0\gamma_u$, and a temperature $T>0$. Define a distribution over
+answers,
+\begin{equation}\label{eq:gibbs}
+p(S)=\frac{\exp(w(S)/T)}{Z},\qquad Z=\sum_{S\in\cS}\exp(w(S)/T).
+\end{equation}
+As $T\to0$ all probability goes to the maximisers of $w$, that is, to the rule of Def.~\ref{def:rule}.
+
+\begin{proposition}[Partition function]\label{prop:logz}
+Let $A(v)$ be defined bottom-up by
+\[
+A(\text{leaf})=\log\big(1+e^{w_{\text{leaf}}/T}\big),\qquad
+A(v)=\log\Big(e^{W(v)/T}+\exp\!\Big(\sum_{c\in\mathrm{ch}(v)}A(c)\Big)\Big).
+\]
+Then $\log Z=A(r)+A(\nul)$.
+\end{proposition}
+\begin{proof}
+Let $Z(v)$ be the sum of $\exp(w(S)/T)$ over the answers $S$ inside the subtree of $v$. Such an answer either
+contains $v$, and then equals $D(v)$ with weight $W(v)$, or does not contain $v$, and then is a union of one answer
+per child subtree, chosen independently; the weights add, so the exponentials multiply. Hence
+$Z(v)=e^{W(v)/T}+\prod_cZ(c)$, with the empty product equal to $1$ for a leaf. $A(v)=\log Z(v)$. The two trees with
+roots $r$ and $\nul$ are independent, so $Z=Z(r)Z(\nul)$.
+\end{proof}
+
+\begin{proposition}[Inclusion probabilities]\label{prop:marg}
+Let $\pi(v)=\exp\big(W(v)/T-A(v)\big)$. Then for every node $u$,
+\[
+m(u):=p(u\in S)=1-\prod_{v\in\mathrm{path}(u)}\big(1-\pi(v)\big)=T\,\frac{\partial\log Z}{\partial w_u},
+\]
+where $\mathrm{path}(u)$ is the set of nodes from the root of $u$'s tree down to $u$, both included.
+\end{proposition}
+\begin{proof}
+Condition on the event that no strict ancestor of $v$ is in $S$. By the product structure in the proof of
+Proposition~\ref{prop:logz}, the part of $S$ inside the subtree of $v$ is then distributed as in
+Eq.~\eqref{eq:gibbs} restricted to that subtree, so $v\in S$ has probability $e^{W(v)/T}/Z(v)=\pi(v)$. Node $u$ is
+\emph{not} in $S$ exactly if none of the nodes on its path is taken, which has probability
+$\prod_{v\in\mathrm{path}(u)}(1-\pi(v))$. The second equality is the standard identity
+$\partial\log Z/\partial w_u=\frac1T\sum_{S\ni u}p(S)$.
+\end{proof}
+
+\subsection{The loss}
+\begin{proposition}[Constrained partition function]\label{prop:cons}
+Let $B=V^+\setminus(S^\star\cup I)$ be the forbidden nodes. Define $A_\cG(v)$ by the recursion of
+Proposition~\ref{prop:logz} with two restrictions: the term $e^{W(v)/T}$ is present only if $D(v)\cap B=\emptyset$,
+and the term $\exp(\sum_cA_\cG(c))$ (which is $1$ for a leaf) is present only if $v\notin S^\star$. Then
+$A_\cG(r)+A_\cG(\nul)=\log Z_\cG$ with $Z_\cG=\sum_{S\in\cG}\exp(w(S)/T)$.
+\end{proposition}
+\begin{proof}
+The first restriction removes exactly the answers that contain a forbidden node, since taking $v$ whole adds
+$D(v)$. The second removes exactly the answers that omit a node of $S^\star$: a node $v\in S^\star$ is in $S$ iff it or
+an ancestor is taken whole, and forbidding ``leave $v$ out'' at $v$ forces this whenever the recursion reaches $v$.
+At least one term is always present: if $v\in S^\star$ then $D(v)\subseteq S^\star$, so $D(v)\cap B=\emptyset$.
+\end{proof}
+
+\begin{definition}[Rule loss]
+\begin{equation}\label{eq:loss}
+\mathcal{L}_{\mathrm{rule}}=-\log p(S\in\cG)=\log Z-\log Z_\cG .
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Gradient]\label{prop:grad}
+With $m_\cG(u)=p(u\in S\mid S\in\cG)$,
+\[
+\frac{\partial\mathcal{L}_{\mathrm{rule}}}{\partial w_u}=\frac{m(u)-m_\cG(u)}{T},\qquad
+\frac{\partial w_u}{\partial s_u}=q_u(1-q_u).
+\]
+\end{proposition}
+\begin{proof}
+Apply the identity of Proposition~\ref{prop:marg} to $\log Z$ and to $\log Z_\cG$.
+\end{proof}
+\noindent For a node of $S^\star$, $m_\cG=1$: the gradient raises its weight until the rule includes it. For a
+forbidden node, $m_\cG=0$: the gradient lowers its weight until the rule excludes it. For an ignored node the two
+terms largely cancel. The gradient reaches the mask tokens, the tree biases, the heads and the LoRA weights through
+the scores.
+
+\begin{proposition}[Zero-temperature limit]\label{prop:limit}
+$\displaystyle\lim_{T\to0}T\,\mathcal{L}_{\mathrm{rule}}=\max_{S\in\cS}w(S)-\max_{S\in\cG}w(S)\ \ge0$, with equality iff
+some maximiser of $w$ over $\cS$ is acceptable.
+\end{proposition}
+\begin{proof}
+$T\log\sum_Se^{w(S)/T}\to\max_Sw(S)$ as $T\to0$ for a finite sum; apply this to $Z$ and $Z_\cG$, and note
+$\cG\subseteq\cS$.
+\end{proof}
+\noindent So the loss measures by how much the test-time rule, at price $\tau_0$, prefers an unacceptable answer.
+It has the form of the conditional likelihood of a conditional random field \cite{crf}, with the answers $\cS$ as
+the structured output space.
+
+\subsection{Full objective}
+\[
+\mathcal{L}=\mathcal{L}_{\mathrm{rule}}+\mathcal{L}_{\mathrm{ntp}}+\lambda\,\mathcal{L}_{\mathrm{sel}} .
+\]
+$\mathcal{L}_{\mathrm{ntp}}$ is ADD's next-token loss on the answer span, unchanged. $\mathcal{L}_{\mathrm{sel}}$ is
+ADD's focal loss with the positives relabelled to the truth nodes; it is kept with a small weight because it is the
+only term in which candidates of other images act as negatives. ADD's family loss is dropped, since
+$\mathcal{L}_{\mathrm{rule}}$ already compares a node with its parent and children. Multi-target queries need no
+special treatment: $S^\star$ is the union over the targets. ADD already trains on the multi-target expressions of
+gRefCOCO with one positive per target.
+
+%=====================================================================================================
+\section{Algorithms}
+\begin{algorithm}[H]
+\caption{Answer for one query at price $\tau$}\label{alg:rule}
+\begin{algorithmic}[1]
+\Require image $I$, query $x$, price $\tau$, constants $c_\nul$
+\State run ADD steps A--C: candidates $V$, tree, scores $s_v$
+\State $R(v)\gets\bigcup_{u\in D(v)}m_u$ for all $v$ (one pass from the leaves)
+\State $q_v\gets\sigma(s_v)$; \ $q_\nul\gets1-\max_vq_v$ (or $\sigma(s_\nul)$ for a trained model)
+\State assign each pixel to the smallest mask covering it; $\gamma_v\gets$ owned fraction; $\gamma_\nul\gets c_\nul$
+\State $w_u\gets q_u-\tau\gamma_u$ for all $u\in V^+$
+\Function{Solve}{$v$}
+  \State $(g_c,S_c,W_c)\gets$ \Call{Solve}{$c$} for each child $c$ of $v$
+  \State $W\gets w_v+\sum_cW_c$; \ $g\gets\sum_cg_c$
+  \If{$W\ge g$ \textbf{and} $W\ge0$} \Return $(W,\,D(v),\,W)$
+  \Else\ \Return $(g,\,\bigcup_cS_c,\,W)$
+  \EndIf
+\EndFunction
+\State $S\gets$ second output of \Call{Solve}{$r$} $\cup$ second output of \Call{Solve}{$\nul$}
+\State \Return $\Top(S)$ and the region $A(S)$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Calibration of the price}\label{alg:calib}
+\begin{algorithmic}[1]
+\Require $n$ held-out images with ground truth, level $\alpha$, grid $\Gamma$ (about 100 prices, log-spaced, with $0$), $\kappa$
+\For{each image $i$, each of its queries, each $\tau\in\Gamma$}
+  \State compute $S(\tau)$ with Algorithm~\ref{alg:rule} and its loss (Def.~\ref{def:loss})
+\EndFor
+\State $L_i(\tau)\gets$ mean loss over the queries of image $i$; \ $\hat R(\tau)\gets\frac1n\sum_iL_i(\tau)$
+\State \Return $\hat\tau\gets\max\{\tau\in\Gamma:\frac{n}{n+1}\hat R(\tau)+\frac1{n+1}\le\alpha\}$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{One training step for one query}\label{alg:train}
+\begin{algorithmic}[1]
+\Require image, query, target masks (possibly none), $\tau_0$, $T$, $\kappa$, $\theta$, $\lambda$
+\State run ADD steps A--C with gradients; compute $R$, $q$, $\gamma$, $w_u=q_u-\tau_0\gamma_u$
+\State truth nodes $u_t$, gold answer $S^\star$, ignored set $I$ (Def.~\ref{def:truth}); $B\gets V^+\setminus(S^\star\cup I)$
+\State $\log Z\gets A(r)+A(\nul)$ by the recursion of Proposition~\ref{prop:logz}
+\State $\log Z_\cG\gets A_\cG(r)+A_\cG(\nul)$ by the recursion of Proposition~\ref{prop:cons}
+\State $\mathcal{L}\gets(\log Z-\log Z_\cG)+\mathcal{L}_{\mathrm{ntp}}+\lambda\mathcal{L}_{\mathrm{sel}}$
+\State back-propagate and update LoRA, the selection-token embedding, $f$, $\psi_q$, $\psi_k$, the tree biases and the $\nul$ read-out
+\end{algorithmic}
+\end{algorithm}
+All recursions are evaluated in log space (log-sum-exp) for numerical stability and cost $O(N)$ per query.
+
+%=====================================================================================================
+\section{Worked example}
+Query: ``the handles of all the mugs'', three mugs, the model unsure about mug~3. $c_\nul=0.01$. The numbers are
+illustrative.
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Node & $q$ & own area $\gamma$ \\
+\midrule
+handle 1 & 0.92 & 0.01 \\
+handle 2 & 0.88 & 0.01 \\
+handle 3 & 0.40 & 0.01 \\
+rim of mug 3 & 0.35 & 0.01 \\
+mug 3 (itself) & 0.10 & 0.06 \\
+$\nul$ & $1-0.92=0.08$ & 0.01 \\
+\bottomrule
+\end{tabular}
+\end{center}
+At $\tau=10$: $w$(handle 3)$=0.30$, $w$(rim 3)$=0.25$, $w$(mug 3)$=0.10-0.60=-0.50$. The subtree of mug~3 has total
+weight $0.05$, less than the $0.55$ of its two children, so the mug is not taken. $w(\nul)=-0.02<0$.
+\begin{center}
+\begin{tabular}{clcc}
+\toprule
+$\tau$ & Answer $\Top(S(\tau))$ & mass $P$ & cost $C$ \\
+\midrule
+50 & $\{$handle 1, handle 2$\}$ & 1.80 & 0.02 \\
+10 & $\{$handle 1, handle 2, handle 3, rim 3$\}$ & 2.55 & 0.04 \\
+1 & $\{$handle 1, handle 2, mug 3, $\nul\}$ & 2.73 & 0.10 \\
+0 & everything & all & all \\
+\bottomrule
+\end{tabular}
+\end{center}
+The answers are nested, as Theorem~\ref{thm:nested} states (mug~3 contains handle~3 and rim~3). At $\tau=10$ the
+answer for the third mug is ``handle 3 or rim 3'', a quarter of the area of the mug. Calibration picks the highest
+price whose miss rate on held-out data is at most $\alpha$.
+
+%=====================================================================================================
+\section{Relation to prior work}
+\label{sec:prior}
+\begin{center}
+\small
+\begin{tabular}{L{3.0cm}L{5.5cm}L{6.3cm}}
+\toprule
+Our component & Prior work & Connection and difference \\
+\midrule
+Guarantee (Thm.~\ref{thm:crc}) & Conformal risk control \cite{crc} & We use their theorem unchanged. Their
+hierarchical example backs off along the ancestors of the top prediction, a single chain. \\
+Back-off on a hierarchy & Hedging Your Bets \cite{hedging} & Same idea of answering with the most specific node that
+is accurate enough, on a fixed label taxonomy and without a finite-sample guarantee. Ours: a tree built per image
+and query, spatial regions, sets of nodes, ``no target''. \\
+Answers as sets of tree nodes & Conformal Structured Prediction \cite{csp}; representation complexity
+\cite{mortier22,mortier26}; Hierarchical Conformal Classification \cite{hcc} & They choose at most $m$ nodes of a
+tree or DAG under a hard constraint (required mass, or node cap). \cite{csp} notes that monotonicity in the
+threshold is lost and uses learn-then-test with an integer program; \cite{hcc} states that no monotone loss is
+known for its trade-off and uses a multiple-testing correction; \cite{mortier26} builds nested sets greedily. Ours
+prices the cost instead of capping it; nesting then follows from the optimisation (Thm.~\ref{thm:nested}) and the
+solver is linear-time. We do not cap the number of nodes. \\
+Nesting imposed by hand & PAC prediction sets for code \cite{khakhar} & They enforce monotonicity as a constraint in
+an integer program over syntax trees. Ours obtains it without a constraint. \\
+Back-off with a guarantee & Conformal factuality \cite{mohri} & A single chain of less specific outputs. They also
+show a coverage guarantee that does not need nesting. \\
+Proof of Thm.~\ref{thm:nested} & Parametric closure and minimum cuts \cite{picard,ggt}; lattice programming
+\cite{topkis} & The mathematical fact (nested solutions of a parametric closure problem) is classical. Our
+contribution is the connection to prediction sets on trees. \\
+Thm.~\ref{thm:optimal} & Neyman--Pearson \cite{np}; least ambiguous sets \cite{sadinle} & Same argument, for flat
+sets. Ours: downward-closed sets of a per-input tree with an area cost. \\
+Rule loss (Eq.~\ref{eq:loss}) & Conditional random fields \cite{crf} & Standard conditional likelihood; the
+structured space (downward-closed sets) and its recursion are specific to our rule. \\
+Per-candidate probabilities & Focal loss \cite{focal}; ADD \cite{add} & Unchanged from ADD. \\
+Task: part not visible & MissingBench-Verified \cite{missing}; GroundingME \cite{groundingme}; gRefCOCO \cite{gres} &
+\cite{missing} asks ``is the part visible?'' as multiple choice on 118 edited images, without grounding.
+\cite{groundingme} has about 50 box-level queries with a wrong component where the correct answer is to reject.
+\cite{gres} rejects whole expressions. None asks for the object as the answer when the part is not visible. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{What we would claim.} (i) The priced formulation, under which nesting and optimality hold together on
+per-input trees; (ii) the loss derived from the rule; (iii) the graded grounding task. We would \emph{not} claim
+hierarchical back-off, conformal guarantees on hierarchies, or input-dependent hierarchies as new.
+
+\paragraph{Not yet checked.} Two lines of work have not been read for this document and must be before any claim of
+novelty: set-based utility maximisation for set-valued prediction (cited in \cite{mortier22}), and referring
+segmentation with false-premise queries.
+
+%=====================================================================================================
+\section{Status, parameters and risks}
+\label{sec:status}
+\paragraph{Proven in this document.} Propositions~\ref{prop:nest}--\ref{prop:limit}, Theorems~\ref{thm:nested} and
+\ref{thm:optimal}.
+
+\paragraph{Checked numerically.} \texttt{paper/icml/check\_math.py} compares, on 300 random trees with up to nine
+nodes, against brute-force enumeration of all answers: the recursion~\eqref{eq:dp} returns the largest maximiser;
+answers are nested over a grid of prices; $\log Z$ (error $<10^{-14}$); the inclusion probabilities of
+Proposition~\ref{prop:marg} (error $<10^{-15}$) and the gradient identity (finite differences, error $<10^{-6}$);
+the constrained $\log Z_\cG$; and the limit of Proposition~\ref{prop:limit}.
+
+\paragraph{Taken from the literature.} Theorem~\ref{thm:crc}.
+
+\paragraph{Not done.} No experiment. The coverage diagnostic, the construction of the graded queries, and any
+training are still to do.
+
+\paragraph{Parameters.}
+\begin{center}
+\begin{tabular}{lL{6.2cm}L{5.2cm}}
+\toprule
+Parameter & Role & How it is set \\
+\midrule
+$\kappa$ & fraction of a target that must be covered & from the coverage diagnostic on validation data \\
+$c_\nul$ & price of answering ``nothing'' & convention, fixed on validation data \\
+$\alpha$ & tolerated miss rate & chosen by the user; must exceed the floor \\
+$\Gamma$, $n$ & price grid, number of calibration images & about 100 prices; a few hundred images suffice \\
+$\tau_0$, $T$ & training price and temperature & to be tuned on validation data \\
+$\lambda$ & weight of the auxiliary focal loss & small; to be tuned \\
+$\theta$ & IoU for ignored nodes & $0.5$, as in ADD \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Risks.}
+\begin{itemize}
+\item \textbf{Calibration data.} The guarantee holds only for data exchangeable with the calibration set. Benchmarks
+without a validation split have no guarantee unless part of the test set is used for calibration.
+\item \textbf{The floor.} If many targets have no covering node other than the root, useful prices cannot reach low
+miss rates.
+\item \textbf{Frozen model.} Without training, hedging is mostly sideways (``handle 3 or rim 3''), because parents
+carry little probability.
+\item \textbf{The cost of $\nul$.} It is arbitrary and affects how often answers read ``\dots or nothing''.
+\item \textbf{Training.} Possible collapse to large answers; sensitivity to $T$ and $\tau_0$; the simpler baseline
+(relabelled positives with the focal loss only) may perform as well and must be compared.
+\item \textbf{Novelty.} The mathematics is elementary and its core is classical; the contribution is the
+formulation and what it removes. Two related lines are not yet checked (Sec.~\ref{sec:prior}).
+\end{itemize}
+
+%=====================================================================================================
+\begin{thebibliography}{99}
+\small
+\item[] Marks: [R] read for this document; [M] recalled from memory, details to be verified.
+
+\bibitem{add} [R] Anonymous. \emph{Ask, Don't Draw: Part-Level Grounding with Query-Conditioned Mask Tokens.}
+Submission to CVPR 2027 (our own work).
+\bibitem{crc} [R, theorem statement M] A.~N.~Angelopoulos, S.~Bates, A.~Fisch, L.~Lei, T.~Schuster.
+\emph{Conformal Risk Control.} ICLR 2024. arXiv:2208.02814.
+\bibitem{csp} [R] B.~Zhang, S.~Li, O.~Bastani. \emph{Conformal Structured Prediction.} ICLR 2025. arXiv:2410.06296.
+\bibitem{mortier26} [R] T.~Mortier, A.~Javanmardi, Y.~Sale, E.~H\"ullermeier, W.~Waegeman. \emph{Conformal
+Prediction in Hierarchical Classification with Constrained Representation Complexity.} AISTATS 2026.
+arXiv:2501.19038.
+\bibitem{mortier22} [R] T.~Mortier, E.~H\"ullermeier, K.~Dembczy\'nski, W.~Waegeman. \emph{Set-valued prediction in
+hierarchical classification with constrained representation complexity.} UAI 2022. arXiv:2203.06676.
+\bibitem{hcc} [R] F.~den~Hengst, I.~Blin, M.~Mohammadi, S.~I.~Shah, T.~Younesian. \emph{Hierarchical Conformal
+Classification.} arXiv:2508.13288, 2025.
+\bibitem{khakhar} [R] A.~Khakhar, S.~Mell, O.~Bastani. \emph{PAC Prediction Sets for Large Language Models of Code.}
+ICML 2023. arXiv:2302.08703.
+\bibitem{mohri} [R, venue M] C.~Mohri, T.~Hashimoto. \emph{Language Models with Conformal Factuality Guarantees.}
+ICML 2024. arXiv:2402.10978.
+\bibitem{hedging} [M] J.~Deng, J.~Krause, A.~C.~Berg, L.~Fei-Fei. \emph{Hedging Your Bets: Optimizing
+Accuracy-Specificity Trade-offs in Large Scale Visual Recognition.} CVPR 2012.
+\bibitem{sadinle} [M] M.~Sadinle, J.~Lei, L.~Wasserman. \emph{Least Ambiguous Set-Valued Classifiers with Bounded
+Error Levels.} Journal of the American Statistical Association, 2019.
+\bibitem{np} [M] J.~Neyman, E.~S.~Pearson. \emph{On the Problem of the Most Efficient Tests of Statistical
+Hypotheses.} Philosophical Transactions of the Royal Society A, 1933.
+\bibitem{picard} [M] J.-C.~Picard. \emph{Maximal Closure of a Graph and Applications to Combinatorial Problems.}
+Management Science, 1976.
+\bibitem{ggt} [M] G.~Gallo, M.~D.~Grigoriadis, R.~E.~Tarjan. \emph{A Fast Parametric Maximum Flow Algorithm and
+Applications.} SIAM Journal on Computing, 1989.
+\bibitem{topkis} [M] D.~M.~Topkis. \emph{Minimizing a Submodular Function on a Lattice.} Operations Research, 1978.
+\bibitem{crf} [M] J.~Lafferty, A.~McCallum, F.~Pereira. \emph{Conditional Random Fields: Probabilistic Models for
+Segmenting and Labeling Sequence Data.} ICML 2001.
+\bibitem{focal} [M] T.-Y.~Lin, P.~Goyal, R.~Girshick, K.~He, P.~Doll\'ar. \emph{Focal Loss for Dense Object
+Detection.} ICCV 2017.
+\bibitem{paco} [R, venue M] V.~Ramanathan et al. \emph{PACO: Parts and Attributes of Common Objects.} CVPR 2023.
+arXiv:2301.01795.
+\bibitem{gres} [M] C.~Liu, H.~Ding, X.~Jiang. \emph{GRES: Generalized Referring Expression Segmentation.} CVPR 2023.
+\bibitem{sam3} [M] N.~Carion et al. \emph{SAM 3: Segment Anything with Concepts.} 2026 (as cited in \cite{add}).
+\bibitem{missing} [R] W.~M.~Guo, Q.~Qian, S.~Zhou, G.~Luo, S.~Du. \emph{MissingBench-Verified: Probing
+Vision-Language Models' Inability to Detect Missing Object Parts.} arXiv:2607.18673, 2026.
+\bibitem{groundingme} [R] R.~Li et al. \emph{GroundingME: Exposing the Visual Grounding Gap in MLLMs through
+Multi-Dimensional Evaluation.} arXiv:2512.17495, 2025.
+\end{thebibliography}
+\end{document}

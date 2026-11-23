@@ -38,13 +38,32 @@ document or recalled from memory.}}
 
 %=====================================================================================================
 \section{Summary}
-ADD answers a query such as ``the handle of the mug'' by scoring about 260 candidate masks and returning the best
-one, or nothing. It cannot say that it is unsure, it cannot return a coarser but safe answer, and it cannot say ``the
-mug is here, but it has no visible handle''.
+\paragraph{Motivation.}
+Every grounding model today is forced to commit. Given a query, it returns one region or it returns nothing, and
+both answers look equally confident. But references in the real world are graded. ``The handle of the mug'' may
+point to one handle, to three, or to a mug that has no visible handle; the model may be sure about the object and
+unsure about the part. A model that can only commit or refuse must guess in all of these cases, and its guesses
+fail silently. Recent probes show how common this is: when an expected part is removed from an image, none of ten
+current vision--language models recognises its absence in more than 75\% of cases \cite{missing}, and on queries
+that should be rejected most models score 0\% \cite{groundingme}.
 
-We propose to replace only the last step of ADD, the step that turns scores into an answer. The new answer is a
-small \emph{set of nodes of the containment tree} that ADD already builds. It is chosen by one rule: take the
-regions whose probability is worth more than their area, at a price $\tau$ per unit of area. We show three things.
+We argue that grounding should be \emph{graded}: a model should answer at the finest level of detail it can stand
+behind, and that level should come with a guarantee. The part when it is sure of the part; the object when the part
+is uncertain or not visible; several regions when the reference is ambiguous; nothing when the object is absent.
+This turns grounding from a single-answer prediction into a decision about specificity, in which a coarser answer is
+a valid outcome and no longer counts as an error.
+
+The obstacle is that such answers live on a hierarchy that is different for every image and query. Existing
+methods with guarantees on hierarchies fix the hierarchy in advance, restrict answers to a single chain, or lose
+the monotonicity that guarantees require (Sec.~\ref{sec:prior}). We show that one formulation removes this
+obstacle: price the area an answer claims. The optimal answers are then nested as the price changes, which makes
+the guarantee available, and the same rule yields a training loss.
+
+\paragraph{Approach.}
+We build on ADD \cite{add}, which scores about 260 candidate masks per query and arranges them in a containment
+tree. We keep its candidates, tree and scores, and replace only the step that turns scores into an answer. The new
+answer is a small \emph{set of nodes of the containment tree}. It is chosen by one rule: take the regions whose
+probability is worth more than their area, at a price $\tau$ per unit of area. We show three things.
 \begin{enumerate}
 \item The answers for different prices are nested (Theorem~\ref{thm:nested}). A lower price can only enlarge the
 answer.
